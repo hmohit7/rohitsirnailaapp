@@ -1,0 +1,158 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal(false)">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Ticket Filter</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="max-available-height full-width ">
+    <div class="">
+      <ion-row class="">
+        <ion-list class="full-width">
+
+          <ion-grid fixed>
+            <ion-list-header class="font-17">Ticket Status</ion-list-header>
+            <ion-row>
+
+              <ion-col class="padding-left-10">
+
+                <ion-chip [ngClass]="ticketFilter.status.indexOf('open') != -1 ? 'selected' : 'a'" outline="true"
+                  color="primary" (click)="selectTicketStatus('open')">
+                  <ion-label class="font-16 font-weight-500">Open</ion-label>
+                </ion-chip>
+
+                <ion-chip [ngClass]="ticketFilter.status.indexOf('in-progress') != -1 ? 'selected' : 'a'" outline="true"
+                  color="primary" (click)="selectTicketStatus('in-progress')">
+                  <ion-label class="font-16 font-weight-500">In progress</ion-label>
+                </ion-chip>
+
+                <ion-chip [ngClass]="ticketFilter.status.indexOf('resolved') != -1 ? 'selected' : 'a'" outline="true"
+                  color="primary" (click)="selectTicketStatus('resolved')">
+                  <ion-label class="font-16 font-weight-500">Resolved</ion-label>
+                </ion-chip>
+
+                <ion-chip [ngClass]="ticketFilter.status.indexOf('rejected') != -1 ? 'selected' : 'a'" outline="true"
+                  color="primary" (click)="selectTicketStatus('rejected')">
+                  <ion-label class="font-16 font-weight-500">Rejected</ion-label>
+                </ion-chip>
+
+                <!-- <ion-chip [ngClass]="ticketFilter.status == 'all' ? 'all' : 'b'" outline="true" color="primary"
+                  (click)="selectTicketStatus('all')">
+                  <ion-label class="font-16 font-weight-500">All</ion-label>
+                </ion-chip> -->
+
+              </ion-col>
+            </ion-row>
+
+          </ion-grid>
+
+          <ion-grid class="margin-top-10" fixed>
+            <ion-list-header class="font-17">Raised For</ion-list-header>
+            <ion-row>
+
+              <ion-col class="padding-left-10">
+                <ion-chip [ngClass]="ticketFilter.ticketBelongsTo.indexOf('Home') != -1 ? 'selected' : 'a'"
+                  outline="true" color="primary" (click)="selectTicketBelongsTo('Home')">
+                  <ion-label class="font-16 font-weight-500">Unit</ion-label>
+                </ion-chip>
+
+                <ion-chip [ngClass]="ticketFilter.ticketBelongsTo.indexOf('Project') != -1 ? 'selected' : 'a'"
+                  outline="true" color="primary" (click)="selectTicketBelongsTo('Project')">
+                  <ion-label class="font-16 font-weight-500">Common Area</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+
+          </ion-grid>
+
+          <ion-grid class="margin-top-10" fixed>
+            <ion-list-header class="font-17">Ticket Type</ion-list-header>
+            <ion-row>
+              <ion-col class="padding-left-10">
+
+                <ion-chip [ngClass]="ticketFilter.type.indexOf('on-demand') != -1 ? 'selected' : 'a'" outline="true"
+                  color="primary" (click)="selectTicketType('on-demand')">
+                  <ion-label class="font-16 font-weight-500">On demand</ion-label>
+                </ion-chip>
+
+                <ion-chip [ngClass]="ticketFilter.type.indexOf('ppm') != -1 ? 'selected' : 'a'" outline="true"
+                  color="primary" (click)="selectTicketType('ppm')">
+                  <ion-label class="font-16 font-weight-500">Ppm</ion-label>
+                </ion-chip>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-grid class="margin-top-10" fixed>
+            <ion-list-header class="font-17">Priority</ion-list-header>
+            <ion-row>
+              <ion-col class="padding-left-10">
+
+                <ion-chip [ngClass]="ticketFilter.priority.indexOf('low') != -1 ? 'selected' : 'a'" outline="true"
+                  color="primary" (click)="selectTicketPriority('low')">
+                  <ion-label class="font-16 font-weight-500">Low</ion-label>
+                </ion-chip>
+
+                <ion-chip [ngClass]="ticketFilter.priority.indexOf('high') != -1 ? 'selected' : 'a'" outline="true"
+                  color="primary" (click)="selectTicketPriority('high')">
+                  <ion-label class="font-16 font-weight-500">High</ion-label>
+                </ion-chip>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
+          <ion-item class="margin-bottom-10">
+            <ion-label position="stacked" class="font-20">PROJECT</ion-label>
+            <ion-input inputmode="text" [(ngModel)]="ticketFilter.ticketBelongsToName" class="margin-top-10"
+              placeholder="Click here to select a project" (click)="openProjectSearchModal()"></ion-input>
+            <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
+          </ion-item>
+
+          <ion-item class="margin-bottom-10">
+            <ion-label position="stacked" class="font-20">POINT OF CONTACT</ion-label>
+            <ion-input inputmode="text" [(ngModel)]="ticketFilter.contactPointName" class="margin-top-10"
+              placeholder="Clicke here to select poc" (click)="openUserSearchModal('poc')">
+            </ion-input>
+            <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
+          </ion-item>
+          
+          <ion-item class="margin-bottom-10">
+            <ion-label position="stacked" class="font-20">TECHNICIAN</ion-label>
+            <ion-input inputmode="text" [(ngModel)]="ticketFilter.agentName" class="margin-top-10"
+              placeholder="Clicke here to select a technician" (click)="openUserSearchModal('agent')"></ion-input>
+            <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
+          </ion-item>
+
+          <ion-item class="margin-bottom-10">
+            <ion-label position="stacked" class="font-20">STARTING JOB DATE</ion-label>
+            <ion-datetime displayFormat="MM/DD/YY" placeholder="mm/dd/yy" [(ngModel)]="ticketFilter.startDate"></ion-datetime>
+            <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
+          </ion-item>
+
+          <ion-item class="margin-bottom-10">
+            <ion-label position="stacked" class="font-20">END JOB DATA</ion-label>
+            <ion-datetime displayFormat="MM/DD/YY" placeholder="mm/dd/yy" [(ngModel)]="ticketFilter.endDate"></ion-datetime>
+            <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
+          </ion-item>
+
+          <ion-item class="margin-bottom-10">
+            <ion-label position="stacked" class="font-20">ASSET</ion-label>
+            <ion-input class="margin-top-10" type="text" placeholder="Awesome Input"></ion-input>
+            <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+    </div>
+  </div>
+
+
+</ion-content>
+<ion-button size="large" (click)="closeModal(true)" color="success">Apply</ion-button>

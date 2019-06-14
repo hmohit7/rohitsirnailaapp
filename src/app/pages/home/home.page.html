@@ -8,7 +8,7 @@
 <!-- <img class="gotham full-width margin-top-56" src="/assets/cream.PNG"> -->
 <ion-content>
   <div class="background-yellow home-top-container">
-    <span class="font-22 gotham">Hi Rupesh</span>
+    <span class="font-22 gotham">Hi Tiffany</span>
     <br>
     <span class="font-14 gotham" style="margin-top:5px">Ticket stats</span>
     <!-- <img class="full-width " src="/assets/cream.PNG"> -->
@@ -19,11 +19,11 @@
         <ion-row>
           <ion-col>
             <p class="gotham font-weight-600 txt-grey">Open</p>
-            <p class="font-18 gotham">10</p>
+            <p class="font-18 gotham">{{ticketStats?.ticket['open']}}</p>
           </ion-col>
           <ion-col>
             <p class="gotham font-weight-600 txt-grey">In Progress</p>
-            <p class="font-18 gotham">2</p>
+            <p class="font-18 gotham">{{ticketStats?.ticket['in-progress']}}</p>
           </ion-col>
           <ion-col>
             <p class="gotham font-weight-600 txt-grey">Resolved</p>
@@ -36,30 +36,29 @@
 
   <ion-grid>
     <ion-row class="border-top">
-      <ion-col class="center-text border-right">
-        <img routerLink="/contactus-page" routerLinkActive="router-link-active" class="tile-option margin-bottom-10 "
-          src="/assets/icon/raise-ticket.png">
+      <ion-col class="center-text border-right" (click)="navigate('/create-ticket')">
+        <img class="tile-option margin-bottom-10 " src="/assets/icon/raise-ticket.png">
         <p class="font-14 gotham margin-bottom-20">Raise ticket</p>
       </ion-col>
-      <ion-col class="center-text border-right ">
+      <ion-col class="center-text border-right " (click)="navigate('/notice-create')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/create-notice.png">
         <p class="font-14 gotham margin-bottom-20">Create notice</p>
       </ion-col>
-      <ion-col class="center-text  ">
+      <ion-col class="center-text" (click)="navigate('/calendar')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/calendar.png">
         <p class="font-14 gotham margin-bottom-20">Calendar</p>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="center-text border-top-bottom-1 ">
+      <ion-col class="center-text border-top-bottom-1 " (click)="navigate('/tickets')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/ticket-history.png">
         <p class="font-14 gotham margin-bottom-20">Tickets</p>
       </ion-col>
-      <ion-col class="center-text border-1">
+      <ion-col class="center-text border-1" (click)="navigate('/notice-board')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/communications.png">
         <p class="font-14 gotham margin-bottom-20">Notices</p>
       </ion-col>
-      <ion-col class="center-text border-top-bottom-1">
+      <ion-col class="center-text border-top-bottom-1" (click)="navigate('/user-approval')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/approval.png">
         <p class="font-14 gotham margin-bottom-20">Approvals</p>
       </ion-col>
@@ -84,5 +83,23 @@
   <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Tasks for today</span>
   <br>
   <br>
+  <span class="font-14 gotham" *ngIf="ticketStats?.todo.lenght == 0" style="margin-top:5px; padding-left:15px">No tasks
+    found</span>
+
+  <ion-list class="border-top">
+    <ion-item *ngFor="let ticket of ticketStats?.todo" [routerLink]="['/ticket-details']" [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
+      <ion-label class="margin-0">
+        <p class="gotham-bold txt-grey" text-wrap>#{{ticket.uid}} - {{ticket.ticketCategory}} -
+          {{ticket.createdAt | date:'dd MMM yyyy'}}</p>
+        <p class="gotham font-weight-600 txt-grey">Status -
+          {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}</p>
+        <!-- <p class="gotham font-weight-600 txt-grey">{{d.address}}</p> -->
+        <p class="gotham font-weight-600 txt-grey">For -
+          {{ticket.ticketBelongsTo == 'Home' ? 'Unit' : ticket.ticketBelongsTo}}</p>
+        <p class="gotham font-weight-600 txt-grey">Job date - {{ticket.jobDate | date:'dd MMM yyyy'}}
+          {{ticket.jobStartTime | date:'hh:mm a'}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
