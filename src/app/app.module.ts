@@ -18,6 +18,8 @@ import { TicketCategorySearchPageModule } from './pages/ticket-category-search/t
 import { TicketSubCategorySearchPageModule } from './pages/ticket-sub-category-search/ticket-sub-category-search.module';
 import { MaterialSearchPageModule } from './pages/material-search/material-search.module';
 import { NoticeCreatePageModule } from './pages/notice-create/notice-create.module';
+import { AppSettings } from 'src/app/conatants/appSettings';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,7 +41,8 @@ import { NoticeCreatePageModule } from './pages/notice-create/notice-create.modu
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AppSettings
   ],
   bootstrap: [AppComponent]
 })

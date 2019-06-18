@@ -9,8 +9,22 @@ const TOKEN = window.localStorage.getItem('token');
 const USER = window.localStorage.getItem('userId');
 
 export class AppSettings {
-    public static BMAPI = BMAPI;
-    public static RMAPI = RMAPI;
+
     public static TOKEN = TOKEN;
     public static USER = USER;
-};
+
+    getApi() {
+
+        let API = '';
+
+        if (window.localStorage.getItem('platform') === 'rm') {
+            API = 'http://52.220.118.81:3020';
+        } else {
+            API = 'https://alpha.thehousemonk.com';
+        }
+
+        console.log('-------', API);
+        return API;
+    }
+
+}

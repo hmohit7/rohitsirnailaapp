@@ -41,7 +41,6 @@ export class AppComponent {
         this.router.navigateByUrl('/home');
       } else {
         this.router.navigateByUrl('/login');
-        window.localStorage.setItem('apiUrl', 'https://alpha.thehousemonk.com');
       }
 
     });

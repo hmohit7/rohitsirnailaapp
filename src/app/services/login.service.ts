@@ -1,35 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppSettings } from '../conatants/appSettings';
+import { AppSettings } from 'src/app/conatants/appSettings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  apiUrl = AppSettings.BMAPI;
-
-  constructor(private http: HttpClient) { }
+  constructor(
+    public http: HttpClient,
+    public appSettings: AppSettings
+  ) {
+  }
 
   checkPlatform(data): Observable<any> {
-    return this.http.post(`${localStorage.getItem('apiUrl')}/shared-resource/authentication/common-auth`, data, {});
+    return this.http.post(`${this.appSettings.getApi()}/shared-resource/authentication/common-auth`, data, {});
   }
 
   login(data): Observable<any> {
-    return this.http.post(`${localStorage.getItem('apiUrl')}/api/login`, data, {});
+    return this.http.post(`${this.appSettings.getApi()}/api/login`, data, {});
   }
 
   verifyOtp(data): Observable<any> {
-    return this.http.post(`${localStorage.getItem('apiUrl')}/api/verify-otp`, data, {});
+    return this.http.post(`${this.appSettings.getApi()}/api/verify-otp`, data, {});
   }
 
   sendOtp(data): Observable<any> {
-    return this.http.post(`${localStorage.getItem('apiUrl')}/api/send-otp`, data, {});
+    return this.http.post(`${this.appSettings.getApi()}/api/send-otp`, data, {});
   }
 
   reserPassword(data): Observable<any> {
-    return this.http.post(`${localStorage.getItem('apiUrl')}/api/reset-password`, data, {});
+    return this.http.post(`${this.appSettings.getApi()}/api/reset-password`, data, {});
   }
 
 }

@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AppSettings } from 'src/app/conatants/appSettings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoticeService {
 
-  apiUrl = 'https://alpha.thehousemonk.com';
-
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private appSettings: AppSettings
+  ) { }
 
   getNotices(filterData): Observable<any> {
 
     console.log(filterData);
 
-    return this.http.get(`${this.apiUrl}/api/discussion?skip=${filterData.skip}&limit=5&populate=files`,
+    return this.http.get(`${this.appSettings.getApi()}/api/discussion?skip=${filterData.skip}&limit=5&populate=files`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -24,7 +26,7 @@ export class NoticeService {
       });
   }
   likeNotice(id) {
-    return this.http.get(`${this.apiUrl}/api/discussion/${id}/like`,
+    return this.http.get(`${this.appSettings.getApi()}/api/discussion/${id}/like`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -35,7 +37,7 @@ export class NoticeService {
 
   getNoticeById(id) {
     console.log(id);
-    return this.http.get(`${this.apiUrl}/api/discussion/${id}`,
+    return this.http.get(`${this.appSettings.getApi()}/api/discussion/${id}`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -46,7 +48,7 @@ export class NoticeService {
 
   getAllComments(id) {
     console.log(id);
-    return this.http.get(`${this.apiUrl}/api/discussion/${id}/comments`,
+    return this.http.get(`${this.appSettings.getApi()}/api/discussion/${id}/comments`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -56,7 +58,7 @@ export class NoticeService {
   }
 
   createComment(data): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/comment`, data,
+    return this.http.post(`${this.appSettings.getApi()}/api/comment`, data,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -67,7 +69,7 @@ export class NoticeService {
 
   deleteComment(id) {
     console.log(id);
-    return this.http.delete(`${this.apiUrl}/api/comment/${id}`,
+    return this.http.delete(`${this.appSettings.getApi()}/api/comment/${id}`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -77,7 +79,7 @@ export class NoticeService {
   }
 
   createNotice(data): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/discussion`, data,
+    return this.http.post(`${this.appSettings.getApi()}/api/discussion`, data,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

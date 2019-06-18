@@ -147,10 +147,6 @@ export class LoginPage implements OnInit {
 
   handleUser(data, type) {
 
-    if (type === 'rm') {
-      localStorage.setItem('apiUrl', 'http://52.220.118.81:3020');
-    }
-
     localStorage.setItem('platform', type);
     localStorage.setItem('types', data[type].types);
 
@@ -168,6 +164,8 @@ export class LoginPage implements OnInit {
   // This function will check for user's platform based on his phone number
 
   checkPlatfrom() {
+
+    window.localStorage.removeItem('platform');
 
     if (!this.validetPhoneNumber()) {
       alert('Please enter a valid phone number');
