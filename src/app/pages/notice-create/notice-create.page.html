@@ -45,4 +45,4 @@
 
   </div>
 </ion-content>
-<ion-button size="large" (click)="createNotice()" color="success">Submit</ion-button>
+<ion-button [disabled]="!notice.discussionBelongsToRefId || !notice.title || !notice.body" size="large" (click)="createNotice()" color="success">Submit</ion-button>

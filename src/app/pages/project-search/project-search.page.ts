@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -22,8 +22,13 @@ export class ProjectSearchPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private projectService: ProjectService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private navParams: NavParams
   ) {
+    if (this.navParams.get('id')) {
+      this.selectedProject.ticketBelongsToRefId = this.navParams.get('id');
+      this.selectedProject.ticketBelongsToName = this.navParams.get('name');
+    }
     this.searchProject('');
   }
 

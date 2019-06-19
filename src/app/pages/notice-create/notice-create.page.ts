@@ -44,6 +44,8 @@ export class NoticeCreatePage implements OnInit {
     const modal = await this.modalController.create({
       component: ProjectSearchPage,
       componentProps: {
+        id: this.notice.discussionBelongsToRefId,
+        name: this.notice.noticeBelongsToName
       }
     });
 

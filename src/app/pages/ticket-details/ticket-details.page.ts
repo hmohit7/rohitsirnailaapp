@@ -112,9 +112,18 @@ export class TicketDetailsPage implements OnInit {
 
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
 
+    let id;
+
+    if (type === 'agent' && this.ticketToBeUpdated.agent) {
+      id = this.ticketToBeUpdated.agent._id;
+    } else if (type === 'poc' && this.ticketToBeUpdated.contactPoint) {
+      id = this.ticketToBeUpdated.contactPoint._id;
+    }
+
     const modal = await this.modalController.create({
       component: UserSearchPage,
       componentProps: {
+        id
       }
     });
 

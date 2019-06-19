@@ -1,26 +1,26 @@
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="end">
-        <ion-button (click)="closeModal(false)">
-          <ion-icon name="close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title>Select ticket category</ion-title>
-    </ion-toolbar>
-    <!-- <ion-searchbar></ion-searchbar> -->
-  </ion-header>
-  
-  <ion-content>
-    <div class="center-text margin-top-10" [hidden]="!loading">
-      <ion-spinner></ion-spinner>
-    </div>
-    <ion-list>
-      <ion-radio-group>
-        <ion-item *ngFor="let category of categories">
-          <ion-label>{{category.name}}</ion-label>
-          <ion-radio slot="end" (click)="selectCategory(category)"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-    </ion-list>
-  </ion-content>
-  <ion-button size="large" (click)="closeModal(true)" color="success">Submit</ion-button>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal(false)">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Select ticket category</ion-title>
+  </ion-toolbar>
+  <!-- <ion-searchbar></ion-searchbar> -->
+</ion-header>
+
+<ion-content>
+  <div class="center-text margin-top-10" [hidden]="!loading">
+    <ion-spinner></ion-spinner>
+  </div>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="this.selectedCategory.ticketCategory">
+      <ion-item *ngFor="let category of categories">
+        <ion-label>{{category.name}}</ion-label>
+        <ion-radio value="{{category._id}}" slot="end" (click)="selectCategory(category)"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>
+<ion-button size="large" (click)="closeModal(true)" color="success">Submit</ion-button>

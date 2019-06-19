@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -18,8 +18,13 @@ export class UserSearchPage implements OnInit {
   constructor(
     // private loading: LoadingController,
     private userService: UserService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private navParams: NavParams
   ) {
+    if (this.navParams.get('id')) {
+      this.selectedUser.id = this.navParams.get('id');
+      this.selectedUser.name = this.navParams.get('name');
+    }
     this.searchUsers();
   }
 

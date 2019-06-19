@@ -29,10 +29,10 @@
     </ion-list> -->
 
   <ion-list>
-    <ion-radio-group>
+    <ion-radio-group [(ngModel)]="selectedUnit.ticketBelongsToRefId">
       <ion-item *ngFor="let unit of units">
         <ion-label>{{unit.block}}{{unit.door}}, {{unit.name}}</ion-label>
-        <ion-radio slot="end" (click)="selectUnit(unit)"></ion-radio>
+        <ion-radio value="{{unit._id}}" slot="end" (click)="selectUnit(unit)"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>

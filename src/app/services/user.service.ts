@@ -24,6 +24,17 @@ export class UserService {
       });
   }
 
+  getUserById(id): Observable<any> {
+
+    return this.http.get(`${this.appSettings.getApi()}/api/user/${id}?fields=firstName&fields=lastName`,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token')
+        })
+      });
+  }
+
   getUserApprovals(): Observable<any> {
 
     return this.http.get(`${this.appSettings.getApi()}/api/approval`,

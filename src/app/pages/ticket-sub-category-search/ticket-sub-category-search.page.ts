@@ -15,7 +15,9 @@ export class TicketSubCategorySearchPage implements OnInit {
     private modalController: ModalController,
     private navParams: NavParams
   ) {
-    this.subCategories = this.navParams.get('subCategories')
+    this.selectedSubCategory.name = this.navParams.get('name');
+    this.selectedSubCategory.ticketSubCategory = this.navParams.get('ticketSubCategory');
+    this.subCategories = this.navParams.get('subCategories');
   }
 
   ngOnInit() {

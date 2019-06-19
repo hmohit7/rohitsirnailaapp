@@ -19,10 +19,14 @@ import { TicketSubCategorySearchPageModule } from './pages/ticket-sub-category-s
 import { MaterialSearchPageModule } from './pages/material-search/material-search.module';
 import { NoticeCreatePageModule } from './pages/notice-create/notice-create.module';
 import { AppSettings } from 'src/app/conatants/appSettings';
+import { UserSearchPipe } from 'src/app/pipes/user-search-pipe';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    UserSearchPipe
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -46,4 +50,4 @@ import { AppSettings } from 'src/app/conatants/appSettings';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

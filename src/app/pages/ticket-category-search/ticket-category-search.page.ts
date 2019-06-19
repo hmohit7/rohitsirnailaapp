@@ -18,6 +18,10 @@ export class TicketCategorySearchPage implements OnInit {
     private ticketService: TicketService,
     private navParams: NavParams
   ) {
+    this.selectedCategory.name = this.navParams.get('name');
+    this.selectedCategory.ticketCategory = this.navParams.get('ticketCategory');
+    this.selectedCategory.subCategory = this.navParams.get('subCategories');
+
     const categoryFilter = {
       ticketBelongsTo: this.navParams.get('ticketBelongsTo'),
       ticketBelongsToRefId: this.navParams.get('ticketBelongsToRefId')
@@ -44,18 +48,18 @@ export class TicketCategorySearchPage implements OnInit {
     }
   }
 
-    getCategories(categoryFilter) {
-      this.loading = true;
-      this.ticketService.getTicketCategories(categoryFilter)
-        .subscribe((data: any) => {
+  getCategories(categoryFilter) {
+    this.loading = true;
+    this.ticketService.getTicketCategories(categoryFilter)
+      .subscribe((data: any) => {
+        this.loading = false;
+        this.categories = data;
+      },
+        err => {
           this.loading = false;
-          this.categories = data;
-        },
-          err => {
-            this.loading = false;
-            alert(err.error.error);
-          }
-        );
-    }
-
+          alert(err.error.error);
+        }
+      );
   }
+
+}

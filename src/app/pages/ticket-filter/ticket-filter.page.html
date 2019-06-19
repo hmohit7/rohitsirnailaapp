@@ -133,21 +133,21 @@
 
           <ion-item class="margin-bottom-10">
             <ion-label position="stacked" class="font-20">STARTING JOB DATE</ion-label>
-            <ion-datetime displayFormat="MM/DD/YY" placeholder="mm/dd/yy" [(ngModel)]="ticketFilter.startDate"></ion-datetime>
+            <ion-datetime displayFormat="DD-MMM-YYYY" placeholder="DD-MMM-YYYY" picker-format="DD-MMM-YYYY" [(ngModel)]="ticketFilter.startDate"></ion-datetime>
             <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
           </ion-item>
 
           <ion-item class="margin-bottom-10">
             <ion-label position="stacked" class="font-20">END JOB DATA</ion-label>
-            <ion-datetime displayFormat="MM/DD/YY" placeholder="mm/dd/yy" [(ngModel)]="ticketFilter.endDate"></ion-datetime>
+            <ion-datetime displayFormat="DD-MMM-YYYY" placeholder="DD-MMM-YYYY" picker-format="DD-MMM-YYYY" [(ngModel)]="ticketFilter.endDate"></ion-datetime>
             <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
           </ion-item>
 
-          <ion-item class="margin-bottom-10">
+          <!-- <ion-item class="margin-bottom-10">
             <ion-label position="stacked" class="font-20">ASSET</ion-label>
             <ion-input class="margin-top-10" type="text" placeholder="Awesome Input"></ion-input>
             <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
-          </ion-item>
+          </ion-item> -->
         </ion-list>
       </ion-row>
     </div>

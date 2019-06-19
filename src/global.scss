@@ -527,17 +527,17 @@
   padding: 0px !important;
 }
 
-.shadow {
-  box-shadow: 10px 10px grey;
-}
+// .shadow {
+//   box-shadow: 10px 10px grey;
+// }
 
 .txt-slate-grey {
   color: #6d6e71 !important;
 }
 
-.shadow {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
-}
+// .shadow {
+//   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
+// }
 
 .txt-warm-grey {
   color: #9b9b9b !important;
@@ -633,4 +633,8 @@ ion-chip {
 
 .margin-top-5 {
   margin-top: 5px !important;
+}
+
+.super-script{
+  color: red;
 }

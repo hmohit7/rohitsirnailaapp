@@ -3,12 +3,18 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="mail"></ion-icon>
+        Support
+      </ion-button>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 <!-- <img class="gotham full-width margin-top-56" src="/assets/cream.PNG"> -->
 <ion-content>
   <div class="background-yellow home-top-container">
-    <span class="font-22 gotham">Hi Tiffany</span>
+    <span class="font-22 gotham">Hi {{userDetails?.firstName}} {{userDetails?.lastName}}</span>
     <br>
     <span class="font-14 gotham" style="margin-top:5px">Ticket stats</span>
     <!-- <img class="full-width " src="/assets/cream.PNG"> -->
@@ -83,11 +89,10 @@
   <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Tasks for today</span>
   <br>
   <br>
-  <span class="font-14 gotham" *ngIf="ticketStats?.todo.lenght == 0" style="margin-top:5px; padding-left:15px">No tasks
-    found</span>
-
+  
   <ion-list class="border-top">
-    <ion-item *ngFor="let ticket of ticketStats?.todo" [routerLink]="['/ticket-details']" [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
+    <ion-item *ngFor="let ticket of ticketStats?.todo" [routerLink]="['/ticket-details']"
+      [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
       <ion-label class="margin-0">
         <p class="gotham-bold txt-grey" text-wrap>#{{ticket.uid}} - {{ticket.ticketCategory}} -
           {{ticket.createdAt | date:'dd MMM yyyy'}}</p>
@@ -101,5 +106,9 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <span class="font-14 gotham" *ngIf="ticketStats?.todo.length == 0" style="margin-top:5px; padding-left:15px">
+    No tasks found
+  </span>
 
 </ion-content>

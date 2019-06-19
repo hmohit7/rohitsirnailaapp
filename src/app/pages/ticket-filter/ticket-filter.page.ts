@@ -58,6 +58,8 @@ export class TicketFilterPage implements OnInit {
     const modal = await this.modalController.create({
       component: ProjectSearchPage,
       componentProps: {
+        id: this.ticketFilter.ticketBelongsToRefId,
+        name: this.ticketFilter.ticketBelongsToName
       }
     });
 
@@ -74,9 +76,22 @@ export class TicketFilterPage implements OnInit {
 
   async openUserSearchModal(type) {
 
+    let id;
+    let name;
+
+    if (type === 'agent') {
+      id = this.ticketFilter.agent;
+      name = this.ticketFilter.agentName;
+    } else if (type === 'poc') {
+      id = this.ticketFilter.contactPoint;
+      name = this.ticketFilter.contactPointName;
+    }
+
     const modal = await this.modalController.create({
       component: UserSearchPage,
       componentProps: {
+        id,
+        name
       }
     });
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { UnitService } from '../../services/unit.service';
 
 @Component({
@@ -21,8 +21,14 @@ export class UnitSearchPage implements OnInit {
 
   constructor(
     private unitService: UnitService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private navParams: NavParams
   ) {
+    if (this.navParams.get('id')) {
+      this.selectedUnit.ticketBelongsToRefId = this.navParams.get('id');
+      this.selectedUnit.ticketBelongsToName = this.navParams.get('name');
+    }
+
     this.searchUnit('');
   }
 

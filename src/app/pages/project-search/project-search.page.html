@@ -29,10 +29,10 @@
   </ion-list> -->
 
   <ion-list>
-    <ion-radio-group>
+    <ion-radio-group [(ngModel)]="selectedProject.ticketBelongsToRefId">
       <ion-item *ngFor="let project of projects">
         <ion-label>{{project.name}}</ion-label>
-        <ion-radio slot="end" (click)="selectProject(project)"></ion-radio>
+        <ion-radio value="{{project._id}}" slot="end" (click)="selectProject(project)"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>

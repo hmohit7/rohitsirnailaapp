@@ -17,8 +17,10 @@ export class CreateTicketPage implements OnInit {
 
   ticketData: any = {
     ticketBelongsTo: 'Home',
-    priority: 'low'
+    priority: 'low',
   };
+
+  date = new Date();
 
   loading: any = this.loadingCtrl.create({
   });
@@ -52,6 +54,14 @@ export class CreateTicketPage implements OnInit {
       this.flow = 'editTicket';
       this.title = 'Update ticket';
       this.getTicketDetails();
+    } else {
+
+      this.ticketData.createdBy = window.localStorage.getItem('userId');
+      this.ticketData.jobDate = this.date.toISOString();
+      this.ticketData.jobStartTime = this.date.toISOString();
+      this.ticketData.jobEndDate = new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
+      this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
+
     }
   }
 
@@ -113,6 +123,8 @@ export class CreateTicketPage implements OnInit {
     const modal = await this.modalController.create({
       component: UnitSearchPage,
       componentProps: {
+        id: this.ticketData.ticketBelongsToRefId,
+        name: this.ticketData.ticketBelongsToName
       }
     });
 
@@ -135,6 +147,8 @@ export class CreateTicketPage implements OnInit {
     const modal = await this.modalController.create({
       component: ProjectSearchPage,
       componentProps: {
+        id: this.ticketData.ticketBelongsToRefId,
+        name: this.ticketData.ticketBelongsToName
       }
     });
 
@@ -151,9 +165,22 @@ export class CreateTicketPage implements OnInit {
 
   async openUserSearchModal(type) {
 
+    let id;
+    let name;
+
+    if (type === 'agent') {
+      id = this.ticketData.agent;
+      name = this.ticketData.agentName;
+    } else if (type === 'poc') {
+      id = this.ticketData.contactPoint;
+      name = this.ticketData.contactPointName;
+    }
+
     const modal = await this.modalController.create({
       component: UserSearchPage,
       componentProps: {
+        id,
+        name
       }
     });
 
@@ -181,6 +208,9 @@ export class CreateTicketPage implements OnInit {
       componentProps: {
         ticketBelongsTo: this.ticketData.ticketBelongsTo,
         ticketBelongsToRefId: this.ticketData.ticketBelongsToRefId,
+        name: this.ticketData.ticketCategoryName,
+        ticketCategory: this.ticketData.ticketCategory,
+        subCategories: this.subCategories
       }
     });
 
@@ -193,9 +223,11 @@ export class CreateTicketPage implements OnInit {
         this.ticketData.ticketCategory = category.data.ticketCategory;
         this.ticketData.ticketCategoryId = category.data.ticketCategory;
         delete this.ticketData.ticketSubCategory;
+        delete this.ticketData.ticketSubCategoryName;
+        delete this.ticketData.ticketSubCategoryId;
         this.subCategories = category.data.subCategory;
 
-        console.log(this.ticketData);
+        console.log(this.subCategories);
 
       }
     });
@@ -213,6 +245,8 @@ export class CreateTicketPage implements OnInit {
       component: TicketSubCategorySearchPage,
       componentProps: {
         subCategories: this.subCategories,
+        name: this.ticketData.ticketSubCategoryName,
+        ticketSubCategory: this.ticketData.ticketSubCategory
       }
     });
 

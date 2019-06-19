@@ -14,11 +14,14 @@ export class TicketsPage implements OnInit {
   disableInfiniteScroll = false;
 
   filterData: any = {
-    skip: 0
+    skip: 0,
+    status: ['open', 'in-progress'],
+    ticketBelongsTo: 'all',
+    type: 'on-demand',
+    priority: 'all'
   };
 
   dataFromFilterPage: any;
-
 
   constructor(
     private ticketService: TicketService,
@@ -43,7 +46,7 @@ export class TicketsPage implements OnInit {
     const modal = await this.modalController.create({
       component: TicketFilterPage,
       componentProps: {
-        data : this.dataFromFilterPage
+        data: this.dataFromFilterPage
       }
     });
 
@@ -73,12 +76,9 @@ export class TicketsPage implements OnInit {
           ticketFilter.data.priority.length > 1 ? this.filterData.priority = 'all' : this.filterData.priority = ticketFilter.data.priority[0];
         }
 
-        // if (ticketFilter.data.status) {
-        //   ticketFilter.data.status.forEach(function (value) {
-        //     console.log("-------", this.filterData.status);
-        //     // this.filterData.status = this.filterData.status + '&status=' + value;
-        //   });
-        // }
+        if (ticketFilter.data.status) {
+          this.filterData.status = ticketFilter.data.status;
+        }
 
         if (this.filterData.startDate) {
           this.filterData.startDate = new Date(this.filterData.startDate);
@@ -129,9 +129,16 @@ export class TicketsPage implements OnInit {
     if (!event) {
       await this.presentLoading();
     }
+
+    let status;
+
+    this.filterData.status.forEach(element => {
+      status = status + `&status=${element}`;
+    });
+
     this.ticketService.getTickets(
       this.filterData.skip || '',
-      this.filterData.status || '',
+      status || '',
       this.filterData.ticketBelongsTo || '',
       this.filterData.type || '',
       this.filterData.projects || '',

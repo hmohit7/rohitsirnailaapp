@@ -15,10 +15,10 @@
     <ion-spinner></ion-spinner>
   </div>
   <ion-list>
-    <ion-radio-group>
+    <ion-radio-group [(ngModel)]="selectedUser.id">
       <ion-item *ngFor="let user of users">
         <ion-label>{{user.firstName}} {{user.lastName}}</ion-label>
-        <ion-radio slot="end" (click)="selectUser(user)"></ion-radio>
+        <ion-radio value="{{user._id}}" slot="end" (click)="selectUser(user)"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>

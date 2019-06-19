@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
+  userDetails: any;
   ticketStats: any;
   loading: any = this.loadingCtrl.create({
   });
@@ -18,8 +20,10 @@ export class HomePage implements OnInit {
     private ticketService: TicketService,
     private loadingCtrl: LoadingController,
     private router: Router,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private userService: UserService
   ) {
+    this.getUserDetails();
     this.getTicketStats();
   }
 
@@ -31,6 +35,25 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  getUserDetails() {
+    this.userService.getUserById(window.localStorage.getItem('userId'))
+      .subscribe((data: any) => {
+        this.userDetails = data;
+
+        if (this.userDetails.firstName) {
+          window.localStorage.setItem('firstName', this.userDetails.firstName)
+        }
+
+        if (this.userDetails.lastName) {
+          window.localStorage.setItem('lastName', this.userDetails.lastName)
+        }
+      },
+        err => {
+          console.log('error getting user details');
+        }
+      );
   }
 
   navigate(path) {
