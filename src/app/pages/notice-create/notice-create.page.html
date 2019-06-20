@@ -39,10 +39,12 @@
 
       <div class="ticket-details-list  center-text">
         <ion-icon class="font-70 " name="cloud-upload"></ion-icon><br>
-        <ion-button no-border color="light" style="color:black;">Click here to add picture</ion-button>
+        <ion-button no-border color="light" (click)="fileSourceOption()" style="color:black;">Click here to add picture
+        </ion-button>
       </div>
     </ion-list>
 
   </div>
 </ion-content>
-<ion-button [disabled]="!notice.discussionBelongsToRefId || !notice.title || !notice.body" size="large" (click)="createNotice()" color="success">Submit</ion-button>
+<ion-button [disabled]="!notice.discussionBelongsToRefId || !notice.title || !notice.body" size="large"
+  (click)="createNotice()" color="success">Submit</ion-button>

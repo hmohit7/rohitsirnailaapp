@@ -75,12 +75,12 @@ export class AlertServiceService {
       uploadOpts.httpMethod = 'put';
       this.apiUrl = `${this.appSetting.getApi()}/api/ticket/${data._id}`
       console.log(this.apiUrl, uploadOpts);
-
-    }/** else if (type == 'MATERIAL') {
+    } else if (type == 'CREATENOTICE') {
       uploadOpts.httpMethod = 'post';
-      this.apiUrl = `${this.appSetting.getApi()}/api/visitor-log/${data.materials.id}/add-material`;
+      this.apiUrl = `${this.appSetting.getApi()}/api/discussion`;
       console.log(this.apiUrl, uploadOpts);
-    } else if (type == 'CHECKIN') {
+    }
+    /** else if (type == 'CHECKIN') {
 
 
       this.apiUrl = `${this.appSetting.getApi()}/api/visitor-log/${data._id}`;
@@ -95,7 +95,7 @@ export class AlertServiceService {
       //wrong this.type
     }*/
     console.log(uploadOpts);
-    
+
     await fileTransfer.upload(fileURI1, this.apiUrl, uploadOpts).then((data) => {
       this.respData = JSON.parse(data.response);
       console.log(this.respData);

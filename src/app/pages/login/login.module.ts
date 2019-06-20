@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 import { CountryCodeModalComponent } from 'src/app/modals/country-code-modal/country-code-modal.component';
-import { FilterPipe } from 'src/app/modals/country-code-modal/Filter.pipe';
+import { FilterPipe } from 'src/app/pipes/Filter.pipe';
 
 const routes: Routes = [
   {

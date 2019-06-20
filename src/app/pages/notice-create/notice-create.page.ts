@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController, LoadingController } from '@ionic/angular';
 import { ProjectSearchPage } from '../project-search/project-search.page';
@@ -16,6 +17,7 @@ export class NoticeCreatePage implements OnInit {
     discussionType: 'Notice',
     raisedByEmployee: true,
   };
+  private images: any[] = [];
 
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
@@ -28,6 +30,7 @@ export class NoticeCreatePage implements OnInit {
     private loadingCtrl: LoadingController,
     private noticeService: NoticeService,
     private router: Router,
+    private alertService: AlertServiceService,
     private route: ActivatedRoute
   ) { }
 
@@ -62,8 +65,17 @@ export class NoticeCreatePage implements OnInit {
   }
 
   async createNotice() {
-
     await this.presentLoading();
+    if (this.images.length > 0) {
+      this.alertService.upload(this.images[0], this.notice, 'CREATENOTICE').then(() => {
+        this.loadingCtrl.dismiss();
+        alert('Notice created');
+        this.router.navigateByUrl('/notice-board');
+      }, err => {
+        this.loadingCtrl.dismiss();
+        alert(err);
+      });
+    }
     this.noticeService.createNotice(this.notice)
       .subscribe((data: any) => {
         this.loadingCtrl.dismiss();
@@ -75,6 +87,23 @@ export class NoticeCreatePage implements OnInit {
           alert(err.error.error);
         }
       );
+  }
+
+  async fileSourceOption() {
+
+    if (this.images.length < 1) {
+      let image_url;
+      let caller = await this.alertService.capturePhoto();
+      image_url = caller;
+      console.log("in add-visitor Page\n\n");
+      if (image_url != undefined) {
+        console.log(image_url);
+        this.images.push(image_url);
+        console.log(this.images);
+      }
+    } else {
+      this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
+    }
   }
 
 }

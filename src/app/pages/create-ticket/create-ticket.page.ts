@@ -293,11 +293,14 @@ export class CreateTicketPage implements OnInit {
   async raiseTicket() {
     await this.presentLoading();
     if (this.images.length > 0) {
-      this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET');
-      this.loading.dismiss();
-      alert('Ticket created');
-      this.router.navigateByUrl('/tickets');
-
+      this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
+        this.loading.dismiss();
+        alert('Ticket created');
+        this.router.navigateByUrl('/tickets');
+      }, error => {
+        this.loading.dismiss();
+        alert(error);
+      });
     } else {
 
       this.ticketService.createTicket(this.ticketData)
@@ -329,6 +332,9 @@ export class CreateTicketPage implements OnInit {
         this.loadingCtrl.dismiss();
         alert('Ticket updated');
         this.router.navigateByUrl('/ticket-details');
+      }, error => {
+        this.loading.dismiss();
+        alert(error);
       })
     } else {
       this.ticketService.updateTicket(this.ticketData)
