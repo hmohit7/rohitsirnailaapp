@@ -475,6 +475,9 @@
   height: 25px !important;
   width: 20px !important;
 }
+.margin-1 {
+  margin: 1px !important;
+}
 
 .margin-10 {
   margin: 10px !important;
@@ -488,6 +491,10 @@
   margin-bottom: 10px !important;
 }
 
+.margin-bottom-20 {
+  margin-bottom: 20px !important;
+}
+
 .font-weight-600 {
   font-weight: 600 !important;
 }
@@ -495,6 +502,10 @@
 .icon-15 {
   height: 15px !important;
   width: 15 ox !important;
+}
+.icon-20 {
+  height: 20px !important;
+  width: 20px !important;
 }
 
 .grey-back {
@@ -635,6 +646,9 @@ ion-chip {
   margin-top: 5px !important;
 }
 
-.super-script{
+.super-script {
   color: red;
+}
+.justify-center {
+  justify-content: center !important;
 }

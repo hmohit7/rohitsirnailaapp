@@ -20,6 +20,8 @@ import { MaterialSearchPageModule } from './pages/material-search/material-searc
 import { NoticeCreatePageModule } from './pages/notice-create/notice-create.module';
 import { AppSettings } from 'src/app/conatants/appSettings';
 import { UserSearchPipe } from 'src/app/pipes/user-search-pipe';
+import { Camera } from '@ionic-native/camera/ngx';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
 
 @NgModule({
@@ -45,6 +47,9 @@ import { UserSearchPipe } from 'src/app/pipes/user-search-pipe';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    FileTransfer,
+    FileTransferObject,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AppSettings
   ],

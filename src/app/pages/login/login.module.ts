@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
+import { CountryCodeModalComponent } from 'src/app/modals/country-code-modal/country-code-modal.component';
+import { FilterPipe } from 'src/app/modals/country-code-modal/Filter.pipe';
 
 const routes: Routes = [
   {
@@ -15,12 +17,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [CountryCodeModalComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LoginPage]
+  declarations: [LoginPage, CountryCodeModalComponent, FilterPipe]
 })
-export class LoginPageModule {}
+export class LoginPageModule { }

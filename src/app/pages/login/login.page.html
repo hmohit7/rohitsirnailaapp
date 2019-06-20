@@ -27,7 +27,7 @@
         </ion-row>
         <ion-row class="width-80-percent text-left">
           <ion-col size="3">
-            <ion-item>
+            <ion-item (click)="countryCodeModal()">
               <ion-input inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
               <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
             </ion-item>
@@ -55,7 +55,7 @@
         </ion-row>
         <ion-row class="width-80-percent text-left">
           <ion-col size="3">
-            <ion-item>
+            <ion-item (click)="countryCodeModal()">
               <ion-input inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
               <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
             </ion-item>
@@ -126,20 +126,25 @@
           <ion-col>
             <ion-item>
               <ion-label position="stacked" class="font-20 margin-bottom-10">Confirm Password</ion-label>
-              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.passwordCheck" (keyup)="validatePassword()">
+              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.passwordCheck"
+                (keyup)="validatePassword()">
               </ion-input>
             </ion-item>
           </ion-col>
           <p class="font-14 txt-warm-grey margin-top-0">Password needs to be atleast 4 characters in length </p>
         </ion-row>
-        
+
         <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p>
 
         <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action == 'resetPassword'">
-          <ion-button class="full-button " expand="full" color="primary" (click)="login()" [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">Confirm</ion-button>
+          <ion-button class="full-button " expand="full" color="primary" (click)="login()"
+            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
+            Confirm</ion-button>
         </ion-row>
         <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action !== 'resetPassword'">
-          <ion-button class="full-button " expand="full" color="primary" (click)="resetPassword()" [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">Confirm</ion-button>
+          <ion-button class="full-button " expand="full" color="primary" (click)="resetPassword()"
+            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
+            Confirm</ion-button>
         </ion-row>
 
         <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
