@@ -3,6 +3,7 @@ import { TicketService } from '../../services/ticket.service';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { CreateNoticeComponent } from 'src/app/modals/create-notice/create-notice.component';
 
 @Component({
   selector: 'app-home',
@@ -35,6 +36,13 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  async openCreateNoticeModal() {
+    let modal = await this.modalController.create({
+      component: CreateNoticeComponent,
+    })
+    return await modal.present();
   }
 
   getUserDetails() {

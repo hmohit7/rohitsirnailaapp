@@ -9,6 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomePage } from './home.page';
 
 import { TicketComponent } from '../../components/ticket/ticket.component';
+import { CreateNoticeComponent } from 'src/app/modals/create-notice/create-notice.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [CreateNoticeComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,6 +27,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HomePage, TicketComponent]
+  declarations: [HomePage, TicketComponent, CreateNoticeComponent]
 })
 export class HomePageModule { }

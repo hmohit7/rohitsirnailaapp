@@ -44,6 +44,7 @@ export class TicketDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   showMaterialForm() {
@@ -99,6 +100,7 @@ export class TicketDetailsPage implements OnInit {
       console.log(this.ticketToBeUpdated);
       this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(() => {
         this.loadingCtrl.dismiss();
+        this.images = this.images.shift();
         this.activeMaterialSection = 'description';
         this.materialData = {};
         this.getTicketDetails();
@@ -109,7 +111,7 @@ export class TicketDetailsPage implements OnInit {
     } else {
       console.log("Without Image");
       this.ticketService.updateTicket(this.ticketToBeUpdated)
-        .subscribe((data: any) => {
+        .subscribe(() => {
           this.loadingCtrl.dismiss();
           this.activeMaterialSection = 'description';
           this.materialData = {};
@@ -222,18 +224,23 @@ export class TicketDetailsPage implements OnInit {
     this.ticketToBeUpdated.itemDetails.push(this.materialData);
     this.updateTicket();
   }
+
   async fileSourceOption() {
-    if (this.images.length < 1) {
-      let image = await this.alertService.capturePhoto();
-      console.log("in add-visitor Page\n\n");
+    console.log(this.images);
+    // if (this.images.length < 1) {
+    let image = await this.alertService.capturePhoto();
+    console.log("in add-visitor Page\n\n");
+    console.log(image);
+
+    if (image !== undefined) {
       this.images.push(image);
-      if (image != undefined) {
-        this.ticketToBeUpdated = Object.assign({}, this.ticket);
-        this.updateTicket();
-      }
-    } else {
-      this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
+      this.images
+      this.ticketToBeUpdated = Object.assign({}, this.ticket);
+      this.updateTicket();
     }
+    // } else {
+    // this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
+    // }
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { NoticeCreatePage } from '../notice-create/notice-create.page'
+import { CreateNoticeComponent } from 'src/app/modals/create-notice/create-notice.component';
 
 @Component({
   selector: 'app-notice-board',
@@ -74,6 +75,13 @@ export class NoticeBoardPage implements OnInit {
 
       }
     });
+  }
+
+  async openCreateNoticeModal() {
+    let modal = await this.modalController.create({
+      component: CreateNoticeComponent
+    })
+    return await modal.present();
   }
 
   async likeDiscussion(id) {

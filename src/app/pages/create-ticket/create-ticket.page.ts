@@ -292,6 +292,8 @@ export class CreateTicketPage implements OnInit {
 
   async raiseTicket() {
     await this.presentLoading();
+    console.log(this.ticketData);
+
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
         this.loading.dismiss();
@@ -302,9 +304,10 @@ export class CreateTicketPage implements OnInit {
         alert(error);
       });
     } else {
-
       this.ticketService.createTicket(this.ticketData)
         .subscribe((data: any) => {
+          console.log(this.ticketData);
+
           this.loading.dismiss();
           alert('Ticket created');
           this.router.navigateByUrl('/tickets');
@@ -354,15 +357,12 @@ export class CreateTicketPage implements OnInit {
 
 
   async fileSourceOption() {
-    // console.log(this.images);
     if (this.images.length < 1) {
-      let image_url;
       let caller = await this.alertService.capturePhoto();
-      image_url = caller;
-      console.log('in add-visitor Page\n\n');
-      if (image_url != undefined) {
-        console.log(image_url);
-        this.images.push(image_url);
+      console.log('in add-visitor Page\n\n ', caller);
+      if (caller != undefined) {
+        console.log(caller);
+        this.images.push(caller);
         console.log(this.images);
       }
     } else {

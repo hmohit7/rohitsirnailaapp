@@ -1,5 +1,5 @@
 import { AppSettings } from 'src/app/conatants/appSettings';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ActionSheetController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx'
@@ -14,7 +14,8 @@ export class AlertServiceService {
     private alrtCtrl: AlertController,
     private camera: Camera,
     private transfer: FileTransfer,
-    private appSetting: AppSettings
+    private appSetting: AppSettings,
+    private actionSheet: ActionSheetController
   ) { }
 
   public data: any = {};
@@ -29,22 +30,53 @@ export class AlertServiceService {
     mediaType: this.camera.MediaType.PICTURE,
   }
 
-  public async capturePhoto() {
-    await this.camera.getPicture(this.options).then((imageData) => {
-      console.log(imageData);
+   async capturePhoto() {
+    let actionsheet = await this.actionSheet.create({
+      header: 'Select Choice',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: 'camera',
+          handler: () => {
+            this.options.sourceType = this.camera.PictureSourceType.CAMERA;
+            this.camera.getPicture(this.options).then((imageData) => {
+              console.log("image daa by camera", imageData);
+              this.fileURL = this.onCaptureImage(imageData);
+            }, (error) => {
+              console.error(error);
+            });
 
-      if (imageData !== undefined) {
-        this.onCaptureImage(imageData);
-      }
-
-    }, (error) => {
-      console.error(error);
-    });
-    return this.fileURL;
+          }
+        },
+        {
+          text: 'phone',
+          icon: 'phone-portrait',
+          handler: () => {
+            this.options.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
+            this.camera.getPicture(this.options).then((imageData) => {
+              console.log("Image data by photo", imageData);
+              this.fileURL = this.onCaptureImage(imageData);
+            }, (error) => {
+              console.error(error);
+            });
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('cancel');
+          }
+        }
+      ]
+    })
+    await actionsheet.present();
+    return this.fileURL
   }
 
   private onCaptureImage(fileURI) {
-    this.fileURL = fileURI.substring(7);
+    console.log("from on capture image", fileURI);
+    return fileURI.substring(7);
   }
 
   async presentAlert(header: string, subheader: string) {
