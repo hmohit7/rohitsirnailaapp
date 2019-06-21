@@ -26,7 +26,7 @@ export class UserService {
 
   getUserById(id): Observable<any> {
 
-    return this.http.get(`${this.appSettings.getApi()}/api/user/${id}?fields=firstName&fields=lastName`,
+    return this.http.get(`${this.appSettings.getApi()}/api/user/${id}`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

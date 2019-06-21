@@ -1,3 +1,4 @@
+import { ApplicationPageModule } from './../../ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +21,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ApplicationPageModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],

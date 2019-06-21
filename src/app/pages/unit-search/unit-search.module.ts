@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { UnitSearchPage } from './unit-search.page';
+import { FilterPipe } from 'src/app/pipes/Filter.pipe';
 
 const routes: Routes = [
   {
@@ -23,4 +24,4 @@ const routes: Routes = [
   ],
   declarations: [UnitSearchPage]
 })
-export class UnitSearchPageModule {}
+export class UnitSearchPageModule { }

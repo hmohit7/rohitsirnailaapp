@@ -89,13 +89,13 @@
   <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Tasks for today</span>
   <br>
   <br>
-  
+
   <ion-list class="border-top">
     <ion-item *ngFor="let ticket of ticketStats?.todo" [routerLink]="['/ticket-details']"
       [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
       <ion-label class="margin-0">
         <p class="gotham-bold txt-grey" text-wrap>#{{ticket.uid}} - {{ticket.ticketCategory}} -
-          {{ticket.createdAt | date:'dd MMM yyyy'}}</p>
+          {{ticket.createdAt | date:'dd MMM yyyy'|agoFilter}}</p>
         <p class="gotham font-weight-600 txt-grey">Status -
           {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}</p>
         <!-- <p class="gotham font-weight-600 txt-grey">{{d.address}}</p> -->

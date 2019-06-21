@@ -200,12 +200,10 @@ export class LoginPage implements OnInit {
             this.handleUser(data, 'rm');
           }
 
-        },
-          err => {
-            this.loading.dismiss();
-            alert(err.error);
-          }
-        );
+        }, err => {
+          this.loading.dismiss();
+          alert(err.error);
+        });
     }
 
   }
@@ -219,7 +217,6 @@ export class LoginPage implements OnInit {
         localStorage.setItem('userId', data.uid);
         localStorage.setItem('currencyCode', data.currencyCode);
         localStorage.setItem('token', data.token);
-
         this.loading.dismiss();
 
         this.router.navigateByUrl('/home');

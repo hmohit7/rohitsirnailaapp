@@ -26,7 +26,7 @@
         <ion-col class="text-right">
           <ion-badge color="warning" class="border-radius-10">Notice</ion-badge>
           <p class="txt-warm-grey font-14 Gotham-medium margin-bottom-0 margin-padding-zero font-weight-500 txt-nowrap">
-            {{notice.createdAt | date: 'dd:mmm:yy'}}
+            {{notice.createdAt | date: 'dd MMM yyyy'|agoFilter}}
           </p>
         </ion-col>
       </ion-row>

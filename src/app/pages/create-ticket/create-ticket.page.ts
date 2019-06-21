@@ -9,6 +9,7 @@ import { TicketCategorySearchPage } from '../../pages/ticket-category-search/tic
 import { TicketSubCategorySearchPage } from '../../pages/ticket-sub-category-search/ticket-sub-category-search.page';
 import { Router, ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-create-ticket',
   templateUrl: './create-ticket.page.html',
@@ -52,7 +53,6 @@ export class CreateTicketPage implements OnInit {
   }
 
   ngOnInit() {
-
     if (this.ticketId) {
       this.flow = 'editTicket';
       this.title = 'Update ticket';

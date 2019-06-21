@@ -39,6 +39,7 @@
 <ion-content class="grey-back">
 
   <div [ngSwitch]="selectedTab" class="grey-back">
+
     <div *ngSwitchCase="'SUMMARY'">
       <div class="ticket-details-card">
         <ion-row>
@@ -56,7 +57,8 @@
         <ion-row>
           <ion-col>
             <p class="txt-slate-grey margin-padding-zero font-14 gotham-medium margin-bottom-3">CREATED ON</p>
-            <p class="gotham-medium margin-top-10 font-14 dark-grey">{{ticket.createdAt | date:'dd MMM yyyy'}}</p>
+            <p class="gotham-medium margin-top-10 font-14 dark-grey">
+              {{ticket.createdAt | date:'dd MMM yyyy' }}</p>
           </ion-col>
           <ion-col>
             <p class="txt-slate-grey margin-padding-zero font-14 gotham-medium margin-bottom-3">DUE DATE</p>
@@ -70,8 +72,7 @@
             <p class="gotham-medium margin-top-10 font-14 dark-grey">
               {{ticket.notes}}</p>
             <p class="gotham-medium margin-top-10 font-14 dark-grey">Ticket
-              description not
-              available</p>
+              description not available</p>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -173,13 +174,14 @@
             <img src="file.aws_url" class="img-responsive height-70 border-radius-10 " />
           </ion-col>
 
-          <ion-col size="3" class="center-text">
+          <ion-col size="3" class="center-text" (click)="fileSourceOption()">
             <img src="assets/icon/add-green.png" class="height-30 width-30 border-radius-10 " />
             <p class="txt-slate-grey gotham-medium margin-top-10 font-weight-500 font-14">
               Add photo</p>
           </ion-col>
+
         </ion-row>
-        <div class="font-14 txt-brown center-text" *ngIf="ticket.files?.length == 0">
+        <div class="font-14 txt-brown center-text" *ngIf="ticket.files?.length == 0||images.length!>1">
           No pictures attached to this ticket
         </div>
       </div>
@@ -306,7 +308,7 @@
             </ion-col>
             <ion-row
               class="font-14 txt-align-right gotham-medium txt-warm-grey font-14 margin-bottom-0 padding-bottom-0">
-              {{comment.createdAt}}
+              {{comment.createdAt|date:'dd MMM yyyy'|agoFilter}}
             </ion-row>
           </ion-row>
         </ion-col>
@@ -348,7 +350,7 @@
               <ion-row>
                 <ion-col>
                   <p class="gotham font-14 font-weight-600 ">Quotation #{{estimate.referenceNumber}}</p>
-                  <p class="gotham font-14 font-weight-600 txt-warm-grey ">{{estimate.createdAt | date:'dd MMM yyyy'}}
+                  <p class="gotham font-14 font-weight-600 txt-warm-grey ">{{estimate.createdAt | date:'dd MMM yyyy' |agoFilter}}
                   </p>
                 </ion-col>
                 <ion-col class="padding-top-0">

@@ -17,7 +17,7 @@ export class NoticeCreatePage implements OnInit {
     discussionType: 'Notice',
     raisedByEmployee: true,
   };
-  private images: any[] = [];
+  public images: any[] = [];
 
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
@@ -75,18 +75,20 @@ export class NoticeCreatePage implements OnInit {
         this.loadingCtrl.dismiss();
         alert(err);
       });
-    }
-    this.noticeService.createNotice(this.notice)
-      .subscribe((data: any) => {
-        this.loadingCtrl.dismiss();
-        alert('Notice created');
-        this.router.navigateByUrl('/notice-board');
-      },
-        err => {
+    } else {
+      this.noticeService.createNotice(this.notice)
+        .subscribe((data: any) => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
-        }
-      );
+          alert('Notice created');
+          this.router.navigateByUrl('/notice-board');
+        },
+          err => {
+            this.loadingCtrl.dismiss();
+            alert(err.error.error);
+          }
+        );
+    }
+
   }
 
   async fileSourceOption() {
@@ -104,6 +106,10 @@ export class NoticeCreatePage implements OnInit {
     } else {
       this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
     }
+  }
+
+  removeImage() {
+    this.images = [];
   }
 
 }

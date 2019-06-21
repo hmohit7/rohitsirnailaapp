@@ -4,6 +4,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { MaterialSearchPage } from '../../pages/material-search/material-search.page';
+import { AlertServiceService } from 'src/app/services/alert-service.service';
 
 @Component({
   selector: 'app-ticket-details',
@@ -19,6 +20,7 @@ export class TicketDetailsPage implements OnInit {
   comments = [];
   activeMaterialSection = 'description';
   materialData: any = {};
+  images: any[] = [];
 
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
@@ -31,7 +33,8 @@ export class TicketDetailsPage implements OnInit {
     private router: Router,
     private loadingCtrl: LoadingController,
     private ticketService: TicketService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertService: AlertServiceService
   ) {
     this.route.queryParamMap.subscribe((params: any) => {
       this.ticketId = params.params.ticketId;
@@ -90,22 +93,36 @@ export class TicketDetailsPage implements OnInit {
     if (this.ticketToBeUpdated.ticketSubCategory) {
       this.ticketToBeUpdated.ticketSubCategory = this.ticketToBeUpdated.ticketSubCategoryId;
     }
-
     await this.presentLoading();
-    this.ticketService.updateTicket(this.ticketToBeUpdated)
-      .subscribe((data: any) => {
+    if (this.images.length > 0) {
+      console.log("With Image");
+      console.log(this.ticketToBeUpdated);
+      this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(() => {
         this.loadingCtrl.dismiss();
         this.activeMaterialSection = 'description';
         this.materialData = {};
         this.getTicketDetails();
         alert('Ticket updated');
-        // this.router.navigateByUrl('/tickets');
-      },
-        err => {
+      }, error => {
+        console.log(error);
+      });
+    } else {
+      console.log("Without Image");
+      this.ticketService.updateTicket(this.ticketToBeUpdated)
+        .subscribe((data: any) => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
-        }
-      );
+          this.activeMaterialSection = 'description';
+          this.materialData = {};
+          this.getTicketDetails();
+          alert('Ticket updated');
+        },
+          err => {
+            this.loadingCtrl.dismiss();
+            alert(err.error.error);
+          }
+        );
+    }
+
   }
 
   async openUserSearchModal(type) {
@@ -174,7 +191,10 @@ export class TicketDetailsPage implements OnInit {
 
     this.ticketToBeUpdated.checklist[index].completed = status;
 
-    this.updateTicket();
+    this.updateTicket(); this.loadingCtrl.dismiss();
+    this.activeMaterialSection = 'description';
+    this.materialData = {};
+    this.getTicketDetails();
 
   }
 
@@ -201,6 +221,19 @@ export class TicketDetailsPage implements OnInit {
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
     this.ticketToBeUpdated.itemDetails.push(this.materialData);
     this.updateTicket();
+  }
+  async fileSourceOption() {
+    if (this.images.length < 1) {
+      let image = await this.alertService.capturePhoto();
+      console.log("in add-visitor Page\n\n");
+      this.images.push(image);
+      if (image != undefined) {
+        this.ticketToBeUpdated = Object.assign({}, this.ticket);
+        this.updateTicket();
+      }
+    } else {
+      this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
+    }
   }
 
 }

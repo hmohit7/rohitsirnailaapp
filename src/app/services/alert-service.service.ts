@@ -31,7 +31,11 @@ export class AlertServiceService {
 
   public async capturePhoto() {
     await this.camera.getPicture(this.options).then((imageData) => {
-      this.onCaptureImage(imageData)
+      console.log(imageData);
+
+      if (imageData !== undefined) {
+        this.onCaptureImage(imageData);
+      }
 
     }, (error) => {
       console.error(error);
@@ -79,15 +83,12 @@ export class AlertServiceService {
       uploadOpts.httpMethod = 'post';
       this.apiUrl = `${this.appSetting.getApi()}/api/discussion`;
       console.log(this.apiUrl, uploadOpts);
-    }
-    /** else if (type == 'CHECKIN') {
-
-
-      this.apiUrl = `${this.appSetting.getApi()}/api/visitor-log/${data._id}`;
+    } else if (type == 'ADDTOTICKETDETAIL') {
+      this.apiUrl = `${this.appSetting.getApi()}/api/ticket/${data._id}`;
       uploadOpts.httpMethod = 'put';
       console.log(this.apiUrl, uploadOpts);
 
-    } else if (type == 'STAFF') {
+    }/** else if (type == 'STAFF') {
       this.apiUrl = `${this.appSetting.getApi()}/api/visitor-log`;
       uploadOpts.httpMethod = 'post';
       console.log(this.apiUrl, uploadOpts);

@@ -42,6 +42,18 @@
         <ion-button no-border color="light" (click)="fileSourceOption()" style="color:black;">Click here to add picture
         </ion-button>
       </div>
+
+      <ion-row class="width-80-percent margin-10">
+        <div *ngIf="images.length > 0">
+          <ion-item *ngFor="let url of images" lines='none' class="ion-image-item">
+            <ion-thumbnail class="margin-0 icon-90 image">
+              <ion-icon class="img-icon" (click)="removeImage()" color="danger" name="close-circle">
+              </ion-icon>
+              <ion-img src="{{url}}"></ion-img>
+            </ion-thumbnail>
+          </ion-item>
+        </div>
+      </ion-row>
     </ion-list>
 
   </div>
