@@ -15,18 +15,7 @@ export class AppComponent {
       title: 'Home',
       url: '/home',
       icon: 'home'
-    },
-    {
-      title: 'Raise ticket',
-      url: '/create-ticket',
-      src: '/assets/icon/create-notice.png'
-    },
-    {
-      title: 'Create notice',
-      url: '/notice-create',
-      src: '/assets/icon/create-notice.png'
-    },
-    {
+    }, {
       title: 'Calendar',
       url: '/calendar',
       src: '/assets/icon/calendar.png'
@@ -34,8 +23,7 @@ export class AppComponent {
       title: 'Tickets',
       url: '/tickets',
       src: '/assets/icon/ticket-history.png'
-    },
-    {
+    }, {
       title: 'Notices',
       url: '/notice-board',
       src: '/assets/icon/communications.png'
