@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { ProjectService } from '../../services/project.service';
@@ -23,7 +24,8 @@ export class ProjectSearchPage implements OnInit {
     private loadingCtrl: LoadingController,
     private projectService: ProjectService,
     private modalController: ModalController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private alertService: AlertServiceService
   ) {
     if (this.navParams.get('id')) {
       this.selectedProject.ticketBelongsToRefId = this.navParams.get('id');
@@ -81,7 +83,7 @@ export class ProjectSearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

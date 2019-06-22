@@ -1,3 +1,4 @@
+import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { ContactUsService } from '../../services/contact-us.service';
@@ -35,6 +36,7 @@ export class ContactUsPage implements OnInit {
     private contactUsService: ContactUsService,
     private router: Router,
     private route: ActivatedRoute,
+    private alertService: AlertServiceService
   ) { }
 
   ngOnInit() {
@@ -44,14 +46,14 @@ export class ContactUsPage implements OnInit {
 
     await this.presentLoading();
     this.contactUsService.createContactUs(this.contactUsData)
-      .subscribe((data: any) => {
+      .subscribe(async (data: any) => {
         this.loadingCtrl.dismiss();
-        alert('Ticket created');
+        await this.alertService.presentAlert('Alert', 'Ticket created')
         this.router.navigateByUrl('/home');
       },
         err => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
 

@@ -57,6 +57,7 @@ export class AlertServiceService {
     })
     return await actionsheet.present();
   }
+  
   async capturePhoto() {
     await this.presentActionSheet();
     await this.camera.getPicture(this.options).then((imageData) => {
@@ -114,13 +115,7 @@ export class AlertServiceService {
       uploadOpts.httpMethod = 'put';
       console.log(this.apiUrl, uploadOpts);
 
-    }/** else if (type == 'STAFF') {
-      this.apiUrl = `${this.appSetting.getApi()}/api/visitor-log`;
-      uploadOpts.httpMethod = 'post';
-      console.log(this.apiUrl, uploadOpts);
-    } else {
-      //wrong this.type
-    }*/
+    }
     console.log(uploadOpts);
 
     await fileTransfer.upload(fileURI1, this.apiUrl, uploadOpts).then((data) => {

@@ -38,7 +38,7 @@ export class NoticeCreatePage implements OnInit {
   }
 
   async closeModal() {
-    alert('yo....');
+
     await this.modalController.dismiss();
   }
 
@@ -69,22 +69,22 @@ export class NoticeCreatePage implements OnInit {
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.notice, 'CREATENOTICE').then(() => {
         this.loadingCtrl.dismiss();
-        alert('Notice created');
+        this.alertService.presentAlert('Alert', 'Notice created');
         this.router.navigateByUrl('/notice-board');
       }, err => {
         this.loadingCtrl.dismiss();
-        alert(err);
+        this.alertService.presentAlert('Alert', err);
       });
     } else {
       this.noticeService.createNotice(this.notice)
         .subscribe((data: any) => {
           this.loadingCtrl.dismiss();
-          alert('Notice created');
+          this.alertService.presentAlert('Alert', 'Notice created');
           this.router.navigateByUrl('/notice-board');
         },
           err => {
             this.loadingCtrl.dismiss();
-            alert(err.error.error);
+            this.alertService.presentAlert('Alert', err.error.error);
           }
         );
     }

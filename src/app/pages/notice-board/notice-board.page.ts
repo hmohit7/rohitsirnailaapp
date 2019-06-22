@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { LoadingController, ModalController } from '@ionic/angular';
@@ -21,7 +22,8 @@ export class NoticeBoardPage implements OnInit {
   constructor(
     private noticeService: NoticeService,
     private loading: LoadingController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertService: AlertServiceService
   ) {
     this.getNoices('');
   }
@@ -56,7 +58,7 @@ export class NoticeBoardPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
@@ -103,7 +105,7 @@ export class NoticeBoardPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

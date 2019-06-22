@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
@@ -22,7 +23,8 @@ export class MaterialSearchPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private ticketService: TicketService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertService: AlertServiceService
   ) {
     this.searchMaterial('');
   }
@@ -76,7 +78,7 @@ export class MaterialSearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

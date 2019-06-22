@@ -1,3 +1,4 @@
+import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { LoadingController, ModalController } from '@ionic/angular';
@@ -22,6 +23,7 @@ export class NoticeDetailsPage implements OnInit {
     private modalController: ModalController,
     private route: ActivatedRoute,
     private router: Router,
+    private alertService: AlertServiceService
   ) {
     this.route.queryParamMap.subscribe((params: any) => {
       this.noticeId = params.params.noticeId;
@@ -55,7 +57,7 @@ export class NoticeDetailsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
@@ -69,7 +71,7 @@ export class NoticeDetailsPage implements OnInit {
 
       },
         err => {
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
@@ -97,7 +99,7 @@ export class NoticeDetailsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
@@ -119,7 +121,7 @@ export class NoticeDetailsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
@@ -134,7 +136,7 @@ export class NoticeDetailsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

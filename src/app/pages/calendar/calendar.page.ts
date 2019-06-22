@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { TicketService } from '../../services/ticket.service';
@@ -29,6 +30,7 @@ export class CalendarPage implements OnInit {
   constructor(
     private ticketService: TicketService,
     private loading: LoadingController,
+    private alertService: AlertServiceService
   ) {
     this.searchTicket('');
   }
@@ -67,7 +69,7 @@ export class CalendarPage implements OnInit {
       },
         err => {
           // this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

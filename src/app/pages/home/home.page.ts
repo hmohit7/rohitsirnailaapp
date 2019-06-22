@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController, ModalController } from '@ionic/angular';
@@ -22,7 +23,8 @@ export class HomePage implements OnInit {
     private loadingCtrl: LoadingController,
     private router: Router,
     private modalController: ModalController,
-    private userService: UserService
+    private userService: UserService,
+    private alertService: AlertServiceService
   ) {
     this.getUserDetails();
     this.getTicketStats();
@@ -79,7 +81,7 @@ export class HomePage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

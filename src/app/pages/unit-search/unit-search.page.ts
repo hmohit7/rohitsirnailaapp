@@ -1,3 +1,4 @@
+import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { UnitService } from '../../services/unit.service';
@@ -23,7 +24,8 @@ export class UnitSearchPage implements OnInit {
   constructor(
     private unitService: UnitService,
     private modalController: ModalController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private alertService: AlertServiceService
   ) {
     if (this.navParams.get('id')) {
       this.selectedUnit.ticketBelongsToRefId = this.navParams.get('id');
@@ -83,7 +85,7 @@ export class UnitSearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

@@ -1,3 +1,4 @@
+import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { UserService } from './../../services/user.service';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,8 @@ export class ProfilePage implements OnInit {
   constructor(
     private alerCtrl: AlertController,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private alertService: AlertServiceService
   ) {
     this.getProfile(window.localStorage.getItem("userId"));
   }
@@ -24,13 +26,13 @@ export class ProfilePage implements OnInit {
     console.log(this.user_id);
 
   }
-  
+
   getProfile(id) {
     this.userService.getUserById(id).subscribe(data => {
       this.data = data;
       console.log(data);
     }, error => {
-      alert(error);
+      this.alertService.presentAlert('Alert', error);
     });
   }
 

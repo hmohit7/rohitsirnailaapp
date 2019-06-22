@@ -1,3 +1,4 @@
+import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController, ModalController } from '@ionic/angular';
@@ -27,7 +28,8 @@ export class TicketsPage implements OnInit {
     private ticketService: TicketService,
     private ref: ChangeDetectorRef,
     private loading: LoadingController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertService: AlertServiceService
   ) {
     this.searchTicket('');
   }
@@ -161,7 +163,7 @@ export class TicketsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
@@ -16,7 +17,8 @@ export class TicketCategorySearchPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private ticketService: TicketService,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private alertService: AlertServiceService
   ) {
     this.selectedCategory.name = this.navParams.get('name');
     this.selectedCategory.ticketCategory = this.navParams.get('ticketCategory');
@@ -57,7 +59,7 @@ export class TicketCategorySearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

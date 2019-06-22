@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
@@ -19,7 +20,8 @@ export class UserSearchPage implements OnInit {
     // private loading: LoadingController,
     private userService: UserService,
     private modalController: ModalController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private alertService: AlertServiceService
   ) {
     if (this.navParams.get('id')) {
       this.selectedUser.id = this.navParams.get('id');
@@ -53,7 +55,7 @@ export class UserSearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

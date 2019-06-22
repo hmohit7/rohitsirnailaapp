@@ -23,7 +23,7 @@ export class CreateTicketPage implements OnInit {
   };
   public images: any[] = [];
   date = new Date();
-
+  flag: boolean = false;
   loading: any = this.loadingCtrl.create({
   });
 
@@ -50,6 +50,9 @@ export class CreateTicketPage implements OnInit {
     this.loading = await this.loadingCtrl.create({
     });
     return await this.loading.present();
+  }
+  ionViewDidEnter() {
+    this.flag = false;
   }
 
   ngOnInit() {
@@ -106,7 +109,7 @@ export class CreateTicketPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
@@ -238,7 +241,7 @@ export class CreateTicketPage implements OnInit {
     if (this.ticketData.ticketBelongsToRefId) {
       return await modal.present();
     } else {
-      alert('Select a unit/project');
+      this.alertService.presentAlert('Alert', 'Select a unit/project');
     }
   }
 
@@ -266,7 +269,7 @@ export class CreateTicketPage implements OnInit {
     if (this.ticketData.ticketCategory) {
       return await modal.present();
     } else {
-      alert('Select a category first');
+      this.alertService.presentAlert('Alert', 'Select a category first');
     }
   }
 
@@ -297,11 +300,11 @@ export class CreateTicketPage implements OnInit {
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
         this.loading.dismiss();
-        alert('Ticket created');
+        this.alertService.presentAlert('Alert', 'Ticket created');
         this.router.navigateByUrl('/tickets');
       }, error => {
         this.loading.dismiss();
-        alert(error);
+        this.alertService.presentAlert('Alert', error)
       });
     } else {
       this.ticketService.createTicket(this.ticketData)
@@ -309,12 +312,12 @@ export class CreateTicketPage implements OnInit {
           console.log(this.ticketData);
 
           this.loading.dismiss();
-          alert('Ticket created');
+          this.alertService.presentAlert('Alert', 'Ticket created');
           this.router.navigateByUrl('/tickets');
         },
           err => {
             this.loading.dismiss();
-            alert(err.error.error);
+            this.alertService.presentAlert('Alert', err.error.error);
           }
         );
     }
@@ -333,23 +336,25 @@ export class CreateTicketPage implements OnInit {
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.ticketData, 'UPDATETICKET').then(() => {
         this.loadingCtrl.dismiss();
-        alert('Ticket updated');
-        this.router.navigateByUrl('/ticket-details');
+        this.alertService.presentAlert('Alert', 'Ticket updated')
+        this.flag = true;
+        this.router.navigateByUrl(`/ticket-details?flag=${this.flag}`)
       }, error => {
         this.loading.dismiss();
-        alert(error);
+        this.alertService.presentAlert('Alert', error)
       })
     } else {
       this.ticketService.updateTicket(this.ticketData)
         .subscribe((data: any) => {
           this.loadingCtrl.dismiss();
-
-          alert('Ticket updated');
-          this.router.navigateByUrl('/ticket-details');
+          this.alertService.presentAlert('Alert', 'Ticket updated')
+          this.flag = true;
+          this.router.navigateByUrl(`/ticket-details?flag=${this.flag}`)
+          // this.router.navigateByUrl('/ticket-details');
         },
           err => {
             this.loadingCtrl.dismiss();
-            alert(err.error.error);
+            this.alertService.presentAlert('Alert', err.error.error);
           }
         );
     }

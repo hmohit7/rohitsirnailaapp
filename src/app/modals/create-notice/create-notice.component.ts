@@ -37,7 +37,6 @@ export class CreateNoticeComponent implements OnInit {
     return await loading.present();
   }
   async closeModal() {
-    alert('yo....');
     await this.modalController.dismiss();
   }
 
@@ -68,18 +67,18 @@ export class CreateNoticeComponent implements OnInit {
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.notice, 'CREATENOTICE').then(() => {
         this.loadingCtrl.dismiss();
-        alert('Notice created');
+        this.alertService.presentAlert("Alert", 'Notice created');
         this.flag = true;
         this.modalController.dismiss(this.flag);
         this.router.navigateByUrl('/notice-board');
       }, err => {
         this.loadingCtrl.dismiss();
-        alert(err);
+        this.alertService.presentAlert('Alert', err)
       });
     } else {
       this.noticeService.createNotice(this.notice)
         .subscribe((data: any) => {
-          alert('Notice created');
+          this.alertService.presentAlert('Alert', 'Notice created');
           this.flag = true;
           this.loadingCtrl.dismiss();
           this.modalController.dismiss(this.flag);
@@ -87,7 +86,7 @@ export class CreateNoticeComponent implements OnInit {
         },
           err => {
             this.loadingCtrl.dismiss();
-            alert(err.error.error);
+            this.alertService.presentAlert('Alert', err.error.error);
           }
         );
     }

@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { LoadingController, ModalController } from '@ionic/angular';
@@ -15,7 +16,8 @@ export class UserApprovalPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private userService: UserService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertService: AlertServiceService
   ) {
     this.getUserApprovals();
   }
@@ -41,7 +43,7 @@ export class UserApprovalPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }

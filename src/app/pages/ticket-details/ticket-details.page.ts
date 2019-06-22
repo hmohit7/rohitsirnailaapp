@@ -21,6 +21,7 @@ export class TicketDetailsPage implements OnInit {
   activeMaterialSection = 'description';
   materialData: any = {};
   images: any[] = [];
+  flag = 'false';
 
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
@@ -36,15 +37,27 @@ export class TicketDetailsPage implements OnInit {
     private modalController: ModalController,
     private alertService: AlertServiceService
   ) {
+
     this.route.queryParamMap.subscribe((params: any) => {
-      this.ticketId = params.params.ticketId;
-      console.log(this.ticketId)
+      params.params.ticketId ? this.ticketId = params.params.ticketId : '';
+      params.params.flag ? this.flag = params.params.flag : '';
+      console.log(this.ticketId, this.flag)
     });
     this.getTicketDetails();
   }
 
   ngOnInit() {
 
+  }
+  ionViewWillEnter() {
+    console.log("ionViewWillEnter");
+
+    if (this.flag == 'true') {
+      console.log("true", this.ticketId);
+      this.flag = 'false'
+      this.ticket = [];
+      this.getTicketDetails();
+    }
   }
 
   showMaterialForm() {
@@ -65,7 +78,7 @@ export class TicketDetailsPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('alert', err.error.error)
         }
       );
   }
@@ -80,7 +93,7 @@ export class TicketDetailsPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('alert', err.error.error)
         }
       );
   }
@@ -104,7 +117,7 @@ export class TicketDetailsPage implements OnInit {
         this.activeMaterialSection = 'description';
         this.materialData = {};
         this.getTicketDetails();
-        alert('Ticket updated');
+        this.alertService.presentAlert('Alert', 'Ticket updated');
       }, error => {
         console.log(error);
       });
@@ -116,11 +129,11 @@ export class TicketDetailsPage implements OnInit {
           this.activeMaterialSection = 'description';
           this.materialData = {};
           this.getTicketDetails();
-          alert('Ticket updated');
+          this.alertService.presentAlert('Alert', 'Ticket updated');
         },
           err => {
             this.loadingCtrl.dismiss();
-            alert(err.error.error);
+            this.alertService.presentAlert('alert', err.error.error)
           }
         );
     }
@@ -182,7 +195,7 @@ export class TicketDetailsPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('alert', err.error.error)
         }
       );
   }

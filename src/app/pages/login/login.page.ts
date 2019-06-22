@@ -1,3 +1,4 @@
+import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { LoadingController, AlertController, ModalController } from '@ionic/angular';
@@ -34,7 +35,8 @@ export class LoginPage implements OnInit {
     private loading: LoadingController,
     private router: Router,
     private alertController: AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private alertService: AlertServiceService
   ) { }
 
   ngOnInit() {
@@ -168,7 +170,7 @@ export class LoginPage implements OnInit {
         this.visibleBlock = 'otpInput';
       }
     } else {
-      alert('You are not allowed to use this app');
+      this.alertService.presentAlert('Alert', 'You are not allowed to use this app');
     }
   }
 
@@ -179,7 +181,7 @@ export class LoginPage implements OnInit {
     window.localStorage.removeItem('platform');
 
     if (!this.validetPhoneNumber()) {
-      alert('Please enter a valid phone number');
+      this.alertService.presentAlert('Alert', 'Please enter a valid phone number');
     } else {
 
       localStorage.setItem('phoneNumber', this.loginData.phoneNumber);
@@ -202,7 +204,7 @@ export class LoginPage implements OnInit {
 
         }, err => {
           this.loading.dismiss();
-          alert(err.error);
+          this.alertService.presentAlert('Alert', err.error);
         });
     }
 
@@ -223,7 +225,7 @@ export class LoginPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
@@ -238,14 +240,14 @@ export class LoginPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
 
   sendOtp() {
     if (!this.validetPhoneNumber()) {
-      alert('Please enter a valid phone number');
+      this.alertService.presentAlert('Alert', 'Please enter a valid phone number');
     } else {
       localStorage.setItem('phoneNumber', this.loginData.phoneNumber);
       localStorage.setItem('countryCode', this.loginData.countryCode);
@@ -258,7 +260,7 @@ export class LoginPage implements OnInit {
         },
           err => {
             this.loading.dismiss();
-            alert(err.error.error);
+            this.alertService.presentAlert('Alert', err.error.error);
           }
         );
     }
@@ -280,7 +282,7 @@ export class LoginPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          alert(err.error.error);
+          this.alertService.presentAlert('Alert', err.error.error);
         }
       );
   }
