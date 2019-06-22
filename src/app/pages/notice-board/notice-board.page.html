@@ -83,7 +83,7 @@
 
   </div>
 
-  <ion-fab [routerLink]="['/notice-create']" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab (click)="openCreateNoticeModal()" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

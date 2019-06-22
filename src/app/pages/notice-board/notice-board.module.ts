@@ -1,3 +1,4 @@
+import { CreateNoticeComponent } from './../../modals/create-notice/create-notice.component';
 import { ApplicationPageModule } from './../../ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [CreateNoticeComponent],
   imports: [
     CommonModule,
     FormsModule,

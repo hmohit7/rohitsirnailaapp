@@ -1,3 +1,4 @@
+import { ApplicationPageModule } from './ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -27,9 +28,8 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ng
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchPipe
+    UserSearchPipe,
   ],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -42,7 +42,8 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ng
     TicketCategorySearchPageModule,
     TicketSubCategorySearchPageModule,
     MaterialSearchPageModule,
-    NoticeCreatePageModule
+    NoticeCreatePageModule,
+    ApplicationPageModule
   ],
   providers: [
     StatusBar,

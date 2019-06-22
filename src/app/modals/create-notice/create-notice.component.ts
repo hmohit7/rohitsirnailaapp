@@ -17,6 +17,7 @@ export class CreateNoticeComponent implements OnInit {
     discussionType: 'Notice',
     raisedByEmployee: true,
   };
+  flag: boolean = false;
   public images: any[] = [];
 
   constructor(
@@ -63,12 +64,13 @@ export class CreateNoticeComponent implements OnInit {
   }
 
   async createNotice() {
-     this.presentLoading();
+    this.presentLoading();
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.notice, 'CREATENOTICE').then(() => {
         this.loadingCtrl.dismiss();
         alert('Notice created');
-        this.modalController.dismiss();
+        this.flag = true;
+        this.modalController.dismiss(this.flag);
         this.router.navigateByUrl('/notice-board');
       }, err => {
         this.loadingCtrl.dismiss();
@@ -78,8 +80,9 @@ export class CreateNoticeComponent implements OnInit {
       this.noticeService.createNotice(this.notice)
         .subscribe((data: any) => {
           alert('Notice created');
+          this.flag = true;
           this.loadingCtrl.dismiss();
-          this.modalController.dismiss();
+          this.modalController.dismiss(this.flag);
           this.router.navigateByUrl('/notice-board');
         },
           err => {
@@ -112,7 +115,7 @@ export class CreateNoticeComponent implements OnInit {
     this.images = [];
   }
   dismiss() {
-    this.modalController.dismiss();
+    this.modalController.dismiss(this.flag);
   }
 
 }

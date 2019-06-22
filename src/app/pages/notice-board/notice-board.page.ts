@@ -81,6 +81,14 @@ export class NoticeBoardPage implements OnInit {
     let modal = await this.modalController.create({
       component: CreateNoticeComponent
     })
+    modal.onDidDismiss().then((data) => {
+      if (data.data === true) {
+        console.log(data.data);
+        this.notices = [];
+        this.filterData.skip = 0;
+        this.getNoices('');
+      }
+    })
     return await modal.present();
   }
 

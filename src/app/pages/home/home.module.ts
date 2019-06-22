@@ -27,6 +27,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HomePage, TicketComponent, CreateNoticeComponent]
+  declarations: [HomePage, TicketComponent]
 })
 export class HomePageModule { }
