@@ -11,7 +11,7 @@ export class UserSearchPage implements OnInit {
 
   users: any[] = [];
   loading = false;
-
+  searchTerm: string;
   selectedUser: any = {};
   disableInfiniteScroll = false;
 

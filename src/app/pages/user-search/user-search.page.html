@@ -7,7 +7,7 @@
     </ion-buttons>
     <ion-title>User search</ion-title>
   </ion-toolbar>
-  <ion-searchbar></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
 </ion-header>
 
 <ion-content>
@@ -16,7 +16,7 @@
   </div>
   <ion-list>
     <ion-radio-group [(ngModel)]="selectedUser.id">
-      <ion-item *ngFor="let user of users">
+      <ion-item *ngFor="let user of users |PointOfContactFilter:searchTerm">
         <ion-label>{{user.firstName}} {{user.lastName}}</ion-label>
         <ion-radio value="{{user._id}}" slot="end" (click)="selectUser(user)"></ion-radio>
       </ion-item>

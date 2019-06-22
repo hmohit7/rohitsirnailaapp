@@ -1,0 +1,13 @@
+<ion-list style="overflow: auto">
+  <ion-searchbar no-padding mode="md" placeholder="Filter Pizza" [(ngModel)]="searchTerm"></ion-searchbar>
+  <ion-radio-group [(ngModel)]="value">
+    <ion-list-header class="center-text gotham">Country Code</ion-list-header>
+    <ion-item *ngFor="let code of countryCode |Filter :searchTerm" (click)="dismissModal(code.code)">
+      <ion-label class="gotham">{{code.country}}</ion-label>
+      <ion-radio mode="ios" value="{{code.code}}"></ion-radio>
+    </ion-item>
+    <ion-button *ngIf="!hideButton" expand="full" class="gotham" (click)="showMore()">
+      Show More
+    </ion-button>
+  </ion-radio-group>
+</ion-list>

@@ -13,6 +13,7 @@ export class UnitSearchPage implements OnInit {
   loading = false;
   disableInfiniteScroll = false;
   selectedUnit: any = {};
+  searchTerm: any;
 
   filterData = {
     skip: 0,
@@ -91,7 +92,7 @@ export class UnitSearchPage implements OnInit {
     this.units = [];
     this.filterData.skip = 0;
     this.disableInfiniteScroll = false;
-    this.searchUnit('');
+    this.searchUnit(searchText);
   }
 
 }

@@ -1,3 +1,4 @@
+import { ApplicationPageModule } from './../../ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomePage } from './home.page';
 
 import { TicketComponent } from '../../components/ticket/ticket.component';
+import { CreateNoticeComponent } from 'src/app/modals/create-notice/create-notice.component';
 
 const routes: Routes = [
   {
@@ -17,9 +19,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [CreateNoticeComponent],
   imports: [
     CommonModule,
     FormsModule,
+    ApplicationPageModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],

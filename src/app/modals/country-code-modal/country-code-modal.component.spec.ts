@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CountryCodeSelectionPage } from './country-code-selection.page';
+import { CountryCodeModalComponent } from './country-code-modal.component';
 
-describe('CountryCodeSelectionPage', () => {
-  let component: CountryCodeSelectionPage;
-  let fixture: ComponentFixture<CountryCodeSelectionPage>;
+describe('CountryCodeModalComponent', () => {
+  let component: CountryCodeModalComponent;
+  let fixture: ComponentFixture<CountryCodeModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CountryCodeSelectionPage ],
+      declarations: [ CountryCodeModalComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CountryCodeSelectionPage);
+    fixture = TestBed.createComponent(CountryCodeModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

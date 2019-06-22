@@ -1,3 +1,4 @@
+import { ApplicationPageModule } from './ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -20,14 +21,15 @@ import { MaterialSearchPageModule } from './pages/material-search/material-searc
 import { NoticeCreatePageModule } from './pages/notice-create/notice-create.module';
 import { AppSettings } from 'src/app/conatants/appSettings';
 import { UserSearchPipe } from 'src/app/pipes/user-search-pipe';
+import { Camera } from '@ionic-native/camera/ngx';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchPipe
+    UserSearchPipe,
   ],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -40,11 +42,15 @@ import { UserSearchPipe } from 'src/app/pipes/user-search-pipe';
     TicketCategorySearchPageModule,
     TicketSubCategorySearchPageModule,
     MaterialSearchPageModule,
-    NoticeCreatePageModule
+    NoticeCreatePageModule,
+    ApplicationPageModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    FileTransfer,
+    FileTransferObject,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AppSettings
   ],

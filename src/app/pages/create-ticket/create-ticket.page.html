@@ -90,7 +90,7 @@
 
   </div>
 
-  <div>
+  <div class="webkit-center">
 
     <ion-list *ngIf="flow == 'createTicket'">
 
@@ -106,7 +106,7 @@
       <ion-list-header class="gotham font-16 font-weight-500">Point of contact</ion-list-header>
       <ion-item>
         <ion-input inputmode="text" [(ngModel)]="ticketData.contactPointName" class="gotham  margin-left-10"
-          placeholder="Clicke here to select poc" (click)="openModal('poc')">
+          placeholder="Click here to select poc" (click)="openModal('poc')">
         </ion-input>
         <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
       </ion-item>
@@ -164,6 +164,29 @@
           </ion-item>
         </ion-list>
       </ion-col>
+    </ion-row>
+    <ion-row class="width-80-percent justify-center margin-10 margin-bottom-20">
+      <ion-col class="padding-0">
+        <ion-item lines="none" class="ion-item">
+          <ion-card class="full-width margin-1" (click)="fileSourceOption()">
+            <ion-item lines="none" class="ion-item">
+              <ion-icon slot="start" class="margin-right-5 margin-left-10 icon-20 gotham" name="camera"></ion-icon>
+              <ion-label>Click me to take a pitcure</ion-label>
+            </ion-item>
+          </ion-card>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="width-80-percent margin-10 justify-center margin-10 margin-bottom-20">
+      <div *ngIf="images.length > 0">
+        <ion-item *ngFor="let url of images" lines='none' class="ion-image-item">
+          <ion-thumbnail class="margin-0 icon-90 image">
+            <ion-icon class="img-icon" (click)="removeImage()" color="danger" name="close-circle">
+            </ion-icon>
+            <ion-img src="{{url}}"></ion-img>
+          </ion-thumbnail>
+        </ion-item>
+      </div>
     </ion-row>
   </div>
 

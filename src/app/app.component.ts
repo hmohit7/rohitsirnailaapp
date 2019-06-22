@@ -17,9 +17,43 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Raise ticket',
+      url: '/create-ticket',
+      src: '/assets/icon/create-notice.png'
+    },
+    {
+      title: 'Create notice',
+      url: '/notice-create',
+      src: '/assets/icon/create-notice.png'
+    },
+    {
+      title: 'Calendar',
+      url: '/calendar',
+      src: '/assets/icon/calendar.png'
+    }, {
+      title: 'Tickets',
+      url: '/tickets',
+      src: '/assets/icon/ticket-history.png'
+    },
+    {
+      title: 'Notices',
+      url: '/notice-board',
+      src: '/assets/icon/communications.png'
+    },
+    {
+      title: 'Apporvals',
+      url: '/user-approval',
+      src: '/assets/icon/approval.png'
+    },
+    {
+      title: 'Contact us',
+      url: '/contact-us',
+      icon: 'phone'
+    },
+    {
+      title: 'profile',
+      url: '/profile',
+      icon: 'person'
     }
   ];
 

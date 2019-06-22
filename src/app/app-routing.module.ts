@@ -19,19 +19,18 @@ const routes: Routes = [
   { path: 'unit-search', loadChildren: './pages/unit-search/unit-search.module#UnitSearchPageModule' },
   { path: 'ticket-category-search', loadChildren: './pages/ticket-category-search/ticket-category-search.module#TicketCategorySearchPageModule' },
   { path: 'ticket-sub-category-search', loadChildren: './pages/ticket-sub-category-search/ticket-sub-category-search.module#TicketSubCategorySearchPageModule' },
-  { path: 'ticket-details', loadChildren: './pages/ticket-details/ticket-details.module#TicketDetailsPageModule' },
+  { path: 'ticket-details', loadChildren: './pages/ticket-details/ticket-details.module#TicketDetailsPageModule',runGuardsAndResolvers:'always' },
   { path: 'material-search', loadChildren: './pages/material-search/material-search.module#MaterialSearchPageModule' },
   { path: 'notice-board', loadChildren: './pages/notice-board/notice-board.module#NoticeBoardPageModule' },
   { path: 'notice-details', loadChildren: './pages/notice-details/notice-details.module#NoticeDetailsPageModule' },
   { path: 'notice-create', loadChildren: './pages/notice-create/notice-create.module#NoticeCreatePageModule' },
   { path: 'user-approval', loadChildren: './pages/user-approval/user-approval.module#UserApprovalPageModule' },
   { path: 'contact-us', loadChildren: './pages/contact-us/contact-us.module#ContactUsPageModule' },
-  { path: 'country-code-selection', loadChildren: './pages/country-code-selection/country-code-selection.module#CountryCodeSelectionPageModule' }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, onSameUrlNavigation: 'reload' })
   ],
   exports: [RouterModule]
 })

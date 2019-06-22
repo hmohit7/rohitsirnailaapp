@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
-
-import { from } from 'rxjs';
+import { CountryCodeModalComponent } from 'src/app/modals/country-code-modal/country-code-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -34,10 +33,21 @@ export class LoginPage implements OnInit {
     private loginService: LoginService,
     private loading: LoadingController,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
+  }
+  async countryCodeModal() {
+    const modal = await this.modalCtrl.create({
+      component: CountryCodeModalComponent,
+      componentProps: { 'value': this.loginData.countryCode }
+    });
+    modal.onDidDismiss().then((data) => {
+      this.loginData.countryCode = data.data
+    })
+    return await modal.present();
   }
 
   setVisibleBlock(type) {
@@ -56,9 +66,10 @@ export class LoginPage implements OnInit {
 
     const alert = await this.alertController.create({
       header: 'Select a platform',
-
+      cssClass: '',
       buttons: [
         {
+          cssClass: 'buidlingmanagement',
           text: 'Building Management',
           handler: () => {
             const bmData = {
@@ -189,12 +200,10 @@ export class LoginPage implements OnInit {
             this.handleUser(data, 'rm');
           }
 
-        },
-          err => {
-            this.loading.dismiss();
-            alert(err.error);
-          }
-        );
+        }, err => {
+          this.loading.dismiss();
+          alert(err.error);
+        });
     }
 
   }
@@ -208,7 +217,6 @@ export class LoginPage implements OnInit {
         localStorage.setItem('userId', data.uid);
         localStorage.setItem('currencyCode', data.currencyCode);
         localStorage.setItem('token', data.token);
-
         this.loading.dismiss();
 
         this.router.navigateByUrl('/home');

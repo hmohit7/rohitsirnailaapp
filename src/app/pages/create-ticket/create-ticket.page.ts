@@ -1,3 +1,4 @@
+import { AlertServiceService } from './../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController, ModalController } from '@ionic/angular';
@@ -7,6 +8,7 @@ import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { TicketCategorySearchPage } from '../../pages/ticket-category-search/ticket-category-search.page';
 import { TicketSubCategorySearchPage } from '../../pages/ticket-sub-category-search/ticket-sub-category-search.page';
 import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-ticket',
@@ -19,7 +21,7 @@ export class CreateTicketPage implements OnInit {
     ticketBelongsTo: 'Home',
     priority: 'low',
   };
-
+  public images: any[] = [];
   date = new Date();
 
   loading: any = this.loadingCtrl.create({
@@ -36,6 +38,7 @@ export class CreateTicketPage implements OnInit {
     private modalController: ModalController,
     private router: Router,
     private route: ActivatedRoute,
+    private alertService: AlertServiceService
   ) {
     this.route.queryParamMap.subscribe((params: any) => {
       this.ticketId = params.params.ticketId;
@@ -289,17 +292,32 @@ export class CreateTicketPage implements OnInit {
 
   async raiseTicket() {
     await this.presentLoading();
-    this.ticketService.createTicket(this.ticketData)
-      .subscribe((data: any) => {
+    console.log(this.ticketData);
+
+    if (this.images.length > 0) {
+      this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
         this.loading.dismiss();
         alert('Ticket created');
         this.router.navigateByUrl('/tickets');
-      },
-        err => {
+      }, error => {
+        this.loading.dismiss();
+        alert(error);
+      });
+    } else {
+      this.ticketService.createTicket(this.ticketData)
+        .subscribe((data: any) => {
+          console.log(this.ticketData);
+
           this.loading.dismiss();
-          alert(err.error.error);
-        }
-      );
+          alert('Ticket created');
+          this.router.navigateByUrl('/tickets');
+        },
+          err => {
+            this.loading.dismiss();
+            alert(err.error.error);
+          }
+        );
+    }
   }
 
   async updateTicket() {
@@ -311,20 +329,49 @@ export class CreateTicketPage implements OnInit {
     if (this.ticketData.ticketSubCategory) {
       this.ticketData.ticketSubCategory = this.ticketData.ticketSubCategoryId;
     }
-
     await this.presentLoading();
-    this.ticketService.updateTicket(this.ticketData)
-      .subscribe((data: any) => {
+    if (this.images.length > 0) {
+      this.alertService.upload(this.images[0], this.ticketData, 'UPDATETICKET').then(() => {
         this.loadingCtrl.dismiss();
-
         alert('Ticket updated');
         this.router.navigateByUrl('/ticket-details');
-      },
-        err => {
+      }, error => {
+        this.loading.dismiss();
+        alert(error);
+      })
+    } else {
+      this.ticketService.updateTicket(this.ticketData)
+        .subscribe((data: any) => {
           this.loadingCtrl.dismiss();
-          alert(err.error.error);
-        }
-      );
+
+          alert('Ticket updated');
+          this.router.navigateByUrl('/ticket-details');
+        },
+          err => {
+            this.loadingCtrl.dismiss();
+            alert(err.error.error);
+          }
+        );
+    }
+  }
+
+
+  async fileSourceOption() {
+    if (this.images.length < 1) {
+      let caller = await this.alertService.capturePhoto();
+      console.log('in add-visitor Page\n\n ', caller);
+      if (caller != undefined) {
+        console.log(caller);
+        this.images.push(caller);
+        console.log(this.images);
+      }
+    } else {
+      this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
+    }
+  }
+
+  removeImage() {
+    this.images = [];
   }
 
 }

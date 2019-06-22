@@ -1,3 +1,4 @@
+import { ApplicationPageModule } from './../../ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,8 +22,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     AvatarModule,
+    ApplicationPageModule,
     RouterModule.forChild(routes)
   ],
   declarations: [TicketDetailsPage]
 })
-export class TicketDetailsPageModule {}
+export class TicketDetailsPageModule { }

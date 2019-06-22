@@ -1,29 +1,24 @@
 import { AlertServiceService } from './../../services/alert-service.service';
-import { Component, OnInit } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
-import { ProjectSearchPage } from '../project-search/project-search.page';
-import { NoticeService } from '../../services/notice.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NoticeService } from './../../services/notice.service';
+import { ModalController, LoadingController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ProjectSearchPage } from 'src/app/pages/project-search/project-search.page';
 
 @Component({
-  selector: 'app-notice-create',
-  templateUrl: './notice-create.page.html',
-  styleUrls: ['./notice-create.page.scss'],
+  selector: 'app-create-notice',
+  templateUrl: './create-notice.component.html',
+  styleUrls: ['./create-notice.component.scss'],
 })
-export class NoticeCreatePage implements OnInit {
+export class CreateNoticeComponent implements OnInit {
 
   notice: any = {
     discussionBelongsTo: 'Project',
     discussionType: 'Notice',
     raisedByEmployee: true,
   };
+  flag: boolean = false;
   public images: any[] = [];
-
-  async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-    });
-    return await loading.present();
-  }
 
   constructor(
     private modalController: ModalController,
@@ -34,9 +29,13 @@ export class NoticeCreatePage implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+    });
+    return await loading.present();
+  }
   async closeModal() {
     alert('yo....');
     await this.modalController.dismiss();
@@ -65,11 +64,13 @@ export class NoticeCreatePage implements OnInit {
   }
 
   async createNotice() {
-    await this.presentLoading();
+    this.presentLoading();
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.notice, 'CREATENOTICE').then(() => {
         this.loadingCtrl.dismiss();
         alert('Notice created');
+        this.flag = true;
+        this.modalController.dismiss(this.flag);
         this.router.navigateByUrl('/notice-board');
       }, err => {
         this.loadingCtrl.dismiss();
@@ -78,8 +79,10 @@ export class NoticeCreatePage implements OnInit {
     } else {
       this.noticeService.createNotice(this.notice)
         .subscribe((data: any) => {
-          this.loadingCtrl.dismiss();
           alert('Notice created');
+          this.flag = true;
+          this.loadingCtrl.dismiss();
+          this.modalController.dismiss(this.flag);
           this.router.navigateByUrl('/notice-board');
         },
           err => {
@@ -92,15 +95,12 @@ export class NoticeCreatePage implements OnInit {
   }
 
   async fileSourceOption() {
-
     if (this.images.length < 1) {
-      let image_url;
-      let caller = await this.alertService.capturePhoto();
-      image_url = caller;
+      const caller = await this.alertService.capturePhoto();
       console.log("in add-visitor Page\n\n");
-      if (image_url != undefined) {
-        console.log(image_url);
-        this.images.push(image_url);
+      if (caller != undefined) {
+        console.log(caller);
+        this.images.push(caller);
         console.log(this.images);
       }
     } else {
@@ -110,6 +110,9 @@ export class NoticeCreatePage implements OnInit {
 
   removeImage() {
     this.images = [];
+  }
+  dismiss() {
+    this.modalController.dismiss(this.flag);
   }
 
 }

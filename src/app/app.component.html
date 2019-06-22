@@ -9,9 +9,10 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
+            <ion-item [routerDirection]="'root'" lines="full" [routerLink]="[p.url]">
+              <ion-icon slot="start" *ngIf="p.icon" [name]='p.icon'></ion-icon>
+              <img class="tile-option margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <ion-label [ngClass]="{marginTop5: p.src?true:false}">
                 {{p.title}}
               </ion-label>
             </ion-item>

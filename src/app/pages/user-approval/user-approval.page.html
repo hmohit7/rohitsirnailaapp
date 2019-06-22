@@ -42,7 +42,7 @@
         </ion-row>
         <ion-row>
           <p style="font-size : 15px !important" class="margin-0 font-12 padding-top-5 txt-warm-grey gotham  ">
-            {{approval.createdAt | date : dd }}
+            {{approval.createdAt | date : 'dd MMM yyyy'|agoFilter }}
           </p>
         </ion-row>
         <ion-row class="padding-top-10">

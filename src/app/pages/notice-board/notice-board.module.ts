@@ -1,3 +1,5 @@
+import { CreateNoticeComponent } from './../../modals/create-notice/create-notice.component';
+import { ApplicationPageModule } from './../../ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,13 +18,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [CreateNoticeComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     AvatarModule,
+    ApplicationPageModule,
     RouterModule.forChild(routes)
   ],
   declarations: [NoticeBoardPage]
 })
-export class NoticeBoardPageModule {}
+export class NoticeBoardPageModule { }
