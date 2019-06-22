@@ -30,35 +30,20 @@ export class AlertServiceService {
     mediaType: this.camera.MediaType.PICTURE,
   }
 
-   async capturePhoto() {
+  async presentActionSheet() {
     let actionsheet = await this.actionSheet.create({
       header: 'Select Choice',
       buttons: [
         {
           text: 'Camera',
           icon: 'camera',
-          handler: () => {
-            this.options.sourceType = this.camera.PictureSourceType.CAMERA;
-            this.camera.getPicture(this.options).then((imageData) => {
-              console.log("image daa by camera", imageData);
-              this.fileURL = this.onCaptureImage(imageData);
-            }, (error) => {
-              console.error(error);
-            });
-
+          handler: async () => {
           }
         },
         {
           text: 'phone',
           icon: 'phone-portrait',
           handler: () => {
-            this.options.sourceType = this.camera.PictureSourceType.PHOTOLIBRARY;
-            this.camera.getPicture(this.options).then((imageData) => {
-              console.log("Image data by photo", imageData);
-              this.fileURL = this.onCaptureImage(imageData);
-            }, (error) => {
-              console.error(error);
-            });
           }
         },
         {
@@ -70,8 +55,17 @@ export class AlertServiceService {
         }
       ]
     })
-    await actionsheet.present();
-    return this.fileURL
+    return await actionsheet.present();
+  }
+  async capturePhoto() {
+    await this.presentActionSheet();
+    await this.camera.getPicture(this.options).then((imageData) => {
+      console.log("image data by camera", imageData);
+      this.fileURL = this.onCaptureImage(imageData);
+    }, (error) => {
+      console.error(error);
+    });
+    return this.fileURL;
   }
 
   private onCaptureImage(fileURI) {

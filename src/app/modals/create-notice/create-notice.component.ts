@@ -95,15 +95,12 @@ export class CreateNoticeComponent implements OnInit {
   }
 
   async fileSourceOption() {
-
     if (this.images.length < 1) {
-      let image_url;
-      let caller = await this.alertService.capturePhoto();
-      image_url = caller;
+      const caller = await this.alertService.capturePhoto();
       console.log("in add-visitor Page\n\n");
-      if (image_url != undefined) {
-        console.log(image_url);
-        this.images.push(image_url);
+      if (caller != undefined) {
+        console.log(caller);
+        this.images.push(caller);
         console.log(this.images);
       }
     } else {

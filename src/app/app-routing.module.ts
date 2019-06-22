@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'unit-search', loadChildren: './pages/unit-search/unit-search.module#UnitSearchPageModule' },
   { path: 'ticket-category-search', loadChildren: './pages/ticket-category-search/ticket-category-search.module#TicketCategorySearchPageModule' },
   { path: 'ticket-sub-category-search', loadChildren: './pages/ticket-sub-category-search/ticket-sub-category-search.module#TicketSubCategorySearchPageModule' },
-  { path: 'ticket-details', loadChildren: './pages/ticket-details/ticket-details.module#TicketDetailsPageModule' },
+  { path: 'ticket-details', loadChildren: './pages/ticket-details/ticket-details.module#TicketDetailsPageModule',runGuardsAndResolvers:'always' },
   { path: 'material-search', loadChildren: './pages/material-search/material-search.module#MaterialSearchPageModule' },
   { path: 'notice-board', loadChildren: './pages/notice-board/notice-board.module#NoticeBoardPageModule' },
   { path: 'notice-details', loadChildren: './pages/notice-details/notice-details.module#NoticeDetailsPageModule' },
@@ -30,7 +30,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, onSameUrlNavigation: 'reload' })
   ],
   exports: [RouterModule]
 })
