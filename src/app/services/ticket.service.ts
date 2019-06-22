@@ -38,8 +38,8 @@ export class TicketService {
     contactPoint,
     agent,
     asset): Observable<any> {
-
-    return this.http.get(`${this.appSettings.getApi()}/api/ticket?limit=10&sortBy=-createdAt&skip=${skip}&ticketBelongsTo=${ticketBelongsTo}&type=${type}&projects=${projects}&priority=${priority}&startDate=${startDate}&endDate=${endDate}&contactPoint=${contactPoint}&agent=${agent}&asset=${asset}${status}`,
+    console.log(asset);
+    return this.http.get(`${this.appSettings.getApi()}/api/ticket?${status}&limit=10&sortBy=-createdAt&skip=${skip}&ticketBelongsTo=${ticketBelongsTo}&type=${type}&projects=${projects}&priority=${priority}&startDate=${startDate}&endDate=${endDate}&contactPoint=${contactPoint}&agent=${agent}&asset=${asset}`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
