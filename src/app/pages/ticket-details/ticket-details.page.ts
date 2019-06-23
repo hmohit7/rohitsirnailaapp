@@ -47,8 +47,10 @@ export class TicketDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.images.length);
 
   }
+
   ionViewWillEnter() {
     console.log("ionViewWillEnter");
 
@@ -206,7 +208,8 @@ export class TicketDetailsPage implements OnInit {
 
     this.ticketToBeUpdated.checklist[index].completed = status;
 
-    this.updateTicket(); this.loadingCtrl.dismiss();
+    this.updateTicket();
+    this.loadingCtrl.dismiss();
     this.activeMaterialSection = 'description';
     this.materialData = {};
     this.getTicketDetails();
@@ -254,6 +257,13 @@ export class TicketDetailsPage implements OnInit {
     // } else {
     // this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
     // }
+  }
+
+
+  async removeImage(id) {
+    this.ticketToBeUpdated = Object.assign({}, this.ticket);
+    await this.ticketToBeUpdated.files.splice(this.ticketToBeUpdated.files.findIndex(value => value._id == id));
+    this.updateTicket();
   }
 
 }

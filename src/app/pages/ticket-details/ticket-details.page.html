@@ -36,7 +36,7 @@
   </div>
 </ion-header>
 
-<ion-content >
+<ion-content>
 
   <div [ngSwitch]="selectedTab">
 
@@ -170,7 +170,8 @@
 
           <ion-col size="3" style="position: relative;" *ngFor="let file of ticket.files">
             <img src="assets/icon/delete.png"
-              style="height: 25px; width: 25px; position: absolute; right: 6px; top: 6px; ">
+              style="height: 25px; width: 25px; position: absolute; right: 6px; top: 6px;"
+              (click)="removeImage(file._id)">
             <img src="file.aws_url" class="img-responsive height-70 border-radius-10 " />
           </ion-col>
 
@@ -350,7 +351,8 @@
               <ion-row>
                 <ion-col>
                   <p class="gotham font-14 font-weight-600 ">Quotation #{{estimate.referenceNumber}}</p>
-                  <p class="gotham font-14 font-weight-600 txt-warm-grey ">{{estimate.createdAt | date:'dd MMM yyyy' |agoFilter}}
+                  <p class="gotham font-14 font-weight-600 txt-warm-grey ">
+                    {{estimate.createdAt | date:'dd MMM yyyy' |agoFilter}}
                   </p>
                 </ion-col>
                 <ion-col class="padding-top-0">

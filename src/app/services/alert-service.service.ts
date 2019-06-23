@@ -57,9 +57,9 @@ export class AlertServiceService {
     })
     return await actionsheet.present();
   }
-  
+
   async capturePhoto() {
-    await this.presentActionSheet();
+    // await this.presentActionSheet();
     await this.camera.getPicture(this.options).then((imageData) => {
       console.log("image data by camera", imageData);
       this.fileURL = this.onCaptureImage(imageData);

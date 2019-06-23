@@ -10,40 +10,43 @@ import { Router } from '@angular/router';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    }, {
-      title: 'Calendar',
-      url: '/calendar',
-      src: '/assets/icon/calendar.png'
-    }, {
-      title: 'Tickets',
-      url: '/tickets',
-      src: '/assets/icon/ticket-history.png'
-    }, {
-      title: 'Notices',
-      url: '/notice-board',
-      src: '/assets/icon/communications.png'
-    },
-    {
-      title: 'Apporvals',
-      url: '/user-approval',
-      src: '/assets/icon/approval.png'
-    },
-    {
-      title: 'Contact us',
-      url: '/contact-us',
-      icon: 'phone'
-    },
-    {
-      title: 'profile',
-      url: '/profile',
-      icon: 'person'
-    }
-  ];
+  public appPages = {
+    name: localStorage.getItem('firstName') + " " + localStorage.getItem('lastName'),
+    phoneNumber: localStorage.getItem('phoneNumber'),
+    pages: [
+      {
+        title: 'Home',
+        url: '/home',
+        src: '/assets/icon/my-home.png'
+      }, {
+        title: 'Calendar',
+        url: '/calendar',
+        src: '/assets/icon/calendar.png'
+      }, {
+        title: 'Tickets',
+        url: '/tickets',
+        src: '/assets/icon/ticket-history.png'
+      }, {
+        title: 'Notices',
+        url: '/notice-board',
+        src: '/assets/icon/communications.png'
+      },
+      {
+        title: 'Apporvals',
+        url: '/user-approval',
+        src: '/assets/icon/approval.png'
+      },
+      {
+        title: 'Contact us',
+        url: '/contact-us',
+        src: '/assets/icon/phone.png'
+      },
+      {
+        title: 'profile',
+        url: '/profile',
+        src: '/assets/icon/profile.png'
+      }]
+  }
 
   constructor(
     private platform: Platform,
@@ -52,6 +55,9 @@ export class AppComponent {
     private router: Router,
   ) {
     this.initializeApp();
+  }
+  ionViewDidLoad() {
+    console.log("load");
   }
 
   initializeApp() {
