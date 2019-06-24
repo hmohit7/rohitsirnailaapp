@@ -77,11 +77,10 @@ export class AppComponent {
       } else {
         this.router.navigateByUrl('/login');
       }
-
     });
   }
   logOut() {
     localStorage.clear();
-    this.router.navigate([''],{replaceUrl:true})
+    this.router.navigate([''], { replaceUrl: true })
   }
 }

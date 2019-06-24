@@ -23,6 +23,7 @@ import { AppSettings } from 'src/app/conatants/appSettings';
 import { UserSearchPipe } from 'src/app/pipes/user-search-pipe';
 import { Camera } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { Push } from '@ionic-native/push/ngx';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ng
     SplashScreen,
     Camera,
     FileTransfer,
+    Push,
     FileTransferObject,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AppSettings

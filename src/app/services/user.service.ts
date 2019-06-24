@@ -45,4 +45,14 @@ export class UserService {
         })
       });
   }
+
+  updateUser(data): Observable<any> {
+    return this.http.put(`${this.appSettings.getApi()}//api/user/${data._id}`, data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      })
+    })
+  }
+
 }

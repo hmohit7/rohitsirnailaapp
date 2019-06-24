@@ -5,6 +5,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { CreateNoticeComponent } from 'src/app/modals/create-notice/create-notice.component';
+import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx'
 
 @Component({
   selector: 'app-home',
@@ -18,16 +19,25 @@ export class HomePage implements OnInit {
   loading: any = this.loadingCtrl.create({
   });
 
+  options: PushOptions = {
+    android: {},
+    ios: {
+    },
+  }
+
+  pushObject: PushObject = this.push.init(this.options);
+
+  pustObject: PushObject;
   constructor(
     private ticketService: TicketService,
     private loadingCtrl: LoadingController,
     private router: Router,
     private modalController: ModalController,
     private userService: UserService,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    private push: Push
   ) {
-    this.getUserDetails();
-    this.getTicketStats();
+
   }
 
   async presentLoading() {
@@ -36,11 +46,15 @@ export class HomePage implements OnInit {
     return await this.loading.present();
   }
 
-  ngOnInit() {
-
+  async ngOnInit() {
+    this.getUserDetails();
+    this.getTicketStats();
+    console.log("done");
+    // await this.pushNotifications();
   }
 
   async openCreateNoticeModal() {
+
     let modal = await this.modalController.create({
       component: CreateNoticeComponent,
     })
@@ -51,7 +65,8 @@ export class HomePage implements OnInit {
     this.userService.getUserById(window.localStorage.getItem('userId'))
       .subscribe((data: any) => {
         this.userDetails = data;
-
+        console.log(data);
+        this.pushNotifications();
         if (this.userDetails.firstName) {
           window.localStorage.setItem('firstName', this.userDetails.firstName)
         }
@@ -64,6 +79,8 @@ export class HomePage implements OnInit {
           console.log('error getting user details');
         }
       );
+
+
   }
 
   navigate(path) {
@@ -74,7 +91,7 @@ export class HomePage implements OnInit {
     await this.presentLoading();
     this.ticketService.getTicketStats()
       .subscribe((data: any) => {
-        console.log(this.loading);
+        // console.log(this.loading);
         this.loading.dismiss();
         this.ticketStats = data;
         console.log(this.ticketStats);
@@ -86,4 +103,28 @@ export class HomePage implements OnInit {
       );
   }
 
+  pushNotifications() {
+    console.log('pushNotification');
+
+    this.pushObject.on('registration')
+      .subscribe((registration: any) => {
+        alert(registration.registrationId);
+        this.userDetails.businessAppDevice = {
+          id: registration.registrationId,
+          pushToken: localStorage.getItem('token'),
+          fcmToken: true
+        }
+        console.log(this.userDetails);
+        this.userService.updateUser(this.userDetails).subscribe((data) => {
+          console.log(data);
+          alert('success');
+        }, err => {
+          alert("Error")
+          console.log(err);
+        })
+      },
+        err => {
+          this.alertService.presentAlert("Error from push", err);
+        });
+  }
 }
