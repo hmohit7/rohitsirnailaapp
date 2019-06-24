@@ -45,6 +45,7 @@
     "moment": "^2.24.0",
     "ngx-avatar": "^3.5.0",
     "phonegap-plugin-multidex": "1.0.0",
+    "phonegap-plugin-push": "2.2.3",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.29"
@@ -88,7 +89,11 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-file-transfer": {}
+      "cordova-plugin-file-transfer": {},
+      "phonegap-plugin-push": {
+        "ANDROID_SUPPORT_V13_VERSION": "27.+",
+        "FCM_VERSION": "11.6.2"
+      }
     },
     "platforms": [
       "android"
