@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -45,7 +45,13 @@ export class AppComponent {
         title: 'profile',
         url: '/profile',
         src: '/assets/icon/profile.png'
-      }]
+      }],
+    logout: {
+      title: 'logout',
+      src: '/assets/icon/log-out.png',
+
+    }
+
   }
 
   constructor(
@@ -53,6 +59,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
+    private route: ActivatedRoute
   ) {
     this.initializeApp();
   }
@@ -72,5 +79,9 @@ export class AppComponent {
       }
 
     });
+  }
+  logOut() {
+    localStorage.clear();
+    this.router.navigate([''],{replaceUrl:true})
   }
 }
