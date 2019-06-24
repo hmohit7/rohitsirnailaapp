@@ -44,6 +44,7 @@ export class LoginPage implements OnInit {
   async countryCodeModal() {
     const modal = await this.modalCtrl.create({
       component: CountryCodeModalComponent,
+      cssClass: 'my-custom-modal-css',
       componentProps: { 'value': this.loginData.countryCode }
     });
     modal.onDidDismiss().then((data) => {

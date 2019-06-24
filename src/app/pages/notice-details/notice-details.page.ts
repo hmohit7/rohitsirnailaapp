@@ -26,7 +26,8 @@ export class NoticeDetailsPage implements OnInit {
     private alertService: AlertServiceService
   ) {
     this.route.queryParamMap.subscribe((params: any) => {
-      this.noticeId = params.params.noticeId;
+      params.params.noticeId ? this.noticeId = params.params.noticeId : '';
+      params.params.did ? this.noticeId = params.params.did : '';
       console.log(this.noticeId);
     });
     this.userId = AppSettings.USER;

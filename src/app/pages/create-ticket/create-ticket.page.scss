@@ -30,15 +30,16 @@ label > input:checked + div > div {
 .width-80-percent {
   width: 80% !important;
 }
+
 .center-data-in-label {
   display: grid !important;
   justify-content: center !important;
   margin-top: -15px !important;
 }
 
-ion-card {
-  margin: 0 !important;
-}
+// ion-card {
+//   margin: 0 !important;
+// }
 
 .Home,
 .Project,

@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'material-search', loadChildren: './pages/material-search/material-search.module#MaterialSearchPageModule' },
   { path: 'notice-board', loadChildren: './pages/notice-board/notice-board.module#NoticeBoardPageModule' },
   { path: 'notice-details', loadChildren: './pages/notice-details/notice-details.module#NoticeDetailsPageModule' },
-  { path: 'notice-create', loadChildren: './pages/notice-create/notice-create.module#NoticeCreatePageModule' },
+  // { path: 'notice-create', loadChildren: './pages/notice-create/notice-create.module#NoticeCreatePageModule' },
   { path: 'user-approval', loadChildren: './pages/user-approval/user-approval.module#UserApprovalPageModule' },
   { path: 'contact-us', loadChildren: './pages/contact-us/contact-us.module#ContactUsPageModule' },
 ];

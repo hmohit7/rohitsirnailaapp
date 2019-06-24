@@ -41,6 +41,7 @@ export class TicketDetailsPage implements OnInit {
     this.route.queryParamMap.subscribe((params: any) => {
       params.params.ticketId ? this.ticketId = params.params.ticketId : '';
       params.params.flag ? this.flag = params.params.flag : '';
+      params.params.tid ? this.ticketId = params.params.tid : '';
       console.log(this.ticketId, this.flag)
     });
     this.getTicketDetails();
@@ -179,7 +180,7 @@ export class TicketDetailsPage implements OnInit {
     return await modal.present();
   }
 
-  async createCommeidnt() {
+  async createComment() {
 
     const data = {
       text: this.ticket.commentText,

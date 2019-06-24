@@ -26,7 +26,7 @@ export class HomePage implements OnInit {
   }
 
   pushObject: PushObject = this.push.init(this.options);
-
+  registrationId: string;
   pustObject: PushObject;
   constructor(
     private ticketService: TicketService,
@@ -37,9 +37,68 @@ export class HomePage implements OnInit {
     private alertService: AlertServiceService,
     private push: Push
   ) {
+    this.pushObject.on('registration')
+      .subscribe((registration: any) => {
+        // alert(registration.registrationId);
+        console.log(registration.registrationId);
+        this.registrationId = registration.registrationId;
+      },
+        err => {
+          this.alertService.presentAlert("Error from push", err);
+        });
+
+    this.getUserDetails();
+    this.getTicketStats();
 
   }
+  ionViewDidEnter() {
 
+    this.pushObject.on('notification').subscribe((notification: any) => {
+      console.log(JSON.stringify(notification));
+      // alert(JSON.stringify(notification.additionalData.id));
+      if (notification.additionalData.type == 'discussion') {
+        console.log('discussion');
+        if (notification.additionalData.id) {
+          console.log('discussion with id');
+          this.router.navigateByUrl(`/notice-details?did=${notification.additionalData.id}`);
+        }
+        else {
+          console.log('discussion without id');
+          this.router.navigateByUrl(`/notice-board`);
+        }
+      }
+
+      else if (notification.additionalData.type == 'ticket') {
+        if (notification.additionalData.id) {
+          this.router.navigateByUrl(`/ticket-details?tid=${notification.additionalData.id}`);
+        }
+        else {
+          this.router.navigateByUrl('tickets');
+        }
+      }
+
+
+      else if (notification.additionalData.type == 'approval') {
+        // $state.go('app.approval')
+        this.router.navigateByUrl(`/user-approval`);
+
+      }
+
+      else if (notification.additionalData.type == 'estimate') {
+        this.router.navigateByUrl(`/ticket-details?eid=${notification.additionalData.id}`);
+        // $state.go('app.estimatedetails', { eid: notification.additionalData.id }).then(function () {
+        //   $ionicLoading.show({
+        //     template: '<ion-spinner icon="ios"></ion-spinner>'
+        //   })
+        // })
+      }
+
+
+    },
+      err => {
+        alert(JSON.stringify(err))
+      });
+  }
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({
     });
@@ -47,10 +106,7 @@ export class HomePage implements OnInit {
   }
 
   async ngOnInit() {
-    this.getUserDetails();
-    this.getTicketStats();
-    console.log("done");
-    // await this.pushNotifications();
+
   }
 
   async openCreateNoticeModal() {
@@ -65,7 +121,14 @@ export class HomePage implements OnInit {
     this.userService.getUserById(window.localStorage.getItem('userId'))
       .subscribe((data: any) => {
         this.userDetails = data;
-        console.log(data);
+        console.log(this.userDetails);
+        this.userDetails.businessAppDevice = {
+          id: '',
+          pushToken: this.registrationId,
+          fcmToken: true
+        }
+        console.log('After', this.userDetails);
+
         this.pushNotifications();
         if (this.userDetails.firstName) {
           window.localStorage.setItem('firstName', this.userDetails.firstName)
@@ -104,27 +167,14 @@ export class HomePage implements OnInit {
   }
 
   pushNotifications() {
-    console.log('pushNotification');
-
-    this.pushObject.on('registration')
-      .subscribe((registration: any) => {
-        alert(registration.registrationId);
-        this.userDetails.businessAppDevice = {
-          id: registration.registrationId,
-          pushToken: localStorage.getItem('token'),
-          fcmToken: true
-        }
-        console.log(this.userDetails);
-        this.userService.updateUser(this.userDetails).subscribe((data) => {
-          console.log(data);
-          alert('success');
-        }, err => {
-          alert("Error")
-          console.log(err);
-        })
-      },
-        err => {
-          this.alertService.presentAlert("Error from push", err);
-        });
+    if (this.registrationId) {
+      this.userService.updateUser(this.userDetails).subscribe((data) => {
+        console.log(data);
+        // alert('success');
+      }, err => {
+        alert("Error")
+        console.log(err);
+      })
+    }
   }
 }

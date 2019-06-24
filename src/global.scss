@@ -33,6 +33,12 @@
 .txt-bold {
   font-weight: bold;
 }
+.my-custom-modal-css .modal-wrapper {
+  height: 80%;
+  width: 80%;
+  position: absolute;
+  display: block;
+}
 
 .underline-text {
   text-decoration: underline !important;
@@ -486,7 +492,7 @@
 
 .tile-option {
   height: 25px !important;
-  width: 20px !important;
+  width: 25px !important;
 }
 .margin-1 {
   margin: 1px !important;
@@ -519,6 +525,11 @@
 .icon-20 {
   height: 20px !important;
   width: 20px !important;
+}
+
+.icon-25 {
+  height: 25px !important;
+  width: 25px !important;
 }
 
 .grey-back {
@@ -668,4 +679,7 @@ ion-chip {
 }
 .justify-center {
   justify-content: center !important;
+}
+.display-flex {
+  display: flex !important;
 }

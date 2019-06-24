@@ -15,7 +15,7 @@
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages.pages">
             <ion-item lines="full" [routerLink]="[p.url]">
-              <img class="tile-option margin-bottom-10" *ngIf="p.src" [src]="p.src">
+              <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
               <ion-label [ngClass]="{marginTop5: p.src?true:false}">
                 {{p.title}}
               </ion-label>
@@ -23,7 +23,7 @@
           </ion-menu-toggle>
           <ion-menu-toggle>
             <ion-item lines="full" (click)="logOut()">
-              <img class="tile-option margin-bottom-10" [src]="appPages.logout.src">
+              <img class="icon-25 margin-bottom-10" [src]="appPages.logout.src">
               <ion-label class="marginTop5">
                 {{appPages.logout.title}}
               </ion-label>

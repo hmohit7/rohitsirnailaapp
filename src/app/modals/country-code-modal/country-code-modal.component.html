@@ -1,4 +1,4 @@
-<ion-list style="overflow: auto">
+<ion-list style="overflow: auto" class="padding-bottom-0">
   <ion-searchbar no-padding mode="md" placeholder="Filter Pizza" [(ngModel)]="searchTerm"></ion-searchbar>
   <ion-radio-group [(ngModel)]="value">
     <ion-list-header class="center-text gotham">Country Code</ion-list-header>
@@ -6,8 +6,8 @@
       <ion-label class="gotham">{{code.country}}</ion-label>
       <ion-radio mode="ios" value="{{code.code}}"></ion-radio>
     </ion-item>
-    <ion-button *ngIf="!hideButton" expand="full" class="gotham" (click)="showMore()">
-      Show More
-    </ion-button>
   </ion-radio-group>
+  <ion-button *ngIf="!hideButton" size=large expand="full" class="gotham margin-0" (click)="showMore()">
+    Show More
+  </ion-button>
 </ion-list>
