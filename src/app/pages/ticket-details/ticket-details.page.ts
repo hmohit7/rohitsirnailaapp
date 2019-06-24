@@ -48,7 +48,6 @@ export class TicketDetailsPage implements OnInit {
 
   ngOnInit() {
     console.log(this.images.length);
-
   }
 
   ionViewWillEnter() {
@@ -76,7 +75,7 @@ export class TicketDetailsPage implements OnInit {
       .subscribe((data: any) => {
         this.loadingCtrl.dismiss();
         this.ticket = data;
-        console.log(this.ticket);
+        // console.log(this.ticket);
       },
         err => {
           this.loadingCtrl.dismiss();
@@ -91,7 +90,7 @@ export class TicketDetailsPage implements OnInit {
       .subscribe((data: any) => {
         this.loadingCtrl.dismiss();
         this.comments = data.data;
-        console.log(this.comments);
+        // console.log(this.comments);
       },
         err => {
           this.loadingCtrl.dismiss();
@@ -109,13 +108,13 @@ export class TicketDetailsPage implements OnInit {
     if (this.ticketToBeUpdated.ticketSubCategory) {
       this.ticketToBeUpdated.ticketSubCategory = this.ticketToBeUpdated.ticketSubCategoryId;
     }
-    await this.presentLoading();
+    this.presentLoading();
     if (this.images.length > 0) {
       console.log("With Image");
       console.log(this.ticketToBeUpdated);
       this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(() => {
         this.loadingCtrl.dismiss();
-        this.images = this.images.shift();
+        console.log(this.images);
         this.activeMaterialSection = 'description';
         this.materialData = {};
         this.getTicketDetails();
@@ -180,7 +179,7 @@ export class TicketDetailsPage implements OnInit {
     return await modal.present();
   }
 
-  async createComment() {
+  async createCommeidnt() {
 
     const data = {
       text: this.ticket.commentText,
@@ -261,8 +260,9 @@ export class TicketDetailsPage implements OnInit {
 
 
   async removeImage(id) {
+    console.log(id);
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
-    await this.ticketToBeUpdated.files.splice(this.ticketToBeUpdated.files.findIndex(value => value._id == id));
+    this.ticketToBeUpdated.files = this.ticketToBeUpdated.files.filter(value => value._id !== id);
     this.updateTicket();
   }
 
