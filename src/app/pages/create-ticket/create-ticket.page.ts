@@ -38,7 +38,7 @@ export class CreateTicketPage implements OnInit {
     private modalController: ModalController,
     private router: Router,
     private route: ActivatedRoute,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
   ) {
     this.route.queryParamMap.subscribe((params: any) => {
       this.ticketId = params.params.ticketId;
@@ -65,8 +65,8 @@ export class CreateTicketPage implements OnInit {
       this.ticketData.createdBy = window.localStorage.getItem('userId');
       this.ticketData.jobDate = this.date.toISOString();
       this.ticketData.jobStartTime = this.date.toISOString();
-      this.ticketData.jobEndDate = new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
-      this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
+      this.ticketData.jobEndDate = this.date.toISOString();
+      this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getMinutes() + 30)).toISOString();//new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
 
     }
   }
@@ -378,5 +378,6 @@ export class CreateTicketPage implements OnInit {
   removeImage() {
     this.images = [];
   }
+
 
 }

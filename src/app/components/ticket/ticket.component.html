@@ -1,3 +1,29 @@
-<p>
-  ticket works!
-</p>
+<ion-list class="padding-0">
+  <ion-radio-group>
+    <ion-list-header class="justify-center gotham">Sort By</ion-list-header>
+    <ion-item lines="full">
+      <ion-label class="gotham">Job Date</ion-label>
+      <ion-radio mode="md" value="jobDate" checked></ion-radio>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="gotham">Created At</ion-label>
+      <ion-radio mode="md" value="createdAt"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>
+<ion-list class="padding-0">
+  <ion-radio-group name="auto">
+    <ion-list-header class="justify-center gotham">Order By</ion-list-header>
+    <ion-item lines="full">
+      <ion-label class="gotham">Ascending</ion-label>
+      <ion-radio mode="md" value="ascending" checked></ion-radio>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label class="gotham">decinding</ion-label>
+      <ion-radio mode="md" value="descinding"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>
+<ion-button (click)="close()" class="gotham margin-0" expand="full">
+  Filter
+</ion-button>

@@ -1,3 +1,4 @@
+import { PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private popOverCtrl: PopoverController
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+  close() {
+    this.popOverCtrl.dismiss();
+  }
 
 }
