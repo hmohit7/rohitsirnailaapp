@@ -37,9 +37,11 @@ export class ProfilePage implements OnInit {
   }
 
   async logOut() {
-
-    localStorage.clear();
-    this.router.navigateByUrl('/login');
+    this.data.businessAppDevice = {};
+    this.userService.updateUser(this.data).subscribe(() => {
+      localStorage.clear();
+      this.router.navigateByUrl('/login');
+    });
   }
 
 }

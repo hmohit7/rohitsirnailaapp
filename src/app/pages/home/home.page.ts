@@ -16,6 +16,7 @@ export class HomePage implements OnInit {
 
   userDetails: any;
   ticketStats: any;
+
   loading: any = this.loadingCtrl.create({
   });
 
@@ -26,8 +27,9 @@ export class HomePage implements OnInit {
   }
 
   pushObject: PushObject = this.push.init(this.options);
+
   registrationId: string;
-  pustObject: PushObject;
+
   constructor(
     private ticketService: TicketService,
     private loadingCtrl: LoadingController,
@@ -39,66 +41,19 @@ export class HomePage implements OnInit {
   ) {
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
-        // alert(registration.registrationId);
+        alert(registration.registrationId);
         console.log(registration.registrationId);
         this.registrationId = registration.registrationId;
       },
         err => {
           this.alertService.presentAlert("Error from push", err);
         });
-
     this.getUserDetails();
     this.getTicketStats();
 
   }
-  ionViewDidEnter() {
-
-    this.pushObject.on('notification').subscribe((notification: any) => {
-      console.log(JSON.stringify(notification));
-      // alert(JSON.stringify(notification.additionalData.id));
-      if (notification.additionalData.type == 'discussion') {
-        console.log('discussion');
-        if (notification.additionalData.id) {
-          console.log('discussion with id');
-          this.router.navigateByUrl(`/notice-details?did=${notification.additionalData.id}`);
-        }
-        else {
-          console.log('discussion without id');
-          this.router.navigateByUrl(`/notice-board`);
-        }
-      }
-
-      else if (notification.additionalData.type == 'ticket') {
-        if (notification.additionalData.id) {
-          this.router.navigateByUrl(`/ticket-details?tid=${notification.additionalData.id}`);
-        }
-        else {
-          this.router.navigateByUrl('tickets');
-        }
-      }
 
 
-      else if (notification.additionalData.type == 'approval') {
-        // $state.go('app.approval')
-        this.router.navigateByUrl(`/user-approval`);
-
-      }
-
-      else if (notification.additionalData.type == 'estimate') {
-        this.router.navigateByUrl(`/ticket-details?eid=${notification.additionalData.id}`);
-        // $state.go('app.estimatedetails', { eid: notification.additionalData.id }).then(function () {
-        //   $ionicLoading.show({
-        //     template: '<ion-spinner icon="ios"></ion-spinner>'
-        //   })
-        // })
-      }
-
-
-    },
-      err => {
-        alert(JSON.stringify(err))
-      });
-  }
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({
     });
@@ -106,7 +61,46 @@ export class HomePage implements OnInit {
   }
 
   async ngOnInit() {
+    // this.pushObject.on('notification').subscribe((notification: any) => {
+    //   console.log(JSON.stringify(notification));
+    //   // alert(JSON.stringify(notification.additionalData.id));
+    //   if (notification.additionalData.type == 'discussion') {
+    //     console.log('discussion');
+    //     if (notification.additionalData.id) {
+    //       console.log('discussion with id');
+    //       this.router.navigateByUrl(`/notice-details?did=${notification.additionalData.id}`);
+    //     }
+    //     else {
+    //       console.log('discussion without id');
+    //       this.router.navigateByUrl(`/notice-board`);
+    //     }
+    //   }
 
+    //   else if (notification.additionalData.type == 'ticket') {
+    //     if (notification.additionalData.id) {
+    //       this.router.navigateByUrl(`/ticket-details?tid=${notification.additionalData.id}`);
+    //     }
+    //     else {
+    //       this.router.navigateByUrl('tickets');
+    //     }
+    //   }
+
+
+    //   else if (notification.additionalData.type == 'approval') {
+    //     // $state.go('app.approval')
+    //     this.router.navigateByUrl(`/user-approval`);
+
+    //   }
+
+    //   else if (notification.additionalData.type == 'estimate') {
+    //     this.router.navigateByUrl(`/ticket-details?eid=${notification.additionalData.id}`);
+    //   }
+
+
+    // },
+    //   err => {
+    //     alert(JSON.stringify(err))
+    //   });
   }
 
   async openCreateNoticeModal() {
@@ -130,6 +124,7 @@ export class HomePage implements OnInit {
         console.log('After', this.userDetails);
 
         this.pushNotifications();
+
         if (this.userDetails.firstName) {
           window.localStorage.setItem('firstName', this.userDetails.firstName)
         }
@@ -169,8 +164,8 @@ export class HomePage implements OnInit {
   pushNotifications() {
     if (this.registrationId) {
       this.userService.updateUser(this.userDetails).subscribe((data) => {
-        console.log(data);
-        // alert('success');
+        // console.log(data);
+        alert('success');
       }, err => {
         alert("Error")
         console.log(err);
