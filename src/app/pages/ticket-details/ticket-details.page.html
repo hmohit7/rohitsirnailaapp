@@ -71,7 +71,7 @@
             <p class="txt-slate-grey margin-padding-zero font-14 gotham-medium margin-bottom-3">DESCRIPTION</p>
             <p class="gotham-medium margin-top-10 font-14 dark-grey">
               {{ticket.notes}}</p>
-            <p class="gotham-medium margin-top-10 font-14 dark-grey">Ticket
+            <p class="gotham-medium margin-top-10 font-14 dark-grey" [hidden]="ticket.notes">Ticket
               description not available</p>
           </ion-col>
         </ion-row>
@@ -402,7 +402,7 @@
       <div *ngIf="activeMaterialSection == 'materialForm'">
         <div class="padding-25">
           <ion-list>
-            <ion-list-header class="gotham font-16 font-weight-500">Select material</ion-list-header>
+            <ion-list-header class="gotham font-16 font-weight-500">Material</ion-list-header>
             <ion-item>
               <ion-input inputmode="text" [(ngModel)]="materialData.name" class="gotham"
                 placeholder="Clicke here to select material" (click)="openMaterialSearchModal()">
@@ -443,10 +443,10 @@
         <ion-col>No materials found</ion-col>
       </ion-row>
 
-      <ion-row class=" float-right margin-top-15" *ngIf="activeMaterialSection == 'description'">
-        <img src="assets/icon/add-green.png" (click)="showMaterialForm()"
-          class="height-30 width-30 border-radius-10 " />
-        <p class="gotham-medium font-14 dark-grey margin-top-7 margin-right-10 font-14 ">
+      <ion-row class=" float-right margin-top-15" (click)="showMaterialForm()"
+        *ngIf="activeMaterialSection == 'description'">
+        <img src="assets/icon/add-green.png" class="height-30 width-30 border-radius-10 " />
+        <p class="gotham-medium font-14 dark-grey margin-top-10 margin-right-10 font-14 ">
           Add new
         </p>
       </ion-row>

@@ -14,7 +14,6 @@ export class ProfilePage implements OnInit {
   public token = window.localStorage.getItem("token");
   public data: any = {};
   constructor(
-    private alerCtrl: AlertController,
     private router: Router,
     private userService: UserService,
     private alertService: AlertServiceService

@@ -42,6 +42,7 @@ export class UserSearchPage implements OnInit {
   selectUser(user) {
     this.selectedUser.name = user.firstName + ' ' + user.lastName;
     this.selectedUser.id = user._id;
+    this.closeModal(true);
   }
 
   async searchUsers() {

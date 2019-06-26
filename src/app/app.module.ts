@@ -1,3 +1,4 @@
+import { ProfilePage } from './pages/profile/profile.page';
 import { ApplicationPageModule } from './ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,6 +54,7 @@ import { Push } from '@ionic-native/push/ngx';
     FileTransfer,
     Push,
     FileTransferObject,
+    ProfilePage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AppSettings
   ],

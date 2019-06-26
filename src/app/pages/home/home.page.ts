@@ -48,6 +48,7 @@ export class HomePage implements OnInit {
         err => {
           this.alertService.presentAlert("Error from push", err);
         });
+
     this.getUserDetails();
     this.getTicketStats();
 
@@ -61,46 +62,46 @@ export class HomePage implements OnInit {
   }
 
   async ngOnInit() {
-    // this.pushObject.on('notification').subscribe((notification: any) => {
-    //   console.log(JSON.stringify(notification));
-    //   // alert(JSON.stringify(notification.additionalData.id));
-    //   if (notification.additionalData.type == 'discussion') {
-    //     console.log('discussion');
-    //     if (notification.additionalData.id) {
-    //       console.log('discussion with id');
-    //       this.router.navigateByUrl(`/notice-details?did=${notification.additionalData.id}`);
-    //     }
-    //     else {
-    //       console.log('discussion without id');
-    //       this.router.navigateByUrl(`/notice-board`);
-    //     }
-    //   }
+    this.pushObject.on('notification').subscribe((notification: any) => {
+      console.log(JSON.stringify(notification));
+      // alert(JSON.stringify(notification.additionalData.id));
+      if (notification.additionalData.type == 'discussion') {
+        console.log('discussion');
+        if (notification.additionalData.id) {
+          console.log('discussion with id');
+          this.router.navigateByUrl(`/notice-details?did=${notification.additionalData.id}`);
+        }
+        else {
+          console.log('discussion without id');
+          this.router.navigateByUrl(`/notice-board`);
+        }
+      }
 
-    //   else if (notification.additionalData.type == 'ticket') {
-    //     if (notification.additionalData.id) {
-    //       this.router.navigateByUrl(`/ticket-details?tid=${notification.additionalData.id}`);
-    //     }
-    //     else {
-    //       this.router.navigateByUrl('tickets');
-    //     }
-    //   }
-
-
-    //   else if (notification.additionalData.type == 'approval') {
-    //     // $state.go('app.approval')
-    //     this.router.navigateByUrl(`/user-approval`);
-
-    //   }
-
-    //   else if (notification.additionalData.type == 'estimate') {
-    //     this.router.navigateByUrl(`/ticket-details?eid=${notification.additionalData.id}`);
-    //   }
+      else if (notification.additionalData.type == 'ticket') {
+        if (notification.additionalData.id) {
+          this.router.navigateByUrl(`/ticket-details?tid=${notification.additionalData.id}`);
+        }
+        else {
+          this.router.navigateByUrl('tickets');
+        }
+      }
 
 
-    // },
-    //   err => {
-    //     alert(JSON.stringify(err))
-    //   });
+      else if (notification.additionalData.type == 'approval') {
+        // $state.go('app.approval')
+        this.router.navigateByUrl(`/user-approval`);
+
+      }
+
+      else if (notification.additionalData.type == 'estimate') {
+        this.router.navigateByUrl(`/ticket-details?eid=${notification.additionalData.id}`);
+      }
+
+
+    },
+      err => {
+        alert(JSON.stringify(err))
+      });
   }
 
   async openCreateNoticeModal() {

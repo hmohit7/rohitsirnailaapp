@@ -38,6 +38,7 @@ export class TicketCategorySearchPage implements OnInit {
     this.selectedCategory.name = category.name;
     this.selectedCategory.ticketCategory = category._id;
     this.selectedCategory.subCategory = category.subCategory;
+    this.closeModal(true)
   }
 
   async closeModal(sendData) {

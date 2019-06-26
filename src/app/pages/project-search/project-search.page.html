@@ -5,9 +5,9 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Project search {{filterData.searchText}}</ion-title>
+    <ion-title>Project search </ion-title>
   </ion-toolbar>
-  <ion-searchbar [(ngModel)]="filterData.searchText" (ngModelChange)="resetFilterAndSearch(filterData.searchText)">
+  <ion-searchbar [(ngModel)]="filterData.searchText" (ngModelChange)="resetFilterAndSearch()">
   </ion-searchbar>
 </ion-header>
 
@@ -43,4 +43,3 @@
   </ion-infinite-scroll>
 
 </ion-content>
-<ion-button size="large" (click)="closeModal(true)" color="success">Submit</ion-button>
