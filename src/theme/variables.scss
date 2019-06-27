@@ -75,3 +75,20 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
+
+.ion-color-resolved {
+  --ion-color-base: #33cd5f !important;
+  --ion-color-contrast: #ffffff !important;
+}
+.ion-color-rejected {
+  --ion-color-base: #f84940 !important;
+  --ion-color-contrast: #ffffff !important;
+}
+.ion-color-open {
+  --ion-color-base: #ffc900 !important;
+  --ion-color-contrast: #ffffff !important;
+}
+.ion-color-in-progress {
+  --ion-color-base: #387ef5 !important;
+  --ion-color-contrast: #ffffff !important;
+}

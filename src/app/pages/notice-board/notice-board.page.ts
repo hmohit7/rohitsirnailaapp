@@ -94,8 +94,12 @@ export class NoticeBoardPage implements OnInit {
     return await modal.present();
   }
 
-  async likeDiscussion(id) {
+  stopEvent(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
 
+  async likeDiscussion(id) {
     await this.presentLoading();
 
     this.noticeService.likeNotice(id)

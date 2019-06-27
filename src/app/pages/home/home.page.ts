@@ -48,7 +48,6 @@ export class HomePage implements OnInit {
         err => {
           this.alertService.presentAlert("Error from push", err);
         });
-
     this.getUserDetails();
     this.getTicketStats();
 
@@ -110,6 +109,21 @@ export class HomePage implements OnInit {
       component: CreateNoticeComponent,
     })
     return await modal.present();
+  }
+
+  getRoundedTime() {
+    var d = new Date();
+    alert(d)
+    var ratio = d.getMinutes() / 60;
+    alert(ratio)
+    // Past 30 min mark, return epoch at +1 hours and 0 minutes
+    if (ratio > 0.5) {
+      alert((d.getHours() + 1) * 3600)
+      return (d.getHours() + 1) * 3600;
+    }
+    // Return epoch at 30 minutes past current hour
+    alert((d.getHours() * 3600) + 1800)
+    return (d.getHours() * 3600) + 1800;
   }
 
   getUserDetails() {

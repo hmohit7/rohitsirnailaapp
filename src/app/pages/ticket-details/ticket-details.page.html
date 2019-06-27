@@ -27,7 +27,7 @@
         <ion-label>CHECKLIST</ion-label>
       </ion-segment-button>
       <ion-segment-button class="font-12" value="QUOTATIONS">
-        <ion-label>ESTIMATES</ion-label>
+        <ion-label>QUOTATIONS</ion-label>
       </ion-segment-button>
       <ion-segment-button class="font-12" value="MATERIALS">
         <ion-label>MATERIALS</ion-label>
@@ -224,7 +224,7 @@
       </div>
     </div>
 
-    <div *ngSwitchCase="'ASSETS'" class="full-width max-available-height">
+    <div *ngSwitchCase="'ASSETS'" class="full-width max-available-height margin-top-5">
       <div class="ticket-assets-card" *ngFor="let asset of ticket.assets">
         <ion-row>
           <ion-col>
@@ -258,7 +258,7 @@
         </ion-row>
       </div>
       <br>
-      <ion-row [hidden]="ticket.assets?.lenght > 0"
+      <ion-row [hidden]="ticket.assets?.length > 0"
         class="txt-small txt-brown gotham-medium font-14 center-text margin-top-15">
         <ion-col>
           No Assets attached to this ticket
@@ -280,7 +280,7 @@
       </ion-row>
       <!-- Tickets comments section -->
 
-      <ion-row *ngIf="comments?.length == 0"
+      <ion-row [hidden]="comments?.length > 0"
         class="txt-small txt-brown gotham-medium center-text font-14 center margin-top-15">
         <ion-col>No comments found</ion-col>
       </ion-row>
@@ -319,7 +319,7 @@
       </ion-row>
     </div>
 
-    <div *ngSwitchCase="'CHECKLIST'" class="full-width max-available-height">
+    <div *ngSwitchCase="'CHECKLIST'" class="full-width max-available-height margin-top-5">
       <div class="ticket-details-list" *ngIf="ticket.checklist.length > 0">
         <ion-list class="padding-bottom-0">
 
@@ -343,7 +343,7 @@
       </ion-row>
     </div>
 
-    <div *ngSwitchCase="'QUOTATIONS'" class="full-width max-available-height ">
+    <div *ngSwitchCase="'QUOTATIONS'" class="full-width max-available-height margin-top-5">
       <div class="ticket-details-list" *ngIf="ticket.estimates.length > 0">
         <ion-list class="padding-0" *ngFor="let estimate of ticket.estimates">
           <ion-item>
@@ -357,7 +357,7 @@
                 </ion-col>
                 <ion-col class="padding-top-0">
                   <p class="gotham font-14 font-weight-600 float-right padding-right-10 txt-warm-grey">
-                    {{estimate.totalAmount}}</p>
+                    {{estimate.totalAmount | currency:'INR'}}</p>
                 </ion-col>
               </ion-row>
             </ion-label>
@@ -376,11 +376,12 @@
       </ion-row>
     </div>
 
-    <div *ngSwitchCase="'MATERIALS'" class="full-width max-available-height">
+    <div *ngSwitchCase="'MATERIALS'" class="full-width max-available-height margin-top-5">
       <div *ngIf="activeMaterialSection == 'description'" class="ticket-details-list full-width">
-        <ion-row class="margin-0 padding-top-5" *ngFor="let item of ticket.itemDetails">
+        <ion-row class="margin-0 padding-top-5 border-bottom-grey-1"
+          *ngFor="let item of ticket.itemDetails let i = index">
           <ion-col size="1" class="margin-left-8">
-            <p class="gotham-medium font-14 dark-grey margin-padding-zero">1</p>
+            <p class="gotham-medium font-14 dark-grey margin-padding-zero">{{i+1}}</p>
           </ion-col>
           <ion-col size="8" class="margin-left-10">
             <p class="gotham-medium font-14 dark-grey margin-padding-zero">{{item.product.name}}</p>

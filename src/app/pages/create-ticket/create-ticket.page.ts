@@ -8,7 +8,7 @@ import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { TicketCategorySearchPage } from '../../pages/ticket-category-search/ticket-category-search.page';
 import { TicketSubCategorySearchPage } from '../../pages/ticket-sub-category-search/ticket-sub-category-search.page';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-ticket',
@@ -54,8 +54,26 @@ export class CreateTicketPage implements OnInit {
   ionViewDidEnter() {
     this.flag = false;
   }
-
+  // public dateTime;
   ngOnInit() {
+
+    // const start = moment(new Date().getTime());
+    // const remainder = 30 - (start.minute() % 30);
+    // const hour = start.hours();
+    // alert(remainder)
+    // alert(hour)
+
+    // if (remainder > 30) {
+    //   this.dateTime = moment(start).add(remainder, "minutes").add(hour, 'hours').format("DD.MM.YYYY, h:mm:ss a");
+    // } else {
+    //   this.dateTime = moment(start).add(remainder, "minutes").add(hour, 'hours').format("DD.MM.YYYY, h:mm:ss a");
+    // }
+
+
+    // alert(this.dateTime);
+
+
+
     if (this.ticketId) {
       this.flow = 'editTicket';
       this.title = 'Update ticket';
@@ -66,6 +84,7 @@ export class CreateTicketPage implements OnInit {
       this.ticketData.jobDate = this.date.toISOString();
       this.ticketData.jobStartTime = this.date.toISOString();
       this.ticketData.jobEndDate = this.date.toISOString();
+      // let ratio = new Date().getMinutes() / 60;
       this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getMinutes() + 30)).toISOString();//new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
 
     }
@@ -301,7 +320,7 @@ export class CreateTicketPage implements OnInit {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', 'Ticket created');
-        this.router.navigateByUrl('/tickets');
+        this.router.navigateByUrl('/ticket-details');
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', error)
@@ -313,7 +332,7 @@ export class CreateTicketPage implements OnInit {
 
           this.loading.dismiss();
           this.alertService.presentAlert('Alert', 'Ticket created');
-          this.router.navigateByUrl('/tickets');
+          this.router.navigateByUrl(`/tickets?ticketId=${this.ticketData._id}`);
         },
           err => {
             this.loading.dismiss();

@@ -12,6 +12,7 @@
 
     <ion-card class="ticket-details-list padding-10" [routerLink]="['/notice-details']"
       [queryParams]="{noticeId: notice._id}" *ngFor="let notice of notices">
+
       <ion-row class="padding-top-5">
         <ion-col size="2" class="padding-top-0">
           <ngx-avatar name="{{notice.createdBy?.firstName}} {{notice.createdBy?.lastName}}"></ngx-avatar>
@@ -24,7 +25,8 @@
           </p>
         </ion-col>
         <ion-col class="text-right">
-          <ion-badge color="warning" class="border-radius-10">Notice</ion-badge>
+          <ion-badge color="warning" *ngIf="notice.discussionType" class="border-radius-10">{{notice.discussionType}}
+          </ion-badge>
           <p class="txt-warm-grey font-14 Gotham-medium margin-bottom-0 margin-padding-zero font-weight-500 txt-nowrap">
             {{notice.createdAt | date: 'dd MMM yyyy'|agoFilter}}
           </p>
@@ -51,7 +53,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <span class="padding-right-20">
+            <span class="padding-right-20" (click)="stopEvent($event)">
               <ion-icon *ngIf="!notice.hasLiked" (click)="likeDiscussion(notice._id)"
                 class="icon font-25 gotham margin-right-5" name="heart-empty"></ion-icon>
               <ion-icon *ngIf="notice.hasLiked" (click)="likeDiscussion(notice._id)" color="danger"

@@ -53,7 +53,7 @@
       </ion-col>
     </ion-row>
     <br>
-    <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Views</span>
+    <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">View</span>
     <br>
     <br>
     <ion-row class="border-top border-bottom">
@@ -82,18 +82,18 @@
     <ion-item *ngFor="let ticket of ticketStats?.todo" [routerLink]="['/ticket-details']"
       [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
       <ion-label class="margin-0">
-        <p class="gotham-bold txt-grey " text-wrap>
+        <p class="gotham-bold txt-grey margin-bottom-8 padding-top-2" text-wrap>
           <span class="float-left">#{{ticket.uid}} - </span>
           <span class="center-text"> {{ticket.ticketCategory}}</span>
           <span class="float-right">{{ticket.createdAt | date:'dd MMM yyyy'|agoFilter}}</span>
         </p>
-        <p id="margin-top-bottom-5" class="gotham font-weight-600 margin-bottom-5 txt-grey">For -
+        <p id="margin-top-bottom-5" class="gotham margin-bottom-8 font-weight-600 margin-bottom-5 txt-grey">For -
           {{ticket.ticketBelongsTo == 'Home' ? 'Unit' : ticket.ticketBelongsTo}}</p>
         <p>
-          <ion-badge class="gotham font-weight-600 padding-top-4" color="success" mode="md">
-            {{ticket.jobDate | date:'dd MMM yyyy'}}
+          <ion-badge class="gotham font-weight-600" color="success" mode="md">
+            {{ticket.jobDate | date:'dd MMM yyyy'}} {{ticket.jobStartTime | date:'hh:mm a'}}
           </ion-badge>
-          <ion-badge class="gotham font-weight-600 margin-left-20 " color="warning" mode="ios">
+          <ion-badge class="gotham font-weight-600 margin-left-20 " color="{{ticket.status}}" mode="md">
             {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}
           </ion-badge>
         </p>
