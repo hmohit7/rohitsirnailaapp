@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { CreateNoticeComponent } from 'src/app/modals/create-notice/create-notice.component';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -50,7 +51,6 @@ export class HomePage implements OnInit {
         });
     this.getUserDetails();
     this.getTicketStats();
-
   }
 
 

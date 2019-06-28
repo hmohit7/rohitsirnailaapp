@@ -267,4 +267,11 @@ export class TicketDetailsPage implements OnInit {
     this.updateTicket();
   }
 
+  async removeMaterial(id) {
+    console.log(id);
+    this.ticketToBeUpdated = Object.assign({}, this.ticket);
+    this.ticketToBeUpdated.files = this.ticketToBeUpdated.files.filter(value => value._id !== id);
+    this.updateTicket();
+  }
+
 }

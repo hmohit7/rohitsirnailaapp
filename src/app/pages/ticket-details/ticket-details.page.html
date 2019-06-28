@@ -100,7 +100,7 @@
 
         <ion-row class="margin-bottom-10">
           <ion-col size="2">
-            <ngx-avatar name="{{ticket.raisedBy?.firstName}}"></ngx-avatar>
+            <ngx-avatar initialsSize="2" textSizeRatio="2" name="{{ticket.raisedBy?.firstName}}"></ngx-avatar>
           </ion-col>
           <ion-col class="margin-left-10">
             <p class="gotham-medium font-14 dark-grey margin-padding-zero">Raised by</p>
@@ -111,14 +111,13 @@
             <!-- <p class="txt-warm-grey font-14 gotham-medium font-weight-500 margin-padding-zero">Click here to add</p> -->
           </ion-col>
           <ion-col class="center-text ">
-            <a css="icon-position font-14" src="/assets/icon/phone.png">
-            </a>
+            <img class="float-right icon-25" src="/assets/icon/phone.png">
           </ion-col>
         </ion-row>
 
         <ion-row class=" margin-bottom-10">
           <ion-col size="2">
-            <ngx-avatar name="{{ticket.contactPoint?.firstName}}"></ngx-avatar>
+            <ngx-avatar textSizeRatio="2" initialsSize="2" name="{{ticket.contactPoint?.firstName}}"></ngx-avatar>
           </ion-col>
           <ion-col class="margin-left-10">
             <p class="gotham-medium font-14 dark-grey margin-padding-zero">Point Of contact</p>
@@ -138,8 +137,9 @@
         </ion-row>
 
         <ion-row class=" margin-bottom-10">
-          <ion-col size="2">
-            <ngx-avatar class="margin-padding-zero font-14" name="{{ticket.agent?.firstName}}">
+          <ion-col size="2" class="padding-right-20">
+            <ngx-avatar initialsSize="2" textSizeRatio="2" class="margin-padding-zero font-14"
+              name="{{ticket.agent?.firstName}}">
               <div class="margin-padding-zero"></div>
             </ngx-avatar>
           </ion-col>
@@ -229,11 +229,11 @@
         <ion-row>
           <ion-col>
             <p class="txt-slate-grey font-14 gotham-medium margin-bottom-0">ASSET ID</p>
-            <p class="margin-top-8 font-14 margin-bottom-10 gotham-medium dark-grey">{{asset.assetId}}</p>
+            <p class="margin-top-10 font-14 margin-bottom-10 gotham-medium dark-grey">{{asset.assetId}}</p>
           </ion-col>
           <ion-col>
             <p class="txt-slate-grey font-14 gotham-medium margin-bottom-0">ASSET NAME</p>
-            <p class="margin-bottom-10 font-14 margin-top-8 gotham-medium dark-grey">{{asset.name}}</p>
+            <p class="margin-bottom-10 font-14 margin-top-10 gotham-medium dark-grey">{{asset.name}}</p>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -350,9 +350,9 @@
             <ion-label>
               <ion-row>
                 <ion-col>
-                  <p class="gotham font-14 font-weight-600 ">Quotation #{{estimate.referenceNumber}}</p>
+                  <p class="gotham-medium font-14 dark-grey ">Quotation #{{estimate.referenceNumber}}</p>
                   <p class="gotham font-14 font-weight-600 txt-warm-grey ">
-                    {{estimate.createdAt | date:'dd MMM yyyy' |agoFilter}}
+                    {{estimate.createdAt | date:'dd MMM yyyy'}}
                   </p>
                 </ion-col>
                 <ion-col class="padding-top-0">
@@ -390,12 +390,11 @@
               Borne by customer
             </p>
             <p class="txt-warm-grey font-14 gotham-medium margin-top-8  font-weight-500txt-nowrap">
-              {{item.quantity}}
+              Quantity : {{item.quantity}}
             </p>
           </ion-col>
-          <ion-col class="margin-right-10">
-            <img src="assets/icon/delete.png"
-              style="height: 25px; width: 25px; position: absolute; right: 6px; top: 6px; ">
+          <ion-col class="margin-right-10 margin-top-3 padding-top-0">
+            <img class="icon-25 float-right" src="assets/icon/delete.png">
           </ion-col>
         </ion-row>
       </div>
@@ -447,7 +446,7 @@
       <ion-row class=" float-right margin-top-15" (click)="showMaterialForm()"
         *ngIf="activeMaterialSection == 'description'">
         <img src="assets/icon/add-green.png" class="height-30 width-30 border-radius-10 " />
-        <p class="gotham-medium font-14 dark-grey margin-top-10 margin-right-10 font-14 ">
+        <p class="gotham-medium dark-grey margin-top-8 margin-left-5 margin-right-10 font-17 ">
           Add new
         </p>
       </ion-row>

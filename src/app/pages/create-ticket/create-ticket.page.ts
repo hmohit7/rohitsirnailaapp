@@ -56,24 +56,6 @@ export class CreateTicketPage implements OnInit {
   }
   // public dateTime;
   ngOnInit() {
-
-    // const start = moment(new Date().getTime());
-    // const remainder = 30 - (start.minute() % 30);
-    // const hour = start.hours();
-    // alert(remainder)
-    // alert(hour)
-
-    // if (remainder > 30) {
-    //   this.dateTime = moment(start).add(remainder, "minutes").add(hour, 'hours').format("DD.MM.YYYY, h:mm:ss a");
-    // } else {
-    //   this.dateTime = moment(start).add(remainder, "minutes").add(hour, 'hours').format("DD.MM.YYYY, h:mm:ss a");
-    // }
-
-
-    // alert(this.dateTime);
-
-
-
     if (this.ticketId) {
       this.flow = 'editTicket';
       this.title = 'Update ticket';
@@ -81,11 +63,20 @@ export class CreateTicketPage implements OnInit {
     } else {
 
       this.ticketData.createdBy = window.localStorage.getItem('userId');
-      this.ticketData.jobDate = this.date.toISOString();
       this.ticketData.jobStartTime = this.date.toISOString();
+      this.ticketData.jobDate = this.date.toISOString();
       this.ticketData.jobEndDate = this.date.toISOString();
-      // let ratio = new Date().getMinutes() / 60;
       this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getMinutes() + 30)).toISOString();//new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
+
+      if (this.date.getMinutes() < 30) {
+
+        this.date.getMinutes() < 15 ? this.date.setMinutes(0) : this.date.setMinutes(30);
+      } else {
+        this.date.getMinutes() < 45 ? this.date.setMinutes(30) : this.date.setMinutes(0)
+      }
+      this.ticketData.jobStartTime = this.date.toISOString();
+      this.date.setMinutes(this.date.getMinutes() + new Date().getMinutes());
+      this.ticketData.jobEndTime = this.date.toISOString();
 
     }
   }
