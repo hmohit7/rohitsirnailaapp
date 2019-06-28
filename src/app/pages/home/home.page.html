@@ -90,10 +90,11 @@
         <p id="margin-top-bottom-5" class="gotham margin-bottom-8 font-weight-600 margin-bottom-5 txt-grey">For -
           {{ticket.ticketBelongsTo == 'Home' ? 'Unit' : ticket.ticketBelongsTo}}</p>
         <p>
-          <ion-badge class="gotham font-weight-600" color="success" mode="md">
+          <ion-badge class="gotham font-weight-600 padding-top-7" style="background: #DBE4FC ;color: #9EB3E0"
+            color="success" mode="md">
             {{ticket.jobDate | date:'dd MMM yyyy'}} {{ticket.jobStartTime | date:'hh:mm a'}}
           </ion-badge>
-          <ion-badge class="gotham font-weight-600 margin-left-20 " color="{{ticket.status}}" mode="md">
+          <ion-badge class="gotham font-weight-600 margin-left-20 padding-top-6" color="{{ticket.status}}" mode="md">
             {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}
           </ion-badge>
         </p>

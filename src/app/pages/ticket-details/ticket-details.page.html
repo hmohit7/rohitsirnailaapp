@@ -473,7 +473,7 @@
     </ion-col>
     <ion-col *ngIf="ticket.status!='resolved'" (click)="updatStatus('rejected')" size="3">
       <ion-icon name="close-circle" class="icon-40"
-        [color]="ticket.status=='rejected'?'rejected-active-status':'light'">
+        [color]="ticket.status=='rejected'?'rejected-active-status':'medium'">
       </ion-icon>
       <p class="font-12 margin-0">Rejected</p>
     </ion-col>
