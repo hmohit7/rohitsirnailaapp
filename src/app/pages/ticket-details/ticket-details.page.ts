@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, AlertController } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { MaterialSearchPage } from '../../pages/material-search/material-search.page';
@@ -35,7 +35,8 @@ export class TicketDetailsPage implements OnInit {
     private loadingCtrl: LoadingController,
     private ticketService: TicketService,
     private modalController: ModalController,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    private alertCtrl: AlertController
   ) {
 
     this.route.queryParamMap.subscribe((params: any) => {
@@ -259,19 +260,89 @@ export class TicketDetailsPage implements OnInit {
     // }
   }
 
-
   async removeImage(id) {
-    console.log(id);
-    this.ticketToBeUpdated = Object.assign({}, this.ticket);
-    this.ticketToBeUpdated.files = this.ticketToBeUpdated.files.filter(value => value._id !== id);
-    this.updateTicket();
+    let alert = await this.alertCtrl.create({
+      header: 'Are you sure',
+      buttons: [
+        {
+          text: 'no',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'yes',
+          handler: () => {
+            console.log(id);
+            this.ticketToBeUpdated = Object.assign({}, this.ticket);
+            this.ticketToBeUpdated.files = this.ticketToBeUpdated.files.filter(value => value._id !== id);
+            this.updateTicket();
+          }
+        }
+      ]
+    });
+    return alert.present();
   }
 
   async removeMaterial(id) {
-    console.log(id);
-    this.ticketToBeUpdated = Object.assign({}, this.ticket);
-    this.ticketToBeUpdated.files = this.ticketToBeUpdated.files.filter(value => value._id !== id);
-    this.updateTicket();
+    let alert = await this.alertCtrl.create({
+      header: 'Are you sure',
+      buttons: [
+        {
+          text: 'no',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'yes',
+          handler: () => {
+            console.log(id);
+            this.ticketToBeUpdated = Object.assign({}, this.ticket);
+            this.ticketToBeUpdated.itemDetails = this.ticketToBeUpdated.itemDetails.filter(value => value._id !== id);
+            this.updateTicket();
+          }
+        }
+      ]
+    });
+    return alert.present();
+
+
+
+  }
+
+  onClick() {
+    alert('clicked');
+  }
+
+  public formData = {};
+
+  async updatStatus(status) {
+    let alert = await this.alertCtrl.create({
+      header: 'Are you sure',
+      buttons: [
+        {
+          text: 'no',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'yes',
+          handler: () => {
+            this.ticketToBeUpdated = Object.assign({}, this.ticket);
+            this.ticketToBeUpdated.status = status;
+            console.log(this.ticketToBeUpdated);
+            this.updateTicket();
+
+          }
+        }
+      ]
+    });
+    return alert.present();
   }
 
 }
