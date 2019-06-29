@@ -43,8 +43,8 @@ export class MaterialSearchPage implements OnInit {
   }
 
   selectMaterial(material) {
-    console.log(material);
     this.selectedMaterial = material;
+    this.closeModal(true);
   }
 
   // async presentLoading() {
@@ -83,7 +83,7 @@ export class MaterialSearchPage implements OnInit {
       );
   }
 
-  resetFilterAndSearch(searchText) {
+  resetFilterAndSearch() {
     this.materials = [];
     this.filterData.skip = 0;
     this.disableInfiniteScroll = false;

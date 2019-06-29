@@ -14,7 +14,6 @@ export class ProfilePage implements OnInit {
   public token = window.localStorage.getItem("token");
   public data: any = {};
   constructor(
-    private alerCtrl: AlertController,
     private router: Router,
     private userService: UserService,
     private alertService: AlertServiceService
@@ -37,9 +36,11 @@ export class ProfilePage implements OnInit {
   }
 
   async logOut() {
-
-    localStorage.clear();
-    this.router.navigateByUrl('/login');
+    this.data.businessAppDevice = {};
+    this.userService.updateUser(this.data).subscribe(() => {
+      localStorage.clear();
+      this.router.navigateByUrl('/login');
+    });
   }
 
 }

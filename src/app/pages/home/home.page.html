@@ -5,13 +5,11 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<!-- <img class="gotham full-width margin-top-56" src="/assets/cream.PNG"> -->
 <ion-content>
   <div class="background-yellow home-top-container">
     <span class="font-22 gotham">Hi {{userDetails?.firstName}} {{userDetails?.lastName}}</span>
     <br>
     <span class="font-14 gotham" style="margin-top:5px">Ticket stats</span>
-    <!-- <img class="full-width " src="/assets/cream.PNG"> -->
   </div>
   <ion-card style="margin-top: -45px">
     <ion-card-content class="padding-6">
@@ -35,54 +33,71 @@
   </ion-card>
 
   <ion-grid>
-    <ion-row class="border-top">
-      <ion-col class="center-text border-right" (click)="navigate('/create-ticket')">
+    <br>
+    <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Add/Approve</span>
+    <br>
+    <br>
+    <ion-row class="border-top border-bottom">
+      <ion-col class="center-text " (click)="navigate('/create-ticket')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/raise-ticket.png">
         <p class="font-14 gotham margin-bottom-20">Raise ticket</p>
       </ion-col>
-      <ion-col class="center-text border-right " (click)="openCreateNoticeModal()">
+      <ion-col class="center-text border-right border-left " (click)="openCreateNoticeModal()">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/create-notice.png">
         <p class="font-14 gotham margin-bottom-20">Create notice</p>
+      </ion-col>
+
+      <ion-col class="center-text " (click)="navigate('/user-approval')">
+        <img class="tile-option margin-bottom-10 " src="/assets/icon/approval.png">
+        <p class="font-14 gotham margin-bottom-20">User</p>
+      </ion-col>
+    </ion-row>
+    <br>
+    <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">View</span>
+    <br>
+    <br>
+    <ion-row class="border-top border-bottom">
+      <ion-col class="center-text  " (click)="navigate('/tickets')">
+        <img class="tile-option margin-bottom-10 " src="/assets/icon/ticket-history.png">
+        <p class="font-14 gotham margin-bottom-20">Tickets</p>
+      </ion-col>
+      <ion-col class="center-text border-right border-left" (click)="navigate('/notice-board')">
+        <img class="tile-option margin-bottom-10 " src="/assets/icon/communications.png">
+        <p class="font-14 gotham margin-bottom-20">Discussion</p>
       </ion-col>
       <ion-col class="center-text" (click)="navigate('/calendar')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/calendar.png">
         <p class="font-14 gotham margin-bottom-20">Calendar</p>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col class="center-text border-top-bottom-1 " (click)="navigate('/tickets')">
-        <img class="tile-option margin-bottom-10 " src="/assets/icon/ticket-history.png">
-        <p class="font-14 gotham margin-bottom-20">Tickets</p>
-      </ion-col>
-      <ion-col class="center-text border-1" (click)="navigate('/notice-board')">
-        <img class="tile-option margin-bottom-10 " src="/assets/icon/communications.png">
-        <p class="font-14 gotham margin-bottom-20">Notices</p>
-      </ion-col>
-      <ion-col class="center-text border-top-bottom-1" (click)="navigate('/user-approval')">
-        <img class="tile-option margin-bottom-10 " src="/assets/icon/approval.png">
-        <p class="font-14 gotham margin-bottom-20">Approvals</p>
-      </ion-col>
-    </ion-row>
   </ion-grid>
 
   <br>
-  <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Tasks for today</span>
+  <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Tasks for today
+    <span class="gotham font-weight-600 txt-grey" *ngIf="ticketStats">- {{ticketStats.todo.length}}</span></span>
   <br>
   <br>
 
-  <ion-list class="border-top">
+  <ion-list class="border-top padding-bottom-0">
     <ion-item *ngFor="let ticket of ticketStats?.todo" [routerLink]="['/ticket-details']"
       [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
       <ion-label class="margin-0">
-        <p class="gotham-bold txt-grey" text-wrap>#{{ticket.uid}} - {{ticket.ticketCategory}} -
-          {{ticket.createdAt | date:'dd MMM yyyy'|agoFilter}}</p>
-        <p class="gotham font-weight-600 txt-grey">Status -
-          {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}</p>
-        <!-- <p class="gotham font-weight-600 txt-grey">{{d.address}}</p> -->
-        <p class="gotham font-weight-600 txt-grey">For -
+        <p class="gotham-bold txt-grey margin-bottom-8 padding-top-2" text-wrap>
+          <span class="float-left">#{{ticket.uid}} - </span>
+          <span class="center-text"> {{ticket.ticketCategory}}</span>
+          <span class="float-right">{{ticket.createdAt | date:'dd MMM yyyy'|agoFilter}}</span>
+        </p>
+        <p id="margin-top-bottom-5" class="gotham margin-bottom-8 font-weight-600 margin-bottom-5 txt-grey">For -
           {{ticket.ticketBelongsTo == 'Home' ? 'Unit' : ticket.ticketBelongsTo}}</p>
-        <p class="gotham font-weight-600 txt-grey">Job date - {{ticket.jobDate | date:'dd MMM yyyy'}}
-          {{ticket.jobStartTime | date:'hh:mm a'}}</p>
+        <p>
+          <ion-badge class="gotham font-weight-600 padding-top-7" style="background: #DBE4FC ;color: #9EB3E0"
+            color="success" mode="md">
+            {{ticket.jobDate | date:'dd MMM yyyy'}} {{ticket.jobStartTime | date:'hh:mm a'}}
+          </ion-badge>
+          <ion-badge class="gotham font-weight-600 margin-left-20 padding-top-6" color="{{ticket.status}}" mode="md">
+            {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}
+          </ion-badge>
+        </p>
       </ion-label>
     </ion-item>
   </ion-list>

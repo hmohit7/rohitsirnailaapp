@@ -50,6 +50,7 @@ export class ProjectSearchPage implements OnInit {
   selectProject(project) {
     this.selectedProject.ticketBelongsToName = project.name;
     this.selectedProject.ticketBelongsToRefId = project._id;
+    this.closeModal(true);
   }
 
   // async presentLoading() {
@@ -88,7 +89,7 @@ export class ProjectSearchPage implements OnInit {
       );
   }
 
-  resetFilterAndSearch(searchText) {
+  resetFilterAndSearch() {
     this.projects = [];
     this.filterData.skip = 0;
     this.disableInfiniteScroll = false;

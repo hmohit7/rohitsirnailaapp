@@ -8,7 +8,7 @@ import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { TicketCategorySearchPage } from '../../pages/ticket-category-search/ticket-category-search.page';
 import { TicketSubCategorySearchPage } from '../../pages/ticket-sub-category-search/ticket-sub-category-search.page';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-ticket',
@@ -38,7 +38,7 @@ export class CreateTicketPage implements OnInit {
     private modalController: ModalController,
     private router: Router,
     private route: ActivatedRoute,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
   ) {
     this.route.queryParamMap.subscribe((params: any) => {
       this.ticketId = params.params.ticketId;
@@ -54,7 +54,7 @@ export class CreateTicketPage implements OnInit {
   ionViewDidEnter() {
     this.flag = false;
   }
-
+  // public dateTime;
   ngOnInit() {
     if (this.ticketId) {
       this.flow = 'editTicket';
@@ -63,10 +63,20 @@ export class CreateTicketPage implements OnInit {
     } else {
 
       this.ticketData.createdBy = window.localStorage.getItem('userId');
-      this.ticketData.jobDate = this.date.toISOString();
       this.ticketData.jobStartTime = this.date.toISOString();
-      this.ticketData.jobEndDate = new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
-      this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
+      this.ticketData.jobDate = this.date.toISOString();
+      this.ticketData.jobEndDate = this.date.toISOString();
+      this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getMinutes() + 30)).toISOString();//new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
+
+      if (this.date.getMinutes() < 30) {
+
+        this.date.getMinutes() < 15 ? this.date.setMinutes(0) : this.date.setMinutes(30);
+      } else {
+        this.date.getMinutes() < 45 ? this.date.setMinutes(30) : this.date.setMinutes(0)
+      }
+      this.ticketData.jobStartTime = this.date.toISOString();
+      this.date.setMinutes(this.date.getMinutes() + new Date().getMinutes());
+      this.ticketData.jobEndTime = this.date.toISOString();
 
     }
   }
@@ -301,7 +311,7 @@ export class CreateTicketPage implements OnInit {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', 'Ticket created');
-        this.router.navigateByUrl('/tickets');
+        this.router.navigateByUrl('/ticket-details');
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', error)
@@ -313,7 +323,7 @@ export class CreateTicketPage implements OnInit {
 
           this.loading.dismiss();
           this.alertService.presentAlert('Alert', 'Ticket created');
-          this.router.navigateByUrl('/tickets');
+          this.router.navigateByUrl(`/tickets?ticketId=${this.ticketData._id}`);
         },
           err => {
             this.loading.dismiss();
@@ -378,5 +388,6 @@ export class CreateTicketPage implements OnInit {
   removeImage() {
     this.images = [];
   }
+
 
 }

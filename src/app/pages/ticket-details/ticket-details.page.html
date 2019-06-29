@@ -27,7 +27,7 @@
         <ion-label>CHECKLIST</ion-label>
       </ion-segment-button>
       <ion-segment-button class="font-12" value="QUOTATIONS">
-        <ion-label>ESTIMATES</ion-label>
+        <ion-label>QUOTATIONS</ion-label>
       </ion-segment-button>
       <ion-segment-button class="font-12" value="MATERIALS">
         <ion-label>MATERIALS</ion-label>
@@ -71,7 +71,7 @@
             <p class="txt-slate-grey margin-padding-zero font-14 gotham-medium margin-bottom-3">DESCRIPTION</p>
             <p class="gotham-medium margin-top-10 font-14 dark-grey">
               {{ticket.notes}}</p>
-            <p class="gotham-medium margin-top-10 font-14 dark-grey">Ticket
+            <p class="gotham-medium margin-top-10 font-14 dark-grey" [hidden]="ticket.notes">Ticket
               description not available</p>
           </ion-col>
         </ion-row>
@@ -100,7 +100,7 @@
 
         <ion-row class="margin-bottom-10">
           <ion-col size="2">
-            <ngx-avatar name="{{ticket.raisedBy?.firstName}}"></ngx-avatar>
+            <ngx-avatar initialsSize="2" textSizeRatio="2" name="{{ticket.raisedBy?.firstName}}"></ngx-avatar>
           </ion-col>
           <ion-col class="margin-left-10">
             <p class="gotham-medium font-14 dark-grey margin-padding-zero">Raised by</p>
@@ -111,14 +111,13 @@
             <!-- <p class="txt-warm-grey font-14 gotham-medium font-weight-500 margin-padding-zero">Click here to add</p> -->
           </ion-col>
           <ion-col class="center-text ">
-            <a css="icon-position font-14" src="/assets/icon/phone.png">
-            </a>
+            <img class="float-right icon-25" src="/assets/icon/phone.png">
           </ion-col>
         </ion-row>
 
         <ion-row class=" margin-bottom-10">
           <ion-col size="2">
-            <ngx-avatar name="{{ticket.contactPoint?.firstName}}"></ngx-avatar>
+            <ngx-avatar textSizeRatio="2" initialsSize="2" name="{{ticket.contactPoint?.firstName}}"></ngx-avatar>
           </ion-col>
           <ion-col class="margin-left-10">
             <p class="gotham-medium font-14 dark-grey margin-padding-zero">Point Of contact</p>
@@ -138,8 +137,9 @@
         </ion-row>
 
         <ion-row class=" margin-bottom-10">
-          <ion-col size="2">
-            <ngx-avatar class="margin-padding-zero font-14" name="{{ticket.agent?.firstName}}">
+          <ion-col size="2" class="padding-right-20">
+            <ngx-avatar initialsSize="2" textSizeRatio="2" class="margin-padding-zero font-14"
+              name="{{ticket.agent?.firstName}}">
               <div class="margin-padding-zero"></div>
             </ngx-avatar>
           </ion-col>
@@ -224,16 +224,16 @@
       </div>
     </div>
 
-    <div *ngSwitchCase="'ASSETS'" class="full-width max-available-height">
+    <div *ngSwitchCase="'ASSETS'" class="full-width max-available-height margin-top-5">
       <div class="ticket-assets-card" *ngFor="let asset of ticket.assets">
         <ion-row>
           <ion-col>
             <p class="txt-slate-grey font-14 gotham-medium margin-bottom-0">ASSET ID</p>
-            <p class="margin-top-8 font-14 margin-bottom-10 gotham-medium dark-grey">{{asset.assetId}}</p>
+            <p class="margin-top-10 font-14 margin-bottom-10 gotham-medium dark-grey">{{asset.assetId}}</p>
           </ion-col>
           <ion-col>
             <p class="txt-slate-grey font-14 gotham-medium margin-bottom-0">ASSET NAME</p>
-            <p class="margin-bottom-10 font-14 margin-top-8 gotham-medium dark-grey">{{asset.name}}</p>
+            <p class="margin-bottom-10 font-14 margin-top-10 gotham-medium dark-grey">{{asset.name}}</p>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -258,7 +258,7 @@
         </ion-row>
       </div>
       <br>
-      <ion-row [hidden]="ticket.assets?.lenght > 0"
+      <ion-row [hidden]="ticket.assets?.length > 0"
         class="txt-small txt-brown gotham-medium font-14 center-text margin-top-15">
         <ion-col>
           No Assets attached to this ticket
@@ -280,7 +280,7 @@
       </ion-row>
       <!-- Tickets comments section -->
 
-      <ion-row *ngIf="comments?.length == 0"
+      <ion-row [hidden]="comments?.length > 0"
         class="txt-small txt-brown gotham-medium center-text font-14 center margin-top-15">
         <ion-col>No comments found</ion-col>
       </ion-row>
@@ -319,7 +319,7 @@
       </ion-row>
     </div>
 
-    <div *ngSwitchCase="'CHECKLIST'" class="full-width max-available-height">
+    <div *ngSwitchCase="'CHECKLIST'" class="full-width max-available-height margin-top-5">
       <div class="ticket-details-list" *ngIf="ticket.checklist.length > 0">
         <ion-list class="padding-bottom-0">
 
@@ -343,21 +343,21 @@
       </ion-row>
     </div>
 
-    <div *ngSwitchCase="'QUOTATIONS'" class="full-width max-available-height ">
+    <div *ngSwitchCase="'QUOTATIONS'" class="full-width max-available-height margin-top-5">
       <div class="ticket-details-list" *ngIf="ticket.estimates.length > 0">
         <ion-list class="padding-0" *ngFor="let estimate of ticket.estimates">
           <ion-item>
             <ion-label>
               <ion-row>
                 <ion-col>
-                  <p class="gotham font-14 font-weight-600 ">Quotation #{{estimate.referenceNumber}}</p>
+                  <p class="gotham-medium font-14 dark-grey ">Quotation #{{estimate.referenceNumber}}</p>
                   <p class="gotham font-14 font-weight-600 txt-warm-grey ">
-                    {{estimate.createdAt | date:'dd MMM yyyy' |agoFilter}}
+                    {{estimate.createdAt | date:'dd MMM yyyy'}}
                   </p>
                 </ion-col>
                 <ion-col class="padding-top-0">
                   <p class="gotham font-14 font-weight-600 float-right padding-right-10 txt-warm-grey">
-                    {{estimate.totalAmount}}</p>
+                    {{estimate.totalAmount | currency:'INR'}}</p>
                 </ion-col>
               </ion-row>
             </ion-label>
@@ -376,11 +376,12 @@
       </ion-row>
     </div>
 
-    <div *ngSwitchCase="'MATERIALS'" class="full-width max-available-height">
+    <div *ngSwitchCase="'MATERIALS'" class="full-width max-available-height margin-top-5">
       <div *ngIf="activeMaterialSection == 'description'" class="ticket-details-list full-width">
-        <ion-row class="margin-0 padding-top-5" *ngFor="let item of ticket.itemDetails">
+        <ion-row class="margin-0 padding-top-5 border-bottom-grey-1"
+          *ngFor="let item of ticket.itemDetails let i = index">
           <ion-col size="1" class="margin-left-8">
-            <p class="gotham-medium font-14 dark-grey margin-padding-zero">1</p>
+            <p class="gotham-medium font-14 dark-grey margin-padding-zero">{{i+1}}</p>
           </ion-col>
           <ion-col size="8" class="margin-left-10">
             <p class="gotham-medium font-14 dark-grey margin-padding-zero">{{item.product.name}}</p>
@@ -389,12 +390,11 @@
               Borne by customer
             </p>
             <p class="txt-warm-grey font-14 gotham-medium margin-top-8  font-weight-500txt-nowrap">
-              {{item.quantity}}
+              Quantity : {{item.quantity}}
             </p>
           </ion-col>
-          <ion-col class="margin-right-10">
-            <img src="assets/icon/delete.png"
-              style="height: 25px; width: 25px; position: absolute; right: 6px; top: 6px; ">
+          <ion-col class="margin-right-10 margin-top-3 padding-top-0">
+            <img class="icon-25 float-right" src="assets/icon/delete.png" (click)="removeMaterial(item._id)">
           </ion-col>
         </ion-row>
       </div>
@@ -402,7 +402,7 @@
       <div *ngIf="activeMaterialSection == 'materialForm'">
         <div class="padding-25">
           <ion-list>
-            <ion-list-header class="gotham font-16 font-weight-500">Select material</ion-list-header>
+            <ion-list-header class="gotham font-16 font-weight-500">Material</ion-list-header>
             <ion-item>
               <ion-input inputmode="text" [(ngModel)]="materialData.name" class="gotham"
                 placeholder="Clicke here to select material" (click)="openMaterialSearchModal()">
@@ -443,10 +443,10 @@
         <ion-col>No materials found</ion-col>
       </ion-row>
 
-      <ion-row class=" float-right margin-top-15" *ngIf="activeMaterialSection == 'description'">
-        <img src="assets/icon/add-green.png" (click)="showMaterialForm()"
-          class="height-30 width-30 border-radius-10 " />
-        <p class="gotham-medium font-14 dark-grey margin-top-7 margin-right-10 font-14 ">
+      <ion-row class=" float-right margin-top-15" (click)="showMaterialForm()"
+        *ngIf="activeMaterialSection == 'description'">
+        <img src="assets/icon/add-green.png" class="height-30 width-30 border-radius-10 " />
+        <p class="gotham-medium dark-grey margin-top-8 margin-left-5 margin-right-10 font-17 ">
           Add new
         </p>
       </ion-row>
@@ -454,3 +454,29 @@
 
   </div>
 </ion-content>
+<ion-footer class="display-flex justify-center">
+  <ion-row class="width-80-percent margint-top-10 center-text justify-center">
+    <ion-col size="3">
+      <ion-icon name="checkmark-circle" class="icon-40 active-status"></ion-icon>
+      <p class="font-12 margin-0">Open</p>
+    </ion-col>
+    <ion-col (click)="updatStatus('in-progress')" size="3">
+      <ion-icon name="checkmark-circle" class="icon-40"
+        [color]="ticket.status=='in-progress'||ticket.status=='resolved'||ticket.status=='rejected'?'active-status':'light'">
+      </ion-icon>
+      <p class="font-12 margin-0">In Progress</p>
+    </ion-col>
+    <ion-col *ngIf="ticket.status!='rejected'" (click)="updatStatus('resolved')" size="3">
+      <ion-icon name="checkmark-circle" class="icon-40" [color]="ticket.status=='resolved'?'active-status':'light'">
+      </ion-icon>
+      <p class="font-12 margin-0">Resolved</p>
+    </ion-col>
+    <ion-col *ngIf="ticket.status!='resolved'" (click)="updatStatus('rejected')" size="3">
+      <ion-icon name="close-circle" class="icon-40"
+        [color]="ticket.status=='rejected'?'rejected-active-status':'medium'">
+      </ion-icon>
+      <p class="font-12 margin-0">Rejected</p>
+    </ion-col>
+
+  </ion-row>
+</ion-footer>

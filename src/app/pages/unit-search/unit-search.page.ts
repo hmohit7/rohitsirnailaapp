@@ -60,6 +60,7 @@ export class UnitSearchPage implements OnInit {
     }
 
     this.selectedUnit.ticketBelongsToRefId = unit._id;
+    this.closeModal(true);
   }
 
   async searchUnit(event) {
@@ -90,11 +91,11 @@ export class UnitSearchPage implements OnInit {
       );
   }
 
-  resetFilterAndSearch(searchText) {
+  resetFilterAndSearch() {
     this.units = [];
     this.filterData.skip = 0;
     this.disableInfiniteScroll = false;
-    this.searchUnit(searchText);
+    this.searchUnit('');
   }
 
 }

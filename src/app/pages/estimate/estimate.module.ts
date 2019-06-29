@@ -1,4 +1,3 @@
-import { ApplicationPageModule } from './../../ApplicationPageModule';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,26 +5,22 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePage } from './home.page';
-
-import { CreateNoticeComponent } from 'src/app/modals/create-notice/create-notice.component';
+import { EstimatePage } from './estimate.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    component: EstimatePage
   }
 ];
 
 @NgModule({
-  entryComponents: [CreateNoticeComponent],
   imports: [
     CommonModule,
     FormsModule,
-    ApplicationPageModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HomePage]
+  declarations: [EstimatePage]
 })
-export class HomePageModule { }
+export class EstimatePageModule {}

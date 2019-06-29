@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TicketsPage } from './tickets.page';
+import { TicketComponent } from 'src/app/components/ticket/ticket.component';
 
 const routes: Routes = [
   {
@@ -16,13 +17,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [TicketComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     ApplicationPageModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [TicketsPage]
+  declarations: [TicketsPage,TicketComponent]
 })
 export class TicketsPageModule { }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { CreateNoticeComponent } from 'src/app/modals/create-notice/create-notice.component';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomePage implements OnInit {
 
   userDetails: any;
   ticketStats: any;
+
   loading: any = this.loadingCtrl.create({
   });
 
@@ -26,8 +28,9 @@ export class HomePage implements OnInit {
   }
 
   pushObject: PushObject = this.push.init(this.options);
+
   registrationId: string;
-  pustObject: PushObject;
+
   constructor(
     private ticketService: TicketService,
     private loadingCtrl: LoadingController,
@@ -39,20 +42,25 @@ export class HomePage implements OnInit {
   ) {
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
-        // alert(registration.registrationId);
+        alert(registration.registrationId);
         console.log(registration.registrationId);
         this.registrationId = registration.registrationId;
       },
         err => {
           this.alertService.presentAlert("Error from push", err);
         });
-
     this.getUserDetails();
     this.getTicketStats();
-
   }
-  ionViewDidEnter() {
 
+
+  async presentLoading() {
+    this.loading = await this.loadingCtrl.create({
+    });
+    return await this.loading.present();
+  }
+
+  async ngOnInit() {
     this.pushObject.on('notification').subscribe((notification: any) => {
       console.log(JSON.stringify(notification));
       // alert(JSON.stringify(notification.additionalData.id));
@@ -86,11 +94,6 @@ export class HomePage implements OnInit {
 
       else if (notification.additionalData.type == 'estimate') {
         this.router.navigateByUrl(`/ticket-details?eid=${notification.additionalData.id}`);
-        // $state.go('app.estimatedetails', { eid: notification.additionalData.id }).then(function () {
-        //   $ionicLoading.show({
-        //     template: '<ion-spinner icon="ios"></ion-spinner>'
-        //   })
-        // })
       }
 
 
@@ -99,15 +102,6 @@ export class HomePage implements OnInit {
         alert(JSON.stringify(err))
       });
   }
-  async presentLoading() {
-    this.loading = await this.loadingCtrl.create({
-    });
-    return await this.loading.present();
-  }
-
-  async ngOnInit() {
-
-  }
 
   async openCreateNoticeModal() {
 
@@ -115,6 +109,21 @@ export class HomePage implements OnInit {
       component: CreateNoticeComponent,
     })
     return await modal.present();
+  }
+
+  getRoundedTime() {
+    var d = new Date();
+    alert(d)
+    var ratio = d.getMinutes() / 60;
+    alert(ratio)
+    // Past 30 min mark, return epoch at +1 hours and 0 minutes
+    if (ratio > 0.5) {
+      alert((d.getHours() + 1) * 3600)
+      return (d.getHours() + 1) * 3600;
+    }
+    // Return epoch at 30 minutes past current hour
+    alert((d.getHours() * 3600) + 1800)
+    return (d.getHours() * 3600) + 1800;
   }
 
   getUserDetails() {
@@ -130,6 +139,7 @@ export class HomePage implements OnInit {
         console.log('After', this.userDetails);
 
         this.pushNotifications();
+
         if (this.userDetails.firstName) {
           window.localStorage.setItem('firstName', this.userDetails.firstName)
         }
@@ -169,8 +179,8 @@ export class HomePage implements OnInit {
   pushNotifications() {
     if (this.registrationId) {
       this.userService.updateUser(this.userDetails).subscribe((data) => {
-        console.log(data);
-        // alert('success');
+        // console.log(data);
+        alert('success');
       }, err => {
         alert("Error")
         console.log(err);

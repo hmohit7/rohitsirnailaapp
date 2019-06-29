@@ -1,8 +1,9 @@
 import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, PopoverController } from '@ionic/angular';
 import { TicketFilterPage } from '../../pages/ticket-filter/ticket-filter.page';
+import { TicketComponent } from 'src/app/components/ticket/ticket.component';
 
 @Component({
   selector: 'app-tickets',
@@ -29,7 +30,8 @@ export class TicketsPage implements OnInit {
     private ref: ChangeDetectorRef,
     private loading: LoadingController,
     private modalController: ModalController,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    private popOverCtrl: PopoverController
   ) {
     this.searchTicket('');
   }
@@ -168,8 +170,13 @@ export class TicketsPage implements OnInit {
       );
   }
 
-  // loadData() {
-  //   this.searchTicket();
-  // }
+  async popOverOption() {
+    let popOver = await this.popOverCtrl.create({
+      component: TicketComponent,
+      event: event,
+      mode: 'ios'
+    })
+    return await popOver.present()
+  }
 
 }

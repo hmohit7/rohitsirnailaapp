@@ -37,7 +37,7 @@
     <div *ngIf="flow == 'createTicket'">
       <ion-row>
         <ion-col>
-          <p class="font-weight-500 font-16 gotham margin-left-10 margin-bottom-5 ">Select Priority</p>
+          <p class="font-weight-500 font-16 gotham margin-left-10 margin-bottom-5 ">Priority</p>
         </ion-col>
       </ion-row>
 
@@ -57,8 +57,8 @@
     </div>
 
     <ion-list *ngIf="flow == 'createTicket'">
-      <ion-list-header class="gotham font-16 font-weight-500">Click here to select
-        {{ticketData.ticketBelongsTo == 'Home' ? 'an unit' : 'a project'}}</ion-list-header>
+      <ion-list-header class="gotham font-16 font-weight-500">
+        {{ticketData.ticketBelongsTo == 'Home' ? 'Unit' : 'Project'}}</ion-list-header>
       <ion-item>
         <ion-input inputmode="text" [(ngModel)]="ticketData.ticketBelongsToName" class="gotham  margin-left-10"
           placeholder="Click here to select {{ticketData.ticketBelongsTo == 'Home' ? 'an unit' : 'a project'}}"
@@ -69,7 +69,7 @@
     </ion-list>
 
     <ion-list>
-      <ion-list-header class="gotham font-16 font-weight-500">Select category</ion-list-header>
+      <ion-list-header class="gotham font-16 font-weight-500">Category</ion-list-header>
       <ion-item>
         <ion-input inputmode="text" [(ngModel)]="ticketData.ticketCategoryName" class="gotham  margin-left-10"
           placeholder="Clicke here to select poc" (click)="openModal('ticketCategory')">
@@ -79,7 +79,7 @@
     </ion-list>
 
     <ion-list>
-      <ion-list-header class="gotham font-16 font-weight-500">Select sub category</ion-list-header>
+      <ion-list-header class="gotham font-16 font-weight-500">Sub Category</ion-list-header>
       <ion-item>
         <ion-input inputmode="text" [(ngModel)]="ticketData.ticketSubCategoryName" class="gotham  margin-left-10"
           placeholder="Clicke here to select poc" (click)="openModal('ticketSubCategory')">

@@ -4,6 +4,9 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
+      <ion-button (click)="popOverOption()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
       <ion-button (click)="openTicketFilterModal()">
         <ion-icon name="funnel"></ion-icon>
       </ion-button>
@@ -20,15 +23,23 @@
     <ion-item *ngFor="let ticket of tickets" [routerLink]="['/ticket-details']" [queryParams]="{ticketId: ticket._id}"
       detail="true" lines="none">
       <ion-label class="margin-0">
-        <p class="gotham-bold txt-grey" text-wrap>#{{ticket.uid}} - {{ticket.ticketCategory}} -
-          {{ticket.createdAt | date:'dd MMM yyyy' |agoFilter}}</p>
-        <p class="gotham font-weight-600 txt-grey">Status -
-          {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}</p>
+        <p class="gotham-medium margin-bottom-8 " text-wrap>
+          <span class="float-left">#{{ticket.uid}} - </span>
+          <span class="center-text"> {{ticket.ticketCategory}}</span>
+          <span class="float-right gotham">{{ticket.createdAt | date:'dd MMM yyyy'|agoFilter}}</span>
+        </p>
         <!-- <p class="gotham font-weight-600 txt-grey">{{d.address}}</p> -->
-        <p class="gotham font-weight-600 txt-grey">For -
-          {{ticket.ticketBelongsTo == 'Home' ? 'Unit' : ticket.ticketBelongsTo}}</p>
-        <p class="gotham font-weight-600 txt-grey">Job date - {{ticket.jobDate | date:'dd MMM yyyy'}}
-          {{ticket.jobStartTime | date:'hh:mm a'}}</p>
+        <p class="gotham font-weight-600 txt-grey margin-bottom-8">
+          {{ticket.propertyName}} - {{ticket.propertyLocality}}</p>
+        <!-- <p class="gotham font-weight-600 txt-grey">For -
+          {{ticket.ticketBelongsTo == 'Home' ? 'Unit' : ticket.ticketBelongsTo}}</p> -->
+
+          <ion-badge class="gotham font-weight-600 padding-top-7" color="success" mode="md">
+              {{ticket.jobDate | date:'dd MMM yyyy'}} {{ticket.jobStartTime | date:'hh:mm a'}}
+            </ion-badge>
+            <ion-badge class="gotham font-weight-600 margin-left-20 padding-top-6" color="{{ticket.status}}" mode="md">
+              {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}
+            </ion-badge>
       </ion-label>
     </ion-item>
   </ion-list>

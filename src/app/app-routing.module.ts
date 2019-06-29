@@ -26,6 +26,7 @@ const routes: Routes = [
   // { path: 'notice-create', loadChildren: './pages/notice-create/notice-create.module#NoticeCreatePageModule' },
   { path: 'user-approval', loadChildren: './pages/user-approval/user-approval.module#UserApprovalPageModule' },
   { path: 'contact-us', loadChildren: './pages/contact-us/contact-us.module#ContactUsPageModule' },
+  { path: 'estimate', loadChildren: './pages/estimate/estimate.module#EstimatePageModule' },
 ];
 
 @NgModule({
