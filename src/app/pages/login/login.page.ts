@@ -69,10 +69,10 @@ export class LoginPage implements OnInit {
 
     const alert = await this.alertController.create({
       header: 'Select a platform',
-      cssClass: '',
+      cssClass: 'platform-popup',
       buttons: [
         {
-          cssClass: 'buidlingmanagement',
+          cssClass: 'platform-button',
           text: 'Building Management',
           handler: () => {
             const bmData = {
@@ -82,6 +82,7 @@ export class LoginPage implements OnInit {
             this.handleUser(bmData, 'bm');
           }
         }, {
+          cssClass: 'platform-button',
           text: 'Rental Management',
           handler: () => {
             const bmData = {

@@ -683,3 +683,21 @@ ion-chip {
 .display-flex {
   display: flex !important;
 }
+
+.platform-button{
+  border: 1px solid silver !important;
+  margin-right: 0px !important;
+  margin-bottom: 5px !important;
+  text-align: center !important;
+}
+
+.alert-button-inner {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.platform-popup{
+  text-align: -webkit-center !important;
+}
+
+

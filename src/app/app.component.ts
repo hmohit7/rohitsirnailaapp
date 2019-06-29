@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppComponent {
   public appPages = {
-    name: localStorage.getItem('firstName') + " " + localStorage.getItem('lastName'),
+    name: '',
     phoneNumber: localStorage.getItem('phoneNumber'),
     pages: [
       {
@@ -43,12 +43,12 @@ export class AppComponent {
         src: '/assets/icon/phone.png'
       },
       {
-        title: 'profile',
+        title: 'Profile',
         url: '/profile',
         src: '/assets/icon/profile.png'
       }],
     logout: {
-      title: 'logout',
+      title: 'Logout',
       src: '/assets/icon/log-out.png',
 
     }
