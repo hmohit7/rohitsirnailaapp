@@ -69,13 +69,13 @@ export class CreateTicketPage implements OnInit {
       this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getMinutes() + 30)).toISOString();//new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
 
       if (this.date.getMinutes() < 30) {
-
-        this.date.getMinutes() < 15 ? this.date.setMinutes(0) : this.date.setMinutes(30);
+        this.date.setMinutes(30);
       } else {
-        this.date.getMinutes() < 45 ? this.date.setMinutes(30) : this.date.setMinutes(0)
+        this.date.setMinutes(0);
+        this.date.setHours(7)
       }
       this.ticketData.jobStartTime = this.date.toISOString();
-      this.date.setMinutes(this.date.getMinutes() + new Date().getMinutes());
+      this.date.setMinutes(this.date.getMinutes() + 30);
       this.ticketData.jobEndTime = this.date.toISOString();
 
     }
