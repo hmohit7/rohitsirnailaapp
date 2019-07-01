@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LoadingController, ModalController, AlertController } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
@@ -13,7 +13,7 @@ import { AlertServiceService } from 'src/app/services/alert-service.service';
 })
 export class TicketDetailsPage implements OnInit {
 
-  selectedTab = 'SUMMARY';
+  selectedTab;
   ticketId: string;
   ticket: any = {};
   ticketToBeUpdated: any;
@@ -31,7 +31,6 @@ export class TicketDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private loadingCtrl: LoadingController,
     private ticketService: TicketService,
     private modalController: ModalController,
@@ -49,15 +48,16 @@ export class TicketDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedTab = 'SUMMARY';
     console.log(this.images.length);
   }
 
   ionViewWillEnter() {
-    console.log("ionViewWillEnter");
+    console.log('ionViewWillEnter');
 
-    if (this.flag == 'true') {
-      console.log("true", this.ticketId);
-      this.flag = 'false'
+    if (this.flag === 'true') {
+      console.log('true', this.ticketId);
+      this.flag = 'false';
       this.ticket = [];
       this.getTicketDetails();
     }

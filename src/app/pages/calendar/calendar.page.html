@@ -33,13 +33,14 @@
           {{ticket.propertyName}} - {{ticket.propertyLocality}}</p>
         <!-- <p class="gotham font-weight-600 txt-grey">For -
           {{ticket.ticketBelongsTo == 'Home' ? 'Unit' : ticket.ticketBelongsTo}}</p> -->
-
-        <ion-badge class="gotham font-weight-600" color="success" mode="md">
-          {{ticket.jobDate | date:'dd MMM yyyy'}} {{ticket.jobStartTime | date:'hh:mm a'}}
-        </ion-badge>
-        <ion-badge class="gotham font-weight-600 margin-left-20 " color="{{ticket.status}}" mode="md">
-          {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}
-        </ion-badge>
+        <p>
+          <ion-badge class="gotham font-weight-600 padding-top-5 padding-bottom-3 date-bedge-color" mode="md">
+            {{ticket.jobDate | date:'dd MMM yyyy'}} {{ticket.jobStartTime | date:'hh:mm a'}}
+          </ion-badge>
+          <ion-badge class="gotham font-weight-600 margin-left-20 padding-top-5" color="{{ticket.status}}" mode="md">
+            {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}
+          </ion-badge>
+        </p>
       </ion-label>
     </ion-item>
   </ion-list>
