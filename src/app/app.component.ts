@@ -29,7 +29,7 @@ export class AppComponent {
         url: '/tickets',
         src: '/assets/icon/ticket-history.png'
       }, {
-        title: 'Notices',
+        title: 'Discussion',
         url: '/notice-board',
         src: '/assets/icon/communications.png'
       },

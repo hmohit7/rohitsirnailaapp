@@ -43,7 +43,6 @@ export class HomePage implements OnInit {
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
         alert(registration.registrationId);
-        console.log(registration.registrationId);
         this.registrationId = registration.registrationId;
       },
         err => {
@@ -122,11 +121,12 @@ export class HomePage implements OnInit {
       .subscribe((data: any) => {
         this.userDetails = data;
         console.log(this.userDetails);
+
         this.userDetails.businessAppDevice = {
           id: '',
           pushToken: this.registrationId,
           fcmToken: true
-        }
+        };
         console.log('After', this.userDetails);
 
         this.pushNotifications();

@@ -285,16 +285,13 @@
         <ion-col>No comments found</ion-col>
       </ion-row>
 
-      <ion-row *ngFor="let comment of comments" class="discussion-comment padding-5"
+      <!-- <ion-row *ngFor="let comment of comments" class="discussion-comment padding-5"
         style="margin-bottom:5px !important;">
-        <!-- avatar -->
         <ion-col size="2" class="padding-10">
           <ion-row>
             <ngx-avatar class="gotham-medium" name="{{comment.createdBy.firstName}}"></ngx-avatar>
           </ion-row>
         </ion-col>
-        <!-- content -->
-
         <ion-col size="9" class="padding-10">
           <ion-row>
             <ion-col class="  margin-bottom-0 padding-bottom-0">
@@ -316,7 +313,26 @@
         <br />
         <br />
         <br />
-      </ion-row>
+      </ion-row> -->
+
+      <ion-item *ngFor="let comment of comments" class="discussion-comment padding-0"
+        style="margin-bottom:5px !important;" lines="full">
+        <ngx-avatar class="gotham-medium" name="{{comment.createdBy.firstName}}"></ngx-avatar>
+        <ion-label class="margin-left-10">
+          <p>
+            <span class=" font-14 dark-grey gotham-medium"> {{comment.createdBy.firstName}}
+              {{comment.createdBy.lastName}} </span>
+            <span class="font-14 float-right gotham-medium txt-warm-grey font-14 margin-bottom-0 padding-bottom-0 ">
+              {{comment.createdAt|date:'dd MMM yyyy'|agoFilter}}
+            </span>
+          </p>
+
+          <span
+            class="font-14 txt-align-right white-space-initial gotham-medium txt-warm-grey font-14 margin-bottom-0 padding-bottom-0 margin-top-8">
+            {{comment.text}}
+          </span>
+        </ion-label>
+      </ion-item>
     </div>
 
     <div *ngSwitchCase="'CHECKLIST'" class="full-width max-available-height margin-top-5">
