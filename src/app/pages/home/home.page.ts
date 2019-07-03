@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
         this.registrationId = registration.registrationId;
       },
         err => {
-          this.alertService.presentAlert("Error from push", err);
+          this.alertService.presentAlert('Error from push', err);
         });
     this.getUserDetails();
     this.getTicketStats();
@@ -56,6 +56,7 @@ export class HomePage implements OnInit {
 
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({
+      spinner: 'lines'
     });
     return await this.loading.present();
   }
@@ -69,30 +70,20 @@ export class HomePage implements OnInit {
         if (notification.additionalData.id) {
           console.log('discussion with id');
           this.router.navigateByUrl(`/notice-details?did=${notification.additionalData.id}`);
-        }
-        else {
+        } else {
           console.log('discussion without id');
           this.router.navigateByUrl(`/notice-board`);
         }
-      }
-
-      else if (notification.additionalData.type == 'ticket') {
+      } else if (notification.additionalData.type == 'ticket') {
         if (notification.additionalData.id) {
           this.router.navigateByUrl(`/ticket-details?tid=${notification.additionalData.id}`);
-        }
-        else {
+        } else {
           this.router.navigateByUrl('tickets');
         }
-      }
-
-
-      else if (notification.additionalData.type == 'approval') {
-        // $state.go('app.approval')
+      } else if (notification.additionalData.type == 'approval') {
         this.router.navigateByUrl(`/user-approval`);
 
-      }
-
-      else if (notification.additionalData.type == 'estimate') {
+      } else if (notification.additionalData.type == 'estimate') {
         this.router.navigateByUrl(`/ticket-details?eid=${notification.additionalData.id}`);
       }
 
@@ -112,9 +103,9 @@ export class HomePage implements OnInit {
   }
 
   getRoundedTime() {
-    var d = new Date();
+    const d = new Date();
     alert(d)
-    var ratio = d.getMinutes() / 60;
+    const ratio = d.getMinutes() / 60;
     alert(ratio)
     // Past 30 min mark, return epoch at +1 hours and 0 minutes
     if (ratio > 0.5) {
@@ -164,7 +155,6 @@ export class HomePage implements OnInit {
     await this.presentLoading();
     this.ticketService.getTicketStats()
       .subscribe((data: any) => {
-        // console.log(this.loading);
         this.loading.dismiss();
         this.ticketStats = data;
         console.log(this.ticketStats);
@@ -182,9 +172,9 @@ export class HomePage implements OnInit {
         // console.log(data);
         alert('success');
       }, err => {
-        alert("Error")
+        alert('Error')
         console.log(err);
-      })
+      });
     }
   }
 }

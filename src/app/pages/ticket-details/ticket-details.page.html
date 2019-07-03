@@ -346,7 +346,7 @@
     <div *ngSwitchCase="'QUOTATIONS'" class="full-width max-available-height margin-top-5">
       <div class="ticket-details-list" *ngIf="ticket.estimates.length > 0">
         <ion-list class="padding-0" *ngFor="let estimate of ticket.estimates">
-          <ion-item>
+          <ion-item detail="true" [routerLink]="['/estimate']" [queryParams]="{estimateId: estimate._id}">
             <ion-label>
               <ion-row>
                 <ion-col>
@@ -361,9 +361,6 @@
                 </ion-col>
               </ion-row>
             </ion-label>
-            <ion-note item-end style="align-self: center">
-              <ion-icon name="ios-arrow-forward"></ion-icon>
-            </ion-note>
           </ion-item>
         </ion-list>
       </div>
@@ -462,12 +459,12 @@
     </ion-col>
     <ion-col (click)="updatStatus('in-progress')" size="3">
       <ion-icon name="checkmark-circle" class="icon-40"
-        [color]="ticket.status=='in-progress'||ticket.status=='resolved'||ticket.status=='rejected'?'active-status':'light'">
+        [color]="ticket.status=='in-progress'||ticket.status=='resolved'||ticket.status=='rejected'?'active-status':'medium'">
       </ion-icon>
       <p class="font-12 margin-0">In Progress</p>
     </ion-col>
     <ion-col *ngIf="ticket.status!='rejected'" (click)="updatStatus('resolved')" size="3">
-      <ion-icon name="checkmark-circle" class="icon-40" [color]="ticket.status=='resolved'?'active-status':'light'">
+      <ion-icon name="checkmark-circle" class="icon-40" [color]="ticket.status=='resolved'?'active-status':'medium'">
       </ion-icon>
       <p class="font-12 margin-0">Resolved</p>
     </ion-col>

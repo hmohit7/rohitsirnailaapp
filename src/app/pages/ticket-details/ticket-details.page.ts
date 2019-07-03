@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LoadingController, ModalController, AlertController } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
@@ -13,7 +13,7 @@ import { AlertServiceService } from 'src/app/services/alert-service.service';
 })
 export class TicketDetailsPage implements OnInit {
 
-  selectedTab = 'SUMMARY';
+  selectedTab;
   ticketId: string;
   ticket: any = {};
   ticketToBeUpdated: any;
@@ -31,7 +31,6 @@ export class TicketDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private loadingCtrl: LoadingController,
     private ticketService: TicketService,
     private modalController: ModalController,
@@ -49,15 +48,16 @@ export class TicketDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedTab = 'SUMMARY';
     console.log(this.images.length);
   }
 
   ionViewWillEnter() {
-    console.log("ionViewWillEnter");
+    console.log('ionViewWillEnter');
 
-    if (this.flag == 'true') {
-      console.log("true", this.ticketId);
-      this.flag = 'false'
+    if (this.flag === 'true') {
+      console.log('true', this.ticketId);
+      this.flag = 'false';
       this.ticket = [];
       this.getTicketDetails();
     }
@@ -317,32 +317,39 @@ export class TicketDetailsPage implements OnInit {
     alert('clicked');
   }
 
-  public formData = {};
+  formData = {};
 
   async updatStatus(status) {
-    let alert = await this.alertCtrl.create({
-      header: 'Are you sure',
-      buttons: [
-        {
-          text: 'no',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'yes',
-          handler: () => {
-            this.ticketToBeUpdated = Object.assign({}, this.ticket);
-            this.ticketToBeUpdated.status = status;
-            console.log(this.ticketToBeUpdated);
-            this.updateTicket();
+    this.ticketToBeUpdated = Object.assign({}, this.ticket);
+    if (status !== this.ticketToBeUpdated.status) {
+      const alert = await this.alertCtrl.create({
+        header: 'Are you sure',
+        buttons: [
+          {
+            text: 'no',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Confirm Cancel');
+            }
+          }, {
+            text: 'yes',
+            handler: () => {
+              this.ticketToBeUpdated.status = status;
+              console.log(this.ticketToBeUpdated);
+              this.updateTicket();
 
+
+            }
           }
-        }
-      ]
-    });
-    return alert.present();
+        ]
+      });
+      return alert.present();
+    } else {
+      this.alertService.presentAlert('Alert', `Status of this ticket is already ${status}`);
+    }
   }
+
+
 
 }
