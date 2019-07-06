@@ -22,7 +22,7 @@ export class CreateTicketPage implements OnInit {
     priority: 'low',
   };
   public images: any[] = [];
-  date = new Date();
+  date;
   flag: boolean = false;
   loading: any = this.loadingCtrl.create({
   });
@@ -40,9 +40,11 @@ export class CreateTicketPage implements OnInit {
     private route: ActivatedRoute,
     private alertService: AlertServiceService,
   ) {
+    this.date = new Date();
     this.route.queryParamMap.subscribe((params: any) => {
       this.ticketId = params.params.ticketId;
       console.log(this.ticketId);
+
     });
   }
 
@@ -54,7 +56,6 @@ export class CreateTicketPage implements OnInit {
   ionViewDidEnter() {
     this.flag = false;
   }
-  // public dateTime;
   ngOnInit() {
     if (this.ticketId) {
       this.flow = 'editTicket';
@@ -66,18 +67,17 @@ export class CreateTicketPage implements OnInit {
       this.ticketData.jobStartTime = this.date.toISOString();
       this.ticketData.jobDate = this.date.toISOString();
       this.ticketData.jobEndDate = this.date.toISOString();
-      this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getMinutes() + 30)).toISOString();//new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
+      this.ticketData.jobEndTime = new Date(this.date.setDate(this.date.getMinutes() + 30)).toISOString(); // new Date(this.date.setDate(this.date.getDate() + 1)).toISOString();
 
       if (this.date.getMinutes() < 30) {
         this.date.setMinutes(30);
       } else {
         this.date.setMinutes(0);
-        this.date.setHours(7)
+        this.date.setHours(new Date().getHours() + 1);
       }
       this.ticketData.jobStartTime = this.date.toISOString();
       this.date.setMinutes(this.date.getMinutes() + 30);
       this.ticketData.jobEndTime = this.date.toISOString();
-
     }
   }
 
@@ -314,7 +314,7 @@ export class CreateTicketPage implements OnInit {
         this.router.navigateByUrl('/ticket-details');
       }, error => {
         this.loading.dismiss();
-        this.alertService.presentAlert('Alert', error)
+        this.alertService.presentAlert('Alert', JSON.stringify(error));
       });
     } else {
       this.ticketService.createTicket(this.ticketData)
@@ -346,20 +346,20 @@ export class CreateTicketPage implements OnInit {
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.ticketData, 'UPDATETICKET').then(() => {
         this.loadingCtrl.dismiss();
-        this.alertService.presentAlert('Alert', 'Ticket updated')
+        this.alertService.presentAlert('Alert', 'Ticket updated');
         this.flag = true;
-        this.router.navigateByUrl(`/ticket-details?flag=${this.flag}`)
+        this.router.navigateByUrl(`/ticket-details?flag=${this.flag}`);
       }, error => {
         this.loading.dismiss();
-        this.alertService.presentAlert('Alert', error)
-      })
+        this.alertService.presentAlert('Alert', error);
+      });
     } else {
       this.ticketService.updateTicket(this.ticketData)
         .subscribe((data: any) => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('Alert', 'Ticket updated')
+          this.alertService.presentAlert('Alert', 'Ticket updated');
           this.flag = true;
-          this.router.navigateByUrl(`/ticket-details?flag=${this.flag}`)
+          this.router.navigateByUrl(`/ticket-details?flag=${this.flag}`);
           // this.router.navigateByUrl('/ticket-details');
         },
           err => {
@@ -373,15 +373,15 @@ export class CreateTicketPage implements OnInit {
 
   async fileSourceOption() {
     if (this.images.length < 1) {
-      let caller = await this.alertService.capturePhoto();
+      const caller = await this.alertService.capturePhoto();
       console.log('in add-visitor Page\n\n ', caller);
-      if (caller != undefined) {
+      if (caller !== undefined) {
         console.log(caller);
         this.images.push(caller);
         console.log(this.images);
       }
     } else {
-      this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
+      this.alertService.presentAlert('Alert', 'Only one pitcure is allowed!!');
     }
   }
 

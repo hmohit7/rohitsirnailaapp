@@ -31,7 +31,7 @@ export class AlertServiceService {
   }
 
   async presentActionSheet() {
-    let actionsheet = await this.actionSheet.create({
+    const actionsheet = await this.actionSheet.create({
       header: 'Select Choice',
       buttons: [
         {
@@ -78,7 +78,11 @@ export class AlertServiceService {
     const alert = await this.alrtCtrl.create({
       header: header,
       subHeader: subheader,
-      buttons: ['OK']
+      cssClass: 'alert-header',
+      buttons: [{
+        text: 'OK',
+        cssClass: 'alert-button'
+      }]
     });
     await alert.present();
   }

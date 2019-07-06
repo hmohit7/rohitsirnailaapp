@@ -1,6 +1,6 @@
 import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { UserService } from './../../services/user.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -10,20 +10,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  public user_id = window.localStorage.getItem("userId");
-  public token = window.localStorage.getItem("token");
+  public userId = window.localStorage.getItem('userId');
+  public token = window.localStorage.getItem('token');
   public data: any = {};
   constructor(
     private router: Router,
     private userService: UserService,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    private loadingCtrl: LoadingController
   ) {
-    this.getProfile(window.localStorage.getItem("userId"));
+    this.getProfile(window.localStorage.getItem('userId'));
   }
 
   ngOnInit() {
-    console.log(this.user_id);
-
+    console.log(this.userId);
   }
 
   getProfile(id) {
@@ -35,10 +35,20 @@ export class ProfilePage implements OnInit {
     });
   }
 
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'lines'
+    });
+    return await loading.present();
+  }
+
+
   async logOut() {
+    this.presentLoading();
     this.data.businessAppDevice = {};
     this.userService.updateUser(this.data).subscribe(() => {
       localStorage.clear();
+      this.loadingCtrl.dismiss();
       this.router.navigateByUrl('/login');
     });
   }
