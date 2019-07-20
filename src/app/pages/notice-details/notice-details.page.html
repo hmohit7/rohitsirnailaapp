@@ -88,6 +88,12 @@
               class="float-right font-12 txt-warm-grey gotham-medium font-weight-500">{{comment.createdAt |agoFilter}}</span>
           </p>
           <p class="txt-warm-grey gotham-medium font-14 font-weight-500 margin-top-8 txt-nowrap">
+            <!-- {{comment.createdBy.types}} -->
+            Admin
+          </p>
+        </ion-col>
+        <ion-col>
+          <p class="txt-warm-grey gotham-medium font-14 font-weight-500 margin-top-8 txt-nowrap">
             {{comment.text}}
           </p>
           <a *ngIf="userId == comment.createdBy._id" (click)='deleteComment(comment._id)'
