@@ -1,10 +1,13 @@
 import { HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 // const API = "https://alpha.thehousemonk.com";
 // const API = "https://thehousemonk.com";
 
 export class MainAppSetting {
     public userExistence = "BM";
+    public storage: Storage
+
     getHttpHeades() {
         const httpHeades = {
             headers: new HttpHeaders({
@@ -42,12 +45,14 @@ export class MainAppSetting {
                 }
             }
         } else if (this.userExistence == "RM") {
+            window.localStorage.setItem('appSrc', 'rentals');
             if (window.localStorage.getItem('appFor') == 'alpha') {
                 API = 'http://52.220.118.81:3020';
             } else if (window.localStorage.getItem('appFor') == 'production') {
                 API = 'https://rentals.thehousemonk.com'
             }
         } else if (this.userExistence == "BM") {
+            window.localStorage.setItem('appSrc', 'building-management');
             if (window.localStorage.getItem('appFor') == 'alpha') {
                 API = 'https://alpha.thehousemonk.com';
             } else if (window.localStorage.getItem('appFor') == 'production') {

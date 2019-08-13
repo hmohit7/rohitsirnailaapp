@@ -1,11 +1,9 @@
-import { ProfilePage } from './pages/profile/profile.page';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -67,9 +65,6 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private route: ActivatedRoute,
-    private userService: UserService,
-    private profile: ProfilePage
     // private push: Push
   ) {
     this.initializeApp();
@@ -78,28 +73,16 @@ export class AppComponent {
     console.log("load");
   }
   initializeApp() {
-    let notification
     this.platform.ready().then(() => {
       window.localStorage.setItem('appFor', 'alpha');
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      if (localStorage.getItem('isLoggedIn') === 'true') {
+      if (window.localStorage.getItem('isloggedin') === 'true') {
         this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}`);
       } else {
         this.router.navigateByUrl('/login');
       }
 
     });
-  }
-  logOut() {
-    this.profile.logOut();
-    // this.userService.getUserById(localStorage.getItem('user_id')).subscribe((data) => {
-    //   data.businessAppDevice = {};
-    //   this.userService.updateUser(data).subscribe(() => {
-    //     localStorage.clear();
-    //     this.router.navigateByUrl('/login');
-    //   });
-    // })
-
   }
 }
