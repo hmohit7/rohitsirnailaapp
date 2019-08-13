@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppSettings } from 'src/app/conatants/appSettings';
+import { MainAppSetting } from '../conatants/MainAppSetting';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,11 @@ export class LoginService {
 
   constructor(
     public http: HttpClient,
-    public appSettings: AppSettings
+    public appSettings: MainAppSetting
   ) {
+  }
+  varifyPhone(data): Observable<any> {
+    return this.http.post(`${this.appSettings.getApi()}/api/verify-phone`, data, this.appSettings.getHttpHeades())
   }
 
   checkPlatform(data): Observable<any> {

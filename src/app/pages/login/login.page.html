@@ -1,158 +1,250 @@
 <ion-content>
   <div class="max-available-height full-width grandient-background no-scroll">
-
-    <div class="webkit-center">
-
+    <div class="webkit-center" [hidden]="display!='login'">
       <ion-row class="width-80-percent">
         <ion-col>
-          <img src="assets/thm-logo.png" />
+          <img src="assets/logo/thm-logo.png">
         </ion-col>
       </ion-row>
 
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10">Welcome back,</p>
-          <p class="font-14 txt-warm-grey margin-top-0">
-            Please sign-in to continue
-          </p>
+          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
         </div>
       </ion-row>
-
-      <!-- Phone number input -->
-      <div [hidden]=" visibleBlock !== 'phoneInput' ">
-        <ion-row class="width-80-percent">
-          <div class="text-left">
-            <p class="font-14">Enter your registered phone number</p>
-          </div>
-        </ion-row>
-        <ion-row class="width-80-percent text-left">
-          <ion-col size="3">
-            <ion-item (click)="countryCodeModal()">
-              <ion-input inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
-              <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
-            </ion-item>
-          </ion-col>
-          <ion-col size="9">
-            <ion-item>
-              <ion-input inputmode="tel" placeholder=" " [(ngModel)]="loginData.phoneNumber"> </ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button (click)="checkPlatfrom()" class="full-button" expand="full" color="primary">Submit</ion-button>
-        </ion-row>
-        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="setVisibleBlock('sendOtpInput')">Forgot password?</p>
-        </ion-row>
-      </div>
-
-      <!-- Phone number input -->
-      <div [hidden]=" visibleBlock !== 'sendOtpInput' ">
-        <ion-row class="width-80-percent">
-          <div class="text-left">
-            <p class="font-14">Enter your registered phone number</p>
-          </div>
-        </ion-row>
-        <ion-row class="width-80-percent text-left">
-          <ion-col size="3">
-            <ion-item (click)="countryCodeModal()">
-              <ion-input inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
-              <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
-            </ion-item>
-          </ion-col>
-          <ion-col size="9">
-            <ion-item>
-              <ion-input inputmode="tel" placeholder=" " [(ngModel)]="loginData.phoneNumber"> </ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button (click)="sendOtp()" class="full-button" expand="full" color="primary">Send OTP</ion-button>
-        </ion-row>
-        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="setVisibleBlock('phoneInput')">Login</p>
-        </ion-row>
-      </div>
-
-      <!-- Password input -->
-      <div [hidden]=" visibleBlock !== 'passwordInput' ">
-        <ion-row class="width-80-percent text-left">
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter Password</ion-label>
-              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.password">
-              </ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button class="full-button " expand="full" color="primary" (click)=login()>Login</ion-button>
-        </ion-row>
-        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="setVisibleBlock('sendOtpInput')">Forgot password?</p>
-        </ion-row>
-      </div>
-
-      <div [hidden]=" visibleBlock !== 'otpInput' ">
-        <ion-row class="width-80-percent text-left">
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter OTP</ion-label>
-              <ion-input imputmode="tel" placeholder=" " [(ngModel)]="loginData.accessCode">
-              </ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button class="full-button " expand="full" color="primary" (click)="verifyOtp()">Confirm</ion-button>
-        </ion-row>
-        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="setVisibleBlock('phoneInput')">Login</p>
-        </ion-row>
-      </div>
-
-      <div [hidden]=" visibleBlock !== 'passwordSetInput' ">
-
-        <ion-row class="width-80-percent text-left">
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter New Password</ion-label>
-              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.password" (keyup)="validatePassword()">
-              </ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="width-80-percent text-left">
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked" class="font-20 margin-bottom-10">Confirm Password</ion-label>
-              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.passwordCheck"
-                (keyup)="validatePassword()">
-              </ion-input>
-            </ion-item>
-          </ion-col>
-          <p class="font-14 txt-warm-grey margin-top-0">Password needs to be atleast 4 characters in length </p>
-        </ion-row>
-
-        <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p>
-
-        <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action == 'resetPassword'">
-          <ion-button class="full-button " expand="full" color="primary" (click)="login()"
-            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
-            Confirm</ion-button>
-        </ion-row>
-        <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action !== 'resetPassword'">
-          <ion-button class="full-button " expand="full" color="primary" (click)="resetPassword()"
-            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
-            Confirm</ion-button>
-        </ion-row>
-
-        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="setVisibleBlock('phoneInput')">Login</p>
-        </ion-row>
-
-      </div>
-
+      <ion-row class="width-80-percent">
+        <div class="text-left">
+          <p class="font-14 gotham">Enter your registered phone number</p>
+        </div>
+      </ion-row>
+      <ion-row class="width-80-percent text-left">
+        <ion-col size="3">
+          <ion-item (click)="countryCodeModal()">
+            <ion-input inputmode="text" class="gotham" [(ngModel)]="loginData.countryCode">
+            </ion-input>
+            <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
+          </ion-item>
+        </ion-col>
+        <ion-col size="9">
+          <ion-item>
+            <ion-input inputmode="tel" class="gotham" placeholder="Phone Number" [(ngModel)]="loginData.phoneNumber">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="width-80-percent center-text margin-top-10">
+        <ion-button class="full-button" (click)="checkPlatform()" expand="full" color="primary">
+          Login</ion-button>
+      </ion-row>
+      <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
+        <p (click)="display='forgot'">Forgot password?</p>
+      </ion-row>
     </div>
+
+    <div class="webkit-center" [hidden]="display!='password'">
+      <ion-row class="width-80-percent">
+        <ion-col>
+          <img src="assets/logo/thm-logo.png">
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="width-80-percent">
+        <div class="text-left">
+          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+        </div>
+      </ion-row>
+      <ion-row class="width-80-percent text-left">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">Enter Password</ion-label>
+            <ion-input type="password" [(ngModel)]="loginData.password" placeholder="password">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="width-80-percent center-text margin-top-10">
+        <ion-button class="full-button gotham" (click)="loginUser('login')" expand="full" color="primary">Login
+        </ion-button>
+      </ion-row>
+      <ion-row style="justify-content: center !important" class="width-80-percent gotham margin-top-10">
+        <p (click)="display='forgot'">Forgot password?</p>
+      </ion-row>
+    </div>
+
+    <div class="webkit-center" [hidden]="display!='forgot'">
+      <ion-row class="width-80-percent">
+        <ion-col>
+          <img src="assets/logo/thm-logo.png">
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="width-80-percent">
+        <div class="text-left">
+          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+        </div>
+      </ion-row>
+      <ion-row class="width-80-percent">
+        <div class="text-left">
+          <p class="font-14 gotham">Enter your registered phone number</p>
+        </div>
+      </ion-row>
+      <ion-row class="width-80-percent text-left">
+        <ion-col size="3">
+          <ion-item (click)="countryCodeModal()">
+            <ion-input inputmode="text" placeholder="+91" class="gotham" [(ngModel)]="sendotp.countryCode">
+            </ion-input>
+            <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
+          </ion-item>
+        </ion-col>
+        <ion-col size="9">
+          <ion-item>
+            <ion-input inputmode="tel" [(ngModel)]="sendotp.phoneNumber" placeholder="Phone Number">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="width-80-percent center-text margin-top-10">
+        <ion-button class="full-button gotham" expand="full" (click)="sendOtpService('forgot')" color="primary">
+          Request Otp</ion-button>
+        <!--sendOtp(sendotp.phoneNumber, 'forgot')-->
+      </ion-row>
+      <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
+        <p (click)="display='login'">Login</p>
+      </ion-row>
+    </div>
+
+    <div class="webkit-center" [hidden]="display!='otp'">
+      <ion-row class="width-80-percent">
+        <ion-col>
+          <img src="assets/logo/thm-logo.png">
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="width-80-percent">
+        <div class="text-left">
+          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+        </div>
+      </ion-row>
+      <ion-row class="width-80-percent text-left">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">Enter Otp</ion-label>
+            <ion-input imputmode="tel" [(ngModel)]="otpData.accessCode" placeholder="">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="width-80-percent center-text margin-top-10">
+        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('login')">Confirm
+        </ion-button>
+      </ion-row>
+      <ion-row style="justify-content: center !important" class="width-80-percent gotham margin-top-10">
+        <p (click)="display='forgot'">Forgot Password</p>
+      </ion-row>
+    </div>
+
+    <div class="webkit-center" [hidden]="display!='setPassword'">
+      <ion-row class="width-80-percent">
+        <ion-col>
+          <img src="assets/logo/thm-logo.png">
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="width-80-percent">
+        <div class="text-left">
+          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+        </div>
+      </ion-row>
+      <ion-row class="width-80-percent text-left">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">Enter New Password</ion-label>
+            <ion-input type="password" [(ngModel)]="passwordData.password" placeholder="">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="width-80-percent text-left">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">Confirm Password</ion-label>
+            <ion-input type="password" [(ngModel)]="passwordData.passwordCheck" placeholder=" ">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="width-80-percent center-text margin-top-10">
+        <ion-button class="full-button gotham" expand="full" (click)="passwordSet(otpSource)" color="primary">Confirm
+        </ion-button>
+      </ion-row>
+    </div>
+
+    <div class="webkit-center" [hidden]="display!='forgototp'">
+      <ion-row class="width-80-percent">
+        <ion-col>
+          <img src="assets/logo/thm-logo.png">
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="width-80-percent">
+        <div class="text-left">
+          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+        </div>
+      </ion-row>
+      <ion-row class="width-80-percent text-left">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">Enter Otp</ion-label>
+            <ion-input imputmode="tel" class="gotham" [(ngModel)]="otpData.accessCode" placeholder=" ">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="width-80-percent center-text margin-top-10">
+        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('forgot')">Confirm
+        </ion-button>
+      </ion-row>
+      <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
+        <p (click)="display='forgot'">Forgot Password</p>
+      </ion-row>
+    </div>
+
+    <div class="webkit-center" [hidden]="display!='approvalotp'">
+      <ion-row class="width-80-percent">
+        <ion-col>
+          <img src="assets/logo/thm-logo.png">
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="width-80-percent">
+        <div class="text-left">
+          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+        </div>
+      </ion-row>
+      <ion-row class="width-80-percent text-left">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">Enter Otp</ion-label>
+            <ion-input imputmode="tel" [(ngModel)]="otpData.accessCode" placeholder=" ">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="width-80-percent center-text margin-top-10">
+        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('approve')">Confirm
+        </ion-button>
+      </ion-row>
+      <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
+        <p (click)="display='forgot'">Forgot Password</p>
+      </ion-row>
+    </div>
+
   </div>
 </ion-content>

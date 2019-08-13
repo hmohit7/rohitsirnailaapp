@@ -6,8 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
-import { CountryCodeModalComponent } from 'src/app/modals/country-code-modal/country-code-modal.component';
-import { FilterPipe } from 'src/app/pipes/Filter.pipe';
+import { IonicStorageModule } from '@ionic/storage';
+import { CountrycodemodalComponent } from './countrycodemodal/countrycodemodal.component';
+import { FilterPipe } from './countrycodemodal/Filter.pipe';
 
 const routes: Routes = [
   {
@@ -17,13 +18,19 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  entryComponents: [CountryCodeModalComponent],
+  entryComponents: [
+    CountrycodemodalComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     RouterModule.forChild(routes)
   ],
-  declarations: [LoginPage, CountryCodeModalComponent, FilterPipe]
+  declarations: [LoginPage, CountrycodemodalComponent, FilterPipe]
 })
 export class LoginPageModule { }

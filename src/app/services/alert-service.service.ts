@@ -1,8 +1,8 @@
-import { AppSettings } from 'src/app/conatants/appSettings';
 import { AlertController, ActionSheetController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx'
+import { MainAppSetting } from '../conatants/MainAppSetting';
 
 
 @Injectable({
@@ -14,7 +14,7 @@ export class AlertServiceService {
     private alrtCtrl: AlertController,
     private camera: Camera,
     private transfer: FileTransfer,
-    private appSetting: AppSettings,
+    private appSetting: MainAppSetting,
     private actionSheet: ActionSheetController
   ) { }
 

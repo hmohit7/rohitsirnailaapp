@@ -20,11 +20,11 @@ import { TicketCategorySearchPageModule } from './pages/ticket-category-search/t
 import { TicketSubCategorySearchPageModule } from './pages/ticket-sub-category-search/ticket-sub-category-search.module';
 import { MaterialSearchPageModule } from './pages/material-search/material-search.module';
 import { NoticeCreatePageModule } from './pages/notice-create/notice-create.module';
-import { AppSettings } from 'src/app/conatants/appSettings';
 import { UserSearchPipe } from 'src/app/pipes/user-search-pipe';
 import { Camera } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Push } from '@ionic-native/push/ngx';
+import { MainAppSetting } from './conatants/MainAppSetting';
 
 
 @NgModule({
@@ -56,7 +56,7 @@ import { Push } from '@ionic-native/push/ngx';
     FileTransferObject,
     ProfilePage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AppSettings
+    MainAppSetting
   ],
   bootstrap: [AppComponent]
 })

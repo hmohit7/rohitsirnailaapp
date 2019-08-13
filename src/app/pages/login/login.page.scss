@@ -11,7 +11,13 @@ ion-item {
   --padding-start: 0px;
   --padding-top: 0px;
 }
-
+ion-modal {
+  position: absolute;
+  top: 80%;
+  width: 80% !important;
+  display: block;
+  height: 80% !important;
+}
 .grandient-background {
   background: rgba(226, 226, 226, 1);
   background: -moz-linear-gradient(

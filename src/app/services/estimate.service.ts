@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { AppSettings } from './../conatants/appSettings';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MainAppSetting } from '../conatants/MainAppSetting';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,9 @@ import { Injectable } from '@angular/core';
 export class EstimateService {
   constructor(
     private http: HttpClient,
-    private appSettings: AppSettings
+    private appSettings: MainAppSetting
   ) { }
-  
+
   getEstimateById(id): Observable<any> {
     return this.http.get(`${this.appSettings.getApi()}/api/estimate/${id}?populate=statusChangedBy`,
       {

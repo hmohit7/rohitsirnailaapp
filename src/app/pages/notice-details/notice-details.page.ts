@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NoticeService } from '../../services/notice.service';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppSettings } from '../../conatants/appSettings';
 
 @Component({
   selector: 'app-notice-details',
@@ -30,7 +29,7 @@ export class NoticeDetailsPage implements OnInit {
       params.params.did ? this.noticeId = params.params.did : '';
       console.log(this.noticeId);
     });
-    this.userId = AppSettings.USER;
+    this.userId = window.localStorage.getItem('userId');
   }
 
   ngOnInit() {

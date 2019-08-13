@@ -1,73 +1,117 @@
-import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../services/login.service';
-import { LoadingController, AlertController, ModalController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import {
+  NavController,
+  ModalController,
+  LoadingController,
+  AlertController,
+} from '@ionic/angular';
+import { Storage } from "@ionic/storage";
 import * as _ from 'lodash';
-import { CountryCodeModalComponent } from 'src/app/modals/country-code-modal/country-code-modal.component';
+import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
+import { AlertServiceService } from 'src/app/services/alert-service.service';
+import { LoginService } from 'src/app/services/login.service';
+import { CountrycodemodalComponent } from './countrycodemodal/countrycodemodal.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
 export class LoginPage implements OnInit {
 
-  // To store the form data
-  loginData: any = {
-    countryCode: '+91',
-    loginType: 'login'
+
+
+  public display: string = "login";
+  public appSrc: string;
+  public disp = {};
+  public user: string;
+  public otpSource: string;
+  public otpData: any = {};
+  public loginData: any = {
+    countryCode: '+91'
+  }
+  public sendotp: any = {
+    countryCode: '+91'
   };
+  public passwordData: any = {};
+  public allowedUsers = ['gatekeeper', 'security'];
+  constructor
+    (
+      private _navCtrl: NavController,
+      private _storage: Storage,
+      private _loginservice: LoginService,
+      private _modalCtr: ModalController,
+      private _alertService: AlertServiceService,
+      private _lodingCtrl: LoadingController,
+      private alertCtrl: AlertController,
+      private appSetting: MainAppSetting
+    ) {
 
-  // To display error message when both the password is not correct while setting password
-  passwordMismatch = false;
-
-  /* This variable will decide which input block is visible on screen
-  values are ['phoneInput', 'passwordInput', 'otpInput', 'passwordSetInput', 'sendOtpInput']
-  */
-  visibleBlock = 'phoneInput';
-
-  // Only these user types are allowd to use this app
-  allowedUsers = ['employee', 'admin', 'technician', 'housekeeper'];
-
-  constructor(
-    private loginService: LoginService,
-    private loading: LoadingController,
-    private router: Router,
-    private alertController: AlertController,
-    private modalCtrl: ModalController,
-    private alertService: AlertServiceService
-  ) { }
+  }
 
   ngOnInit() {
+
   }
-  async countryCodeModal() {
-    const modal = await this.modalCtrl.create({
-      component: CountryCodeModalComponent,
-      cssClass: 'my-custom-modal-css',
-      componentProps: { 'value': this.loginData.countryCode }
+
+  //display laoding on screen 
+
+  async presentLoading() {
+    const loading = await this._lodingCtrl.create({
+      message: 'Please wait',
+      spinner: "lines",
+      showBackdrop: true,
     });
-    modal.onDidDismiss().then((data) => {
-      this.loginData.countryCode = data.data
-    })
-    return await modal.present();
+
+    return await loading.present();
   }
 
-  setVisibleBlock(type) {
-    this.visibleBlock = type;
 
-    if (type === 'sendOtpInput') {
-      this.loginData.action = 'resetPassword';
+  // This function will check for user's platform based on his phone number
+
+  checkPlatform() {
+    window.localStorage.removeItem('platform');
+    if (!this.verifyPhone()) {
+      this._alertService.presentAlert('Alert', 'Please enter a valid phone number');
+    } else {
+
+      localStorage.setItem('phoneNumber', this.loginData.phoneNumber);
+      this._storage.set("phoneNumber", this.loginData.phoneNumber)
+
+      localStorage.setItem('countryCode', this.loginData.countryCode);
+      this._storage.set("countryCode", this.loginData.countryCode)
+
+      this.presentLoading();
+
+      if (this.appSetting.userExistence == "Both") {
+        this._loginservice.checkPlatform(this.loginData)
+          .subscribe((data: any) => {
+            console.log(data);
+            this._lodingCtrl.dismiss();
+            if (data.type === 'multi') {
+              this.showProductSelectionPopup(data);
+            } else if (data.type === 'bm') {
+              this.handleUser(data, 'bm');
+            } else if (data.type === 'rm') {
+              this.handleUser(data, 'rm');
+            }
+
+          }, err => {
+            this._lodingCtrl.dismiss();
+            this._alertService.presentAlert('Alert', err.error);
+          });
+      } else {
+        this.verifyPhoneService()
+      }
+
     }
-
-    console.log(this.visibleBlock);
   }
+
 
   // If user is found on multiple platforms this function will display a popup to select between platforms
 
-  async showProdutSelectionPopup(data) {
-
-    const alert = await this.alertController.create({
+  async showProductSelectionPopup(data) {
+    const showalert = await this.alertCtrl.create({
       header: 'Select a platform',
       cssClass: 'platform-popup',
       buttons: [
@@ -103,190 +147,329 @@ export class LoginPage implements OnInit {
       ]
     });
 
-    await alert.present();
-
+    await showalert.present();
   }
 
-  // This function will display loading screen
-
-  async presentLoading() {
-    const loading = await this.loading.create({
-    });
-    await loading.present();
-  }
-
-  // Common function to set values to localstorage
-
-  saveToLocalStorage(key, value) {
-    localStorage.setItem(key, value);
-  }
 
   // Check id user is allowed to use this app
 
-  isUserAllowed(types) {
-
-    return (_.intersection(this.allowedUsers, types).length > 0 ? true : false);
-
-  }
-
-  validatePassword() {
-    if ((this.loginData.password && this.loginData.passwordCheck) && this.loginData.password !== this.loginData.passwordCheck) {
-      this.passwordMismatch = true;
-    } else {
-      this.passwordMismatch = false;
-    }
-  }
-
-  validetPhoneNumber() {
-
-    const phoneno = /^([0|\+[0-9]{1,5})?([6-9][0-9]{9})$/;
-
-    if (this.loginData.phoneNumber) {
-
-      // localStorage.setItem('phoneNumber', this.loginData.phoneNumber);
-      // localStorage.setItem('countryCode', this.loginData.countryCode);
-
-      if (this.loginData.countryCode === '+91') {
-
-        return this.loginData.phoneNumber.match(phoneno) ? true : false;
-
-      } else {
-
-        return this.loginData.phoneNumber.length > 4 ? true : false;
-
-      }
-    } else {
-      return false;
-    }
-  }
-
   handleUser(data, type) {
-
     localStorage.setItem('platform', type);
     localStorage.setItem('types', data[type].types);
-
+    if (type === 'bm') {
+      window.localStorage.setItem('appSrc', 'building-management');
+      this._storage.set('appSrc', 'bulding-management');
+    } else {
+      window.localStorage.setItem('appSrc', 'rentals');
+      this._storage.set('appSrc', 'rentals')
+    }
     if (this.isUserAllowed(data[type].types)) {
       if (data[type].action === 'login') {
-        this.visibleBlock = 'passwordInput';
+        this.display = 'password';
       } else {
-        this.visibleBlock = 'otpInput';
+        this.display = 'otp';
       }
     } else {
-      this.alertService.presentAlert('Alert', 'You are not allowed to use this app');
+      this._alertService.presentAlert('Alert', 'You are not allowed to use this app');
     }
   }
 
-  // This function will check for user's platform based on his phone number
+  // thios method will check if user is alloued to use this app or not 
 
-  checkPlatfrom() {
+  isUserAllowed(types) {
+    // alert((_.intersection(this.allowedUsers, types).length > 0 ? true : false));
+    return (_.intersection(this.allowedUsers, types).length > 0 ? true : false);
+  }
 
-    window.localStorage.removeItem('platform');
 
-    if (!this.validetPhoneNumber()) {
-      this.alertService.presentAlert('Alert', 'Please enter a valid phone number');
-    } else {
 
-      localStorage.setItem('phoneNumber', this.loginData.phoneNumber);
-      localStorage.setItem('countryCode', this.loginData.countryCode);
+  // open country code modal
 
-      this.presentLoading();
+  async countryCodeModal() {
+    const modal = await this._modalCtr.create({
+      component: CountrycodemodalComponent,
+      cssClass: 'my-custom-modal-css',
+      componentProps: { 'value': this.loginData.countryCode }
+    })
+    modal.onDidDismiss().then((data) => {
 
-      this.loginService.checkPlatform(this.loginData)
-        .subscribe((data: any) => {
+      this.loginData.countryCode = data.data;
+      this.sendotp.countryCode = data.data;
+      console.log(data.data);
 
-          this.loading.dismiss();
+    })
+    return await modal.present();
+  }
 
-          if (data.type === 'multi') {
-            this.showProdutSelectionPopup(data);
-          } else if (data.type === 'bm') {
-            this.handleUser(data, 'bm');
-          } else if (data.type === 'rm') {
-            this.handleUser(data, 'rm');
+
+  /**Verify Phone Function */
+
+  verifyPhone() {
+    let phoneno = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
+
+    if (this.loginData.phoneNumber) {
+      // this._storage.set("phoneNumber", this.loginData.phoneNumber)
+      // this._storage.set("countryCode", this.loginData.countryCode)
+
+      if (this.loginData.countryCode === "+91") {
+        return this.loginData.phoneNumber.match(phoneno) ? true : false;
+      }
+      else {
+        return this.loginData.phoneNumber.length > 4 ? true : false;
+      }
+    }
+    else {
+      return false
+    }
+
+  }
+
+
+  /**Verifying Phone And Calling verifyPhone Service */
+
+  verifyPhoneService() {
+
+    if (this.verifyPhone()) {
+
+      this._loginservice.varifyPhone(this.loginData).subscribe(
+        async (data) => {
+          console.log(data);
+          if (data.action == 'login') {
+            console.log("-------------------");
+            console.log(data.types)
+            await this._lodingCtrl.dismiss();
+            this.display = "password"
+          } else {
+            await this._lodingCtrl.dismiss();
+            this.display = "otp";
           }
+        }, async (error) => {
+          await this._lodingCtrl.dismiss();
+          this._alertService.presentAlert('Alert', 'You are not allowed to use this app');
+          console.log(error);
 
-        }, err => {
-          this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error);
-        });
+          // this._alertService.presentAlert('Alert', error.error.error);
+
+        })
     }
-
   }
 
-  login() {
+
+  // Login User on success route to root page 
+
+  loginUser(loginType) {
+
+    this.loginData.loginType = loginType;
+    this.loginData.phoneNumber = this.loginData.phoneNumber;
     this.presentLoading();
-    this.loginService.login(this.loginData)
-      .subscribe((data: any) => {
+    // alert(JSON.stringify(this.loginData))
+    this._loginservice.login(this.loginData).subscribe((data) => {
+      if (data.message == "Done") {
 
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userId', data.uid);
-        localStorage.setItem('currencyCode', data.currencyCode);
-        localStorage.setItem('token', data.token);
-        this.loading.dismiss();
 
-        this.router.navigateByUrl('/home');
-      },
-        err => {
-          this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
-        }
-      );
+        this._storage.set("isloggedin", true);
+        window.localStorage.setItem('isloggedin', "true");
+
+        this._storage.set("user_id", data.uid);
+        window.localStorage.setItem("user_id", data.uid);
+
+        this._storage.set("token", data.token);
+        window.localStorage.setItem('token', data.token);
+
+        this._storage.set("currencyCode", data.currencyCode);
+        window.localStorage.setItem("currencyCode", data.currencyCode);
+
+        this._lodingCtrl.dismiss()
+        this._navCtrl.navigateRoot(`/${window.localStorage.getItem('appSrc')}`);
+
+      } else {
+        this._lodingCtrl.dismiss();
+        this._alertService.presentAlert('Alert', data.error);
+      }
+
+
+
+    }, (error) => {
+
+      this._lodingCtrl.dismiss();
+      console.log(error);
+      this._alertService.presentAlert('Alert', error.error.error);
+
+    })
   }
 
-  verifyOtp() {
-    this.presentLoading();
-    this.loginService.verifyOtp(this.loginData)
-      .subscribe((data: any) => {
-        this.loading.dismiss();
-        this.loginData.loginType = 'register';
-        this.visibleBlock = 'passwordSetInput';
-      },
-        err => {
-          this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
-        }
-      );
-  }
+
+  /** OtresetPassword(p Number varification code */
 
   sendOtp() {
-    if (!this.validetPhoneNumber()) {
-      this.alertService.presentAlert('Alert', 'Please enter a valid phone number');
+
+    let phoneno = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
+
+    if (this.sendotp.phoneNumber) {
+      this._storage.set("phoneNumber", this.sendotp.phoneNumber)
+      this._storage.set("countryCode", this.sendotp.countryCode)
+      if (this.sendotp.countryCode === "+91") {
+        if (this.sendotp.phoneNumber.match(phoneno)) {
+          this.presentLoading();
+          return true;
+        } else {
+          this._alertService.presentAlert("Alert", "Please enter a valid phone number");
+        }
+      } else {
+        if (this.sendotp.phoneNumber.length > 4) {
+          this.presentLoading();
+          return true;
+        } else {
+          this._alertService.presentAlert("Alert", "Please enter a valid phone number");
+        }
+      }
     } else {
-      localStorage.setItem('phoneNumber', this.loginData.phoneNumber);
-      localStorage.setItem('countryCode', this.loginData.countryCode);
-      this.presentLoading();
-      this.loginService.sendOtp(this.loginData)
-        .subscribe((data: any) => {
-          this.loading.dismiss();
-          // this.loginData.loginType = 'register';
-          this.visibleBlock = 'otpInput';
-        },
-          err => {
-            this.loading.dismiss();
-            this.alertService.presentAlert('Alert', err.error.error);
-          }
-        );
+      this._alertService.presentAlert("Alert", "Please enter a phone number");
     }
   }
 
-  resetPassword() {
-    this.presentLoading();
-    this.loginService.reserPassword(this.loginData)
-      .subscribe((data: any) => {
 
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userId', data.uid);
-        localStorage.setItem('currencyCode', data.currencyCode);
-        localStorage.setItem('token', data.token);
+  // this method will send otp on users phoneNumber
 
-        this.loading.dismiss();
+  sendOtpService(type) {
 
-        this.router.navigateByUrl('/home');
-      },
-        err => {
-          this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+    if (this.sendOtp()) {
+
+      this.display = "otp";
+      this._loginservice.sendOtp(this.sendotp).subscribe((data) => {
+        this._lodingCtrl.dismiss();
+        if (data.message == "OTP sent") {
+          type == 'approve' ? this.display = "approvalotp" : this.display = "forgototp";
+        } else {
+          this._alertService.presentAlert('Alert', data.error);
         }
-      );
+
+      }, (error) => {
+
+        this._lodingCtrl.dismiss();
+        console.log(error);
+        this._alertService.presentAlert('Alert', "Something went wrong")
+        console.log(error.error.error);
+
+      })
+    }
+
+  }
+
+
+  // this method will verify the otp user enterd
+
+  varifyOtp(source) {
+    // console.log("surce ", source); 
+    if (source) {
+      if (source == 'forgot') {
+        this.otpSource = "forgot";
+      }
+    }
+    this.otpData.phoneNumber = this.loginData.phoneNumber;
+    this.presentLoading();
+    this._loginservice.verifyOtp(this.otpData).subscribe((data) => {
+      console.log("data after service =>", data);
+      this._lodingCtrl.dismiss()
+      if (data.message == 'OTP found') {
+        console.log("After otp found", source);
+        if (source == 'forgot' || source == 'login') {
+          this.display = "setPassword"
+        } else if (source == 'approve') {
+          this._navCtrl.navigateRoot(`/${window.localStorage.getItem('appSrc')}`)
+        }
+      } else {
+        this._alertService.presentAlert('Alert', data.error);
+      }
+    }, (error) => {
+
+      this._lodingCtrl.dismiss();
+      console.log(error);
+      this._alertService.presentAlert('Alert', "Something went wrong");
+      console.log('Alert', error.error.error);
+
+    });
+  }
+
+
+  // reset user password
+
+  resetPassword(loginType) {
+
+    console.log(loginType, "in reset password(loginType)");
+
+    console.log(this.loginData);
+
+    this.loginData.loginType = loginType;//loginType
+    this.loginData.action = "resetPassword";
+    this.loginData.countryCode = '+91';
+    this._storage.get('phoneNumber').then((data) => {
+      this.loginData.phoneNumber = data
+
+      this.presentLoading();
+      this._loginservice.reserPassword(this.loginData).subscribe((data) => {
+        console.log("Data on comfirm reset password");
+        this._lodingCtrl.dismiss();
+        if (data.message == "Done") {
+
+          this._storage.set("isloggedin", true);
+          window.localStorage.setItem('isloggedin', 'true');
+
+          this._storage.set("user_id", data.uid)
+          window.localStorage.setItem("user_id", data.uid);
+
+          this._storage.set("token", data.token);
+          window.localStorage.setItem('token', data.token);
+
+          this._storage.set("currencyCode", data.currencyCode);
+          window.localStorage.setItem("currencyCode", data.currencyCode);
+
+          this._navCtrl.navigateRoot(`/${window.localStorage.getItem('appSrc')}`);
+        } else {
+
+          this._alertService.presentAlert('Alert', data.data.error);
+        }
+      }, (error) => {
+
+        this._lodingCtrl.dismiss();
+        console.log(error);
+        this._alertService.presentAlert('Alert', "Something went wrong")
+        console.log('Alert', error.error.error);
+
+      })
+    })
+  }
+
+
+  // this method will call set password for user 
+
+  passwordSet(source) {
+
+    if (!this.passwordData.password || !this.passwordData.passwordCheck) {
+      this._alertService.presentAlert("Alert", "Please Enter password");
+    }
+    else if (this.passwordData.password && this.passwordData.passwordCheck) {
+
+      if (this.passwordData.password == this.passwordData.passwordCheck) {
+
+        this.loginData.accessCode = this.otpData.accessCode;
+        this.passwordData.loginType = 'login';
+        this.loginData.password = this.passwordData.password;
+        this.loginData.passwordCheck = this.passwordData.passwordCheck;
+        this.passwordData.phoneNumber = this.loginData.phoneNumber;
+
+        console.log(source, "from passworedSet(source)");
+
+        source ? source == 'forgot' ? this.resetPassword('register')
+          : this.loginUser('register') : this.loginUser('register');
+
+      }
+      else {
+        this._alertService.presentAlert("Alert", "Password Mismatch")
+      }
+    }
+
+
   }
 
 }

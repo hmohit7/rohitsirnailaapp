@@ -80,10 +80,11 @@ export class AppComponent {
   initializeApp() {
     let notification
     this.platform.ready().then(() => {
+      window.localStorage.setItem('appFor', 'alpha');
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       if (localStorage.getItem('isLoggedIn') === 'true') {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}`);
       } else {
         this.router.navigateByUrl('/login');
       }

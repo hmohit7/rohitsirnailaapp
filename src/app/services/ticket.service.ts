@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppSettings } from 'src/app/conatants/appSettings';
+import { MainAppSetting } from '../conatants/MainAppSetting';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class TicketService {
 
   constructor(
     private http: HttpClient,
-    public appSettings: AppSettings
+    public appSettings: MainAppSetting
   ) {
   }
 

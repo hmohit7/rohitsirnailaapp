@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppSettings } from 'src/app/conatants/appSettings';
+import { MainAppSetting } from '../conatants/MainAppSetting';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ export class ProjectService {
 
   constructor(
     private http: HttpClient,
-    private appSettings: AppSettings
-    ) { }
+    private appSettings: MainAppSetting
+  ) { }
 
   getProjects(filterData): Observable<any> {
 
