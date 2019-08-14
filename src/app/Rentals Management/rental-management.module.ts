@@ -24,7 +24,6 @@ import { ProfilePage } from './pages/profile/profile.page';
         UserSearchPipe,
     ],
     imports: [
-        IonicModule.forRoot(),
         RentalsRoutingModule,
         HttpClientModule,
         TicketFilterPageModule,

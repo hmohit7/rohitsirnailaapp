@@ -14,6 +14,8 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Push } from '@ionic-native/push/ngx';
 import { MainAppSetting } from './conatants/MainAppSetting';
+import { BuildingManagementModule } from './Building-Management/building-management.module';
+import { RentalsManagementModule } from './Rentals Management/rental-management.module';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { MainAppSetting } from './conatants/MainAppSetting';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    BuildingManagementModule,
+    RentalsManagementModule
   ],
   providers: [
     StatusBar,
