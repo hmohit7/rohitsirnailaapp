@@ -602,7 +602,6 @@
   white-space: initial !important;
 }
 
-
 .scroll-x {
   overflow-x: scroll !important;
 }
@@ -745,7 +744,7 @@ ion-chip {
   display: flex !important;
 }
 
-.platform-button{
+.platform-button {
   border: 1px solid silver !important;
   margin-right: 0px !important;
   margin-bottom: 5px !important;
@@ -757,13 +756,18 @@ ion-chip {
   -ms-flex-pack: center;
   justify-content: center;
 }
-.platform-popup{
+.platform-popup {
   text-align: -webkit-center !important;
 }
-                                                                                                
+
 .date-bedge-color {
   background: #7999ea !important;
 }
+
+.btn-color {
+  color: #f04141 !important;
+}
+
 // .alert-button {
 //   width: 100% !important;
 //   background: #f04141 !important;

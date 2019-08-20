@@ -66,9 +66,7 @@ export class NoticeBoardPage implements OnInit {
   changeLikeIcon(id) {
     this.notices.map((item) => {
       if (item._id === id) {
-
         item.hasLiked = !item.hasLiked;
-
         if (item.hasLiked === false) {
           item.likesCount = item.likesCount - 1;
         } else if (item.hasLiked === true) {

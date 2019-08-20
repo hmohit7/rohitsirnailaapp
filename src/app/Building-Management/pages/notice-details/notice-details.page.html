@@ -26,8 +26,7 @@
           </p>
         </ion-col>
         <ion-col class="text-right">
-          <ion-badge color="warning" *ngIf="notice.discussionType"
-            class="border-radius-10">{{notice.discussionType}}
+          <ion-badge color="warning" *ngIf="notice.discussionType" class="border-radius-10">{{notice.discussionType}}
           </ion-badge>
           <p class="txt-warm-grey font-14 Gotham-medium margin-bottom-0
             margin-padding-zero font-weight-500 txt-nowrap">
@@ -49,8 +48,7 @@
       <ion-row class="center-text" *ngIf="notice.files?.length> 0">
         <br>
         <ion-col>
-          <img src="{{notice.files[0].aws_original_url}}"
-            style="max-width:100%; max-height:250px !important; width:auto;
+          <img src="{{notice.files[0].aws_original_url}}" style="max-width:100%; max-height:250px !important; width:auto;
             height:auto;">
         </ion-col>
         <br><br>
@@ -60,11 +58,7 @@
         <ion-row>
           <ion-col>
             <span class="padding-right-20">
-              <ion-icon *ngIf="!notice.hasLiked"
-                (click)="likeDiscussion(notice._id)"
-                class="icon font-25 gotham margin-right-5" name="heart-empty"></ion-icon>
-              <ion-icon *ngIf="notice.hasLiked"
-                (click)="likeDiscussion(notice._id)" color="danger"
+              <ion-icon (click)="likeDiscussion(notice._id)" [ngClass]="{'btn-color':notice.hasLiked}"
                 class="icon font-25 gotham margin-right-5" name="heart-empty"></ion-icon>
               <span class="text font-20">{{notice.likesCount}}</span>
             </span>
@@ -73,8 +67,7 @@
               <span class="text font-20">{{notice.seenByCount}}</span>
             </span>
             <span class="padding-right-20">
-              <ion-icon class="icon font-25 gotham margin-right-5"
-                name="chatboxes"></ion-icon>
+              <ion-icon class="icon font-25 gotham margin-right-5" name="chatboxes"></ion-icon>
               <span class="text font-20">{{notice.commentCount}}</span>
             </span>
           </ion-col>
@@ -96,8 +89,7 @@
         <ion-col class="margin-left-10">
           <p class="gotham-medium font-14 dark-grey margin-padding-zero">
             {{comment.createdBy.firstName}} {{comment.createdBy.lastName}}
-            <span
-              class="float-right font-12 txt-warm-grey gotham-medium
+            <span class="float-right font-12 txt-warm-grey gotham-medium
               font-weight-500">{{comment.createdAt |agoFilter}}</span>
           </p>
           <p class="txt-warm-grey gotham-medium font-14 font-weight-500
@@ -111,9 +103,7 @@
             margin-top-8 txt-nowrap">
             {{comment.text}}
           </p>
-          <a *ngIf="user_id == comment.createdBy._id"
-            (click)='deleteComment(comment._id)'
-            class="gotham-medium float-right font-12 dark-grey
+          <a *ngIf="user_id == comment.createdBy._id" (click)='deleteComment(comment._id)' class="gotham-medium float-right font-12 dark-grey
             margin-padding-zero underline-text">delete</a>
         </ion-col>
       </ion-row>
@@ -126,9 +116,8 @@
 <ion-footer>
   <ion-toolbar>
     <ion-item no-padding>
-      <label style="width: 90%;"class="grey-back">
-        <ion-input placeholder="comment here..."
-          [(ngModel)]="notice.commentText"
+      <label style="width: 90%;" class="grey-back">
+        <ion-input placeholder="comment here..." [(ngModel)]="notice.commentText"
           class="font-14 height-50 gotham border-0 padding-left-10"></ion-input>
       </label>
       <ion-button class="margin-left-8" (click)="createComment()">

@@ -8,7 +8,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'building-management', loadChildren: '../app/Building-Management/building-management.module#BuildingManagementModule' },
-  { path: 'rentals', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
+  { path: 'rentals', loadChildren: '../app/Rentals Management/rental-management.module#RentalsManagementModule' },
   { path: 'login', loadChildren: '../app/login/login.module#LoginPageModule' },
 ];
 

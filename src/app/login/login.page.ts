@@ -235,14 +235,12 @@ export class LoginPage implements OnInit {
         async (data) => {
           console.log(data);
           if (this.isUserAllowed(data.types)) {
+            await this._lodingCtrl.dismiss();
             if (data.action == 'login') {
               console.log("-------------------");
               console.log(data.types)
-
-              await this._lodingCtrl.dismiss();
               this.display = "password"
             } else {
-              await this._lodingCtrl.dismiss();
               this.display = "otp";
             }
           } else {
