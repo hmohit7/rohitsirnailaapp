@@ -4,6 +4,7 @@ import { ModalController, LoadingController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 @Component({
   selector: 'app-create-notice',
@@ -26,7 +27,8 @@ export class CreateNoticeComponent implements OnInit {
     private noticeService: NoticeService,
     private router: Router,
     private alertService: AlertServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public webView: WebView
   ) { }
 
   ngOnInit() { }

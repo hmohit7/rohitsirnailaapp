@@ -16,6 +16,8 @@ import { Push } from '@ionic-native/push/ngx';
 import { MainAppSetting } from './conatants/MainAppSetting';
 import { BuildingManagementModule } from './Building-Management/building-management.module';
 import { RentalsManagementModule } from './Rentals Management/rental-management.module';
+import { UserSearchPipe } from './Rentals Management/pipes/user-search-pipe';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import { RentalsManagementModule } from './Rentals Management/rental-management.
     FileTransfer,
     Push,
     FileTransferObject,
+    WebView,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     MainAppSetting
   ],

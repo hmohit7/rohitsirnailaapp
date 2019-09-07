@@ -9,7 +9,7 @@ import { TicketCategorySearchPage } from '../../pages/ticket-category-search/tic
 import { TicketSubCategorySearchPage } from '../../pages/ticket-sub-category-search/ticket-sub-category-search.page';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-
+import { WebView } from "@ionic-native/ionic-webview/ngx"
 @Component({
   selector: 'app-create-ticket',
   templateUrl: './create-ticket.page.html',
@@ -39,6 +39,7 @@ export class CreateTicketPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertServiceService,
+    public webview: WebView
   ) {
     this.date = new Date();
     this.route.queryParamMap.subscribe((params: any) => {
@@ -311,7 +312,7 @@ export class CreateTicketPage implements OnInit {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', 'Ticket created');
-        this.router.navigateByUrl('/ticket-details');
+        this.router.navigateByUrl(`/tickets`);
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', JSON.stringify(error));
@@ -319,11 +320,15 @@ export class CreateTicketPage implements OnInit {
     } else {
       this.ticketService.createTicket(this.ticketData)
         .subscribe((data: any) => {
+          console.log('====================================');
+          console.log(data);
           console.log(this.ticketData);
+
+          console.log('====================================');
 
           this.loading.dismiss();
           this.alertService.presentAlert('Alert', 'Ticket created');
-          this.router.navigateByUrl(`/tickets?ticketId=${this.ticketData._id}`);
+          this.router.navigateByUrl(`/tickets`);
         },
           err => {
             this.loading.dismiss();

@@ -8,31 +8,30 @@
 </ion-header>
 
 <ion-content>
-
-  <div class="txt-medium gotham margin-top-20 txt-brown center-text" *ngIf="approvals?.length !== 0">
+  <div class="txt-medium gotham margin-top-20 txt-brown center-text" *ngIf="approvals?.length == 0">
     No Approval found!
   </div>
 
   <ion-card *ngFor="let approval of approvals">
-    <div class="ticket-approval-card margin-top-5">
+    <div class="ticket-approval-card ">
       <ion-grid>
         <ion-row>
           <ion-col class=" padding-0">
             <span class="gotham font-weight-500">
-              {{approval.firstName}} {{approval.lastName}}
+              {{approval.user?.firstName}} {{approval.user?.lastName}}
             </span>
           </ion-col>
           <ion-col class="padding-right-20 padding-bottom-0">
             <ion-badge class="float-right" color="warning border-radius-25">
               <p class="margin-0 gotham  ">
-                {{approval.types[0]}}
+                {{approval.user?.types[0]}}
               </p>
             </ion-badge>
           </ion-col>
         </ion-row>
         <ion-row ng-if="approval.phoneNumber">
           <p style="font-size : 15px !important" class="margin-padding-zero txt-warm-grey gotham padding-top-5">
-            ({{approval.countryCode}} {{approval.phoneNumber}})
+            ({{approval.user?.countryCode}} {{approval.user?.phoneNumber}})
           </p>
         </ion-row>
         <ion-row>

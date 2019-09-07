@@ -49,7 +49,7 @@
           <ion-thumbnail class="margin-0 icon-90 image">
             <ion-icon class="img-icon" (click)="removeImage()" color="danger" name="close-circle">
             </ion-icon>
-            <ion-img src="{{url}}"></ion-img>
+            <ion-img src="{{webView.convertFileSrc(url)}}"></ion-img>
           </ion-thumbnail>
         </ion-item>
       </div>

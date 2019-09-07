@@ -24,6 +24,7 @@ export class TicketsPage implements OnInit {
   };
 
   dataFromFilterPage: any;
+  status: string;
 
   constructor(
     private ticketService: TicketService,
@@ -33,6 +34,7 @@ export class TicketsPage implements OnInit {
     private alertService: AlertServiceService,
     private popOverCtrl: PopoverController
   ) {
+    this.status = '';
     this.searchTicket('');
   }
 
@@ -55,6 +57,7 @@ export class TicketsPage implements OnInit {
     });
 
     modal.onDidDismiss().then((ticketFilter: any) => {
+      this.status = ''
       if (ticketFilter !== null && ticketFilter.data) {
 
         this.dataFromFilterPage = ticketFilter.data;
@@ -134,15 +137,17 @@ export class TicketsPage implements OnInit {
       await this.presentLoading();
     }
 
-    let status;
 
-    this.filterData.status.forEach(element => {
-      status = status + `&status=${element}`;
+    await this.filterData.status.forEach(element => {
+      this.status = this.status + `&status=${element}`;
     });
+    console.log('====================================');
+    console.log(this.status);
+    console.log('====================================');
 
     this.ticketService.getTickets(
       this.filterData.skip || '',
-      status || '',
+      this.status || '',
       this.filterData.ticketBelongsTo || '',
       this.filterData.type || '',
       this.filterData.projects || '',
@@ -174,7 +179,13 @@ export class TicketsPage implements OnInit {
     let popOver = await this.popOverCtrl.create({
       component: TicketComponent,
       event: event,
-      mode: 'ios'
+      mode: 'ios',
+      componentProps: this.filterData.status
+    })
+    popOver.onDidDismiss().then(status => {
+      console.log('====================================');
+      console.log(status);
+      console.log('====================================');
     })
     return await popOver.present()
   }

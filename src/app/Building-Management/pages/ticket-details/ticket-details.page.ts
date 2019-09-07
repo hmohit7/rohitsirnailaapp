@@ -314,7 +314,7 @@ export class TicketDetailsPage implements OnInit {
   }
 
   onClick() {
-    alert('clicked');
+    // alert('clicked');
   }
 
   formData = {};

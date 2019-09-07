@@ -4,6 +4,7 @@ import {
   ModalController,
   LoadingController,
   AlertController,
+  MenuController,
 } from '@ionic/angular';
 import { Storage } from "@ionic/storage";
 import * as _ from 'lodash';
@@ -45,13 +46,14 @@ export class LoginPage implements OnInit {
       private _alertService: AlertServiceService,
       private _lodingCtrl: LoadingController,
       private alertCtrl: AlertController,
-      private appSetting: MainAppSetting
+      private appSetting: MainAppSetting,
+      private menuCtrl: MenuController
     ) {
 
   }
 
   ngOnInit() {
-
+    this.menuCtrl.enable(false)
   }
 
   //display laoding on screen 

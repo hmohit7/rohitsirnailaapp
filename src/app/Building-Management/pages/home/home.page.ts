@@ -42,7 +42,7 @@ export class HomePage implements OnInit {
   ) {
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
-        alert(registration.registrationId);
+        // alert(registration.registrationId);
         this.registrationId = registration.registrationId;
       },
         err => {
@@ -89,7 +89,7 @@ export class HomePage implements OnInit {
 
     },
       err => {
-        alert(JSON.stringify(err))
+        // alert(JSON.stringify(err))
       });
   }
 
@@ -103,16 +103,16 @@ export class HomePage implements OnInit {
 
   getRoundedTime() {
     const d = new Date();
-    alert(d)
+    // alert(d)
     const ratio = d.getMinutes() / 60;
-    alert(ratio)
+    // alert(ratio)
     // Past 30 min mark, return epoch at +1 hours and 0 minutes
     if (ratio > 0.5) {
-      alert((d.getHours() + 1) * 3600)
+      // alert((d.getHours() + 1) * 3600)
       return (d.getHours() + 1) * 3600;
     }
     // Return epoch at 30 minutes past current hour
-    alert((d.getHours() * 3600) + 1800)
+    // alert((d.getHours() * 3600) + 1800)
     return (d.getHours() * 3600) + 1800;
   }
 
@@ -170,9 +170,9 @@ export class HomePage implements OnInit {
     if (this.registrationId) {
       this.userService.updateUser(this.userDetails).subscribe((data) => {
         // console.log(data);
-        alert('success');
+        // alert('success');
       }, err => {
-        alert('Error')
+        // alert('Error')
         console.log(err);
       });
     }

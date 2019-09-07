@@ -82,7 +82,11 @@ export class AppComponent {
       } else {
         this.router.navigateByUrl('/login');
       }
-
     });
+  }
+
+  logout() {
+    window.localStorage.clear()
+    this.router.navigateByUrl('/login')
   }
 }

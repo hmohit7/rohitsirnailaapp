@@ -16,11 +16,12 @@ import { ProfilePage } from './pages/profile/profile.page';
 import { FileTransferObject, FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Push } from '@ionic-native/push/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { UserSearchPipe } from './pipes/user-search-pipe';
 
 @NgModule({
     declarations: [
         BuildingManagementComponent,
-        // UserSearchPipe,
+        UserSearchPipe,
     ],
     imports: [
         IonicModule.forRoot(),

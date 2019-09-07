@@ -17,8 +17,13 @@ ion-item div.item-inner {
   -webkit-padding-end: 0px !important;
   padding-inline-end: 0px !important;
 }
-.comment-button{
+.comment-button {
   height: 40px !important;
   width: 100% !important;
   margin-left: 10px !important;
+}
+
+.center-image {
+  display: flex !important;
+  justify-content: center !important;
 }

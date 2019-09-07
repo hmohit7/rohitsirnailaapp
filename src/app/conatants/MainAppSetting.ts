@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 // const API = "https://thehousemonk.com";
 
 export class MainAppSetting {
-    public userExistence = "BM";
+    public userExistence = "RM";
     public storage: Storage
 
     getHttpHeades() {
