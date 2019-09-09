@@ -1,8 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
-// const API = "https://alpha.thehousemonk.com";
-// const API = "https://thehousemonk.com";
 
 export class MainAppSetting {
     public userExistence = "RM";

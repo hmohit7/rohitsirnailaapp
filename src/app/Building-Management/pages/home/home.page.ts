@@ -68,22 +68,22 @@ export class HomePage implements OnInit {
         console.log('discussion');
         if (notification.additionalData.id) {
           console.log('discussion with id');
-          this.router.navigateByUrl(`/notice-details?did=${notification.additionalData.id}`);
+          this.router.navigateByUrl(`/building-management-notice-details?did=${notification.additionalData.id}`);
         } else {
           console.log('discussion without id');
-          this.router.navigateByUrl(`/notice-board`);
+          this.router.navigateByUrl(`/building-management-notice-board`);
         }
       } else if (notification.additionalData.type == 'ticket') {
         if (notification.additionalData.id) {
-          this.router.navigateByUrl(`/ticket-details?tid=${notification.additionalData.id}`);
+          this.router.navigateByUrl(`/building-management-ticket-details?tid=${notification.additionalData.id}`);
         } else {
-          this.router.navigateByUrl('tickets');
+          this.router.navigateByUrl('/building-management-tickets');
         }
       } else if (notification.additionalData.type == 'approval') {
-        this.router.navigateByUrl(`/user-approval`);
+        this.router.navigateByUrl(`/building-management-user-approval`);
 
       } else if (notification.additionalData.type == 'estimate') {
-        this.router.navigateByUrl(`/ticket-details?eid=${notification.additionalData.id}`);
+        this.router.navigateByUrl(`/building-management-ticket-details?eid=${notification.additionalData.id}`);
       }
 
 
@@ -148,7 +148,7 @@ export class HomePage implements OnInit {
   }
 
   navigate(path) {
-    this.router.navigateByUrl(path);
+    this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}-${path}`);
   }
 
   async getTicketStats() {

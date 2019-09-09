@@ -38,7 +38,7 @@ export class UserApprovalPage implements OnInit {
     this.userService.getUserApprovals()
       .subscribe((data: any) => {
         this.loadingCtrl.dismiss();
-        this.approvals = data;
+        this.approvals = data.data.data;
         console.log(this.approvals);
       },
         err => {

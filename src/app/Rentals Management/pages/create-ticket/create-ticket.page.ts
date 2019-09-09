@@ -311,7 +311,7 @@ export class CreateTicketPage implements OnInit {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', 'Ticket created');
-        this.router.navigateByUrl('/ticket-details');
+        this.router.navigateByUrl('/rentals-ticket-details');
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', JSON.stringify(error));
@@ -323,7 +323,7 @@ export class CreateTicketPage implements OnInit {
 
           this.loading.dismiss();
           this.alertService.presentAlert('Alert', 'Ticket created');
-          this.router.navigateByUrl(`/tickets?ticketId=${this.ticketData._id}`);
+          this.router.navigateByUrl(`/rentals-tickets?ticketId=${this.ticketData._id}`);
         },
           err => {
             this.loading.dismiss();
@@ -348,7 +348,7 @@ export class CreateTicketPage implements OnInit {
         this.loadingCtrl.dismiss();
         this.alertService.presentAlert('Alert', 'Ticket updated');
         this.flag = true;
-        this.router.navigateByUrl(`/ticket-details?flag=${this.flag}`);
+        this.router.navigateByUrl(`/rentals-ticket-details?flag=${this.flag}`);
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', error);
@@ -359,8 +359,8 @@ export class CreateTicketPage implements OnInit {
           this.loadingCtrl.dismiss();
           this.alertService.presentAlert('Alert', 'Ticket updated');
           this.flag = true;
-          this.router.navigateByUrl(`/ticket-details?flag=${this.flag}`);
-          // this.router.navigateByUrl('/ticket-details');
+          this.router.navigateByUrl(`/rentals-ticket-details?flag=${this.flag}`);
+          // this.router.navigateByUrl('/rentals-ticket-details');
         },
           err => {
             this.loadingCtrl.dismiss();

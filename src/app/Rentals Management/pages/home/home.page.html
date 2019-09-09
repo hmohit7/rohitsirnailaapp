@@ -38,7 +38,7 @@
     <br>
     <br>
     <ion-row class="border-top border-bottom">
-      <ion-col class="center-text " (click)="navigate('/create-ticket')">
+      <ion-col class="center-text " (click)="navigate('create-ticket')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/raise-ticket.png">
         <p class="font-14 gotham margin-bottom-20">Raise ticket</p>
       </ion-col>
@@ -47,7 +47,7 @@
         <p class="font-14 gotham margin-bottom-20">Create notice</p>
       </ion-col>
 
-      <ion-col class="center-text " (click)="navigate('/user-approval')">
+      <ion-col class="center-text " (click)="navigate('user-approval')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/approval.png">
         <p class="font-14 gotham margin-bottom-20">User</p>
       </ion-col>
@@ -57,15 +57,15 @@
     <br>
     <br>
     <ion-row class="border-top border-bottom">
-      <ion-col class="center-text  " (click)="navigate('/tickets')">
+      <ion-col class="center-text  " (click)="navigate('tickets')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/ticket-history.png">
         <p class="font-14 gotham margin-bottom-20">Tickets</p>
       </ion-col>
-      <ion-col class="center-text border-right border-left" (click)="navigate('/notice-board')">
+      <ion-col class="center-text border-right border-left" (click)="navigate('notice-board')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/communications.png">
         <p class="font-14 gotham margin-bottom-20">Discussion</p>
       </ion-col>
-      <ion-col class="center-text" (click)="navigate('/calendar')">
+      <ion-col class="center-text" (click)="navigate('calendar')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/calendar.png">
         <p class="font-14 gotham margin-bottom-20">Calendar</p>
       </ion-col>
@@ -78,7 +78,7 @@
     <br> -->
     <br>
     <ion-row class="border-top">
-      <ion-col class="center-text " (click)="navigate('/create-ticket')">
+      <ion-col class="center-text " (click)="navigate('create-ticket')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/raise-ticket.png">
         <p class="font-14 gotham margin-bottom-20">Raise ticket</p>
       </ion-col>
@@ -87,21 +87,21 @@
         <p class="font-14 gotham margin-bottom-20">Create notice</p>
       </ion-col>
 
-      <ion-col class="center-text " (click)="navigate('/user-approval')">
+      <ion-col class="center-text " (click)="navigate('user-approval')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/approval.png">
         <p class="font-14 gotham margin-bottom-20">User</p>
       </ion-col>
     </ion-row>
     <ion-row class="border-top border-bottom">
-      <ion-col class="center-text  " (click)="navigate('/tickets')">
+      <ion-col class="center-text  " (click)="navigate('tickets')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/ticket-history.png">
         <p class="font-14 gotham margin-bottom-20">Tickets</p>
       </ion-col>
-      <ion-col class="center-text border-right border-left" (click)="navigate('/notice-board')">
+      <ion-col class="center-text border-right border-left" (click)="navigate('notice-board')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/communications.png">
         <p class="font-14 gotham margin-bottom-20">Discussion</p>
       </ion-col>
-      <ion-col class="center-text" (click)="navigate('/calendar')">
+      <ion-col class="center-text" (click)="navigate('calendar')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/calendar.png">
         <p class="font-14 gotham margin-bottom-20">Calendar</p>
       </ion-col>
@@ -115,7 +115,7 @@
     <br>
     <ion-row>
       <ion-col size="4" class="padding-0">
-        <ion-card class="center-text margin-5" (click)="navigate('/create-ticket')" style="display: grid">
+        <ion-card class="center-text margin-5" (click)="navigate('create-ticket')" style="display: grid">
           <img class="tile-option margin-bottom-10 " style="justify-self: center" src="/assets/icon/raise-ticket.png">
           <p class="font-14 gotham margin-bottom-20">Raise ticket</p>
           <img src="assets/icon/add-green.png" class="icon-20 border-radius-10"
@@ -133,7 +133,7 @@
       </ion-col>
 
       <ion-col size="4" class="padding-0">
-        <ion-card class="center-text margin-5" style="display: grid" (click)="navigate('/user-approval')">
+        <ion-card class="center-text margin-5" style="display: grid" (click)="navigate('user-approval')">
           <img class="tile-option margin-bottom-10 " style="justify-self: center" src="/assets/icon/approval.png">
           <p class="font-14 gotham margin-bottom-20">User</p>
           <img src="assets/icon/add-green.png" class="icon-20 border-radius-10"
@@ -171,13 +171,13 @@
   </ion-grid> -->
 
   <br>
-  <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Tasks for today
-    <span class="gotham font-weight-600 txt-grey" *ngIf="ticketStats">- {{ticketStats.todo.length}}</span></span>
+  <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Tasks for today -
+    <span class="gotham font-weight-600 txt-grey" *ngIf="ticketStats">{{ticketStats.todo.length}}</span></span>
   <br>
   <br>
 
   <ion-list class="border-top padding-bottom-0">
-    <ion-item *ngFor="let ticket of ticketStats?.todo" [routerLink]="['/ticket-details']"
+    <ion-item *ngFor="let ticket of ticketStats?.todo" [routerLink]="['/rentals-ticket-details']"
       [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
       <ion-label class="margin-0">
         <p class="gotham-bold txt-grey margin-bottom-8 padding-top-2" text-wrap>

@@ -24,7 +24,7 @@ export class TicketsPage implements OnInit {
   };
 
   dataFromFilterPage: any;
-
+  public status = ''
   constructor(
     private ticketService: TicketService,
     private ref: ChangeDetectorRef,
@@ -41,6 +41,7 @@ export class TicketsPage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loading.create({
+      spinner: "lines"
     });
     await loading.present();
   }
@@ -134,15 +135,13 @@ export class TicketsPage implements OnInit {
       await this.presentLoading();
     }
 
-    let status;
-
-    this.filterData.status.forEach(element => {
-      status = status + `&status=${element}`;
+    await this.filterData.status.forEach(element => {
+      this.status = status + `&status=${element}`;
     });
 
     this.ticketService.getTickets(
       this.filterData.skip || '',
-      status || '',
+      this.status || '',
       this.filterData.ticketBelongsTo || '',
       this.filterData.type || '',
       this.filterData.projects || '',

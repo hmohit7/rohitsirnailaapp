@@ -194,6 +194,7 @@ export class TicketDetailsPage implements OnInit {
       .subscribe((data: any) => {
         this.loadingCtrl.dismiss();
         this.getTicketComments();
+        this.ticket.commentText = '';
         // this.router.navigateByUrl('/tickets');
       },
         err => {

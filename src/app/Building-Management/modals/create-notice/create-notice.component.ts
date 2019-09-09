@@ -70,7 +70,7 @@ export class CreateNoticeComponent implements OnInit {
         this.alertService.presentAlert("Alert", 'Notice created');
         this.flag = true;
         this.modalController.dismiss(this.flag);
-        this.router.navigateByUrl('/notice-board');
+        this.router.navigateByUrl('/building-management-notice-board');
       }, err => {
         this.loadingCtrl.dismiss();
         this.alertService.presentAlert('Alert', err)
@@ -82,7 +82,7 @@ export class CreateNoticeComponent implements OnInit {
           this.flag = true;
           this.loadingCtrl.dismiss();
           this.modalController.dismiss(this.flag);
-          this.router.navigateByUrl('/notice-board');
+          this.router.navigateByUrl('/building-management-notice-board');
         },
           err => {
             this.loadingCtrl.dismiss();

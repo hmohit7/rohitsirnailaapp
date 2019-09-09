@@ -16,34 +16,34 @@ export class AppComponent {
     pages: [
       {
         title: 'Home',
-        url: '/home',
+        url: '/rentals-home',
         src: '/assets/icon/my-home.png'
       }, {
         title: 'Calendar',
-        url: '/calendar',
+        url: '/rentals-calendar',
         src: '/assets/icon/calendar.png'
       }, {
         title: 'Tickets',
-        url: '/tickets',
+        url: '/rentals-tickets',
         src: '/assets/icon/ticket-history.png'
       }, {
         title: 'Discussion',
-        url: '/notice-board',
+        url: '/rentals-notice-board',
         src: '/assets/icon/communications.png'
       },
       {
         title: 'Apporvals',
-        url: '/user-approval',
+        url: '/rentals-user-approval',
         src: '/assets/icon/approval.png'
       },
       {
         title: 'Contact us',
-        url: '/contact-us',
+        url: '/rentals-contact-us',
         src: '/assets/icon/phone.png'
       },
       {
         title: 'Profile',
-        url: '/profile',
+        url: '/rentals-profile',
         src: '/assets/icon/profile.png'
       }],
     logout: {
@@ -78,7 +78,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       if (window.localStorage.getItem('isloggedin') === 'true') {
-        this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}`);
+        this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}-home`);
       } else {
         this.router.navigateByUrl('/login');
       }

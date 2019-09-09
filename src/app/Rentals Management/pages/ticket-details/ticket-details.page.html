@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/create-ticket']" [queryParams]="{ticketId: ticket._id}">
+      <ion-button [routerLink]="['/rentals-create-ticket']" [queryParams]="{ticketId: ticket._id}">
         edit
       </ion-button>
     </ion-buttons>
@@ -336,7 +336,7 @@
     </div>
 
     <div *ngSwitchCase="'CHECKLIST'" class="full-width max-available-height margin-top-5">
-      <div class="ticket-details-list" *ngIf="ticket.checklist.length > 0">
+      <div class="ticket-details-list" *ngIf="ticket.checklist?.length > 0">
         <ion-list class="padding-bottom-0">
 
           <ion-item *ngFor="let data of ticket.checklist; let i = index">
@@ -351,7 +351,7 @@
 
       </div>
       <br>
-      <ion-row *ngIf="ticket.checklist?.length == 0"
+      <ion-row *ngIf="ticket.checklist?.length == 0|| !ticket.checklist"
         class="txt-small txt-brown gotham-medium font-14 center-text margin-top-15">
         <ion-col>
           No checklist found found
@@ -362,7 +362,7 @@
     <div *ngSwitchCase="'QUOTATIONS'" class="full-width max-available-height margin-top-5">
       <div class="ticket-details-list" *ngIf="ticket.estimates.length > 0">
         <ion-list class="padding-0" *ngFor="let estimate of ticket.estimates">
-          <ion-item detail="true" [routerLink]="['/estimate']" [queryParams]="{estimateId: estimate._id}">
+          <ion-item detail="true" [routerLink]="['/rentals-estimate']" [queryParams]="{estimateId: estimate._id}">
             <ion-label>
               <ion-row>
                 <ion-col>

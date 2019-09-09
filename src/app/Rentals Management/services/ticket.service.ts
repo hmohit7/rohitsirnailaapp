@@ -54,12 +54,12 @@ export class TicketService {
 
     if (window.localStorage.getItem('platform')) {
       if (window.localStorage.getItem('platform') === 'bm') {
-        url = `/api/category?belongsTo=${filterData.ticketBelongsTo}& + ${filterData.ticketBelongsTo.toLowerCase()}=${filterData.ticketBelongsToRefId}&status=active&status=inactive`;
+        url = `/api/category?belongsTo=${filterData.ticketBelongsTo}&${filterData.ticketBelongsTo.toLowerCase()}=${filterData.ticketBelongsToRefId}&status=active&status=inactive`;
       } else {
         url = `/api/category?home=${filterData.ticketBelongsToRefId}&status=active`;
       };
     } else {
-      url = `/api/category?belongsTo=${filterData.ticketBelongsTo}& + ${filterData.ticketBelongsTo.toLowerCase()}=${filterData.ticketBelongsToRefId}&status=active&status=inactive`;
+      url = `/api/category?belongsTo=${filterData.ticketBelongsTo}&${filterData.ticketBelongsTo.toLowerCase()}=${filterData.ticketBelongsToRefId}&status=active&status=inactive`;
     }
 
     return this.http.get(`${this.appSettings.getApi()}${url}`,
@@ -92,7 +92,7 @@ export class TicketService {
   }
 
   getTicketById(ticketId): Observable<any> {
-    return this.http.get(`${this.appSettings.getApi()}/api/ticket/${ticketId}?populate = estimates && populate=assets & populate=contactPoint & populate=raisedBy & populate=agent & populate=itemDetails.product`,
+    return this.http.get(`${this.appSettings.getApi()}/api/ticket/${ticketId}?populate=estimates&&populate=assets&populate=contactPoint&populate=raisedBy&populate=agent&populate=itemDetails.product`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

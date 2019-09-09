@@ -49,7 +49,7 @@ export class ContactUsPage implements OnInit {
       .subscribe(async (data: any) => {
         this.loadingCtrl.dismiss();
         await this.alertService.presentAlert('Alert', 'Ticket created')
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/rentals-home');
       },
         err => {
           this.loadingCtrl.dismiss();

@@ -70,7 +70,7 @@ export class NoticeCreatePage implements OnInit {
       this.alertService.upload(this.images[0], this.notice, 'CREATENOTICE').then(() => {
         this.loadingCtrl.dismiss();
         this.alertService.presentAlert('Alert', 'Notice created');
-        this.router.navigateByUrl('/notice-board');
+        this.router.navigateByUrl('/rentals-notice-board');
       }, err => {
         this.loadingCtrl.dismiss();
         this.alertService.presentAlert('Alert', err);
@@ -80,7 +80,7 @@ export class NoticeCreatePage implements OnInit {
         .subscribe((data: any) => {
           this.loadingCtrl.dismiss();
           this.alertService.presentAlert('Alert', 'Notice created');
-          this.router.navigateByUrl('/notice-board');
+          this.router.navigateByUrl('/rentals-notice-board');
         },
           err => {
             this.loadingCtrl.dismiss();
