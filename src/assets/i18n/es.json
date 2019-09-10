@@ -1,0 +1,122 @@
+{
+    "Pages": {
+        "app-component": {
+            "menyTitle": "Menu",
+            "appPages": {
+                "pages": {
+                    "home ": "Home",
+                    "calender": "Calendar",
+                    "ticket": "Tickets",
+                    "discussion": "Discussion",
+                    "approval": "Apporvals",
+                    "contact-us": "Contact-us",
+                    "profile": "Profile"
+                },
+                "login": {
+                    "title": "Logout"
+                }
+            }
+        },
+        "login": {
+            "coutry-code-modal": {
+                "show-more-button": "Show More"
+            },
+            "welcome-string1": "Welcom back,",
+            "welcome-string2": "Please sign-in to continue",
+            "welcome-string3": "Enter your registered phone number",
+            "login-buttom": "Login",
+            "forgot-password": "Forgot password?",
+            "send-opt-button": " Request Otp",
+            "confirm-button": "Confirm",
+            "phone-number-input": "Phone Number",
+            "reset-password1": "Enter New Password",
+            "reset-password2": "Confirm Password",
+            "otp-input": "Enter Otp"
+        },
+        "home": {
+            "string1": "Hi",
+            "string2": "Ticket stats",
+            "card": {
+                "open": "Open",
+                "in-progress": "In Progress",
+                "resolved": "Resolved"
+            },
+            "grid": {
+                "raise-ticket": "Raise ticket",
+                "create-notice": "Create notice",
+                "user": "User",
+                "tickets": "Tickets",
+                "discussion": "Discussion",
+                "calender": "Calendar"
+            },
+            "task-for-today": {
+                "tasks-for-today": "Tasks for today -"
+            }
+        },
+        "calender": {},
+        "contact-us": {},
+        "create-ticket": {
+            "title": "Create Notice",
+            "form": {
+                "raise-for": {
+                    "raise-ticket-for": "Raise Ticket For",
+                    "chip-1": "Unit",
+                    "chip-2": "Common area"
+                },
+                "unit": {
+                    "title": "Unit",
+                    "place-holder": "Click here to select "
+                },
+                "category": {
+                    "title": "Category",
+                    "place-holder": "Click here to select category"
+                },
+                "sub-category": {
+                    "title": "Sub Category",
+                    "place-holder": "Click here to select sub-category"
+                },
+                "ticket-description": {
+                    "title": "Ticket Description"
+                }
+            }
+        },
+        "estimate": {},
+        "material search": {},
+        "notice-board": {},
+        "notice-create": {},
+        "notice-details": {},
+        "profile": {},
+        "project-search": {},
+        "ticket-category-search": {},
+        "ticket-details": {},
+        "ticket-filter": {},
+        "ticket-sub-category": {},
+        "tickets": {},
+        "unit-search": {},
+        "user-approval": {},
+        "user-search": {}
+    },
+    "modal": {
+        "create-notice": {}
+    },
+    "component": {
+        "ticket": {
+            "header": "Sort By",
+            "item": [
+                {
+                    "label": "Job Date"
+                },
+                {
+                    "label": "Created At"
+                },
+                {
+                    "label": "Ascending"
+                },
+                {
+                    "label": "Decinding"
+                }
+            ],
+            "button": "Filter"
+        }
+    }
+}

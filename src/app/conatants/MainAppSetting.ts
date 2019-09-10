@@ -24,6 +24,7 @@ export class MainAppSetting {
         };
         return httpHeadesWithToken;
     }
+
     getApi() {
 
         let API = '';

@@ -1,0 +1,34 @@
+<ion-content>
+  <p class="font-14 gotham margin-5 margin-top-35">Are you sure you want to {{val}} this user's
+    approval request?</p>
+  <br><br>
+
+  <ion-item *ngIf="val=='reject'">
+    <ion-label>Add reject reason</ion-label>
+    <ion-toggle [(ngModel)]="flag" mode="ios"></ion-toggle>
+  </ion-item>
+  <br *ngIf="val=='reject'">
+  <br *ngIf="val=='reject'">
+  <ion-textarea class='padding-5' [(ngModel)]="notes" *ngIf="flag" rows='4' maxlength='130'
+    placeholder='Enter user rejection reason.'>
+  </ion-textarea>
+</ion-content>
+
+<ion-footer>
+  <ion-label>
+    <ion-row>
+      <ion-col size="6" class="padding-0">
+        <ion-button (click)="cancel()" style=" margin-top: 0px; margin-right: 1px; margin-left: 0px;margin-bottom: 0px;"
+          expand="full">
+          cancel </ion-button>
+      </ion-col>
+      <ion-col size="6" class="padding-0">
+        <ion-button (click)="dismiss(val)"
+          style=" margin-top: 0px; margin-left: 1px; margin-right: 0px;margin-bottom: 0px;" expand="full"
+          color="danger">Ok</ion-button>
+      </ion-col>
+
+    </ion-row>
+  </ion-label>
+
+</ion-footer>

@@ -59,10 +59,11 @@
       <ion-row class="ticket-approval-card2">
         <ion-col>
           <span class=" font-30 margin-left-10">
-            <ion-icon color="success" name="checkmark-circle"></ion-icon>
+            <ion-icon color="success" (click)="presentPopover('approve',approval._id)" name="checkmark-circle">
+            </ion-icon>
           </span>
           <span class=" font-30 margin-left-30">
-            <ion-icon color="danger" name="close-circle"></ion-icon>
+            <ion-icon color="danger" (click)="presentPopover('reject',approval._id)" name="close-circle"></ion-icon>
           </span>
         </ion-col>
         <ion-col>

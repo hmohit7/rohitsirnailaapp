@@ -17,8 +17,8 @@
 
 <ion-content>
   <ion-list class="border-top">
-    <ion-item *ngFor="let ticket of tickets" [routerLink]="['/ticket-details']" [queryParams]="{ticketId: ticket._id}"
-      detail="true" lines="none">
+    <ion-item *ngFor="let ticket of tickets" [routerLink]="['/building-management-ticket-details']"
+      [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
       <ion-label class="margin-0">
         <p class="gotham-medium margin-bottom-8 " text-wrap>
           <span class="float-left">#{{ticket.uid}} - </span>

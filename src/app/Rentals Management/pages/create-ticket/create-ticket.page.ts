@@ -311,7 +311,7 @@ export class CreateTicketPage implements OnInit {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', 'Ticket created');
-        this.router.navigateByUrl('/rentals-ticket-details');
+        this.router.navigateByUrl('/rentals-ticket-details', { replaceUrl: true });
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert('Alert', JSON.stringify(error));
@@ -323,7 +323,7 @@ export class CreateTicketPage implements OnInit {
 
           this.loading.dismiss();
           this.alertService.presentAlert('Alert', 'Ticket created');
-          this.router.navigateByUrl(`/rentals-tickets?ticketId=${this.ticketData._id}`);
+          this.router.navigateByUrl(`/rentals-tickets?ticketId=${this.ticketData._id}`, { replaceUrl: true });
         },
           err => {
             this.loading.dismiss();

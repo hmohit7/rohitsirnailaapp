@@ -4,7 +4,7 @@
       <ion-header>
         <ion-toolbar color="primary">
           <ion-menu-toggle>
-            <ion-title class="center-text" [routerLink]="['/profile']" routerLinkActive="router-link-active">
+            <ion-title class="center-text">
               Menu
               <!-- <p class="font-14 margin-bottom-3 font-weight-600">{{appPages.name}}</p>
               <p class="margin-top-0 font-14 font-weight-600">{{appPages.phoneNumber}}</p> -->
@@ -23,7 +23,7 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>
-            <ion-item lines="full">
+            <ion-item lines="full" (click)="logout()">
               <img class="icon-25 margin-bottom-10" [src]="appPages.logout.src">
               <ion-label class="marginTop5">
                 {{appPages.logout.title}}
