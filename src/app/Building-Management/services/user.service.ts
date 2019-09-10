@@ -55,4 +55,18 @@ export class UserService {
     })
   }
 
+
+  approve(id): Observable<any> {
+    return this.http.post(`${this.appSettings.getApi()}/api/approval/${id}/approve`,
+      '', this.appSettings.getHttpHeadesWithToken())
+  }
+  reject(id, data): Observable<any> {
+    console.log(data);
+    let userData = {
+      notes: data
+    }
+    return this.http.post(`${this.appSettings.getApi()}/api/approval/${id}/reject`, userData,
+      this.appSettings.getHttpHeadesWithToken())
+  }
+
 }

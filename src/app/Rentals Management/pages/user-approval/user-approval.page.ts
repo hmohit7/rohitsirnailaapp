@@ -107,4 +107,12 @@ export class UserApprovalPage implements OnInit {
     return await popOver.present()
   }
 
+  public call(number) {
+    if (number) {
+      window.location.href = 'tel:' + number;
+    }
+    else {
+      this.alertService.presentAlert("Phone number not found", '')
+    }
+  }
 }

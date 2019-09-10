@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { UserApprovalPage } from './user-approval.page';
+import { ApprovalpopupComponent } from '../../modals/approvalpopup/approvalpopup.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,9 @@ const routes: Routes = [
     ApplicationPageModule,
     IonicModule,
     RouterModule.forChild(routes)
+  ], entryComponents: [
+    ApprovalpopupComponent
   ],
-  declarations: [UserApprovalPage]
+  declarations: [UserApprovalPage, ApprovalpopupComponent]
 })
 export class UserApprovalPageModule { }
