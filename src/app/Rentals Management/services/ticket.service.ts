@@ -92,7 +92,7 @@ export class TicketService {
   }
 
   getTicketById(ticketId): Observable<any> {
-    return this.http.get(`${this.appSettings.getApi()}/api/ticket/${ticketId}?populate=estimates&&populate=assets&populate=contactPoint&populate=raisedBy&populate=agent&populate=itemDetails.product`,
+    return this.http.get(`${this.appSettings.getApi()}/api/ticket/${ticketId}?populate=estimates&populate=assets&populate=contactPoint&populate=raisedBy&populate=agent&populate=itemDetails.product`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

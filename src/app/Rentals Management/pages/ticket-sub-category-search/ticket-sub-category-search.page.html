@@ -14,6 +14,7 @@
   <!-- <div class="center-text margin-top-10" [hidden]="!loading">
       <ion-spinner></ion-spinner>
     </div> -->
+  <p class="gotham center-text" *ngIf="subCategories.length==0">No sub-category available</p>
   <ion-list>
     <ion-radio-group [(ngModel)]="selectedSubCategory.ticketSubCategory">
       <ion-item *ngFor="let category of subCategories">

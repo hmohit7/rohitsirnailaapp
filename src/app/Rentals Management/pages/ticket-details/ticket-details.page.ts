@@ -81,7 +81,7 @@ export class TicketDetailsPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('alert', err.error.error)
+          this.alertService.presentAlert('alert', 'Something went wrong, please try again later')
         }
       );
   }
@@ -96,7 +96,7 @@ export class TicketDetailsPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('alert', err.error.error)
+          this.alertService.presentAlert('alert', 'Something went wrong, please try again later')
         }
       );
   }
@@ -136,7 +136,7 @@ export class TicketDetailsPage implements OnInit {
         },
           err => {
             this.loadingCtrl.dismiss();
-            this.alertService.presentAlert('alert', err.error.error)
+            this.alertService.presentAlert('alert', 'Something went wrong, please try again later')
           }
         );
     }
@@ -199,7 +199,7 @@ export class TicketDetailsPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('alert', err.error.error)
+          this.alertService.presentAlert('alert', 'Something went wrong, please try again later')
         }
       );
   }
@@ -231,7 +231,6 @@ export class TicketDetailsPage implements OnInit {
 
       this.materialData.name = materialData.data.name;
       this.materialData.product = materialData.data;
-
     });
 
     return await modal.present();
