@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -15,39 +16,39 @@ export class AppComponent {
     phoneNumber: localStorage.getItem('phoneNumber'),
     pages: [
       {
-        title: 'Home',
+        title: 'app-component.home',
         url: '/rentals-home',
         src: '/assets/icon/my-home.png'
       }, {
-        title: 'Calendar',
+        title: 'app-component.calendar',
         url: '/rentals-calendar',
         src: '/assets/icon/calendar.png'
       }, {
-        title: 'Tickets',
+        title: 'app-component.ticket',
         url: '/rentals-tickets',
         src: '/assets/icon/ticket-history.png'
       }, {
-        title: 'Discussion',
+        title: 'app-component.discussion',
         url: '/rentals-notice-board',
         src: '/assets/icon/communications.png'
       },
       {
-        title: 'Apporvals',
+        title: 'app-component.approval',
         url: '/rentals-user-approval',
         src: '/assets/icon/approval.png'
       },
       {
-        title: 'Contact us',
+        title: 'app-component.contact-us',
         url: '/rentals-contact-us',
         src: '/assets/icon/phone.png'
       },
       {
-        title: 'Profile',
+        title: 'app-component.profile',
         url: '/rentals-profile',
         src: '/assets/icon/profile.png'
       }],
     logout: {
-      title: 'Logout',
+      title: 'app-component.logout',
       src: '/assets/icon/log-out.png',
 
     }
@@ -65,6 +66,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
+    public translate: TranslateService
     // private push: Push
   ) {
     this.initializeApp();
@@ -72,10 +74,12 @@ export class AppComponent {
   ionViewDidLoad() {
     console.log("load");
   }
+
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
       window.localStorage.setItem('appFor', 'alpha');
       this.statusBar.styleDefault();
+      await this._initTranslate()
       this.splashScreen.hide();
       if (window.localStorage.getItem('isloggedin') === 'true') {
         this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}-home`);
@@ -88,5 +92,10 @@ export class AppComponent {
   logout() {
     window.localStorage.clear()
     this.router.navigateByUrl('/login')
+  }
+  private _initTranslate() {
+    this.translate.setDefaultLang('en');
+    this.translate.use('en'); // Set your language here
+
   }
 }

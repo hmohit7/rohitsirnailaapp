@@ -12,6 +12,7 @@ import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
 import { CountrycodemodalComponent } from './countrycodemodal/countrycodemodal.component';
 import { LoginService } from '../common-services/login.service';
 import { AlertServiceService } from '../common-services/alert-service.service';
+import { translateService } from '../common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +48,8 @@ export class LoginPage implements OnInit {
       private _lodingCtrl: LoadingController,
       private alertCtrl: AlertController,
       private appSetting: MainAppSetting,
-      private menuCtrl: MenuController
+      private menuCtrl: MenuController,
+      private transService: translateService
     ) {
 
   }

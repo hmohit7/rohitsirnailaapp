@@ -120,7 +120,7 @@
             <ngx-avatar textSizeRatio="2" initialsSize="2" name="{{ticket.contactPoint?.firstName}}"></ngx-avatar>
           </ion-col>
           <ion-col class="margin-left-10">
-            <p class="gotham-medium font-14 dark-grey margin-padding-zero">Point Of contact</p>
+            <p class="gotham-medium font-14 dark-grey margin-padding-zero">Point Of Contact</p>
             <p *ngIf="ticket.contactPoint"
               class="txt-warm-grey font-14 gotham-medium font-weight-500 margin-top-8 txt-nowrap">
               {{ticket.contactPoint.firstName}} {{ticket.contactPoint.lastName}}
@@ -129,7 +129,7 @@
             </p>
             <p *ngIf="!ticket.contactPoint"
               class="txt-warm-grey gotham-medium font-14 font-weight-500 margin-top-8 txt-nowrap">
-              Not added
+              Not Added
               <span class="float-right font-14 txt-warm-grey gotham-medium font-weight-500"
                 (click)="openUserSearchModal('poc')">Add</span>
             </p>
@@ -424,7 +424,7 @@
             </ion-item>
           </ion-list>
           <ion-list>
-            <ion-list-header class="gotham font-16 font-weight-500">Enter quantity</ion-list-header>
+            <ion-list-header class="gotham font-16 font-weight-500">Quantity</ion-list-header>
             <ion-item>
               <ion-input inputmode="number" [(ngModel)]="materialData.quantity" class="gotham"
                 placeholder="Enter quantity">

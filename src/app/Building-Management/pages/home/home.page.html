@@ -7,24 +7,25 @@
 </ion-header>
 <ion-content>
   <div class="background-yellow home-top-container">
-    <span class="font-22 gotham">Hi {{userDetails?.firstName}} {{userDetails?.lastName}}</span>
+    <span class="font-22 gotham">{{transService.getTranslatedData('home.string1')}} {{userDetails?.firstName}}
+      {{userDetails?.lastName}}</span>
     <br>
-    <span class="font-14 gotham" style="margin-top:5px">Ticket stats</span>
+    <span class="font-14 gotham" style="margin-top:5px">{{transService.getTranslatedData('home.string2')}}</span>
   </div>
   <ion-card style="margin-top: -45px">
     <ion-card-content class="padding-6">
       <ion-grid>
         <ion-row>
           <ion-col>
-            <p class="gotham font-weight-600 txt-grey">Open</p>
+            <p class="gotham font-weight-600 txt-grey">{{transService.getTranslatedData('home.open')}}</p>
             <p class="font-18 gotham">{{ticketStats?.ticket['open']}}</p>
           </ion-col>
           <ion-col>
-            <p class="gotham font-weight-600 txt-grey">In Progress</p>
+            <p class="gotham font-weight-600 txt-grey">{{transService.getTranslatedData('home.in-progress')}}</p>
             <p class="font-18 gotham">{{ticketStats?.ticket['in-progress']}}</p>
           </ion-col>
           <ion-col>
-            <p class="gotham font-weight-600 txt-grey">Resolved</p>
+            <p class="gotham font-weight-600 txt-grey">{{transService.getTranslatedData('home.resolved')}}</p>
             <p class="font-18 gotham">20</p>
           </ion-col>
         </ion-row>
@@ -80,30 +81,30 @@
     <ion-row class="border-top">
       <ion-col class="center-text " (click)="navigate('create-ticket')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/raise-ticket.png">
-        <p class="font-14 gotham margin-bottom-20">Raise ticket</p>
+        <p class="font-14 gotham margin-bottom-20">{{transService.getTranslatedData('home.raise-ticket')}}</p>
       </ion-col>
       <ion-col class="center-text border-right border-left " (click)="openCreateNoticeModal()">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/create-notice.png">
-        <p class="font-14 gotham margin-bottom-20">Create notice</p>
+        <p class="font-14 gotham margin-bottom-20">{{transService.getTranslatedData('home.create-notice')}}</p>
       </ion-col>
 
       <ion-col class="center-text " (click)="navigate('user-approval')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/approval.png">
-        <p class="font-14 gotham margin-bottom-20">User</p>
+        <p class="font-14 gotham margin-bottom-20">{{transService.getTranslatedData('home.user')}}</p>
       </ion-col>
     </ion-row>
     <ion-row class="border-top border-bottom">
       <ion-col class="center-text  " (click)="navigate('tickets')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/ticket-history.png">
-        <p class="font-14 gotham margin-bottom-20">Tickets</p>
+        <p class="font-14 gotham margin-bottom-20">{{transService.getTranslatedData('home.tickets')}}</p>
       </ion-col>
       <ion-col class="center-text border-right border-left" (click)="navigate('notice-board')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/communications.png">
-        <p class="font-14 gotham margin-bottom-20">Discussion</p>
+        <p class="font-14 gotham margin-bottom-20">{{transService.getTranslatedData('home.discussion')}}</p>
       </ion-col>
       <ion-col class="center-text" (click)="navigate('calendar')">
         <img class="tile-option margin-bottom-10 " src="/assets/icon/calendar.png">
-        <p class="font-14 gotham margin-bottom-20">Calendar</p>
+        <p class="font-14 gotham margin-bottom-20">{{transService.getTranslatedData('home.calendar')}}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -171,8 +172,9 @@
   </ion-grid> -->
 
   <br>
-  <span class="font-18 gotham" style="margin-top:5px; padding-left:15px">Tasks for today
-    <span class="gotham font-weight-600 txt-grey" *ngIf="ticketStats">- {{ticketStats.todo.length}}</span></span>
+  <span class="font-18 gotham"
+    style="margin-top:5px; padding-left:15px">{{transService.getTranslatedData('home.tasks-for-today')}}<span
+      class="gotham font-weight-600 txt-grey" *ngIf="ticketStats">{{ticketStats.todo.length}}</span></span>
   <br>
   <br>
 

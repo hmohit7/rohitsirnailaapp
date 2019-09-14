@@ -1,12 +1,13 @@
 <ion-list style="overflow: auto" class="padding-bottom-0">
   <ion-radio-group [(ngModel)]="value">
-    <ion-list-header class="center-text gotham">Country Code</ion-list-header>
+    <ion-list-header class="center-text gotham">{{transService.getTranslatedData('country-code-modal.title')}}
+    </ion-list-header>
     <ion-item *ngFor="let code of countryCode |Filter :searchTerm" (click)="dismissModal(code.code)">
       <ion-label class="gotham">{{code.country}}</ion-label>
       <ion-radio mode="ios" value="{{code.code}}"></ion-radio>
     </ion-item>
     <ion-button *ngIf="!hideButton" expand="full" class="margin-0 gotham" (click)="showMore()">
-      Show More
+      {{transService.getTranslatedData('country-code-modal.button')}}
     </ion-button>
   </ion-radio-group>
 </ion-list>

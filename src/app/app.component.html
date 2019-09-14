@@ -5,7 +5,7 @@
         <ion-toolbar color="primary">
           <ion-menu-toggle>
             <ion-title class="center-text">
-              Menu
+              {{translate.instant('app-component.title')}}
               <!-- <p class="font-14 margin-bottom-3 font-weight-600">{{appPages.name}}</p>
               <p class="margin-top-0 font-14 font-weight-600">{{appPages.phoneNumber}}</p> -->
             </ion-title>
@@ -18,7 +18,7 @@
             <ion-item lines="full" [routerLink]="[p.url]">
               <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
               <ion-label [ngClass]="{marginTop5: p.src?true:false}">
-                {{p.title}}
+                {{translate.instant(p.title)}}
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
@@ -26,7 +26,7 @@
             <ion-item lines="full" (click)="logout()">
               <img class="icon-25 margin-bottom-10" [src]="appPages.logout.src">
               <ion-label class="marginTop5">
-                {{appPages.logout.title}}
+                {{translate.instant(appPages.logout.title)}}
               </ion-label>
             </ion-item>
           </ion-menu-toggle>

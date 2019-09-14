@@ -9,7 +9,7 @@
 <ion-content class="">
 
   <div>
-
+    <p class="center-text gotham" *ngIf="notices.length==0">No Notices Available!</p>
     <ion-card class="ticket-details-list padding-10" [routerLink]="['/building-management-notice-details']"
       [queryParams]="{noticeId: notice._id}" *ngFor="let notice of notices">
 

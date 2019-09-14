@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { UserService } from '../../services/user.service';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,8 @@ export class HomePage implements OnInit {
     private modalController: ModalController,
     private userService: UserService,
     private alertService: AlertServiceService,
-    private push: Push
+    private push: Push,
+    public transService: translateService
   ) {
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
@@ -161,7 +163,7 @@ export class HomePage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
         }
       );
   }

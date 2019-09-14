@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-countrycodemodal',
@@ -17,7 +18,10 @@ export class CountrycodemodalComponent implements OnInit {
   public code: string;
   searchTerm: string;
 
-  constructor(private _modalCtrl: ModalController) { }
+  constructor(
+    private _modalCtrl: ModalController,
+    public transService: translateService
+  ) { }
 
   ngOnInit() {
     console.log(this.value);
