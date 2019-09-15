@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController } from '@ionic/angular';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-calendar',
@@ -30,7 +31,8 @@ export class CalendarPage implements OnInit {
   constructor(
     private ticketService: TicketService,
     private loading: LoadingController,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    public transService: translateService
   ) {
     this.searchTicket('');
   }
@@ -69,7 +71,7 @@ export class CalendarPage implements OnInit {
       },
         err => {
           // this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
         }
       );
   }

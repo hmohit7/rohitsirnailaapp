@@ -201,8 +201,7 @@
     </ion-item>
   </ion-list>
 
-  <span class="font-14 gotham" *ngIf="ticketStats?.todo.length == 0" style="margin-top:5px; padding-left:15px">
-    No tasks found
+  <span class="font-14 gotham center-text display-block margin-top-10" *ngIf="ticketStats?.todo.length == 0">
+    {{transService.getTranslatedData('home.no-task-found')}}
   </span>
-
 </ion-content>

@@ -3,6 +3,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { ContactUsService } from '../../services/contact-us.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -36,7 +37,8 @@ export class ContactUsPage implements OnInit {
     private contactUsService: ContactUsService,
     private router: Router,
     private route: ActivatedRoute,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    public transService: translateService
   ) { }
 
   ngOnInit() {
@@ -48,12 +50,13 @@ export class ContactUsPage implements OnInit {
     this.contactUsService.createContactUs(this.contactUsData)
       .subscribe(async (data: any) => {
         this.loadingCtrl.dismiss();
-        await this.alertService.presentAlert('Alert', 'Ticket created')
+        await this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+          this.transService.getTranslatedData('contact-us.message'))
         this.router.navigateByUrl('/rentals-home');
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
         }
       );
 

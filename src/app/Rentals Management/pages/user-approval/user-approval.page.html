@@ -3,14 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>User approval</ion-title>
+    <ion-title>{{transService.getTranslatedData('user-approval.title')}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <div class="txt-medium gotham margin-top-20 txt-brown center-text" *ngIf="approvals?.length === 0">
-    No Approval found!
+    {{transService.getTranslatedData('user-approval.empty-array')}}
   </div>
 
   <ion-card *ngFor="let approval of approvals">
@@ -46,7 +46,8 @@
           </p>
         </ion-row>
         <ion-row class="padding-top-10">
-          <p class=" margin-padding-zero font-12 gotham  ">Requested By :-</p>
+          <p class=" margin-padding-zero font-12 gotham  ">
+            {{transService.getTranslatedData('user-approval.req-by')}}</p>
         </ion-row>
         <ion-row>
           <p class="padding-top-5 font-14 gotham margin-0 mar txt-warm-grey">

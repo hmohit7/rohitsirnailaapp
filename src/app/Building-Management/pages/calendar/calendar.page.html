@@ -3,13 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Calendar</ion-title>
+    <ion-title>{{transService.getTranslatedData('calendar.title')}}</ion-title>
   </ion-toolbar>
-  <ion-segment scrollable mode="md" class="shadow margin-padding-zero"
-    value="4">
+  <ion-segment scrollable mode="md" class="shadow margin-padding-zero" value="4">
     <ion-segment-button mode="md" *ngFor="let date of dateList let i= index"
-      class="margin-padding-zero min-width-37 font-12" value="{{i}}"
-      (click)="resetDate(date)">
+      class="margin-padding-zero min-width-37 font-12" value="{{i}}" (click)="resetDate(date)">
       <ion-label class="margin-padding-zero gotham txt-warm-grey">{{date |
         date:'EEE'}}</ion-label>
       <span class="padding-0 margin-top-5 margin-bottom-5 gotham font-30
@@ -25,10 +23,9 @@
     found</span> -->
   <ion-list class="margin-top-10">
     <ion-item *ngFor="let ticket of tickets" detail="true" lines="none"
-      [routerLink]="['/ticket-details']"
-      [queryParams]="{ticketId: ticket._id}">
+      [routerLink]="['/building-management-ticket-details']" [queryParams]="{ticketId: ticket._id}">
       <ion-label class="margin-0">
-        <p class="gotham-medium margin-bottom-8"text-wrap>
+        <p class="gotham-medium margin-bottom-8" text-wrap>
           <span class="float-left">#{{ticket.uid}} - </span>
           <span class="center-text"> {{ticket.ticketCategory}}</span>
           <span class="float-right">{{ticket.createdAt | date:'dd MMM
@@ -45,19 +42,17 @@
             {{ticket.jobDate | date:'dd MMM yyyy'}} {{ticket.jobStartTime |
             date:'hh:mm a'}}
           </ion-badge>
-          <ion-badge class="gotham font-weight-600 margin-left-20 padding-top-5"
-            color="{{ticket.status}}" mode="md">
-            {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}
+          <ion-badge class="gotham font-weight-600 margin-left-20 padding-top-5" color="{{ticket.status}}" mode="md">
+            {{ticket.status == 'in-progress' ? transService.getTranslatedData('calendar.in-progress') : ticket.status}}
           </ion-badge>
         </p>
       </ion-label>
     </ion-item>
   </ion-list>
 
-  <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px"
-    (ionInfinite)="searchTicket($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading
-      more data...">
+  <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="searchTicket($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

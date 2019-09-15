@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-item lines="none" color="primary" class="margin-padding-zero ">
-      <span class="font-weight-600 font-19 gothams">Profile</span>
+      <span class="font-weight-600 font-19 gothams">{{transService.getTranslatedData('profile.title')}}</span>
     </ion-item>
   </ion-toolbar>
 </ion-header>
@@ -15,7 +15,8 @@
     <!-- Place to add the heading-->
     <div class="profile-main-head center-text">
       <b>
-        <span class=" txt-white float-right font-weight-600" (click)="logOut()">Logout</span>
+        <span class=" txt-white float-right font-weight-600"
+          (click)="logOut()">{{transService.getTranslatedData('profile.logout-tag')}}</span>
       </b>
     </div>
     <!-- Name of the PM -->
@@ -29,13 +30,14 @@
   </div>
   <ion-list class="padding-top-0">
     <ion-header no-border class=" grey-back">
-      <ion-title class="center-text padding-bottom-10 padding-top-30 gotham ">Contact Information</ion-title>
+      <ion-title class="center-text padding-bottom-10 padding-top-30  ">
+        {{transService.getTranslatedData('profile.contact-information')}}</ion-title>
     </ion-header>
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col size="5">
-            <p class=" font-14 gotham">Phone Number :</p>
+            <p class=" font-14 gotham">{{transService.getTranslatedData('profile.phone-number')}}</p>
           </ion-col>
           <ion-col size="7">
             <p class=" font-14 gotham">{{data.phoneNumber}}</p>
@@ -47,7 +49,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="4.8">
-            <p class=" font-14 gotham">Email :</p>
+            <p class=" font-14 gotham">{{transService.getTranslatedData('profile.email')}}</p>
           </ion-col>
           <ion-col size="7.2">
             <p class=" font-14 gotham">{{data.email}}</p>
@@ -56,13 +58,14 @@
       </ion-grid>
     </ion-item>
     <ion-header no-border class="padding-top-bottom-10 grey-back">
-      <ion-title class="center-text gotham ">personal Information</ion-title>
+      <ion-title class="center-text gotham ">{{transService.getTranslatedData('profile.personal-information')}}
+      </ion-title>
     </ion-header>
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col size="4.8">
-            <p class=" font-14 gotham">D.O.B :</p>
+            <p class=" font-14 gotham">{{transService.getTranslatedData('profile.dob')}}</p>
           </ion-col>
           <ion-col size="7.2">
             <p class=" font-14 gotham">{{data.dob|date:'dd/MM/yyyy'}}</p>
@@ -74,7 +77,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="4.8">
-            <p class=" font-14 gotham">Gender :</p>
+            <p class=" font-14 gotham">{{transService.getTranslatedData('profile.gender')}}</p>
           </ion-col>
           <ion-col size="7.2">
             <p class=" font-14 gotham">{{data.gender}}</p>
@@ -86,7 +89,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="4.8">
-            <p class=" font-14 gotham">Address :</p>
+            <p class=" font-14 gotham">{{transService.getTranslatedData('profile.address')}}</p>
           </ion-col>
           <ion-col size="7.2">
             <p><span class=" font-14 gotham">{{data.address}}</span></p>
@@ -95,13 +98,13 @@
       </ion-grid>
     </ion-item>
     <ion-header no-border class="padding-top-bottom-10 grey-back">
-      <ion-title class="center-text gotham ">Bank Information :</ion-title>
+      <ion-title class="center-text gotham ">{{transService.getTranslatedData('profile.bank-information')}}</ion-title>
     </ion-header>
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col size="4.8">
-            <p class=" font-14 gotham">Account Number :</p>
+            <p class=" font-14 gotham">{{transService.getTranslatedData('profile.account-number')}}</p>
           </ion-col>
           <ion-col size="7.2">
             <p class="font-14 gotham" *ngIf="data.bankAccount">{{data.bankAccount.number}}</p>
@@ -113,7 +116,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="4.8">
-            <p class=" font-14 gotham">IFSC :</p>
+            <p class=" font-14 gotham">{{transService.getTranslatedData('profile.ifsc')}}</p>
           </ion-col>
           <ion-col size="7.2">
             <p class=" font-14 gotham">{{data.ifsc}}</p>

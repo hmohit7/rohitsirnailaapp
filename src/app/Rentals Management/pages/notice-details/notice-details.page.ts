@@ -3,6 +3,7 @@ import { NoticeService } from '../../services/notice.service';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-notice-details',
@@ -22,7 +23,8 @@ export class NoticeDetailsPage implements OnInit {
     private modalController: ModalController,
     private route: ActivatedRoute,
     private router: Router,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    public transService: translateService
   ) {
     this.route.queryParamMap.subscribe((params: any) => {
       params.params.noticeId ? this.noticeId = params.params.noticeId : '';
@@ -57,7 +59,8 @@ export class NoticeDetailsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }
@@ -71,7 +74,8 @@ export class NoticeDetailsPage implements OnInit {
 
       },
         err => {
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }
@@ -99,7 +103,8 @@ export class NoticeDetailsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }
@@ -121,7 +126,8 @@ export class NoticeDetailsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }
@@ -136,7 +142,8 @@ export class NoticeDetailsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }

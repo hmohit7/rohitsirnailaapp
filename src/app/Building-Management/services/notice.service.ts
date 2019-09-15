@@ -37,7 +37,7 @@ export class NoticeService {
 
   getNoticeById(id) {
     console.log(id);
-    return this.http.get(`${this.appSettings.getApi()}/api/discussion/${id}`,
+    return this.http.get(`${this.appSettings.getApi()}/api/discussion/${id}?&populate=files`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

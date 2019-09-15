@@ -3,6 +3,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,8 @@ export class ProfilePage implements OnInit {
     private router: Router,
     private userService: UserService,
     private alertService: AlertServiceService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public transService: translateService
   ) {
     this.getProfile(window.localStorage.getItem('user_id'));
   }
@@ -31,7 +33,8 @@ export class ProfilePage implements OnInit {
       this.data = data;
       console.log(data);
     }, error => {
-      this.alertService.presentAlert('Alert', error);
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        error.message.message);
     });
   }
 

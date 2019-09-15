@@ -4,6 +4,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { NoticeCreatePage } from '../notice-create/notice-create.page'
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-notice-board',
@@ -23,7 +24,8 @@ export class NoticeBoardPage implements OnInit {
     private noticeService: NoticeService,
     private loading: LoadingController,
     private modalController: ModalController,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    public transService: translateService
   ) {
     this.getNoices('');
   }
@@ -58,7 +60,8 @@ export class NoticeBoardPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }
@@ -109,7 +112,8 @@ export class NoticeBoardPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }

@@ -61,25 +61,30 @@
         "tickets": "Tickets",
         "discussion": "Discussion",
         "calendar": "Calendar",
-        "tasks-for-today": "Tasks for today - "
+        "tasks-for-today": "Tasks for today - ",
+        "no-task-found": "No tasks found"
     },
-    "calender": {
-        "title": "Calendar"
+    "calendar": {
+        "title": "Calendar",
+        "in-progress": "In Progress"
     },
     "contact-us": {
         "title": "Contact Us",
         "note": "Send Us An Email",
         "placeholder": "Drop yout comment here...",
-        "submit-button": "Submit"
+        "submit-button": "Submit",
+        "message": "Ticket created"
     },
     "create-notice": {
         "title": "Create Notice",
-        "select-project-title": "Cicck here to select a Project",
+        "select-project-title": "Click here to select a Project",
         "topic": "Topic",
         "message": "Message",
         "select-file": "Select file",
         "add-picture": "Click here to add picture",
-        "submit": "Submit"
+        "submit": "Submit",
+        "notice-created": "Notice Created",
+        "picture-limit": "Only one pitcure is allowed!!"
     },
     "estimate": {
         "title": "Estimate",
@@ -153,14 +158,18 @@
     },
     "user-approval": {
         "title": "User Approval",
-        "empty-arrya": "No Approval found!",
-        "req-by": "Requested By :-"
+        "empty-array": "No Approval found!",
+        "req-by": "Requested By :- ",
+        "approval-success": "User approval successfull",
+        "reject-user": "User rejected successfully"
     },
     "notice-board": {
-        "title": "Notice Board"
+        "title": "Notice Board",
+        "empty-array": "No Notices Available!"
     },
     "notice-details": {
         "title": "Notice Details",
+        "delete-button": "delete",
         "comment": "comment here..."
     },
     "ticket-details": {

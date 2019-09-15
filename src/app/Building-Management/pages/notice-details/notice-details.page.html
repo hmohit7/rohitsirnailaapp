@@ -3,11 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Notice Details</ion-title>
+    <ion-title>{{transService.getTranslatedData('notice-details.title')}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="">
-
+<ion-content>
   <div>
 
     <ion-card class="ticket-details-list padding-10 margin-5">
@@ -47,7 +46,7 @@
 
       <ion-row class="center-text" *ngIf="notice.files?.length> 0">
         <br>
-        <ion-col>
+        <ion-col class="display-flex justify-center">
           <img src="{{notice.files[0].aws_original_url}}" style="max-width:100%; max-height:250px !important; width:auto;
             height:auto;">
         </ion-col>
@@ -71,11 +70,6 @@
               <span class="text font-20">{{notice.commentCount}}</span>
             </span>
           </ion-col>
-          <!-- <ion-col size="4">
-              <span class="font-25 Gotham float-right">
-                <ion-icon name="trash"></ion-icon>
-              </span>
-            </ion-col> -->
         </ion-row>
       </ion-grid>
     </ion-card>
@@ -87,24 +81,33 @@
             {{comment.createdBy.lastName}}"></ngx-avatar>
         </ion-col>
         <ion-col class="margin-left-10">
-          <p class="gotham-medium font-14 dark-grey margin-padding-zero">
-            {{comment.createdBy.firstName}} {{comment.createdBy.lastName}}
-            <span class="float-right font-12 txt-warm-grey gotham-medium
-              font-weight-500">{{comment.createdAt |agoFilter}}</span>
-          </p>
-          <p class="txt-warm-grey gotham-medium font-14 font-weight-500
-            margin-top-8 txt-nowrap">
-            <!-- {{comment.createdBy.types}} -->
+          <ion-col class="padding-left-0">
+            <span class="gotham-medium font-14 dark-grey margin-padding-zero">
+              {{comment.createdBy.firstName}} {{comment.createdBy.lastName}}
+            </span>
+            <!-- <br>
+            <span class="txt-warm-grey gotham-medium  font-14 font-weight-500 margin-top-8 txt-nowrap">
             Admin
-          </p>
-        </ion-col>
-        <ion-col>
-          <p class="txt-warm-grey gotham-medium font-14 font-weight-500
-            margin-top-8 txt-nowrap">
-            {{comment.text}}
-          </p>
-          <a *ngIf="user_id == comment.createdBy._id" (click)='deleteComment(comment._id)' class="gotham-medium float-right font-12 dark-grey
-            margin-padding-zero underline-text">delete</a>
+            </span> -->
+          </ion-col>
+          <ion-col class="padding-0">
+            <span class="float-right font-12 txt-warm-grey gotham-medium font-weight-500">
+              {{comment.createdAt |agoFilter}}</span>
+          </ion-col>
+          <ion-row>
+            <ion-col size="9" class="padding-0">
+              <p class="txt-warm-grey gotham-medium font-14 font-weight-500 margin-0 comment-full-visible">
+                {{comment.text}}
+              </p>
+            </ion-col>
+            <ion-col size="3" class="padding-0">
+              <a (click)='deleteComment(comment._id)'
+                class="gotham-medium float-right font-12 dark-grey margin-padding-zero margin-top-1 underline-text">delete</a>
+            </ion-col>
+
+          </ion-row>
+
+
         </ion-col>
       </ion-row>
     </div>
@@ -114,15 +117,13 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-item no-padding>
-      <label style="width: 90%;" class="grey-back">
-        <ion-input placeholder="comment here..." [(ngModel)]="notice.commentText"
-          class="font-14 height-50 gotham border-0 padding-left-10"></ion-input>
-      </label>
-      <ion-button class="margin-left-8" (click)="createComment()">
-        <ion-icon name="paper-plane"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-toolbar>
+  <ion-item no-padding lines="none">
+    <label class="grey-back full-width">
+      <ion-input placeholder="{{transService.getTranslatedData('notice-details.comment')}}"
+        [(ngModel)]="notice.commentText" class="font-14 height-50 gotham border-0 padding-left-10"></ion-input>
+    </label>
+    <ion-button (click)="createComment()">
+      <ion-icon style="font-size: x-large !important" name="paper-plane"></ion-icon>
+    </ion-button>
+  </ion-item>
 </ion-footer>

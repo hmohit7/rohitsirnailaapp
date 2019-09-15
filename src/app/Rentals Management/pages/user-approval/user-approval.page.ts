@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { LoadingController, ModalController, PopoverController } from '@ionic/angular';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { ApprovalpopupComponent } from '../../modals/approvalpopup/approvalpopup.component';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class UserApprovalPage implements OnInit {
     private userService: UserService,
     private modalController: ModalController,
     private alertService: AlertServiceService,
-    private popOver: PopoverController
+    private popOver: PopoverController,
+    public transService: translateService
   ) {
     this.getUserApprovals();
   }
@@ -46,7 +48,7 @@ export class UserApprovalPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
         }
       );
   }
@@ -55,14 +57,16 @@ export class UserApprovalPage implements OnInit {
     await this.presentLoading()
     this.userService.approve(id).subscribe(async data => {
       await this.loadingCtrl.dismiss()
-      this.alertService.presentAlert('Alert', 'User approval successfull')
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('user-approval.approval-success'))
       this.getUserApprovals();
       console.log('==================DATA==================');
       console.log(data);
       console.log('==================DATA==================');
     }, async err => {
       await this.loadingCtrl.dismiss()
-      this.alertService.presentAlert('Alert', 'Something went wrong')
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('error-alert'))
       console.log('==================ERROR==================');
       console.log(err);
       console.log('==================ERROR==================');
@@ -72,14 +76,16 @@ export class UserApprovalPage implements OnInit {
     await this.presentLoading();
     this.userService.reject(id, notes).subscribe(async data => {
       await this.loadingCtrl.dismiss()
-      this.alertService.presentAlert('Alert', 'User rejected successfully')
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('user-approval.reject-user'))
       this.getUserApprovals();
       console.log('==================DATA==================');
       console.log(data);
       console.log('==================DATA==================');
     }, async err => {
       await this.loadingCtrl.dismiss()
-      this.alertService.presentAlert('Alert', 'Something went wrong')
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('error-alert'))
       console.log('==================ERROR==================');
       console.log(err);
       console.log('==================ERROR==================');
@@ -112,7 +118,8 @@ export class UserApprovalPage implements OnInit {
       window.location.href = 'tel:' + number;
     }
     else {
-      this.alertService.presentAlert("Phone number not found", '')
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('call-alert'))
     }
   }
 }

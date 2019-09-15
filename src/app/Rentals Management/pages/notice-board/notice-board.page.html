@@ -3,14 +3,15 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Notice Board</ion-title>
+    <ion-title>{{transService.getTranslatedData('notice-board.title')}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="">
 
   <div>
 
-    <p class="center-text gotham" *ngIf="notices.length==0">No Notices Available!</p>
+    <p class="center-text gotham" *ngIf="notices.length==0">
+      {{transService.getTranslatedData('notice-board.empty-array')}}</p>
     <ion-card class="ticket-details-list padding-10" [routerLink]="['/rentals-notice-details']"
       [queryParams]="{noticeId: notice._id}" *ngFor="let notice of notices">
 
@@ -79,7 +80,8 @@
     </ion-card>
 
     <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="getNoices($event)">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      <ion-infinite-scroll-content loadingSpinner="bubbles"
+        loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
