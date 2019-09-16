@@ -9,13 +9,15 @@
 
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
+          </p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">
+            {{transService.getTranslatedData('login.welcome-string2')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-14 gotham">Enter your registered phone number</p>
+          <p class="font-14 gotham">{{transService.getTranslatedData('login.welcome-string3')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent text-left">
@@ -28,17 +30,19 @@
         </ion-col>
         <ion-col size="9">
           <ion-item>
-            <ion-input inputmode="tel" class="gotham" placeholder="Phone Number" [(ngModel)]="loginData.phoneNumber">
+            <ion-input inputmode="tel" class="gotham"
+              placeholder="{{transService.getTranslatedData('login.phone-number-input')}}"
+              [(ngModel)]="loginData.phoneNumber">
             </ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row class="width-80-percent center-text margin-top-10">
         <ion-button class="full-button" (click)="checkPlatform()" expand="full" color="primary">
-          Login</ion-button>
+          {{transService.getTranslatedData('login.login-button')}}</ion-button>
       </ion-row>
       <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-        <p (click)="display='forgot'">Forgot password?</p>
+        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
       </ion-row>
     </div>
 
@@ -51,25 +55,30 @@
 
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
+          </p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">
+            {{transService.getTranslatedData('login.welcome-string2')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent text-left">
         <ion-col>
           <ion-item>
-            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">Enter Password</ion-label>
-            <ion-input type="password" [(ngModel)]="loginData.password" placeholder="password">
+            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">
+              {{transService.getTranslatedData('login.enter-password')}}</ion-label>
+            <ion-input type="password" [(ngModel)]="loginData.password"
+              placeholder="{{transService.getTranslatedData('login.password-placeholder')}}">
             </ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" (click)="loginUser('login')" expand="full" color="primary">Login
+        <ion-button class="full-button gotham" (click)="loginUser('login')" expand="full" color="primary">
+          {{transService.getTranslatedData('login.login-button')}}
         </ion-button>
       </ion-row>
       <ion-row style="justify-content: center !important" class="width-80-percent gotham margin-top-10">
-        <p (click)="display='forgot'">Forgot password?</p>
+        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
       </ion-row>
     </div>
 
@@ -82,37 +91,42 @@
 
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
+          </p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">
+            {{transService.getTranslatedData('login.welcome-string2')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-14 gotham">Enter your registered phone number</p>
+          <p class="font-14 gotham">{{transService.getTranslatedData('login.welcome-string3')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent text-left">
         <ion-col size="3">
           <ion-item (click)="countryCodeModal()">
-            <ion-input inputmode="text" placeholder="+91" class="gotham" [(ngModel)]="sendotp.countryCode">
+            <ion-input inputmode="text"
+              placeholder="{{transService.getTranslatedData('login.country-code-placeholder')}}" class="gotham"
+              [(ngModel)]="sendotp.countryCode">
             </ion-input>
             <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
           </ion-item>
         </ion-col>
         <ion-col size="9">
           <ion-item>
-            <ion-input inputmode="tel" [(ngModel)]="sendotp.phoneNumber" placeholder="Phone Number">
+            <ion-input inputmode="tel" [(ngModel)]="sendotp.phoneNumber"
+              placeholder="{{transService.getTranslatedData('login.phone-number-input')}}">
             </ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row class="width-80-percent center-text margin-top-10">
         <ion-button class="full-button gotham" expand="full" (click)="sendOtpService('forgot')" color="primary">
-          Request Otp</ion-button>
+          {{transService.getTranslatedData('login.send-otp-button')}}</ion-button>
         <!--sendOtp(sendotp.phoneNumber, 'forgot')-->
       </ion-row>
       <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
-        <p (click)="display='login'">Login</p>
+        <p (click)="display='login'">{{transService.getTranslatedData('login.login-button')}}</p>
       </ion-row>
     </div>
 
@@ -125,25 +139,30 @@
 
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
+          </p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">
+            {{transService.getTranslatedData('login.welcome-string2')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent text-left">
         <ion-col>
           <ion-item>
-            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">Enter Otp</ion-label>
-            <ion-input imputmode="tel" [(ngModel)]="otpData.accessCode" placeholder="">
+            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">
+              {{transService.getTranslatedData('login.otp-input')}}</ion-label>
+            <ion-input imputmode="tel" [(ngModel)]="otpData.accessCode"
+              placeholder="{{transService.getTranslatedData('login.otp-placeholder')}}">
             </ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('login')">Confirm
+        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('login')">
+          {{transService.getTranslatedData('login.confirm-button')}}
         </ion-button>
       </ion-row>
       <ion-row style="justify-content: center !important" class="width-80-percent gotham margin-top-10">
-        <p (click)="display='forgot'">Forgot Password</p>
+        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
       </ion-row>
     </div>
 
@@ -156,15 +175,19 @@
 
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
+          </p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">
+            {{transService.getTranslatedData('login.welcome-string2')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent text-left">
         <ion-col>
           <ion-item>
-            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">Enter New Password</ion-label>
-            <ion-input type="password" [(ngModel)]="passwordData.password" placeholder="">
+            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">
+              {{transService.getTranslatedData('login.reset-password1')}}</ion-label>
+            <ion-input type="password" [(ngModel)]="passwordData.password"
+              placeholder="{{transService.getTranslatedData('login.password-placeholder')}}">
             </ion-input>
           </ion-item>
         </ion-col>
@@ -172,14 +195,17 @@
       <ion-row class="width-80-percent text-left">
         <ion-col>
           <ion-item>
-            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">Confirm Password</ion-label>
-            <ion-input type="password" [(ngModel)]="passwordData.passwordCheck" placeholder=" ">
+            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">
+              {{transService.getTranslatedData('login.reset-password2')}}</ion-label>
+            <ion-input type="password" [(ngModel)]="passwordData.passwordCheck"
+              placeholder="{{transService.getTranslatedData('login.password-placeholder')}}">
             </ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" (click)="passwordSet(otpSource)" color="primary">Confirm
+        <ion-button class="full-button gotham" expand="full" (click)="passwordSet(otpSource)" color="primary">
+          {{transService.getTranslatedData('login.confirm-button')}}
         </ion-button>
       </ion-row>
     </div>
@@ -193,25 +219,30 @@
 
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
+          </p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">
+            {{transService.getTranslatedData('login.welcome-string2')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent text-left">
         <ion-col>
           <ion-item>
-            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">Enter Otp</ion-label>
-            <ion-input imputmode="tel" class="gotham" [(ngModel)]="otpData.accessCode" placeholder=" ">
+            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">
+              {{transService.getTranslatedData('login.otp-input')}}</ion-label>
+            <ion-input imputmode="tel" class="gotham" [(ngModel)]="otpData.accessCode"
+              placeholder="{{transService.getTranslatedData('login.otp-placeholder')}}">
             </ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('forgot')">Confirm
+        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('forgot')">
+          {{transService.getTranslatedData('login.confirm-button')}}
         </ion-button>
       </ion-row>
       <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
-        <p (click)="display='forgot'">Forgot Password</p>
+        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
       </ion-row>
     </div>
 
@@ -224,25 +255,30 @@
 
       <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">Welcom back,</p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">Please sign-in to continue</p>
+          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
+          </p>
+          <p class="font-14 txt-warm-grey margin-top-0 gotham">
+            {{transService.getTranslatedData('login.welcome-string2')}}</p>
         </div>
       </ion-row>
       <ion-row class="width-80-percent text-left">
         <ion-col>
           <ion-item>
-            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">Enter Otp</ion-label>
-            <ion-input imputmode="tel" [(ngModel)]="otpData.accessCode" placeholder=" ">
+            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">
+              {{transService.getTranslatedData('login.otp-input')}}</ion-label>
+            <ion-input imputmode="tel" [(ngModel)]="otpData.accessCode"
+              placeholder="{{transService.getTranslatedData('login.otp-placeholder')}}">
             </ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('approve')">Confirm
+        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('approve')">
+          {{transService.getTranslatedData('login.confirm-button')}}
         </ion-button>
       </ion-row>
       <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
-        <p (click)="display='forgot'">Forgot Password</p>
+        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
       </ion-row>
     </div>
 

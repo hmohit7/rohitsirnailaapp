@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
       private alertCtrl: AlertController,
       private appSetting: MainAppSetting,
       private menuCtrl: MenuController,
-      private transService: translateService
+      public transService: translateService
     ) {
 
   }
@@ -76,7 +76,8 @@ export class LoginPage implements OnInit {
   checkPlatform() {
     window.localStorage.removeItem('platform');
     if (!this.verifyPhone()) {
-      this._alertService.presentAlert('Alert', 'Please enter a valid phone number');
+      this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('login.valid-phone-number-error'));
     } else {
 
       localStorage.setItem('phoneNumber', this.loginData.phoneNumber);
@@ -102,7 +103,7 @@ export class LoginPage implements OnInit {
 
           }, err => {
             this._lodingCtrl.dismiss();
-            this._alertService.presentAlert('Alert', err.error);
+            this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error);
           });
       } else {
         this.verifyPhoneService()
@@ -121,10 +122,10 @@ export class LoginPage implements OnInit {
       buttons: [
         {
           cssClass: 'platform-button',
-          text: 'Building Management',
+          text: this.transService.getTranslatedData('login.multi-platform.title'),
           handler: () => {
             const bmData = {
-              type: 'bm',
+              type: this.transService.getTranslatedData('login.multi-platform.BM'),
               bm: data.bm
             }
             this.handleUser(bmData, 'bm');
@@ -134,14 +135,14 @@ export class LoginPage implements OnInit {
           text: 'Rental Management',
           handler: () => {
             const bmData = {
-              type: 'rm',
+              type: this.transService.getTranslatedData('login.multi-platform.RM'),
               rm: data.rm
             }
             this.handleUser(bmData, 'rm');
           }
         },
         {
-          text: 'Cancel',
+          text: this.transService.getTranslatedData('login.multi-platform.cancel'),
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
@@ -174,7 +175,8 @@ export class LoginPage implements OnInit {
         this.display = 'otp';
       }
     } else {
-      this._alertService.presentAlert('Alert', 'You are not allowed to use this app');
+      this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('login.user-not-allowed-error'));
     }
   }
 
@@ -249,15 +251,17 @@ export class LoginPage implements OnInit {
             }
           } else {
             await this._lodingCtrl.dismiss();
-            this._alertService.presentAlert('Alert', "You are not alloiwed")
+            this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+              this.transService.getTranslatedData('login.user-not-allowed-error'))
           }
 
         }, async (error) => {
           await this._lodingCtrl.dismiss();
-          this._alertService.presentAlert('Alert', 'You are not allowed to use this app');
+          this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            this.transService.getTranslatedData('login.user-not-allowed-error'));
           console.log(error);
 
-          // this._alertService.presentAlert('Alert', error.error.error);
+          // this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), error.error.error);
 
         })
     }
@@ -293,7 +297,8 @@ export class LoginPage implements OnInit {
 
       } else {
         this._lodingCtrl.dismiss();
-        this._alertService.presentAlert('Alert', data.error);
+        this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+          data.error);
       }
 
 
@@ -302,7 +307,8 @@ export class LoginPage implements OnInit {
 
       this._lodingCtrl.dismiss();
       console.log(error);
-      this._alertService.presentAlert('Alert', error.error.error);
+      this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        error.error.error);
 
     })
   }
@@ -322,18 +328,18 @@ export class LoginPage implements OnInit {
           this.presentLoading();
           return true;
         } else {
-          this._alertService.presentAlert("Alert", "Please enter a valid phone number");
+          this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), this.transService.getTranslatedData('login.valid-phone-number-error'));
         }
       } else {
         if (this.sendotp.phoneNumber.length > 4) {
           this.presentLoading();
           return true;
         } else {
-          this._alertService.presentAlert("Alert", "Please enter a valid phone number");
+          this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), this.transService.getTranslatedData('login.valid-phone-number-error'));
         }
       }
     } else {
-      this._alertService.presentAlert("Alert", "Please enter a phone number");
+      this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), this.transService.getTranslatedData('login.enter-phone-number'));
     }
   }
 
@@ -350,14 +356,15 @@ export class LoginPage implements OnInit {
         if (data.message == "OTP sent") {
           type == 'approve' ? this.display = "approvalotp" : this.display = "forgototp";
         } else {
-          this._alertService.presentAlert('Alert', data.error);
+          this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), data.error);
         }
 
       }, (error) => {
 
         this._lodingCtrl.dismiss();
         console.log(error);
-        this._alertService.presentAlert('Alert', "Something went wrong")
+        this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+          this.transService.getTranslatedData('error-alert'))
         console.log(error.error.error);
 
       })
@@ -388,14 +395,14 @@ export class LoginPage implements OnInit {
           this._navCtrl.navigateRoot(`/${window.localStorage.getItem('appSrc')}`)
         }
       } else {
-        this._alertService.presentAlert('Alert', data.error);
+        this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), data.error);
       }
     }, (error) => {
 
       this._lodingCtrl.dismiss();
       console.log(error);
-      this._alertService.presentAlert('Alert', "Something went wrong");
-      console.log('Alert', error.error.error);
+      this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('error-alert'));
 
     });
   }
@@ -436,14 +443,14 @@ export class LoginPage implements OnInit {
           this._navCtrl.navigateRoot(`/${window.localStorage.getItem('appSrc')}`);
         } else {
 
-          this._alertService.presentAlert('Alert', data.data.error);
+          this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), data.data.error);
         }
       }, (error) => {
 
         this._lodingCtrl.dismiss();
         console.log(error);
-        this._alertService.presentAlert('Alert', "Something went wrong")
-        console.log('Alert', error.error.error);
+        this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+          this.transService.getTranslatedData('error-alert'))
 
       })
     })
@@ -455,7 +462,8 @@ export class LoginPage implements OnInit {
   passwordSet(source) {
 
     if (!this.passwordData.password || !this.passwordData.passwordCheck) {
-      this._alertService.presentAlert("Alert", "Please Enter password");
+      this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('login.password'));
     }
     else if (this.passwordData.password && this.passwordData.passwordCheck) {
 
@@ -474,7 +482,8 @@ export class LoginPage implements OnInit {
 
       }
       else {
-        this._alertService.presentAlert("Alert", "Password Mismatch")
+        this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+          this.transService.getTranslatedData('login.password-mismatch'))
       }
     }
 
