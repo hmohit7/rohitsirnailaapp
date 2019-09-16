@@ -2,6 +2,7 @@ import { AlertServiceService } from '../../../common-services/alert-service.serv
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-ticket-category-search',
@@ -18,7 +19,8 @@ export class TicketCategorySearchPage implements OnInit {
     private modalController: ModalController,
     private ticketService: TicketService,
     private navParams: NavParams,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    public transService: translateService
   ) {
     this.selectedCategory.name = this.navParams.get('name');
     this.selectedCategory.ticketCategory = this.navParams.get('ticketCategory');
@@ -60,7 +62,8 @@ export class TicketCategorySearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }

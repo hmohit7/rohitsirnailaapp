@@ -3,6 +3,7 @@ import { ModalController, NavParams } from '@ionic/angular';
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import * as _ from 'lodash';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-ticket-filter',
@@ -20,7 +21,8 @@ export class TicketFilterPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    public transService: translateService
   ) {
     if (this.navParams.get('data')) {
       this.ticketFilter = this.navParams.get('data');

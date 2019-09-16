@@ -97,14 +97,25 @@
         "total": "TOTAL"
     },
     "create-ticket": {
-        "title": "Raise Ticket",
+        "raise-ticket": "Raise Ticket",
+        "update-ticket": "Update Ticket",
         "raiseticektfor": "Raise Ticket For",
+        "ticket-create-success": "Ticket Created",
+        "ticket-update-success": "Ticket Updated",
+        "select-unit-project-alert": "Select a unit/project",
+        "select-cat-alert": "Select a category first",
+        "picture-limit": "Only one pitcure is allowed!!",
+        "raise-ticket-for": "Raise Ticket For ",
+        "click-here-to": "Click here to select ",
         "unit": "Unit",
         "common-area": "Common area",
         "priority": "Priority",
         "low": "Low",
         "high": "High",
         "unit-title": "Unit",
+        "project": "Project",
+        "a-project": "a project",
+        "a-unit": "an unit",
         "select-unit": "Click here to select an unit",
         "category": "Category",
         "select-category": "Click here to select an category",
@@ -115,7 +126,7 @@
         "poc": "Point of contact",
         "poc-placeholder": "Click here to select poc",
         "technical-staff": "Technical staff",
-        "T-S": "Click here to select a technician",
+        "t-s": "Click here to select a technician",
         "start-date": "Job start date",
         "date-placeholder": "DD-MMM-YYYY",
         "start-time": "Job start time",
@@ -146,40 +157,27 @@
         "poc": "POINT OF CONTACT",
         "poc-placeholder": "Click here to select poc",
         "technician": "TECHNICIAN",
-        "technician-placehplder": "Click here to select a technician",
+        "technician-placeholder": "Click here to select a technician",
         "SJD": "STARTING JOB DATE",
-        "sjd-placeholder": "DD-MMM-YYYY",
+        "date-placeholder": "DD-MMM-YYYY",
         "EJD": "END JOB DATA",
-        "ejd-placeholder": "DD-MMM-YYYY",
         "apply": "Apply"
     },
-    "ticket": {
-        "title": "Tickets"
-    },
-    "user-approval": {
-        "title": "User Approval",
-        "empty-array": "No Approval found!",
-        "req-by": "Requested By :- ",
-        "approval-success": "User approval successfull",
-        "reject-user": "User rejected successfully"
-    },
-    "notice-board": {
-        "title": "Notice Board",
-        "empty-array": "No Notices Available!"
-    },
-    "notice-details": {
-        "title": "Notice Details",
-        "delete-button": "delete",
-        "comment": "comment here..."
-    },
     "ticket-details": {
+        "ticket-updated": "Ticket Updated",
+        "update": {
+            "title": "Are you sure",
+            "no": "No",
+            "yes": "Yes",
+            "status": "Status of this ticket is already"
+        },
         "title": "Ticket",
         "edit": "EDIT",
         "summery": "SUMMARY",
         "assets": "ASSETS",
         "comments": "COMMENTS",
-        "checklict": "CHECKLIST",
-        "quations": "QUOTATIONS",
+        "checklist": "CHECKLIST",
+        "quotations": "QUOTATIONS",
         "materials": "MATERIALS",
         "category": "CATEGORY",
         "sub-category": "SUB CATEGORY",
@@ -212,21 +210,42 @@
         "comment": "Comment",
         "no-comment": "No comments found",
         "no-checklist": "No checklist found found",
-        "quation": "Quotation",
+        "quotation": "Quotation",
         "no-estimate": "No estimate found",
         "born-by-customer": "Borne by customer",
-        "quantity": "Quantity :",
         "material": "Material",
-        "quantity-input": "Quantity",
         "material-placeholder": "Click here to select material",
+        "quantity": "Quantity",
         "quantity-placeholder": "Enter quantity",
         "born-by-customer-input": "Borne by customer?",
         "no-material": "No materials found",
-        "add-bew": "Add new",
+        "add-new": "Add new",
         "open": "Open",
         "in-progress": "In Progress",
         "resolved": "Resolved",
-        "rejected": "Rejected"
+        "rejected": "Rejected",
+        "cancel": "Cancel"
+    },
+    "ticket": {
+        "title": "Tickets",
+        "in-progress": "In Progress",
+        "empty-array": "No Tickets Available"
+    },
+    "user-approval": {
+        "title": "User Approval",
+        "empty-array": "No Approval found!",
+        "req-by": "Requested By :- ",
+        "approval-success": "User approval successfull",
+        "reject-user": "User rejected successfully"
+    },
+    "notice-board": {
+        "title": "Notice Board",
+        "empty-array": "No Notices Available!"
+    },
+    "notice-details": {
+        "title": "Notice Details",
+        "delete-button": "delete",
+        "comment": "comment here..."
     },
     "profile": {
         "title": "Profile",
@@ -242,5 +261,40 @@
         "account-number": "Account Number",
         "ifsc": "IFSC",
         "user-logout-error": "User logout Error"
+    },
+    "create-notice-modal": {
+        "title": "Create Notice",
+        "select-project-title": "Click here to select a Project",
+        "topic": "Topic",
+        "message": "Message",
+        "select-file": "Select file",
+        "add-picture": "Click here to add picture",
+        "submit": "Submit",
+        "notice-created": "Notice Created",
+        "picture-limit": "Only one pitcure is allowed!!"
+    },
+    "approval-popup-modal": {
+        "title": "Are you sure you want to {{val}} this user's approval request?",
+        "reason": "Add reject reason",
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "reject-reason": "Enter user rejection reason."
+    },
+    "project-search": {
+        "title": "Project Search"
+    },
+    "unit-search": {
+        "title": "Unit Search"
+    },
+    "ticket-category-title": {
+        "title": "Select Ticket Category",
+        "empty-array": "No Category Available"
+    },
+    "ticket-sub-category": {
+        "title": "Select Ticket Sub Category",
+        "empty-array": "No Sub-Category Available"
+    },
+    "user-search": {
+        "title": "User Search"
     }
 }

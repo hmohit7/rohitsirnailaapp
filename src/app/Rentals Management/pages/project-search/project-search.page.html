@@ -5,9 +5,10 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Project search </ion-title>
+    <ion-title>{{transService.getTranslatedData('project-search.title')}}</ion-title>
   </ion-toolbar>
-  <ion-searchbar [(ngModel)]="filterData.searchText" (ngModelChange)="resetFilterAndSearch()">
+  <ion-searchbar [(ngModel)]="filterData.searchText"
+    placeholder="{{transService.getTranslatedData('search-placeholder')}}" (ngModelChange)="resetFilterAndSearch()">
   </ion-searchbar>
 </ion-header>
 
@@ -38,7 +39,8 @@
   </ion-list>
 
   <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="searchProject($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

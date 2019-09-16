@@ -5,7 +5,7 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Select ticket category</ion-title>
+    <ion-title>{{transService.getTranslatedData('ticket-category.title')}}</ion-title>
   </ion-toolbar>
   <!-- <ion-searchbar></ion-searchbar> -->
 </ion-header>
@@ -14,6 +14,8 @@
   <div class="center-text margin-top-10" [hidden]="!loading">
     <ion-spinner></ion-spinner>
   </div>
+  <p class="gotham center-text" *ngIf="categories.length==0">
+    {{transService.getTranslatedData('ticket-category.empty-array')}}</p>
   <ion-list>
     <ion-radio-group [(ngModel)]="this.selectedCategory.ticketCategory">
       <ion-item *ngFor="let category of categories">

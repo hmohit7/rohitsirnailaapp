@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { UnitService } from '../../services/unit.service';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-unit-search',
@@ -25,7 +26,8 @@ export class UnitSearchPage implements OnInit {
     private unitService: UnitService,
     private modalController: ModalController,
     private navParams: NavParams,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    public transService: translateService
   ) {
     if (this.navParams.get('id')) {
       this.selectedUnit.ticketBelongsToRefId = this.navParams.get('id');
@@ -86,7 +88,8 @@ export class UnitSearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }

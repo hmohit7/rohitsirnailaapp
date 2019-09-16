@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-create-notice',
@@ -28,7 +29,8 @@ export class CreateNoticeComponent implements OnInit {
     private router: Router,
     private alertService: AlertServiceService,
     private route: ActivatedRoute,
-    public webView: WebView
+    public webView: WebView,
+    public transService: translateService
   ) { }
 
   ngOnInit() { }
@@ -69,18 +71,21 @@ export class CreateNoticeComponent implements OnInit {
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.notice, 'CREATENOTICE').then(() => {
         this.loadingCtrl.dismiss();
-        this.alertService.presentAlert("Alert", 'Notice created');
+        this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+          this.transService.getTranslatedData('create-notice-modal.notice-created'));
         this.flag = true;
         this.modalController.dismiss(this.flag);
         this.router.navigateByUrl('/rentals-notice-board');
       }, err => {
         this.loadingCtrl.dismiss();
-        this.alertService.presentAlert('Alert', err)
+        this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+          err)
       });
     } else {
       this.noticeService.createNotice(this.notice)
         .subscribe((data: any) => {
-          this.alertService.presentAlert('Alert', 'Notice created');
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            this.transService.getTranslatedData('create-notice-modal.notice-created'));
           this.flag = true;
           this.loadingCtrl.dismiss();
           this.modalController.dismiss(this.flag);
@@ -88,7 +93,8 @@ export class CreateNoticeComponent implements OnInit {
         },
           err => {
             this.loadingCtrl.dismiss();
-            this.alertService.presentAlert('Alert', err.error.error);
+            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+              err.error.error);
           }
         );
     }
@@ -105,7 +111,7 @@ export class CreateNoticeComponent implements OnInit {
         console.log(this.images);
       }
     } else {
-      this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), this.transService.getTranslatedData('create-notice-modal.picture-limit'))
     }
   }
 

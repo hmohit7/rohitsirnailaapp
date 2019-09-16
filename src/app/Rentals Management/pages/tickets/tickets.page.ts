@@ -4,6 +4,7 @@ import { LoadingController, ModalController, PopoverController } from '@ionic/an
 import { TicketFilterPage } from '../../pages/ticket-filter/ticket-filter.page';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { TicketComponent } from '../../components/ticket/ticket.component';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-tickets',
@@ -31,7 +32,8 @@ export class TicketsPage implements OnInit {
     private loading: LoadingController,
     private modalController: ModalController,
     private alertService: AlertServiceService,
-    private popOverCtrl: PopoverController
+    private popOverCtrl: PopoverController,
+    public transService: translateService
   ) {
     this.searchTicket('');
   }
@@ -164,7 +166,8 @@ export class TicketsPage implements OnInit {
       },
         err => {
           this.loading.dismiss();
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }

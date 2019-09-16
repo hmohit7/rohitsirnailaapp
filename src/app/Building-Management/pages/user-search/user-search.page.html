@@ -5,9 +5,10 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>User search</ion-title>
+    <ion-title>{{transService.getTranslatedData('user-search.title')}}</ion-title>
   </ion-toolbar>
-  <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchTerm" placeholder="{{transService.getTranslatedData('search-placeholder')}}">
+  </ion-searchbar>
 </ion-header>
 
 <ion-content>

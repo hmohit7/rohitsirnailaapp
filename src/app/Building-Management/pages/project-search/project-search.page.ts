@@ -2,6 +2,7 @@ import { AlertServiceService } from '../../../common-services/alert-service.serv
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { ProjectService } from '../../services/project.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-project-search',
@@ -25,7 +26,8 @@ export class ProjectSearchPage implements OnInit {
     private projectService: ProjectService,
     private modalController: ModalController,
     private navParams: NavParams,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    public transService: translateService
   ) {
     if (this.navParams.get('id')) {
       this.selectedProject.ticketBelongsToRefId = this.navParams.get('id');
@@ -84,7 +86,8 @@ export class ProjectSearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }

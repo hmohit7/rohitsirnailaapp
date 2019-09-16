@@ -2,6 +2,7 @@ import { AlertServiceService } from '../../../common-services/alert-service.serv
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-user-search',
@@ -21,7 +22,8 @@ export class UserSearchPage implements OnInit {
     private userService: UserService,
     private modalController: ModalController,
     private navParams: NavParams,
-    private alertService: AlertServiceService
+    private alertService: AlertServiceService,
+    public transService: translateService
   ) {
     if (this.navParams.get('id')) {
       this.selectedUser.id = this.navParams.get('id');
@@ -56,7 +58,8 @@ export class UserSearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err.error.error);
         }
       );
   }

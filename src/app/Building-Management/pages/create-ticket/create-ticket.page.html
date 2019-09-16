@@ -14,7 +14,8 @@
     <div *ngIf="flow == 'createTicket'">
       <ion-row>
         <ion-col>
-          <p class="gotham font-16 margin-left-10 margin-bottom-0">Raise Ticket For {{ticketData.raisedFor}}</p>
+          <p class="gotham font-16 margin-left-10 margin-bottom-0">
+            {{transService.getTranslatedData('create-ticket.raise-ticket-for')}}{{ticketData.raisedFor}}</p>
         </ion-col>
       </ion-row>
 
@@ -22,12 +23,14 @@
         <ion-col class="padding-left-10">
           <ion-chip [ngClass]="ticketData.ticketBelongsTo == 'Home' ? 'Home' : 'a'" outline="true" color="primary"
             (click)="selectTicketBelongsTo('Home')">
-            <ion-label class="font-16 font-weight-500">Unit</ion-label>
+            <ion-label class="font-16 font-weight-500">{{transService.getTranslatedData('create-ticket.unit')}}
+            </ion-label>
           </ion-chip>
 
           <ion-chip [ngClass]="ticketData.ticketBelongsTo == 'Project' ? 'Project' : 'b'" outline="true" color="primary"
             (click)="selectTicketBelongsTo('Project')">
-            <ion-label class="font-16 font-weight-500">Common area</ion-label>
+            <ion-label class="font-16 font-weight-500">{{transService.getTranslatedData('create-ticket.common-area')}}
+            </ion-label>
           </ion-chip>
         </ion-col>
       </ion-row>
@@ -37,7 +40,8 @@
     <div *ngIf="flow == 'createTicket'">
       <ion-row>
         <ion-col>
-          <p class="font-weight-500 font-16 gotham margin-left-10 margin-bottom-5 ">Priority</p>
+          <p class="font-weight-500 font-16 gotham margin-left-10 margin-bottom-5 ">
+            {{transService.getTranslatedData('create-ticket.priority')}}</p>
         </ion-col>
       </ion-row>
 
@@ -45,12 +49,14 @@
         <ion-col class="padding-left-10">
           <ion-chip [ngClass]="ticketData.priority == 'low' ? 'low' : 'a'" outline="true" color="primary"
             (click)="selectPriority('low')">
-            <ion-label class="font-16 font-weight-500">Low</ion-label>
+            <ion-label class="font-16 font-weight-500">{{transService.getTranslatedData('create-ticket.low')}}
+            </ion-label>
           </ion-chip>
 
           <ion-chip [ngClass]="ticketData.priority == 'high' ? 'high' : 'b'" outline="true" color="primary"
             (click)="selectPriority('high')">
-            <ion-label class="font-16 font-weight-500">High</ion-label>
+            <ion-label class="font-16 font-weight-500">{{transService.getTranslatedData('create-ticket.high')}}
+            </ion-label>
           </ion-chip>
         </ion-col>
       </ion-row>
@@ -58,10 +64,11 @@
 
     <ion-list *ngIf="flow == 'createTicket'">
       <ion-list-header class="gotham font-16 font-weight-500">
-        {{ticketData.ticketBelongsTo == 'Home' ? 'Unit' : 'Project'}}</ion-list-header>
+        {{ticketData.ticketBelongsTo == 'Home' ? transService.getTranslatedData('create-ticket.unit') : transService.getTranslatedData('create-ticket.project')}}
+      </ion-list-header>
       <ion-item>
-        <ion-input inputmode="text" [(ngModel)]="ticketData.ticketBelongsToName" class="gotham  margin-left-10"
-          placeholder="Click here to select {{ticketData.ticketBelongsTo == 'Home' ? 'an unit' : 'a project'}}"
+        <ion-input inputmode="text" readonly [(ngModel)]="ticketData.ticketBelongsToName" class="gotham  margin-left-10"
+          placeholder="{{transService.getTranslatedData('create-ticket.click-here-to')}} {{ticketData.ticketBelongsTo == 'Home' ? transService.getTranslatedData('create-ticket.a-unit') : transService.getTranslatedData('create-ticket.a-project')}}"
           (click)="openModal(ticketData.ticketBelongsTo)">
         </ion-input>
         <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
@@ -69,20 +76,24 @@
     </ion-list>
 
     <ion-list>
-      <ion-list-header class="gotham font-16 font-weight-500">Category</ion-list-header>
+      <ion-list-header class="gotham font-16 font-weight-500">
+        {{transService.getTranslatedData('create-ticket.category')}}</ion-list-header>
       <ion-item>
         <ion-input inputmode="text" [(ngModel)]="ticketData.ticketCategoryName" class="gotham  margin-left-10"
-          placeholder="Clicke here to select poc" (click)="openModal('ticketCategory')">
+          placeholder="{{transService.getTranslatedData('create-ticket.select-category')}}"
+          (click)="openModal('ticketCategory')" readonly>
         </ion-input>
         <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
       </ion-item>
     </ion-list>
 
     <ion-list>
-      <ion-list-header class="gotham font-16 font-weight-500">Sub Category</ion-list-header>
+      <ion-list-header class="gotham font-16 font-weight-500">
+        {{transService.getTranslatedData('create-ticket.sub-category')}}</ion-list-header>
       <ion-item>
         <ion-input inputmode="text" [(ngModel)]="ticketData.ticketSubCategoryName" class="gotham  margin-left-10"
-          placeholder="Clicke here to select poc" (click)="openModal('ticketSubCategory')">
+          placeholder="{{transService.getTranslatedData('create-ticket.select-sub-category')}}"
+          (click)="openModal('ticketSubCategory')" readonly>
         </ion-input>
         <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
       </ion-item>
@@ -94,28 +105,33 @@
 
     <ion-list *ngIf="flow == 'createTicket'">
 
-      <p class="gotham font-16 margin-bottom-0 margin-left-15 float-left">Ticket Description</p>
+      <p class="gotham font-16 margin-bottom-0 margin-left-15 float-left">
+        {{transService.getTranslatedData('create-ticket.ticket-description')}}</p>
       <ion-item>
-        <ion-textarea active placeholder="Drop your notes here" rows="3" [(ngModel)]="ticketData.notes">
+        <ion-textarea active placeholder="{{transService.getTranslatedData('create-ticket.description-placeholder')}}"
+          rows="3" [(ngModel)]="ticketData.notes">
         </ion-textarea>
       </ion-item>
 
     </ion-list>
 
     <ion-list>
-      <ion-list-header class="gotham font-16 font-weight-500">Point of contact</ion-list-header>
+      <ion-list-header class="gotham font-16 font-weight-500">{{transService.getTranslatedData('create-ticket.poc')}}
+      </ion-list-header>
       <ion-item>
         <ion-input inputmode="text" [(ngModel)]="ticketData.contactPointName" class="gotham  margin-left-10"
-          placeholder="Click here to select poc" (click)="openModal('poc')">
+          placeholder="{{transService.getTranslatedData('create-ticket.poc-placeholder')}}" (click)="openModal('poc')"
+          readonly>
         </ion-input>
         <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
       </ion-item>
     </ion-list>
     <ion-list>
-      <ion-list-header class="gotham font-16 font-weight-500">Technical staff</ion-list-header>
+      <ion-list-header class="gotham font-16 font-weight-500">
+        {{transService.getTranslatedData('create-ticket.technical-staff')}}</ion-list-header>
       <ion-item>
         <ion-input inputmode="text" [(ngModel)]="ticketData.agentName" class="gotham  margin-left-10"
-          placeholder="Clicke here to select a technician" (click)="openModal('agent')">
+          placeholder="{{transService.getTranslatedData('create-ticket.t-s')}}" (click)="openModal('agent')" readonly>
 
         </ion-input>
         <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
@@ -124,20 +140,24 @@
     <ion-row>
       <ion-col>
         <ion-list>
-          <ion-list-header class="gotham font-16 font-weight-500">Job start date</ion-list-header>
+          <ion-list-header class="gotham font-16 font-weight-500">
+            {{transService.getTranslatedData('create-ticket.start-date')}}</ion-list-header>
           <ion-item>
-            <ion-datetime placeholder="DD-MMM-YYYY" class="gotham padding-left-0" display-format="DD-MMM-YYYY"
-              picker-format="DD-MMM-YYYY" [(ngModel)]="ticketData.jobDate"></ion-datetime>
+            <ion-datetime placeholder="{{transService.getTranslatedData('create-ticket.date-placeholder')}}"
+              class="gotham padding-left-0" display-format="DD-MMM-YYYY" picker-format="DD-MMM-YYYY"
+              [(ngModel)]="ticketData.jobDate"></ion-datetime>
             <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
           </ion-item>
         </ion-list>
       </ion-col>
       <ion-col>
         <ion-list>
-          <ion-list-header class="gotham font-16 font-weight-500">Job start time</ion-list-header>
+          <ion-list-header class="gotham font-16 font-weight-500">
+            {{transService.getTranslatedData('create-ticket.start-time')}}</ion-list-header>
           <ion-item>
-            <ion-datetime placeholder="hh:mm A" class="gotham padding-left-0" display-format="hh:mm A"
-              picker-format="hh:mm A" [(ngModel)]="ticketData.jobStartTime"></ion-datetime>
+            <ion-datetime placeholder="{{transService.getTranslatedData('create-ticket.time-placeholder')}}"
+              class="gotham padding-left-0" display-format="hh:mm A" picker-format="hh:mm A"
+              [(ngModel)]="ticketData.jobStartTime"></ion-datetime>
             <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
           </ion-item>
         </ion-list>
@@ -146,20 +166,24 @@
     <ion-row>
       <ion-col>
         <ion-list>
-          <ion-list-header class="gotham font-16 font-weight-500">Job end date</ion-list-header>
+          <ion-list-header class="gotham font-16 font-weight-500">
+            {{transService.getTranslatedData('create-ticket.end-date')}}</ion-list-header>
           <ion-item>
-            <ion-datetime placeholder="DD-MMM-YYYY" class="gotham padding-left-0" display-format="DD-MMM-YYYY"
-              picker-format="DD-MMM-YYYY" [(ngModel)]="ticketData.jobEndDate"></ion-datetime>
+            <ion-datetime placeholder="{{transService.getTranslatedData('create-ticket.date-placeholder')}}"
+              class="gotham padding-left-0" display-format="DD-MMM-YYYY" picker-format="DD-MMM-YYYY"
+              [(ngModel)]="ticketData.jobEndDate"></ion-datetime>
             <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
           </ion-item>
         </ion-list>
       </ion-col>
       <ion-col>
         <ion-list>
-          <ion-list-header class="gotham font-16 font-weight-500">Job end time</ion-list-header>
+          <ion-list-header class="gotham font-16 font-weight-500">
+            {{transService.getTranslatedData('create-ticket.end-time')}}</ion-list-header>
           <ion-item>
-            <ion-datetime placeholder="hh:mm A" class="gotham padding-left-0" display-format="hh:mm A"
-              picker-format="hh:mm A" [(ngModel)]="ticketData.jobEndTime"></ion-datetime>
+            <ion-datetime placeholder="{{transService.getTranslatedData('create-ticket.time-placeholder')}}"
+              class="gotham padding-left-0" display-format="hh:mm A" picker-format="hh:mm A"
+              [(ngModel)]="ticketData.jobEndTime"></ion-datetime>
             <ion-icon class="float-right" name="arrow-dropdown"></ion-icon>
           </ion-item>
         </ion-list>
@@ -171,7 +195,7 @@
           <ion-card class="full-width margin-1" (click)="fileSourceOption()">
             <ion-item lines="none" class="ion-item">
               <ion-icon slot="start" class="margin-right-5 margin-left-10 icon-20 gotham" name="camera"></ion-icon>
-              <ion-label>Click here to take a pitcure</ion-label>
+              <ion-label>{{transService.getTranslatedData('create-ticket.add-picture')}}</ion-label>
             </ion-item>
           </ion-card>
         </ion-item>
@@ -192,6 +216,8 @@
 
 </ion-content>
 <ion-button [disabled]="!ticketData.ticketBelongsToRefId || !ticketData.ticketCategory || !ticketData.notes"
-  *ngIf="flow == 'createTicket'" size="large" (click)="raiseTicket()" color="success">Submit</ion-button>
+  *ngIf="flow == 'createTicket'" size="large" (click)="raiseTicket()" color="success">
+  {{transService.getTranslatedData('create-ticket.submit-button')}}</ion-button>
 <ion-button [disabled]="!ticketData.ticketBelongsToRefId || !ticketData.ticketCategory || !ticketData.notes"
-  *ngIf="flow == 'editTicket'" size="large" (click)="updateTicket()" color="success">Submit</ion-button>
+  *ngIf="flow == 'editTicket'" size="large" (click)="updateTicket()" color="success">
+  {{transService.getTranslatedData('create-ticket.submit-button')}}</ion-button>

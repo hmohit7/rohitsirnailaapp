@@ -4,18 +4,16 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <!-- <ion-button (click)="popOverOption()">
-        <ion-icon slot="icon-only" name="funnel"></ion-icon>
-      </ion-button> -->
       <ion-button (click)="openTicketFilterModal()">
         <ion-icon name="funnel" mode="ios"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Tickets</ion-title>
+    <ion-title>{{transService.getTranslatedData('ticket.title')}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <p class="gotham center-text" *ngIf="tickets.length==0">{{transService.getTranslatedData('ticket.empty-array')}}</p>
   <ion-list class="border-top">
     <ion-item *ngFor="let ticket of tickets" [routerLink]="['/building-management-ticket-details']"
       [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
@@ -32,16 +30,17 @@
           class="gotham font-weight-600 date-bedge-color padding-bottom-3 padding-top-6" mode="md">
           {{ticket.jobDate | date:'dd MMM yyyy'}} {{ticket.jobStartTime | date:'hh:mm a'}}
         </ion-badge>
-        <ion-badge class="gotham font-weight-600  padding-top-5" [ngClass]="{'margin-left-20': ticket.jobStartTime}"
+        <ion-badge class="gotham font-weight-600 padding-top-5" [ngClass]="{'margin-left-20': ticket.jobStartTime}"
           color="{{ticket.status}}" mode="md">
-          {{ticket.status == 'in-progress' ? 'In Progress' : ticket.status}}
+          {{ticket.status == 'in-progress' ? transService.getTranslatedData('ticket.in-progress') : ticket.status}}
         </ion-badge>
       </ion-label>
     </ion-item>
   </ion-list>
 
   <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="searchTicket($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

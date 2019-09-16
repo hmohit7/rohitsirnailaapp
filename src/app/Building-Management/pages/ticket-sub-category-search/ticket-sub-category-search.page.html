@@ -5,16 +5,17 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Select ticket sub category</ion-title>
+    <ion-title>{{transService.getTranslatedData('ticket-sub-category.title')}}</ion-title>
   </ion-toolbar>
   <!-- <ion-searchbar></ion-searchbar> -->
 </ion-header>
 
 <ion-content>
   <!-- <div class="center-text margin-top-10" [hidden]="!loading">
-      <ion-spinner></ion-spinner>
-    </div> -->
-  <p class="gotham center-text" *ngIf="subCategories.length==0">No sub-category available</p>
+        <ion-spinner></ion-spinner>
+      </div> -->
+  <p class="gotham center-text" *ngIf="subCategories.length==0">
+    {{transService.getTranslatedData('ticket-sub-category.empty-array')}}</p>
   <ion-list>
     <ion-radio-group [(ngModel)]="selectedSubCategory.ticketSubCategory">
       <ion-item *ngFor="let category of subCategories">

@@ -5,6 +5,7 @@ import { TicketService } from '../../services/ticket.service';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { MaterialSearchPage } from '../../pages/material-search/material-search.page';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
+import { translateService } from 'src/app/common-services/translate /translate-service.service';
 
 @Component({
   selector: 'app-ticket-details',
@@ -35,7 +36,8 @@ export class TicketDetailsPage implements OnInit {
     private ticketService: TicketService,
     private modalController: ModalController,
     private alertService: AlertServiceService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public transService: translateService
   ) {
 
     this.route.queryParamMap.subscribe((params: any) => {
@@ -81,7 +83,8 @@ export class TicketDetailsPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('alert', err.error.error)
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            this.transService.getTranslatedData('error-alert'))
         }
       );
   }
@@ -96,7 +99,8 @@ export class TicketDetailsPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('alert', err.error.error)
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            this.transService.getTranslatedData('error-alert'))
         }
       );
   }
@@ -120,7 +124,8 @@ export class TicketDetailsPage implements OnInit {
         this.activeMaterialSection = 'description';
         this.materialData = {};
         this.getTicketDetails();
-        this.alertService.presentAlert('Alert', 'Ticket updated');
+        this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+          this.transService.getTranslatedData('ticket-details.ticket-updated'));
       }, error => {
         console.log(error);
       });
@@ -132,11 +137,13 @@ export class TicketDetailsPage implements OnInit {
           this.activeMaterialSection = 'description';
           this.materialData = {};
           this.getTicketDetails();
-          this.alertService.presentAlert('Alert', 'Ticket updated');
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            this.transService.getTranslatedData('ticket-details.ticket-updated'));
         },
           err => {
             this.loadingCtrl.dismiss();
-            this.alertService.presentAlert('alert', err.error.error)
+            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+              this.transService.getTranslatedData('error-alert'))
           }
         );
     }
@@ -194,11 +201,13 @@ export class TicketDetailsPage implements OnInit {
       .subscribe((data: any) => {
         this.loadingCtrl.dismiss();
         this.getTicketComments();
+        this.ticket.commentText = '';
         // this.router.navigateByUrl('/tickets');
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert('alert', err.error.error)
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            this.transService.getTranslatedData('error-alert'))
         }
       );
   }
@@ -262,17 +271,17 @@ export class TicketDetailsPage implements OnInit {
 
   async removeImage(id) {
     let alert = await this.alertCtrl.create({
-      header: 'Are you sure',
+      header: this.transService.getTranslatedData('ticket-details.update.title'),
       buttons: [
         {
-          text: 'no',
+          text: this.transService.getTranslatedData('ticket-details.update.no'),
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'yes',
+          text: this.transService.getTranslatedData('ticket-details.update.yes'),
           handler: () => {
             console.log(id);
             this.ticketToBeUpdated = Object.assign({}, this.ticket);
@@ -287,17 +296,17 @@ export class TicketDetailsPage implements OnInit {
 
   async removeMaterial(id) {
     let alert = await this.alertCtrl.create({
-      header: 'Are you sure',
+      header: this.transService.getTranslatedData('ticket-details.update.title'),
       buttons: [
         {
-          text: 'no',
+          text: this.transService.getTranslatedData('ticket-details.update.no'),
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'yes',
+          text: this.transService.getTranslatedData('ticket-details.update.yes'),
           handler: () => {
             console.log(id);
             this.ticketToBeUpdated = Object.assign({}, this.ticket);
@@ -323,17 +332,17 @@ export class TicketDetailsPage implements OnInit {
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
     if (status !== this.ticketToBeUpdated.status) {
       const alert = await this.alertCtrl.create({
-        header: 'Are you sure',
+        header: this.transService.getTranslatedData('ticket-details.update.title'),
         buttons: [
           {
-            text: 'no',
+            text: this.transService.getTranslatedData('ticket-details.update.no'),
             role: 'cancel',
             cssClass: 'secondary',
             handler: () => {
               console.log('Confirm Cancel');
             }
           }, {
-            text: 'yes',
+            text: this.transService.getTranslatedData('ticket-details.update.yes'),
             handler: () => {
               this.ticketToBeUpdated.status = status;
               console.log(this.ticketToBeUpdated);
@@ -346,7 +355,8 @@ export class TicketDetailsPage implements OnInit {
       });
       return alert.present();
     } else {
-      this.alertService.presentAlert('Alert', `Status of this ticket is already ${status}`);
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        `${this.transService.getTranslatedData('ticket-details.update.status')} ${status}`);
     }
   }
 

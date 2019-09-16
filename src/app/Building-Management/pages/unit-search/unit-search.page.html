@@ -5,9 +5,10 @@
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Unit search</ion-title>
+    <ion-title>{{transService.getTranslatedData('unit-search.title')}}</ion-title>
   </ion-toolbar>
-  <ion-searchbar [(ngModel)]="filterData.searchText" (ngModelChange)="resetFilterAndSearch()">
+  <ion-searchbar [(ngModel)]="filterData.searchText"
+    placeholder="{{transService.getTranslatedData('search-placeholder')}}" (ngModelChange)="resetFilterAndSearch()">
   </ion-searchbar>
 </ion-header>
 
@@ -18,15 +19,15 @@
   </div>
 
   <!-- <ion-list>
-  
-      <ion-radio-group>
-        <ion-item *ngFor="let project of projects">
-          <ion-label>{{project.name}} {{selectedProject}}</ion-label>
-          <ion-radio value="project._id" slot="end" [(ngModel)]="selectedProject"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-  
-    </ion-list> -->
+    
+        <ion-radio-group>
+          <ion-item *ngFor="let project of projects">
+            <ion-label>{{project.name}} {{selectedProject}}</ion-label>
+            <ion-radio value="project._id" slot="end" [(ngModel)]="selectedProject"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+    
+      </ion-list> -->
 
   <ion-list>
     <ion-radio-group [(ngModel)]="selectedUnit.ticketBelongsToRefId">
@@ -38,7 +39,8 @@
   </ion-list>
 
   <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="searchUnit($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
