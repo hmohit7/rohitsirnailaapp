@@ -117,7 +117,7 @@ export class LoginPage implements OnInit {
 
   async showProductSelectionPopup(data) {
     const showalert = await this.alertCtrl.create({
-      header: 'Select a platform',
+      header: this.transService.getTranslatedData('login.multi-platform.title'),
       cssClass: 'platform-popup',
       buttons: [
         {
@@ -125,7 +125,7 @@ export class LoginPage implements OnInit {
           text: this.transService.getTranslatedData('login.multi-platform.title'),
           handler: () => {
             const bmData = {
-              type: this.transService.getTranslatedData('login.multi-platform.BM'),
+              type: 'bm',
               bm: data.bm
             }
             this.handleUser(bmData, 'bm');
@@ -135,7 +135,7 @@ export class LoginPage implements OnInit {
           text: 'Rental Management',
           handler: () => {
             const bmData = {
-              type: this.transService.getTranslatedData('login.multi-platform.RM'),
+              type: 'rm',
               rm: data.rm
             }
             this.handleUser(bmData, 'rm');
