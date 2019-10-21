@@ -28,7 +28,7 @@
         </ion-radio-group>
     
       </ion-list> -->
-
+  <p class="center-text" *ngIf="!loading && units.length==0">No Unit Available</p>
   <ion-list>
     <ion-radio-group [(ngModel)]="selectedUnit.ticketBelongsToRefId">
       <ion-item *ngFor="let unit of units">

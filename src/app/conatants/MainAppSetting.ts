@@ -12,6 +12,7 @@ export class MainAppSetting {
                 'Content-Type': 'application/json',
             })
         };
+
         return httpHeades;
     }
 

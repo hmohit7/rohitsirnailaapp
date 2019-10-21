@@ -77,7 +77,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(async () => {
-      window.localStorage.setItem('appFor', 'alpha');
+      window.localStorage.setItem('appFor', 'production');
       this.statusBar.styleDefault();
       await this._initTranslate()
       this.splashScreen.hide();

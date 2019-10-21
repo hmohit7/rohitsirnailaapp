@@ -15,7 +15,7 @@ export class TicketsPage implements OnInit {
 
   tickets: any[] = [];
   disableInfiniteScroll = false;
-
+  public noTicket: boolean = false;
   filterData: any = {
     skip: 0,
     status: ['open', 'in-progress'],
@@ -163,6 +163,7 @@ export class TicketsPage implements OnInit {
 
         this.tickets = this.tickets.concat(data.data.data);
         this.filterData.skip = data.data.query.skip + 10;
+        this.noTicket = true;
 
         event ? event.target.complete() : this.loading.dismiss();
 

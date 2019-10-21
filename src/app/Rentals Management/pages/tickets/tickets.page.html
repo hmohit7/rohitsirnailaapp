@@ -13,8 +13,9 @@
 </ion-header>
 
 <ion-content>
-  <p class="gotham center-text" *ngIf="tickets.length==0">{{transService.getTranslatedData('ticket.empty-array')}}</p>
-  <ion-list class="border-top">
+  <p class="gotham center-text" *ngIf="noTicket&&tickets.length==0">
+    {{transService.getTranslatedData('ticket.empty-array')}}</p>
+  <ion-list class="border-top padding-bottom-0">
     <ion-item *ngFor="let ticket of tickets" [routerLink]="['/rentals-ticket-details']"
       [queryParams]="{ticketId: ticket._id}" detail="true" lines="none">
       <ion-label class="margin-0">
