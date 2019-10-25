@@ -63,11 +63,11 @@ export class HomePage implements OnInit {
     });
   }
   ionViewDidEnter() {
-    this.getUserDetails();
     this.getTicketStats();
   }
 
   async ngOnInit() {
+    this.getUserDetails();
     this.pushObject.on('notification').subscribe((notification: any) => {
       console.log(JSON.stringify(notification));
       // alert(JSON.stringify(notification.additionalData.id));

@@ -144,9 +144,9 @@
 
           <ion-item class="margin-bottom-10">
             <ion-label position="stacked" class="font-20">
-              {{transService.getTranslatedData('ticket-filter.techinician')}}</ion-label>
+              {{transService.getTranslatedData('ticket-filter.technician')}}</ion-label>
             <ion-input inputmode="text" [(ngModel)]="ticketFilter.agentName" class="margin-top-10"
-              placeholder="{{transService.getTranslatedData('ticket-filter.technician')}}"
+              placeholder="{{transService.getTranslatedData('ticket-filter.technician-placeholder')}}"
               (click)="openUserSearchModal('agent')"></ion-input>
             <ion-icon slot="end" name="ios-arrow-down"></ion-icon>
           </ion-item>

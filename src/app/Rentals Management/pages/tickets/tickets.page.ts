@@ -63,7 +63,7 @@ export class TicketsPage implements OnInit {
 
         this.dataFromFilterPage = ticketFilter.data;
 
-        console.log(ticketFilter);
+        console.log("sadasdasdasdasd", ticketFilter);
 
         ticketFilter.data.agent ? this.filterData.agent = ticketFilter.data.agent : this.filterData.agent = '';
         ticketFilter.data.startDate ? this.filterData.startDate = ticketFilter.data.startDate : this.filterData.startDate = '';
@@ -133,15 +133,17 @@ export class TicketsPage implements OnInit {
   // asset
 
   async searchTicket(event) {
-
+    this.status = '';
     if (!event) {
       await this.presentLoading();
+      this.disableInfiniteScroll = false;
     }
 
     await this.filterData.status.forEach(element => {
-      this.status = status + `&status=${element}`;
+      this.status = this.status + `&status=${element}`;
     });
 
+    alert(this.status)
     this.ticketService.getTickets(
       this.filterData.skip || '',
       this.status || '',
