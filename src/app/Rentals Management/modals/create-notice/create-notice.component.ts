@@ -36,9 +36,12 @@ export class CreateNoticeComponent implements OnInit {
   ngOnInit() { }
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
+    this.loadingCtrl.create({
+      spinner: "lines"
+
+    }).then(loading => {
+      loading.present();
     });
-    return await loading.present();
   }
   async closeModal() {
     await this.modalController.dismiss();

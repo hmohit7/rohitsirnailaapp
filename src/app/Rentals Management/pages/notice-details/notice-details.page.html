@@ -56,10 +56,12 @@
         <ion-row>
           <ion-col>
             <span class="padding-right-20">
-              <ion-icon *ngIf="!notice.hasLiked" (click)="likeDiscussion(notice._id)"
+              <ion-icon (click)="likeDiscussion(notice._id)" [ngClass]="{'btn-color':notice.hasLiked}"
+                class="icon font-25 gotham margin-right-5" name="heart-empty"></ion-icon>
+              <!-- <ion-icon *ngIf="!notice.hasLiked" (click)="likeDiscussion(notice._id)"
                 class="icon font-25 gotham margin-right-5" name="heart-empty"></ion-icon>
               <ion-icon *ngIf="notice.hasLiked" (click)="likeDiscussion(notice._id)" color="danger"
-                class="icon font-25 gotham margin-right-5" name="heart-empty"></ion-icon>
+                class="icon font-25 gotham margin-right-5" name="heart-empty"></ion-icon> -->
               <span class="text font-20">{{notice.likesCount}}</span>
             </span>
             <span class="padding-right-20">

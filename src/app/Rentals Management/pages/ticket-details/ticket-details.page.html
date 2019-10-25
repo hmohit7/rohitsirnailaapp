@@ -15,7 +15,7 @@
   <div>
     <ion-segment scrollable class=" shadow margin-padding-zero " [(ngModel)]="selectedTab">
       <ion-segment-button class="margin-padding-zero font-12" value="SUMMARY">
-        <ion-label class="margin-padding-zero">{{transService.getTranslatedData('ticket-details.summary')}}</ion-label>
+        <ion-label class="margin-padding-zero">{{transService.getTranslatedData('ticket-details.summery')}}</ion-label>
       </ion-segment-button>
       <ion-segment-button class="font-12 " value="ASSETS">
         <ion-label class="margin-padding-zero">{{transService.getTranslatedData('ticket-details.assets')}}</ion-label>
@@ -154,7 +154,7 @@
           </ion-col>
           <ion-col class="margin-left-10">
             <p class="gotham-medium font-14 dark-grey margin-padding-zero">
-              {{transService.getTranslatedData('ticket-details.techician')}}</p>
+              {{transService.getTranslatedData('ticket-details.technician')}}</p>
             <p *ngIf="ticket.agent" class="txt-warm-grey font-14 gotham-medium font-weight-500 margin-top-8 txt-nowrap">
               {{ticket.agent.firstName}} {{ticket.agent.lastName}}
               <span class="float-right font-14 txt-warm-grey gotham-medium font-weight-500"

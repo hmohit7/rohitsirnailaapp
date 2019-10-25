@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,8 @@ export class ProfilePage implements OnInit {
     private userService: UserService,
     private alertService: AlertServiceService,
     private loadingCtrl: LoadingController,
-    public transService: translateService
+    public transService: translateService,
+    private storage: Storage
   ) {
     this.getProfile(window.localStorage.getItem('user_id'));
   }
@@ -39,10 +41,11 @@ export class ProfilePage implements OnInit {
   }
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
+    await this.loadingCtrl.create({
       spinner: 'lines'
+    }).then(loading => {
+      loading.present();
     });
-    return await loading.present();
   }
 
 
@@ -51,6 +54,7 @@ export class ProfilePage implements OnInit {
     this.data.businessAppDevice = {};
     this.userService.updateUser(this.data).subscribe(() => {
       localStorage.clear();
+      this.storage.clear()
       this.loadingCtrl.dismiss();
       this.router.navigateByUrl('/login');
     });

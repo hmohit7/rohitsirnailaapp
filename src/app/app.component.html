@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu>
+    <ion-menu side="start">
       <ion-header>
         <ion-toolbar color="primary">
           <ion-menu-toggle>
@@ -15,7 +15,7 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages.pages">
-            <ion-item lines="full" [routerLink]="[p.url]">
+            <ion-item lines="full" (click)="routeForword(p.url)">
               <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
               <ion-label [ngClass]="{marginTop5: p.src?true:false}">
                 {{translate.instant(p.title)}}

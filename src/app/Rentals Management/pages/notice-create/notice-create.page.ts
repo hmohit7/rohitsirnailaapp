@@ -22,9 +22,12 @@ export class NoticeCreatePage implements OnInit {
   public images: any[] = [];
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
+    spinner: "lines"
+    await this.loadingCtrl.create({
+    }).then(loading => {
+
+      loading.present();
     });
-    return await loading.present();
   }
 
   constructor(

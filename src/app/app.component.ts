@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from './common-services/storage-service.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -17,34 +19,34 @@ export class AppComponent {
     pages: [
       {
         title: 'app-component.home',
-        url: '/rentals-home',
+        url: `-home`,
         src: '/assets/icon/my-home.png'
       }, {
         title: 'app-component.calendar',
-        url: '/rentals-calendar',
+        url: `-calendar`,
         src: '/assets/icon/calendar.png'
       }, {
         title: 'app-component.ticket',
-        url: '/rentals-tickets',
+        url: `-tickets`,
         src: '/assets/icon/ticket-history.png'
       }, {
         title: 'app-component.discussion',
-        url: '/rentals-notice-board',
+        url: `-notice-board`,
         src: '/assets/icon/communications.png'
       },
       {
         title: 'app-component.approval',
-        url: '/rentals-user-approval',
+        url: `-user-approval`,
         src: '/assets/icon/approval.png'
       },
       {
         title: 'app-component.contact-us',
-        url: '/rentals-contact-us',
+        url: `-contact-us`,
         src: '/assets/icon/phone.png'
       },
       {
         title: 'app-component.profile',
-        url: '/rentals-profile',
+        url: `-profile`,
         src: '/assets/icon/profile.png'
       }],
     logout: {
@@ -54,6 +56,7 @@ export class AppComponent {
     }
 
   }
+  public appSrc
   // options: PushOptions = {
   //   android: {},
   //   ios: {
@@ -66,7 +69,10 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    public translate: TranslateService
+    private navCtrl: NavController,
+    public translate: TranslateService,
+    private storageService: StorageService,
+    private storage: Storage
     // private push: Push
   ) {
     this.initializeApp();
@@ -74,23 +80,30 @@ export class AppComponent {
   ionViewDidLoad() {
     console.log("load");
   }
+  routeForword(url) {
+    this.router.navigateByUrl(`${this.appSrc}${url}`)
+  }
 
   initializeApp() {
     this.platform.ready().then(async () => {
-      window.localStorage.setItem('appFor', 'production');
       this.statusBar.styleDefault();
       await this._initTranslate()
       this.splashScreen.hide();
-      if (window.localStorage.getItem('isloggedin') === 'true') {
-        this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}-home`);
-      } else {
-        this.router.navigateByUrl('/login');
-      }
+      let isLoggedIn;
+      this.statusBar.styleDefault();
+      await this.storageService.getDatafromIonicStorage('isLoggedin').then(val => {
+        isLoggedIn = val;
+      })
+      await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
+        this.appSrc = val;
+      })
+      await isLoggedIn == true ? this.navCtrl.navigateRoot(`/${this.appSrc}-home`) : this.navCtrl.navigateRoot('/login');
     });
   }
 
   logout() {
     window.localStorage.clear()
+    this.storage.clear()
     this.router.navigateByUrl('/login')
   }
   private _initTranslate() {

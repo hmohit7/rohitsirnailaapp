@@ -48,11 +48,15 @@ export class NoticeDetailsPage implements OnInit {
   async getNotice() {
 
     this.presentLoading();
-
+    let userId
+    await this.alertService.getDataFromLoaclStorage('user_id').then(value => {
+      userId = value
+    })
     this.noticeService.getNoticeById(this.noticeId)
       .subscribe((data: any) => {
 
         this.notice = data;
+        this.notice.likes.indexOf(userId) > -1 ? this.notice.hasLiked = true : this.notice.hasLiked = false;
         console.log(this.notice);
         this.loading.dismiss();
 

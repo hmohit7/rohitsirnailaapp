@@ -31,9 +31,12 @@ export class UserApprovalPage implements OnInit {
   }
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
+    await this.loadingCtrl.create({
+      spinner: "lines"
+    }).then(loading => {
+
+      loading.present();
     });
-    await loading.present();
   }
 
   async getUserApprovals() {

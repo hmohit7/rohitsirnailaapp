@@ -42,10 +42,11 @@ export class TicketsPage implements OnInit {
   }
 
   async presentLoading() {
-    const loading = await this.loading.create({
+    await this.loading.create({
       spinner: "lines"
+    }).then(loading => {
+      loading.present();
     });
-    await loading.present();
   }
 
   async openTicketFilterModal() {

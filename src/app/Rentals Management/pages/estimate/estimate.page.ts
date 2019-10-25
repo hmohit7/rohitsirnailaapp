@@ -32,10 +32,11 @@ export class EstimatePage implements OnInit {
   }
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
+    await this.loadingCtrl.create({
       spinner: 'lines'
+    }).then(loading => {
+      loading.present();
     });
-    return await loading.present();
   }
 
   getEstimateById(id) {

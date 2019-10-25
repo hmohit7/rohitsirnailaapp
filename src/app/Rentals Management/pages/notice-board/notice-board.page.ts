@@ -27,16 +27,25 @@ export class NoticeBoardPage implements OnInit {
     private alertService: AlertServiceService,
     public transService: translateService
   ) {
-    this.getNoices('');
   }
 
   ngOnInit() {
   }
+  ionViewDidEnter() {
+    this.filterData.skip = 0
+    this.notices = [];
+    this.disableInfiniteScroll = false
+    this.getNoices('');
+
+  }
 
   async presentLoading() {
-    const loading = await this.loading.create({
+    await this.loading.create({
+      spinner: "lines"
+
+    }).then(loading => {
+      loading.present();
     });
-    await loading.present();
   }
 
   async getNoices(event) {

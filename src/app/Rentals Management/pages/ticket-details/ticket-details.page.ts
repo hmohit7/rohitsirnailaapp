@@ -25,9 +25,11 @@ export class TicketDetailsPage implements OnInit {
   flag = 'false';
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
+    await this.loadingCtrl.create({
+      spinner: "lines"
+    }).then(loading => {
+      loading.present();
     });
-    await loading.present();
   }
 
   constructor(

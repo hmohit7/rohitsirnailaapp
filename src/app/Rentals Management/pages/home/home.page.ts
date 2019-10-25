@@ -8,6 +8,7 @@ import { UserService } from '../../services/user.service';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,7 @@ export class HomePage implements OnInit {
   userDetails: any;
   ticketStats: any;
 
-  loading: any = this.loadingCtrl.create({
-  });
+
 
   options: PushOptions = {
     android: {},
@@ -40,7 +40,8 @@ export class HomePage implements OnInit {
     private userService: UserService,
     private alertService: AlertServiceService,
     private push: Push,
-    public transService: translateService
+    public transService: translateService,
+    private storage: Storage
   ) {
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
@@ -50,16 +51,20 @@ export class HomePage implements OnInit {
         err => {
           // this.alertService.presentAlert('Error from push', err);
         });
-    this.getUserDetails();
-    this.getTicketStats();
   }
 
 
   async presentLoading() {
-    this.loading = await this.loadingCtrl.create({
+    await this.loadingCtrl.create({
       spinner: 'lines'
+    }).then(loading => {
+      loading.present();
+
     });
-    return await this.loading.present();
+  }
+  ionViewDidEnter() {
+    this.getUserDetails();
+    this.getTicketStats();
   }
 
   async ngOnInit() {
@@ -87,7 +92,6 @@ export class HomePage implements OnInit {
       } else if (notification.additionalData.type == 'estimate') {
         this.router.navigateByUrl(`/rentals-ticket-details?eid=${notification.additionalData.id}`);
       }
-
 
     },
       err => {
@@ -135,10 +139,13 @@ export class HomePage implements OnInit {
 
         if (this.userDetails.firstName) {
           window.localStorage.setItem('firstName', this.userDetails.firstName)
+          this.storage.set('firstName', this.userDetails.firstName);
+
         }
 
         if (this.userDetails.lastName) {
           window.localStorage.setItem('lastName', this.userDetails.lastName)
+          this.storage.set('lastName', this.userDetails.lastName);
         }
       },
         err => {
@@ -157,12 +164,12 @@ export class HomePage implements OnInit {
     await this.presentLoading();
     this.ticketService.getTicketStats()
       .subscribe((data: any) => {
-        this.loading.dismiss();
+        this.loadingCtrl.dismiss();
         this.ticketStats = data;
         console.log(this.ticketStats);
       },
         err => {
-          this.loading.dismiss();
+          this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
         }
       );

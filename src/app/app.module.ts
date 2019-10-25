@@ -20,6 +20,8 @@ import { UserSearchPipe } from './Rentals Management/pipes/user-search-pipe';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader"
+import { StorageService } from './common-services/storage-service.service';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader"
     HttpClientModule,
     BuildingManagementModule,
     RentalsManagementModule,
+    IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -48,6 +51,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader"
     FileTransfer,
     Push,
     FileTransferObject,
+    StorageService,
     WebView,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     MainAppSetting

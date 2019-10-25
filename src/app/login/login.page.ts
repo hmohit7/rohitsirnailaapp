@@ -13,6 +13,7 @@ import { CountrycodemodalComponent } from './countrycodemodal/countrycodemodal.c
 import { LoginService } from '../common-services/login.service';
 import { AlertServiceService } from '../common-services/alert-service.service';
 import { translateService } from '../common-services/translate /translate-service.service';
+import { StorageService } from '../common-services/storage-service.service';
 
 @Component({
   selector: 'app-login',
@@ -49,25 +50,34 @@ export class LoginPage implements OnInit {
       private alertCtrl: AlertController,
       private appSetting: MainAppSetting,
       private menuCtrl: MenuController,
-      public transService: translateService
+      public transService: translateService,
+      private storageService: StorageService
     ) {
 
   }
 
   ngOnInit() {
+  }
+  ionViewDidEnter() {
     this.menuCtrl.enable(false)
+
+  }
+  ionViewDidLeave() {
+    this.menuCtrl.enable(true)
   }
 
   //display laoding on screen 
 
   async presentLoading() {
-    const loading = await this._lodingCtrl.create({
+    await this._lodingCtrl.create({
       message: 'Please wait',
       spinner: "lines",
       showBackdrop: true,
+    }).then(loading => {
+      loading.present();
+
     });
 
-    return await loading.present();
   }
 
 
@@ -75,16 +85,17 @@ export class LoginPage implements OnInit {
 
   checkPlatform() {
     window.localStorage.removeItem('platform');
+    this._storage.remove('platform')
     if (!this.verifyPhone()) {
       this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
         this.transService.getTranslatedData('login.valid-phone-number-error'));
     } else {
 
       localStorage.setItem('phoneNumber', this.loginData.phoneNumber);
-      this._storage.set("phoneNumber", this.loginData.phoneNumber)
+      this._alertService.saveToLocalStorage("phoneNumber", this.loginData.phoneNumber)
 
       localStorage.setItem('countryCode', this.loginData.countryCode);
-      this._storage.set("countryCode", this.loginData.countryCode)
+      this._alertService.saveToLocalStorage("countryCode", this.loginData.countryCode)
 
       this.presentLoading();
 
@@ -160,13 +171,17 @@ export class LoginPage implements OnInit {
 
   handleUser(data, type) {
     window.localStorage.setItem('platform', type);
+    this._alertService.saveToLocalStorage('platform', type)
+    this.appSetting.setPlatformAfterLogin(type)
+
     window.localStorage.setItem('types', data[type].types);
+    this._alertService.saveToLocalStorage('types', data[type].types)
     if (type === 'bm') {
       window.localStorage.setItem('appSrc', 'building-management');
-      this._storage.set('appSrc', 'bulding-management');
+      this._alertService.saveToLocalStorage('appSrc', 'bulding-management');
     } else {
       window.localStorage.setItem('appSrc', 'rentals');
-      this._storage.set('appSrc', 'rentals')
+      this._alertService.saveToLocalStorage('appSrc', 'rentals')
     }
     if (this.isUserAllowed(data[type].types)) {
       if (data[type].action === 'login') {
@@ -195,7 +210,8 @@ export class LoginPage implements OnInit {
     const modal = await this._modalCtr.create({
       component: CountrycodemodalComponent,
       cssClass: 'my-custom-modal-css',
-      componentProps: { 'value': this.loginData.countryCode }
+      componentProps: { 'value': this.loginData.countryCode },
+      backdropDismiss: false
     })
     modal.onDidDismiss().then((data) => {
 
@@ -214,8 +230,8 @@ export class LoginPage implements OnInit {
     let phoneno = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
 
     if (this.loginData.phoneNumber) {
-      // this._storage.set("phoneNumber", this.loginData.phoneNumber)
-      // this._storage.set("countryCode", this.loginData.countryCode)
+      // this._alertService.saveToLocalStorage("phoneNumber", this.loginData.phoneNumber)
+      // this._alertService.saveToLocalStorage("countryCode", this.loginData.countryCode)
 
       if (this.loginData.countryCode === "+91") {
         return this.loginData.phoneNumber.match(phoneno) ? true : false;
@@ -276,24 +292,28 @@ export class LoginPage implements OnInit {
     this.loginData.phoneNumber = this.loginData.phoneNumber;
     this.presentLoading();
     // alert(JSON.stringify(this.loginData))
-    this._loginservice.login(this.loginData).subscribe((data) => {
+    this._loginservice.login(this.loginData).subscribe(async (data) => {
       if (data.message == "Done") {
 
 
-        this._storage.set("isloggedin", true);
-        window.localStorage.setItem('isloggedin', "true");
+        window.localStorage.setItem('isLoggedin', "true");
+        await this._alertService.saveToLocalStorage("isLoggedin", true);
 
-        this._storage.set("user_id", data.uid);
         window.localStorage.setItem("user_id", data.uid);
+        await this._alertService.saveToLocalStorage("user_id", data.uid);
 
-        this._storage.set("token", data.token);
         window.localStorage.setItem('token', data.token);
+        await this._alertService.saveToLocalStorage("token", data.token);
+        await this.appSetting.setTokenAferLogin(data.token);
 
-        this._storage.set("currencyCode", data.currencyCode);
         window.localStorage.setItem("currencyCode", data.currencyCode);
+        await this._alertService.saveToLocalStorage("currencyCode", data.currencyCode);
 
-        this._lodingCtrl.dismiss()
-        this._navCtrl.navigateRoot(`/${window.localStorage.getItem('appSrc')}`);
+        await this._lodingCtrl.dismiss()
+        await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
+          this.appSrc = val;
+        })
+        await this._navCtrl.navigateRoot(`/${this.appSrc}-home`);
 
       } else {
         this._lodingCtrl.dismiss();
@@ -321,8 +341,8 @@ export class LoginPage implements OnInit {
     let phoneno = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
 
     if (this.sendotp.phoneNumber) {
-      this._storage.set("phoneNumber", this.sendotp.phoneNumber)
-      this._storage.set("countryCode", this.sendotp.countryCode)
+      this._alertService.saveToLocalStorage("phoneNumber", this.sendotp.phoneNumber)
+      this._alertService.saveToLocalStorage("countryCode", this.sendotp.countryCode)
       if (this.sendotp.countryCode === "+91") {
         if (this.sendotp.phoneNumber.match(phoneno)) {
           this.presentLoading();
@@ -384,7 +404,7 @@ export class LoginPage implements OnInit {
     }
     this.otpData.phoneNumber = this.loginData.phoneNumber;
     this.presentLoading();
-    this._loginservice.verifyOtp(this.otpData).subscribe((data) => {
+    this._loginservice.verifyOtp(this.otpData).subscribe(async (data) => {
       console.log("data after service =>", data);
       this._lodingCtrl.dismiss()
       if (data.message == 'OTP found') {
@@ -392,7 +412,10 @@ export class LoginPage implements OnInit {
         if (source == 'forgot' || source == 'login') {
           this.display = "setPassword"
         } else if (source == 'approve') {
-          this._navCtrl.navigateRoot(`/${window.localStorage.getItem('appSrc')}`)
+          await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
+            this.appSrc = val;
+          })
+          this._navCtrl.navigateRoot(`/${this.appSrc}-home`)
         }
       } else {
         this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), data.error);
@@ -423,24 +446,27 @@ export class LoginPage implements OnInit {
       this.loginData.phoneNumber = data
 
       this.presentLoading();
-      this._loginservice.reserPassword(this.loginData).subscribe((data) => {
+      this._loginservice.reserPassword(this.loginData).subscribe(async (data) => {
         console.log("Data on comfirm reset password");
         this._lodingCtrl.dismiss();
         if (data.message == "Done") {
 
-          this._storage.set("isloggedin", true);
-          window.localStorage.setItem('isloggedin', 'true');
+          this._alertService.saveToLocalStorage("isLoggedin", true);
+          window.localStorage.setItem('isLoggedin', 'true');
 
-          this._storage.set("user_id", data.uid)
+          this._alertService.saveToLocalStorage("user_id", data.uid)
           window.localStorage.setItem("user_id", data.uid);
 
-          this._storage.set("token", data.token);
+          this._alertService.saveToLocalStorage("token", data.token);
           window.localStorage.setItem('token', data.token);
 
-          this._storage.set("currencyCode", data.currencyCode);
+          this._alertService.saveToLocalStorage("currencyCode", data.currencyCode);
           window.localStorage.setItem("currencyCode", data.currencyCode);
 
-          this._navCtrl.navigateRoot(`/${window.localStorage.getItem('appSrc')}`);
+          await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
+            this.appSrc = val;
+          })
+          await this._navCtrl.navigateRoot(`/${this.appSrc}-home`);
         } else {
 
           this._alertService.presentAlert(this.transService.getTranslatedData('alert-title'), data.data.error);

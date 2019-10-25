@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx'
 import { MainAppSetting } from '../conatants/MainAppSetting';
+import { Storage } from '@ionic/storage';
 
 
 @Injectable({
@@ -15,7 +16,8 @@ export class AlertServiceService {
     private camera: Camera,
     private transfer: FileTransfer,
     private appSetting: MainAppSetting,
-    private actionSheet: ActionSheetController
+    private actionSheet: ActionSheetController,
+    private storage: Storage
   ) { }
 
   public data: any = {};
@@ -28,6 +30,15 @@ export class AlertServiceService {
     destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
+  }
+
+
+  saveToLocalStorage(key, value) {
+    this.storage.set(key, value);
+  }
+
+  getDataFromLoaclStorage(key) {
+    return this.storage.get(key)
   }
 
   async presentActionSheet() {

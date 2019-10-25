@@ -14,11 +14,11 @@ export class ContactUsPage implements OnInit {
 
   contactUsData: any = {
     user: {
-      _id: window.localStorage.getItem('user_id'),
-      countryCode: window.localStorage.getItem('countryCode'),
-      phoneNumber: window.localStorage.getItem('phoneNumber'),
-      firstName: window.localStorage.getItem('firstName'),
-      lastName: window.localStorage.getItem('lastName'),
+      // _id: window.localStorage.getItem('user_id'),
+      // countryCode: window.localStorage.getItem('countryCode'),
+      // phoneNumber: window.localStorage.getItem('phoneNumber'),
+      // firstName: window.localStorage.getItem('firstName'),
+      // lastName: window.localStorage.getItem('lastName'),
     },
     // 'roles' : JSON.parse(window.localStorage.getItem('roles')),
     createdAt: new Date(),
@@ -26,9 +26,11 @@ export class ContactUsPage implements OnInit {
   };
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
+    await this.loadingCtrl.create({
+      spinner: "lines"
+    }).then(loading => {
+      loading.present();
     });
-    return await loading.present();
   }
 
   constructor(
@@ -39,9 +41,30 @@ export class ContactUsPage implements OnInit {
     private route: ActivatedRoute,
     private alertService: AlertServiceService,
     public transService: translateService
-  ) { }
+  ) {
 
-  ngOnInit() {
+  }
+
+  async ngOnInit() {
+    await this.alertService.getDataFromLoaclStorage('user_id').then(val => {
+      this.contactUsData.user._id = val
+    })
+
+    await this.alertService.getDataFromLoaclStorage('countryCode').then(val => {
+      this.contactUsData.user.countryCode = val
+
+    })
+    await this.alertService.getDataFromLoaclStorage('phoneNumber').then(val => {
+      this.contactUsData.user.phoneNumber = val
+    })
+    await this.alertService.getDataFromLoaclStorage('firstName').then(val => {
+      this.contactUsData.user.firstName = val
+
+    })
+    await this.alertService.getDataFromLoaclStorage('lastName').then(val => {
+      this.contactUsData.user.lastName = val
+
+    })
   }
 
   async sendContactUsRequest() {

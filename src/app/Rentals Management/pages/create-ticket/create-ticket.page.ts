@@ -26,9 +26,6 @@ export class CreateTicketPage implements OnInit {
   public images: any[] = [];
   date;
   flag: boolean = false;
-  loading: any = this.loadingCtrl.create({
-  });
-
   subCategories: any[];
   ticketId: string;
   flow = 'createTicket';
@@ -53,9 +50,13 @@ export class CreateTicketPage implements OnInit {
   }
 
   async presentLoading() {
-    this.loading = await this.loadingCtrl.create({
+    await this.loadingCtrl.create({
+      spinner: "lines"
+
+    }).then(loading => {
+
+      loading.present();
     });
-    return await this.loading.present();
   }
   ionViewDidEnter() {
     this.flag = false;
@@ -316,12 +317,12 @@ export class CreateTicketPage implements OnInit {
 
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
-        this.loading.dismiss();
+        this.loadingCtrl.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
           this.transService.getTranslatedData('create-ticket.ticket-create-success'));
         this.router.navigateByUrl('/rentals-ticket-details', { replaceUrl: true });
       }, error => {
-        this.loading.dismiss();
+        this.loadingCtrl.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
           JSON.stringify(error));
       });
@@ -330,13 +331,13 @@ export class CreateTicketPage implements OnInit {
         .subscribe((data: any) => {
           console.log(this.ticketData);
 
-          this.loading.dismiss();
+          this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('create-ticket.ticket-create-success'));
           this.router.navigateByUrl(`/rentals-tickets?ticketId=${this.ticketData._id}`, { replaceUrl: true });
         },
           err => {
-            this.loading.dismiss();
+            this.loadingCtrl.dismiss();
             this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
               err.error.error);
           }
@@ -362,7 +363,7 @@ export class CreateTicketPage implements OnInit {
         this.flag = true;
         this.router.navigateByUrl(`/rentals-ticket-details?flag=${this.flag}`);
       }, error => {
-        this.loading.dismiss();
+        this.loadingCtrl.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
           error);
       });
