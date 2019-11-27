@@ -8,9 +8,7 @@ export class StorageService {
   public appSrc;
   public projectId;
   public token;
-  constructor(
-    private storage: Storage
-  ) {
+  constructor(private storage: Storage) {
     this.storage.get('appSrc').then(val => {
       this.appSrc = val;
     })
@@ -30,6 +28,14 @@ export class StorageService {
   }
   async getDatafromIonicStorage(key) {
     return this.storage.get(key)
+  }
+
+  emptyStorage() {
+    this.storage.clear();
+  }
+
+  removeItem(item) {
+    return this.storage.remove(item)
   }
 
 }

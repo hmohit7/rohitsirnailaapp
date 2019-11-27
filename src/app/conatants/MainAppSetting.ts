@@ -1,8 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import * as jsonFile from './organization.json'
-import { StorageService } from '../common-services/storage-service.service.js';
+import * as jsonFile from '../conatants/organization.json';
 import { Injectable } from '@angular/core';
+import { StorageService } from '../common-services/storage-service.service.js';
+
+
 
 const ORG = jsonFile.buildFor;
 const appFor = jsonFile.connectTo;
@@ -10,28 +12,27 @@ const appFor = jsonFile.connectTo;
     providedIn: "root"
 })
 export class MainAppSetting {
-    public userExistence = ORG;
+    public ORG = ORG;
+    public userId;
+    public appFor = appFor;
     public storag = new Storage({})
     public token;
-    public userId
     public platform;
-    public appFor = appFor;
 
     constructor(
-        private storageService: StorageService,
-        private storage: Storage
+        private storageService: StorageService
     ) {
         this.storageService.getDatafromIonicStorage('token').then(data => {
             this.token = data
         })
-        this.storageService.getDatafromIonicStorage('user').then(data => {
+        this.storageService.getDatafromIonicStorage('user_id').then(data => {
             this.userId = data
         })
         this.storageService.getDatafromIonicStorage('platform').then(data => {
             this.platform = data
         })
-
     }
+
     getHttpHeades() {
         const httpHeades = {
             headers: new HttpHeaders({
@@ -41,10 +42,10 @@ export class MainAppSetting {
         return httpHeades;
     }
 
-
     setTokenAferLogin(token) {
         this.token = token;
     }
+
     setPlatformAfterLogin(platform) {
         this.platform = platform
     }
@@ -53,7 +54,7 @@ export class MainAppSetting {
         const httpHeadesWithToken = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                'authorization': this.token//window.localStorage.getItem('token')
+                'authorization': /**window.localStorage.getItem('token')*/ this.token
             })
         };
         return httpHeadesWithToken;
@@ -63,7 +64,7 @@ export class MainAppSetting {
 
         let API = '';
 
-        if (this.userExistence == "Both") {
+        if (this.ORG == "Both") {
             if (this.platform === 'rm') {
                 if (this.appFor == 'alpha') {
                     API = 'http://52.220.118.81:3020';
@@ -77,22 +78,25 @@ export class MainAppSetting {
                     API = 'https://thehousemonk.com';
                 }
             }
-        } else if (this.userExistence == "RM") {
+        } else if (this.ORG == "RM") {
             window.localStorage.setItem('appSrc', 'rentals');
-            this.storage.set('appSrc', 'rentals')
             this.storageService.storeDataToIonicStorage('appSrc', 'rentals');
+
             if (this.appFor == 'alpha') {
                 API = 'http://52.220.118.81:3020';
             } else if (this.appFor == 'production') {
                 API = 'https://rentals.thehousemonk.com'
             }
-        } else if (this.userExistence == "BM") {
+        } else if (this.ORG == "BM") {
             window.localStorage.setItem('appSrc', 'building-management');
-            this.storage.set('appSrc', 'building-management')
+            this.storageService.storeDataToIonicStorage('appSrc', 'building-management');
+
             if (this.appFor == 'alpha') {
                 API = 'https://alpha.thehousemonk.com';
             } else if (this.appFor == 'production') {
                 API = 'https://thehousemonk.com';
+            } else {
+                API = 'http://localhost:3020';
             }
         }
 
@@ -100,8 +104,11 @@ export class MainAppSetting {
         return API;
     }
 
+
+
+
     // public API = API;
     public HTTPHEADER = this.getHttpHeades();
-    // public HTTPHEADERWITHTOKEN = this.getHttpHeadesWithToken();
+    // public static API = API;
 
 }

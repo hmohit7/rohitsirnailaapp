@@ -1,286 +1,313 @@
 <ion-content>
-  <div class="max-available-height full-width grandient-background no-scroll">
-    <div class="webkit-center" [hidden]="display!='login'">
-      <ion-row class="width-80-percent">
-        <ion-col>
-          <img src="assets/logo/thm-logo.png">
-        </ion-col>
-      </ion-row>
+  <div class="max-available-height full-width grandient-background- no-scroll">
 
-      <ion-row class="width-80-percent">
+    <div class="webkit-center">
+
+      <div>
+        <ion-row class="width-80-percent margin-top-30 margin-bottom-20">
+          <ion-col>
+            <img src="assets/login-pic.png" />
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <!-- <ion-row class="width-80-percent">
         <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
-          </p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">
-            {{transService.getTranslatedData('login.welcome-string2')}}</p>
+          <p class="font-20 margin-bottom-10">Welcome back,</p>
         </div>
-      </ion-row>
-      <ion-row class="width-80-percent">
-        <div class="text-left">
-          <p class="font-14 gotham">{{transService.getTranslatedData('login.welcome-string3')}}</p>
-        </div>
-      </ion-row>
-      <ion-row class="width-80-percent text-left">
-        <ion-col size="3">
-          <ion-item (click)="countryCodeModal()">
-            <ion-input inputmode="text" class="gotham" [(ngModel)]="loginData.countryCode">
-            </ion-input>
-            <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
-          </ion-item>
-        </ion-col>
-        <ion-col size="9">
-          <ion-item>
-            <ion-input inputmode="tel" class="gotham"
-              placeholder="{{transService.getTranslatedData('login.phone-number-input')}}"
-              [(ngModel)]="loginData.phoneNumber">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button" (click)="checkPlatform()" expand="full" color="primary">
-          {{transService.getTranslatedData('login.login-button')}}</ion-button>
-      </ion-row>
-      <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
-      </ion-row>
+      </ion-row> -->
+
+      <!-- Phone number input -->
+      <div [hidden]=" visibleBlock !== 'phoneInput' ">
+        <ion-row class="width-80-percent">
+          <div class="text-left">
+            <p class="font-20 margin-bottom-10">Welcome,</p>
+          </div>
+        </ion-row>
+        <ion-row class="width-80-percent">
+          <div class="text-left">
+            <p class="font-14 margin-top-0">Enter your phone number to continue</p>
+          </div>
+        </ion-row>
+        <ion-row class="width-80-percent text-left">
+          <ion-col size="3">
+            <ion-item (click)="showCountryCodeModal()">
+              <ion-input inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
+              <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
+            </ion-item>
+          </ion-col>
+          <ion-col size="9">
+            <ion-item>
+              <ion-input inputmode="tel" placeholder=" " (keyup.enter)="checkPlatform()"
+                [(ngModel)]="loginData.phoneNumber"> </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button (click)="checkPlatform()" class="full-button" expand="full" color="primary">Submit
+          </ion-button>
+        </ion-row>
+        <br>
+        <ion-row style="justify-content: center !important" class="width-80-percent">
+          <a class="font-16" (click)="needHelp()">Need help?</a>
+        </ion-row>
+
+      </div>
+
+      <!-- Phone number input -->
+      <div [hidden]=" visibleBlock !== 'sendOtpInput' ">
+        <ion-row class="width-80-percent">
+          <div class="text-left">
+            <p class="font-14">Enter your registered phone number</p>
+          </div>
+        </ion-row>
+        <ion-row class="width-80-percent text-left">
+          <ion-col size="3">
+            <ion-item (click)="showCountryCodeModal()">
+              <ion-input inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
+              <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
+            </ion-item>
+          </ion-col>
+          <ion-col size="9">
+            <ion-item>
+              <ion-input inputmode="tel" placeholder=" " [(ngModel)]="loginData.phoneNumber"> </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button (click)="sendOtp()" class="full-button" expand="full" color="primary">Send OTP</ion-button>
+        </ion-row>
+        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
+          <p (click)="setVisibleBlock('phoneInput')">Login</p>
+        </ion-row>
+      </div>
+
+      <!-- Password input -->
+      <div [hidden]=" visibleBlock !== 'passwordInput' ">
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter Password</ion-label>
+              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.password">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button class="full-button " expand="full" color="primary" (click)=login()>Login</ion-button>
+        </ion-row>
+        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
+          <p (click)="setVisibleBlock('sendOtpInput')">Forgot password?</p>
+        </ion-row>
+      </div>
+
+      <div [hidden]=" visibleBlock !== 'otpInput' ">
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <!-- <ion-item>
+              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter OTP</ion-label>
+              <ion-input imputmode="tel" placeholder=" " [(ngModel)]="loginData.accessCode">
+              </ion-input>
+            </ion-item> -->
+
+            <p>Enter the 4-digit code sent to you at</p>
+            <p>{{loginData.countryCode}} {{loginData.phoneNumber}}</p>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-input placeholder="&bull;" class="center-text" #input1 type="number" maxlength="1"
+                    pattern="[0-9]" [(ngModel)]="loginData.accessCode1"
+                    (keyup)="next(input2, '', loginData.accessCode1)">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-input placeholder="&bull;" class="center-text" #input2 type="number" maxlength="1"
+                    pattern="[0-9]" [(ngModel)]="loginData.accessCode2"
+                    (keyup)="next(input3, input1, loginData.accessCode2)">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-input placeholder="&bull;" class="center-text" #input3 type="number" maxlength="1"
+                    pattern="[0-9]" [(ngModel)]="loginData.accessCode3"
+                    (keyup)="next(input4, input2, loginData.accessCode3)">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-input placeholder="&bull;" class="center-text" #input4 type="number" maxlength="1"
+                    pattern="[0-9]" [(ngModel)]="loginData.accessCode4"
+                    (keyup)="next('', input3, loginData.accessCode4)">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="showOtpCounter" color="primary">
+          <ion-col class="center-text">
+            <a>Please wait for {{timeLeft}} </a>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!showOtpCounter" color="primary">
+          <ion-col class="center-text">
+            <a (click)="checkPlatform()">Resend OTP </a>
+          </ion-col>
+        </ion-row>
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button class="full-button " expand="full" color="primary" (click)="login()">Confirm</ion-button>
+        </ion-row>
+        <br>
+        <ion-row style="justify-content: center !important" class="width-80-percent">
+          <a class="font-16" (click)="needHelp()">Need help?</a>
+        </ion-row>
+        <!-- <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
+          <p (click)="setVisibleBlock('phoneInput')">Login</p>
+        </ion-row> -->
+      </div>
+
+      <div [hidden]=" visibleBlock !== 'verifyOtpInput' ">
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+
+            <p>Enter the 4-digit code sent to you at</p>
+            <p>{{loginData.countryCode}} {{loginData.phoneNumber}}</p>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-input class="center-text" inputmode="tel" maxlength="1" placeholder=" "
+                    [(ngModel)]="loginData.accessCode1">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-input class="center-text" inputmode="tel" maxlength="1" placeholder=" "
+                    [(ngModel)]="loginData.accessCode2">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-input class="center-text" inputmode="tel" maxlength="1" placeholder=" "
+                    [(ngModel)]="loginData.accessCode3">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-input class="center-text" inputmode="tel" maxlength="1" placeholder=" "
+                    [(ngModel)]="loginData.accessCode4">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="showOtpCounter" color="primary">
+          <ion-col class="center-text">
+            <a>Please wait for {{timeLeft}} </a>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!showOtpCounter" color="primary">
+          <ion-col class="center-text">
+            <a (click)="sendOtp()">Resend OTP </a>
+          </ion-col>
+        </ion-row>
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button class="full-button " expand="full" color="primary" (click)="verifyOtp()">Confirm</ion-button>
+        </ion-row>
+        <br>
+        <ion-row style="justify-content: center !important" class="width-80-percent">
+          <a class="font-16" (click)="needHelp()">Need help?</a>
+        </ion-row>
+
+      </div>
+
+      <div [hidden]=" visibleBlock !== 'onboardUser' ">
+        <ion-row class="width-80-percent">
+          <div class="text-left">
+            <p class="font-20 margin-bottom-10">Oops!</p>
+          </div>
+        </ion-row>
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <p>We see you don't have an account,</p>
+            <p>Please reach out to us to get your account created</p>
+          </ion-col>
+        </ion-row>
+        <ion-row style="justify-content: center !important" class="width-80-percent">
+          <a class="font-16" (click)="needHelp()">Contact us</a>
+        </ion-row>
+        <!-- <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button (click)="sendOtp()" class="full-button" expand="full" color="primary">Proceed
+          </ion-button>
+        </ion-row> -->
+      </div>
+
+      <div [hidden]=" visibleBlock !== 'passwordSetInput' ">
+
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter New Password</ion-label>
+              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.password" (keyup)="validatePassword()">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class="font-20 margin-bottom-10">Confirm Password</ion-label>
+              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.passwordCheck"
+                (keyup)="validatePassword()">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+          <p class="font-14 txt-warm-grey margin-top-0">Password needs to be atleast 4 characters in length </p>
+        </ion-row>
+
+        <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p>
+
+        <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action == 'resetPassword'">
+          <ion-button class="full-button " expand="full" color="primary" (click)="login()"
+            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
+            Confirm</ion-button>
+        </ion-row>
+        <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action !== 'resetPassword'">
+          <ion-button class="full-button " expand="full" color="primary" (click)="resetPassword()"
+            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
+            Confirm</ion-button>
+        </ion-row>
+
+        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
+          <p (click)="setVisibleBlock('phoneInput')">Login</p>
+        </ion-row>
+
+      </div>
+
     </div>
 
-    <div class="webkit-center" [hidden]="display!='password'">
-      <ion-row class="width-80-percent">
-        <ion-col>
-          <img src="assets/logo/thm-logo.png">
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="width-80-percent">
-        <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
-          </p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">
-            {{transService.getTranslatedData('login.welcome-string2')}}</p>
-        </div>
-      </ion-row>
-      <ion-row class="width-80-percent text-left">
-        <ion-col>
-          <ion-item>
-            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">
-              {{transService.getTranslatedData('login.enter-password')}}</ion-label>
-            <ion-input type="password" [(ngModel)]="loginData.password"
-              placeholder="{{transService.getTranslatedData('login.password-placeholder')}}">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" (click)="loginUser('login')" expand="full" color="primary">
-          {{transService.getTranslatedData('login.login-button')}}
-        </ion-button>
-      </ion-row>
-      <ion-row style="justify-content: center !important" class="width-80-percent gotham margin-top-10">
-        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
-      </ion-row>
-    </div>
-
-    <div class="webkit-center" [hidden]="display!='forgot'">
-      <ion-row class="width-80-percent">
-        <ion-col>
-          <img src="assets/logo/thm-logo.png">
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="width-80-percent">
-        <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
-          </p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">
-            {{transService.getTranslatedData('login.welcome-string2')}}</p>
-        </div>
-      </ion-row>
-      <ion-row class="width-80-percent">
-        <div class="text-left">
-          <p class="font-14 gotham">{{transService.getTranslatedData('login.welcome-string3')}}</p>
-        </div>
-      </ion-row>
-      <ion-row class="width-80-percent text-left">
-        <ion-col size="3">
-          <ion-item (click)="countryCodeModal()">
-            <ion-input inputmode="text"
-              placeholder="{{transService.getTranslatedData('login.country-code-placeholder')}}" class="gotham"
-              [(ngModel)]="sendotp.countryCode">
-            </ion-input>
-            <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
-          </ion-item>
-        </ion-col>
-        <ion-col size="9">
-          <ion-item>
-            <ion-input inputmode="tel" [(ngModel)]="sendotp.phoneNumber"
-              placeholder="{{transService.getTranslatedData('login.phone-number-input')}}">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" (click)="sendOtpService('forgot')" color="primary">
-          {{transService.getTranslatedData('login.send-otp-button')}}</ion-button>
-        <!--sendOtp(sendotp.phoneNumber, 'forgot')-->
-      </ion-row>
-      <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
-        <p (click)="display='login'">{{transService.getTranslatedData('login.login-button')}}</p>
-      </ion-row>
-    </div>
-
-    <div class="webkit-center" [hidden]="display!='otp'">
-      <ion-row class="width-80-percent">
-        <ion-col>
-          <img src="assets/logo/thm-logo.png">
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="width-80-percent">
-        <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
-          </p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">
-            {{transService.getTranslatedData('login.welcome-string2')}}</p>
-        </div>
-      </ion-row>
-      <ion-row class="width-80-percent text-left">
-        <ion-col>
-          <ion-item>
-            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">
-              {{transService.getTranslatedData('login.otp-input')}}</ion-label>
-            <ion-input imputmode="tel" [(ngModel)]="otpData.accessCode"
-              placeholder="{{transService.getTranslatedData('login.otp-placeholder')}}">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('login')">
-          {{transService.getTranslatedData('login.confirm-button')}}
-        </ion-button>
-      </ion-row>
-      <ion-row style="justify-content: center !important" class="width-80-percent gotham margin-top-10">
-        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
-      </ion-row>
-    </div>
-
-    <div class="webkit-center" [hidden]="display!='setPassword'">
-      <ion-row class="width-80-percent">
-        <ion-col>
-          <img src="assets/logo/thm-logo.png">
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="width-80-percent">
-        <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
-          </p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">
-            {{transService.getTranslatedData('login.welcome-string2')}}</p>
-        </div>
-      </ion-row>
-      <ion-row class="width-80-percent text-left">
-        <ion-col>
-          <ion-item>
-            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">
-              {{transService.getTranslatedData('login.reset-password1')}}</ion-label>
-            <ion-input type="password" [(ngModel)]="passwordData.password"
-              placeholder="{{transService.getTranslatedData('login.password-placeholder')}}">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="width-80-percent text-left">
-        <ion-col>
-          <ion-item>
-            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">
-              {{transService.getTranslatedData('login.reset-password2')}}</ion-label>
-            <ion-input type="password" [(ngModel)]="passwordData.passwordCheck"
-              placeholder="{{transService.getTranslatedData('login.password-placeholder')}}">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" (click)="passwordSet(otpSource)" color="primary">
-          {{transService.getTranslatedData('login.confirm-button')}}
-        </ion-button>
-      </ion-row>
-    </div>
-
-    <div class="webkit-center" [hidden]="display!='forgototp'">
-      <ion-row class="width-80-percent">
-        <ion-col>
-          <img src="assets/logo/thm-logo.png">
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="width-80-percent">
-        <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
-          </p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">
-            {{transService.getTranslatedData('login.welcome-string2')}}</p>
-        </div>
-      </ion-row>
-      <ion-row class="width-80-percent text-left">
-        <ion-col>
-          <ion-item>
-            <ion-label position="stacked" class="font-20 gotham margin-bottom-10">
-              {{transService.getTranslatedData('login.otp-input')}}</ion-label>
-            <ion-input imputmode="tel" class="gotham" [(ngModel)]="otpData.accessCode"
-              placeholder="{{transService.getTranslatedData('login.otp-placeholder')}}">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('forgot')">
-          {{transService.getTranslatedData('login.confirm-button')}}
-        </ion-button>
-      </ion-row>
-      <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
-        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
-      </ion-row>
-    </div>
-
-    <div class="webkit-center" [hidden]="display!='approvalotp'">
-      <ion-row class="width-80-percent">
-        <ion-col>
-          <img src="assets/logo/thm-logo.png">
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="width-80-percent">
-        <div class="text-left">
-          <p class="font-20 margin-bottom-10 gotham-medium">{{transService.getTranslatedData('login.welcome-string1')}}
-          </p>
-          <p class="font-14 txt-warm-grey margin-top-0 gotham">
-            {{transService.getTranslatedData('login.welcome-string2')}}</p>
-        </div>
-      </ion-row>
-      <ion-row class="width-80-percent text-left">
-        <ion-col>
-          <ion-item>
-            <ion-label position="stacked" class="font-20 margin-bottom-10 gotham">
-              {{transService.getTranslatedData('login.otp-input')}}</ion-label>
-            <ion-input imputmode="tel" [(ngModel)]="otpData.accessCode"
-              placeholder="{{transService.getTranslatedData('login.otp-placeholder')}}">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="width-80-percent center-text margin-top-10">
-        <ion-button class="full-button gotham" expand="full" color="primary" (click)="varifyOtp('approve')">
-          {{transService.getTranslatedData('login.confirm-button')}}
-        </ion-button>
-      </ion-row>
-      <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10 gotham">
-        <p (click)="display='forgot'">{{transService.getTranslatedData('login.forgot-password')}}</p>
-      </ion-row>
-    </div>
+    <!-- <ion-row>
+      <ion-col class="center-text">
+        <img class="thm-logo" src="assets/thm-branding.png" />
+      </ion-col>
+    </ion-row> -->
 
   </div>
+
 </ion-content>
+
+<ion-footer class="center-text" no-border>
+  <p class="margin-top-0 margin-bottom-minus-10 font-12">Powered by</p>
+  <img class="thm-logo" src="assets/thm-branding.png" />
+</ion-footer>

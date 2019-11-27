@@ -92,10 +92,61 @@
   --ion-color-base: #387ef5 !important;
   --ion-color-contrast: #ffffff !important;
 }
-.ion-color-active-status {
-  --ion-color-base: #1bb293 !important;
-}
+// .ion-color-active-status {
+//   --ion-color-base: #1bb293 !important;
+// }
 
 .ion-color-rejected-active-status {
   --ion-color-base: #c4153b !important;
 }
+.ion-color-employee {
+  --ion-color-base: #3880ff !important; //main color
+  --ion-color-contrast: #ffffff !important;
+}
+
+.ion-color-delivery {
+  --ion-color-base: #7044ff !important;
+  --ion-color-contrast: #ffffff !important;
+}
+
+.ion-color-vendor {
+  --ion-color-base: #f04141 !important;
+  --ion-color-contrast: #ffffff !important;
+}
+
+.ion-color-guest {
+  --ion-color-base: #ffce00 !important;
+  --ion-color-contrast: #ffffff !important;
+}
+
+.ion-color-domestic-help {
+  --ion-color-base: #1bb293 !important;
+  --ion-color-contrast: #ffffff !important;
+}
+.alert-button-inner.sc-ion-alert-md {
+  justify-content: center !important;
+}
+.ion-color-active-status {
+  color: #1bb293 !important;
+}
+
+.custom-raise-ticket-modal-css .modal-wrapper {
+  height: 240px !important;
+  width: 60% !important;
+  position: absolute !important;
+  display: block !important;
+}
+.join-modal .popup {
+  width: 80%;
+  padding: 10px;
+}
+
+.select-org-popover{
+  --width:unset!important;
+div{
+  .popover-content .sc-ion-popover-md{
+    width: 18em !important;
+  }
+}
+}
+

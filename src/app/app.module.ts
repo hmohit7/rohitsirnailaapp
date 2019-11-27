@@ -22,17 +22,35 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader"
 import { StorageService } from './common-services/storage-service.service';
 import { IonicStorageModule } from '@ionic/storage';
+import { HTTP } from '@ionic-native/http/ngx';
+import { OrgModalComponent } from './common-components/org-modal/org-modal.component';
+import { CountrycodemodalComponent } from './login/countrycodemodal/countrycodemodal.component';
+import { FilterPipe } from './login/countrycodemodal/Filter.pipe';
+import { FormsModule } from '@angular/forms';
+import { AvatarModule } from 'ngx-avatar';
+import { Device } from '@ionic-native/device/ngx'
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    OrgModalComponent,
+    CountrycodemodalComponent,
+    FilterPipe
   ],
+  entryComponents: [OrgModalComponent, CountrycodemodalComponent],
   imports: [
+    FormsModule,
     BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
     HttpClientModule,
+    AvatarModule,
+    IonicStorageModule.forRoot(),
+    IonicModule.forRoot({
+      rippleEffect: false,
+      mode: 'md'
+    }),
+    AppRoutingModule,
     BuildingManagementModule,
     RentalsManagementModule,
     IonicStorageModule.forRoot(),
@@ -47,14 +65,16 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
+    MainAppSetting,
     Camera,
     FileTransfer,
-    Push,
     FileTransferObject,
+    HTTP,
     StorageService,
+    Push,
+    Device,
     WebView,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    MainAppSetting
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })

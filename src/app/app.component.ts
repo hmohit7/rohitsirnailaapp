@@ -85,19 +85,21 @@ export class AppComponent {
   }
 
   initializeApp() {
+    let isLoggedIn:string;
     this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       await this._initTranslate()
       this.splashScreen.hide();
-      let isLoggedIn;
       this.statusBar.styleDefault();
-      await this.storageService.getDatafromIonicStorage('isLoggedin').then(val => {
+      await this.storageService.getDatafromIonicStorage('isLoggedIn').then(val => {
         isLoggedIn = val;
+        console.log(typeof val);
+        
       })
       await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
         this.appSrc = val;
       })
-      await isLoggedIn == true ? this.navCtrl.navigateRoot(`/${this.appSrc}-home`) : this.navCtrl.navigateRoot('/login');
+      await isLoggedIn == 'true' ? this.navCtrl.navigateRoot(`/${this.appSrc}-home`) : this.navCtrl.navigateRoot('/login');
     });
   }
 
