@@ -143,7 +143,7 @@ export class TicketsPage implements OnInit {
       this.status = this.status + `&status=${element}`;
     });
 
-    alert(this.status)
+    // alert(this.status)
     this.ticketService.getTickets(
       this.filterData.skip || '',
       this.status || '',

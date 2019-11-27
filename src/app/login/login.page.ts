@@ -178,7 +178,7 @@ export class LoginPage implements OnInit {
     this._alertService.saveToLocalStorage('types', data[type].types)
     if (type === 'bm') {
       window.localStorage.setItem('appSrc', 'building-management');
-      this._alertService.saveToLocalStorage('appSrc', 'bulding-management');
+      this._alertService.saveToLocalStorage('appSrc', 'building-management');
     } else {
       window.localStorage.setItem('appSrc', 'rentals');
       this._alertService.saveToLocalStorage('appSrc', 'rentals')
