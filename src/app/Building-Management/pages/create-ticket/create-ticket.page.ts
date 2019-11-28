@@ -314,11 +314,11 @@ export class CreateTicketPage implements OnInit {
     console.log(this.ticketData);
 
     if (this.images.length > 0) {
-      this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(() => {
-        this.loading.dismiss();
+      this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(async () => {
+        await this.loading.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-          this.transService.getTranslatedData('create-ticket.ticket-create-success'));
-        this.router.navigateByUrl('/rentals-ticket-details', { replaceUrl: true });
+        this.transService.getTranslatedData('create-ticket.ticket-create-success'));
+        this.router.navigateByUrl(`/building-management-tickets?ticketId=${this.ticketData._id}`, { replaceUrl: true });
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
@@ -332,7 +332,7 @@ export class CreateTicketPage implements OnInit {
           this.loading.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('create-ticket.ticket-create-success'));
-          this.router.navigateByUrl(`/rentals-tickets?ticketId=${this.ticketData._id}`, { replaceUrl: true });
+          this.router.navigateByUrl(`/building-management-tickets?ticketId=${this.ticketData._id}`, { replaceUrl: true });
         },
           err => {
             this.loading.dismiss();

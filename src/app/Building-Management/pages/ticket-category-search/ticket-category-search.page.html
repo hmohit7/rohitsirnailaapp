@@ -14,7 +14,7 @@
   <div class="center-text margin-top-10" [hidden]="!loading">
     <ion-spinner></ion-spinner>
   </div>
-  <p class="gotham center-text" *ngIf="categories.length==0">
+  <p class="gotham center-text" *ngIf="categories.length==0 && !loading">
     {{transService.getTranslatedData('ticket-category.empty-array')}}</p>
   <ion-list>
     <ion-radio-group [(ngModel)]="this.selectedCategory.ticketCategory">

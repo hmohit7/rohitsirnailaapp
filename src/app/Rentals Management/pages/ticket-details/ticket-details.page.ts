@@ -83,8 +83,8 @@ export class TicketDetailsPage implements OnInit {
         this.ticket = data;
         // console.log(this.ticket);
       },
-        err => {
-          this.loadingCtrl.dismiss();
+        async err => {
+        await this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('error-alert'))
         }

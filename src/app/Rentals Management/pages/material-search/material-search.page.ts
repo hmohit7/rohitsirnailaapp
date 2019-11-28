@@ -78,7 +78,7 @@ export class MaterialSearchPage implements OnInit {
       },
         err => {
           this.loading = false;
-          this.alertService.presentAlert('Alert', err.error.error);
+          this.alertService.presentAlert('', err.error.error);
         }
       );
   }
