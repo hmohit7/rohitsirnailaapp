@@ -49,6 +49,7 @@
     "cordova-support-google-services": "1.1.0",
     "core-js": "^2.5.4",
     "ionic-angular": "^3.9.6",
+    "ios": "0.0.1",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "ngx-avatar": "^3.5.0",
