@@ -18,7 +18,7 @@
       <ion-grid>
         <ion-row>
           <ion-col class=" padding-0">
-            <span class="gotham font-weight-500">
+            <span class="gotham font-weight-600">
               {{approval.user?.firstName}} {{approval.user?.lastName}}
             </span>
           </ion-col>
@@ -31,9 +31,9 @@
           </ion-col>
         </ion-row>
         <ion-row ng-if="approval.user.phoneNumber">
-          <p style="font-size : 15px !important" class="margin-padding-zero txt-warm-grey gotham padding-top-5">
+          <!-- <p style="font-size : 15px !important" class="margin-padding-zero txt-warm-grey gotham padding-top-5">
             ({{approval.user?.countryCode}} {{approval.user?.phoneNumber}})
-          </p>
+          </p> -->
         </ion-row>
         <ion-row>
           <p style="font-size : 15px !important" class="margin-0 padding-top-5 gont-12 txt-warm-grey gotham">
@@ -51,7 +51,7 @@
         </ion-row>
         <ion-row>
           <p class="padding-top-5 font-14 gotham margin-0 mar txt-warm-grey">
-            {{approval.submittedBy?.firstName}} {{approval.submittedBy?.lastName}}
+            {{approval.submittedByUser?.firstName}} {{approval.submittedByUser?.lastName}}
           </p>
         </ion-row>
       </ion-grid>

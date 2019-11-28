@@ -63,4 +63,4 @@
   </div>
 </ion-content>
 <ion-button [disabled]="!notice.discussionBelongsToRefId || !notice.title || !notice.body" size="large"
-  (click)="createNotice()" color="success">{{transService.getTranslatedData('create-notice-modal.submit')}}</ion-button>
+  (click)="createNotice()" color="danger">{{transService.getTranslatedData('create-notice-modal.submit')}}</ion-button>

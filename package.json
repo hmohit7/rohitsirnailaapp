@@ -52,6 +52,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "ngx-avatar": "^3.5.0",
+    "ngx-order-pipe": "^2.0.4",
     "phonegap-plugin-multidex": "1.0.0",
     "phonegap-plugin-push": "2.2.3",
     "rxjs": "~6.5.1",

@@ -19,18 +19,18 @@
         <ion-col size="2" class="padding-top-0">
           <ngx-avatar name="{{notice.createdBy?.firstName}} {{notice.createdBy?.lastName}}"></ngx-avatar>
         </ion-col>
-        <ion-col size="6" class="margin-left-10">
+        <ion-col size="6" class="margin-left-8">
           <p class="gotham-medium font-14 dark-grey margin-padding-zero">{{notice.createdBy?.firstName}}
             {{notice.createdBy?.lastName}}</p>
           <p class="txt-warm-grey font-14 Gotham-medium margin-bottom-0 margin-top-5 font-weight-500 txt-nowrap">
-            {{notice.listing?.block}} {{notice.listing?.door}} - {{notice.createdBy?.types}}
+            {{notice.listing?.block}} {{notice.listing?.door}} {{notice.listing?.block?notice.listing?.door?'-':'-':''}}  {{notice.createdBy?.types}}
           </p>
         </ion-col>
         <ion-col class="text-right">
           <ion-badge color="warning" *ngIf="notice.discussionType" class="border-radius-10">{{notice.discussionType}}
           </ion-badge>
-          <p class="txt-warm-grey font-14 Gotham-medium margin-bottom-0 margin-padding-zero font-weight-500 txt-nowrap">
-            {{notice.createdAt | date: 'dd MMM yyyy'|agoFilter}}
+          <p class="txt-warm-grey font-11 Gotham-medium margin-bottom-0 margin-padding-zero font-weight-500 txt-nowrap">
+            {{notice.createdAt |agoFilter}}
           </p>
         </ion-col>
       </ion-row>
@@ -38,7 +38,7 @@
         <p class="Gotham-medium font-14 font-weight-500 margin-bottom-5 dark-grey margin-top-5">
           {{notice.title}}
         </p>
-        <p class="margin-bottom-0 margin-top-5 font-weight-500  txt-warm-grey font-14 Gotham-medium"> {{notice.body}}
+        <p class="margin-bottom-0 margin-top-5 font-weight-500  txt-warm-grey font-14 Gotham-medium" [innerHTML]="notice.body"> 
         </p>
       </div>
 
@@ -51,10 +51,10 @@
         <br><br>
       </ion-row>
 
-      <ion-grid>
+      <ion-grid (click)="stopEvent($event)">
         <ion-row>
           <ion-col>
-            <span class="padding-right-20" (click)="stopEvent($event)">
+            <span class="padding-right-20">
               <ion-icon *ngIf="!notice.hasLiked" (click)="likeDiscussion(notice._id)"
                 class="icon font-25 gotham margin-right-5" name="heart-empty"></ion-icon>
               <ion-icon *ngIf="notice.hasLiked" (click)="likeDiscussion(notice._id)" color="danger"

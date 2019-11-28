@@ -107,7 +107,8 @@ export class AppComponent {
   initializeApp() {
     let isLoggedIn: string;
     this.platform.ready().then(async () => {
-      this.statusBar.styleDefault();
+      this.statusBar.styleLightContent()
+      this.statusBar.backgroundColorByHexString('#ffffff');
       await this._initTranslate()
       this.splashScreen.hide();
       this.statusBar.styleDefault();

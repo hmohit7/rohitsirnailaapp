@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { WebView } from "@ionic-native/ionic-webview/ngx"
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { StorageService } from 'src/app/common-services/storage-service.service';
 @Component({
   selector: 'app-create-ticket',
   templateUrl: './create-ticket.page.html',
@@ -41,7 +42,8 @@ export class CreateTicketPage implements OnInit {
     private route: ActivatedRoute,
     private alertService: AlertServiceService,
     public webview: WebView,
-    public transService: translateService
+    public transService: translateService,
+    private storageService: StorageService
   ) {
     this.date = new Date();
     this.route.queryParamMap.subscribe((params: any) => {
@@ -66,7 +68,7 @@ export class CreateTicketPage implements OnInit {
       this.getTicketDetails();
     } else {
 
-      this.ticketData.createdBy = window.localStorage.getItem('user_id');
+
       this.ticketData.jobStartTime = this.date.toISOString();
       this.ticketData.jobDate = this.date.toISOString();
       this.ticketData.jobEndDate = this.date.toISOString();
@@ -311,13 +313,17 @@ export class CreateTicketPage implements OnInit {
 
   async raiseTicket() {
     await this.presentLoading();
+    await this.storageService.getDatafromIonicStorage('user_id').then(val => {
+      this.ticketData.raisedBy = val;
+      this.ticketData.createdBy = val;
+    })
     console.log(this.ticketData);
 
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.ticketData, 'RAISETICKET').then(async () => {
         await this.loading.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-        this.transService.getTranslatedData('create-ticket.ticket-create-success'));
+          this.transService.getTranslatedData('create-ticket.ticket-create-success'));
         this.router.navigateByUrl(`/building-management-tickets?ticketId=${this.ticketData._id}`, { replaceUrl: true });
       }, error => {
         this.loading.dismiss();

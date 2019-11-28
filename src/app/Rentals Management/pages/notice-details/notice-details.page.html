@@ -14,21 +14,21 @@
           <ngx-avatar name="{{notice.createdBy?.firstName}}
             {{notice.createdBy?.lastName}}"></ngx-avatar>
         </ion-col>
-        <ion-col size="6" class="margin-left-10">
+        <ion-col size="6" class="margin-left-8">
           <p class="gotham-medium font-14 dark-grey margin-padding-zero">{{notice.createdBy?.firstName}}
             {{notice.createdBy?.lastName}}</p>
           <p class="txt-warm-grey font-14 Gotham-medium margin-bottom-0
             margin-top-5 font-weight-500 txt-nowrap">
-            {{notice.listing?.block}} {{notice.listing?.door}} -
+            {{notice.listing?.block}} {{notice.listing?.door}} {{notice.listing?.block?notice.listing?.door?'-':'-':''}} 
             {{notice.createdBy?.types}}
           </p>
         </ion-col>
         <ion-col class="text-right">
           <ion-badge color="warning" *ngIf="notice.discussionType" class="border-radius-10">{{notice.discussionType}}
           </ion-badge>
-          <p class="txt-warm-grey font-14 Gotham-medium margin-bottom-0
+          <p class="txt-warm-grey font-11 Gotham-medium margin-bottom-0
             margin-padding-zero font-weight-500 txt-nowrap">
-            {{notice.createdAt | date: 'dd MMM yyyy'|agoFilter}}
+            {{notice.createdAt |agoFilter}}
           </p>
         </ion-col>
       </ion-row>
@@ -38,8 +38,7 @@
           {{notice.title}}
         </p>
         <p class="txt-warm-grey font-14 Gotham-medium margin-bottom-0
-          margin-top-5 font-weight-500">
-          {{notice.body}}
+          margin-top-5 font-weight-500" [innerHTML]="notice.body">
         </p>
       </div>
 
@@ -83,7 +82,7 @@
           <ngx-avatar name="{{comment.createdBy.firstName}}
             {{comment.createdBy.lastName}}"></ngx-avatar>
         </ion-col>
-        <ion-col class="margin-left-10">
+        <ion-col class="margin-left-8">
           <ion-col class="padding-left-0">
             <span class="gotham-medium font-14 dark-grey margin-padding-zero">
               {{comment.createdBy.firstName}} {{comment.createdBy.lastName}}

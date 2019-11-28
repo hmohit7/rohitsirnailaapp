@@ -22,10 +22,11 @@
         <p class="gotham-medium margin-bottom-8 " text-wrap>
           <span class="float-left">#{{ticket.uid}} - </span>
           <span class="center-text"> {{ticket.ticketCategory}}</span>
-          <span class="float-right gotham">{{ticket.createdAt | date:'dd MMM yyyy'|agoFilter}}</span>
+          <span class="float-right gotham">{{ticket.createdAt | agoFilter}}</span>
         </p>
         <p class="gotham font-weight-600 txt-grey margin-bottom-8">
-          {{ticket.propertyName}} - {{ticket.propertyLocality}}</p>
+          {{ticket.block?ticket.block+' - ':''}}{{ticket.door}} {{ticket.propertyName}} - {{ticket.propertyLocality}}
+        </p>
 
         <ion-badge *ngIf="ticket.jobStartTime"
           class="gotham font-weight-600 date-bedge-color padding-bottom-3 padding-top-6" mode="md">

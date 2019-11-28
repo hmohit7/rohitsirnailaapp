@@ -72,28 +72,28 @@ export class HomePage implements OnInit {
     this.getUserDetails();
     this.pushObject.on('notification').subscribe((notification: any) => {
       console.log(JSON.stringify(notification));
-      // alert(JSON.stringify(notification.additionalData.id));
-      if (notification.additionalData.type == 'discussion') {
-        console.log('discussion');
-        if (notification.additionalData.id) {
-          console.log('discussion with id');
-          this.router.navigateByUrl(`/rentals-notice-details?did=${notification.additionalData.id}`);
-        } else {
-          console.log('discussion without id');
-          this.router.navigateByUrl(`/rentals-notice-board`);
-        }
-      } else if (notification.additionalData.type == 'ticket') {
-        if (notification.additionalData.id) {
-          this.router.navigateByUrl(`/rentals-ticket-details?tid=${notification.additionalData.id}`);
-        } else {
-          this.router.navigateByUrl('/trentals-ickets');
-        }
-      } else if (notification.additionalData.type == 'approval') {
-        this.router.navigateByUrl(`/rentals-user-approval`);
+      // // alert(JSON.stringify(notification.additionalData.id));
+      // if (notification.additionalData.type == 'discussion') {
+      //   console.log('discussion');
+      //   if (notification.additionalData.id) {
+      //     console.log('discussion with id');
+      //     this.router.navigateByUrl(`/rentals-notice-details?did=${notification.additionalData.id}`);
+      //   } else {
+      //     console.log('discussion without id');
+      //     this.router.navigateByUrl(`/rentals-notice-board`);
+      //   }
+      // } else if (notification.additionalData.type == 'ticket') {
+      //   if (notification.additionalData.id) {
+      //     this.router.navigateByUrl(`/rentals-ticket-details?ticketId=${notification.additionalData.id}`);
+      //   } else {
+      //     this.router.navigateByUrl('/trentals-ickets');
+      //   }
+      // } else if (notification.additionalData.type == 'approval') {
+      //   this.router.navigateByUrl(`/rentals-user-approval`);
 
-      } else if (notification.additionalData.type == 'estimate') {
-        this.router.navigateByUrl(`/rentals-ticket-details?eid=${notification.additionalData.id}`);
-      }
+      // } else if (notification.additionalData.type == 'estimate') {
+      //   this.router.navigateByUrl(`/rentals-ticket-details?eid=${notification.additionalData.id}`);
+      // }
 
     },
       err => {

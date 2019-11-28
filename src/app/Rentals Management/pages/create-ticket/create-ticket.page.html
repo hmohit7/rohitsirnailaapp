@@ -216,8 +216,8 @@
 
 </ion-content>
 <ion-button [disabled]="!ticketData.ticketBelongsToRefId || !ticketData.ticketCategory || !ticketData.notes"
-  *ngIf="flow == 'createTicket'" size="large" (click)="raiseTicket()" color="success">
+  *ngIf="flow == 'createTicket'" size="large" (click)="raiseTicket()" color="danger">
   {{transService.getTranslatedData('create-ticket.submit-button')}}</ion-button>
 <ion-button [disabled]="!ticketData.ticketBelongsToRefId || !ticketData.ticketCategory || !ticketData.notes"
-  *ngIf="flow == 'editTicket'" size="large" (click)="updateTicket()" color="success">
+  *ngIf="flow == 'editTicket'" size="large" (click)="updateTicket()" color="danger">
   {{transService.getTranslatedData('create-ticket.submit-button')}}</ion-button>

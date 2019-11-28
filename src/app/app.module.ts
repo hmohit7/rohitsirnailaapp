@@ -29,7 +29,7 @@ import { FilterPipe } from './login/countrycodemodal/Filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'ngx-avatar';
 import { Device } from '@ionic-native/device/ngx'
-
+import {OrderModule} from 'ngx-order-pipe'
 
 
 @NgModule({
@@ -50,6 +50,7 @@ import { Device } from '@ionic-native/device/ngx'
       rippleEffect: false,
       mode: 'md'
     }),
+    OrderModule,
     AppRoutingModule,
     BuildingManagementModule,
     RentalsManagementModule,

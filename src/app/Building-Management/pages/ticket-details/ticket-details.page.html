@@ -119,7 +119,7 @@
             <!-- <p class="txt-warm-grey font-14 gotham-medium font-weight-500 margin-padding-zero">Click here to add</p> -->
           </ion-col>
           <ion-col class="center-text ">
-            <img class="float-right icon-25" src="/assets/icon/phone.png">
+            <img class="float-right icon-25" (click)="call(ticket.raisedBy.phoneNumber)" src="/assets/icon/phone.png">
           </ion-col>
         </ion-row>
 
@@ -154,7 +154,7 @@
           </ion-col>
           <ion-col class="margin-left-10">
             <p class="gotham-medium font-14 dark-grey margin-padding-zero">
-              {{transService.getTranslatedData('ticket-details.techician')}}</p>
+              {{transService.getTranslatedData('ticket-details.technician')}}</p>
             <p *ngIf="ticket.agent" class="txt-warm-grey font-14 gotham-medium font-weight-500 margin-top-8 txt-nowrap">
               {{ticket.agent.firstName}} {{ticket.agent.lastName}}
               <span class="float-right font-14 txt-warm-grey gotham-medium font-weight-500"
@@ -297,8 +297,8 @@
             placeholder="{{transService.getTranslatedData('ticket-details.comment-placeholder')}}"
             [(ngModel)]="ticket.commentText">
             </textarea>
-          <ion-button class="float-right" style="margin: 5px; padding: 0">
-            <p class="gotham font-14 margin-padding-zero" (click)="createComment()">
+          <ion-button class="float-right" style="margin: 5px; padding: 0" (click)="createComment()">
+            <p class="gotham font-14 margin-padding-zero" >
               {{transService.getTranslatedData('ticket-details.comment')}}</p>
           </ion-button>
         </ion-col>
@@ -331,7 +331,7 @@
               </ion-col>
               <ion-row
                 class="font-14 txt-align-right gotham-medium txt-warm-grey font-14 margin-bottom-0 padding-bottom-0">
-                {{comment.createdAt|date:'dd MMM yyyy'|agoFilter}}
+                {{comment.createdAt|agoFilter}}
               </ion-row>
             </ion-row>
           </ion-col>
@@ -348,7 +348,7 @@
             <span class=" font-14 dark-grey gotham-medium"> {{comment.createdBy.firstName}}
               {{comment.createdBy.lastName}} </span>
             <span class="font-14 float-right gotham-medium txt-warm-grey font-14 margin-bottom-0 padding-bottom-0 ">
-              {{comment.createdAt|date:'dd MMM yyyy'|agoFilter}}
+              {{comment.createdAt|agoFilter}}
             </span>
           </p>
 

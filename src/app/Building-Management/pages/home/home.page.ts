@@ -1,7 +1,7 @@
 import { AlertServiceService } from '../../../common-services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx'
 import * as moment from 'moment';
@@ -44,7 +44,9 @@ export class HomePage implements OnInit {
     private push: Push,
     public transService: translateService,
     private storage: Storage,
-    private device:Device
+    private device: Device,
+    private alertCtrl: AlertController,
+    private _navCtrl: NavController
   ) {
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
@@ -71,26 +73,37 @@ export class HomePage implements OnInit {
       console.log(JSON.stringify(notification));
       // alert(JSON.stringify(notification.additionalData.id));
       if (notification.additionalData.type == 'discussion') {
+        this.presentAlert(`${notification.title} ${notification.message}`)
         console.log('discussion');
         if (notification.additionalData.id) {
           console.log('discussion with id');
-          this.router.navigateByUrl(`/building-management-notice-details?did=${notification.additionalData.id}`);
+          // this._navCtrl.navigateForward(`/building-management-notice-details`, {
+          //   queryParams: {
+          //     did: notification.additionalData.id
+          //   }
+          // });
         } else {
           console.log('discussion without id');
-          this.router.navigateByUrl(`/building-management-notice-board`);
+          // this._navCtrl.navigateForward(`/building-management-notice-board`);
         }
       } else if (notification.additionalData.type == 'ticket') {
+        this.presentAlert(notification.title)
         if (notification.additionalData.id) {
-          this.router.navigateByUrl(`/building-management-ticket-details?tid=${notification.additionalData.id}`);
+          // this._navCtrl.navigateForward(`/building-management-ticket-details`, {
+          //   queryParams: {
+          //     ticketId: notification.additionalData.id
+          //   }
+          // });
         } else {
-          this.router.navigateByUrl('/building-management-tickets');
+          // this._navCtrl.navigateForward('/building-management-tickets');
         }
-      } else if (notification.additionalData.type == 'approval') {
-        this.router.navigateByUrl(`/building-management-user-approval`);
-
-      } else if (notification.additionalData.type == 'estimate') {
-        this.router.navigateByUrl(`/building-management-ticket-details?eid=${notification.additionalData.id}`);
       }
+      // else if (notification.additionalData.type == 'approval') {
+      //   this.router.navigateByUrl(`/building-management-user-approval`);
+
+      // } else if (notification.additionalData.type == 'estimate') {
+      //   this.router.navigateByUrl(`/building-management-ticket-details?eid=${notification.additionalData.id}`);
+      // }
 
 
     },
@@ -158,6 +171,22 @@ export class HomePage implements OnInit {
 
 
   }
+
+
+  async presentAlert(header: string) {
+    await this.alertCtrl.create({
+      header: header,
+      // message: message,
+      cssClass: 'notifivation-alert',
+      buttons: [{
+        text: 'OK',
+        cssClass: 'width-100-percent alert-button-inner.sc-ion-alert-md',
+      }]
+    }).then(alert => {
+      alert.present()
+    })
+  }
+
 
   navigate(path) {
     this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}-${path}`);

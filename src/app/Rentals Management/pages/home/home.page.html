@@ -18,11 +18,11 @@
         <ion-row>
           <ion-col>
             <p class="gotham font-weight-600 txt-grey">{{transService.getTranslatedData('home.open')}}</p>
-            <p class="font-18 gotham">{{ticketStats?.ticket['open']}}</p>
+            <p class="font-18 gotham">{{ticketStats?.ticket['open']||0}}</p>
           </ion-col>
           <ion-col>
             <p class="gotham font-weight-600 txt-grey">{{transService.getTranslatedData('home.in-progress')}}</p>
-            <p class="font-18 gotham">{{ticketStats?.ticket['in-progress']}}</p>
+            <p class="font-18 gotham">{{ticketStats?.ticket['in-progress']||0}}</p>
           </ion-col>
           <!-- <ion-col>
             <p class="gotham font-weight-600 txt-grey">{{transService.getTranslatedData('home.resolved')}}</p>
@@ -185,7 +185,7 @@
         <p class="gotham-bold txt-grey margin-bottom-8 padding-top-2" text-wrap>
           <span class="float-left">#{{ticket.uid}} - </span>
           <span class="center-text"> {{ticket.ticketCategory}}</span>
-          <span class="float-right">{{ticket.createdAt | date:'dd MMM yyyy'|agoFilter}}</span>
+          <span class="float-right">{{ticket.createdAt | agoFilter}}</span>
         </p>
         <p id="margin-top-bottom-5" class="gotham margin-bottom-8 font-weight-600 margin-bottom-5 txt-grey">For -
           {{ticket.ticketBelongsTo == 'Home' ? 'Unit' : ticket.ticketBelongsTo}}</p>

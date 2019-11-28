@@ -6,6 +6,7 @@ import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { MaterialSearchPage } from '../../pages/material-search/material-search.page';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-ticket-details',
@@ -37,7 +38,8 @@ export class TicketDetailsPage implements OnInit {
     private modalController: ModalController,
     private alertService: AlertServiceService,
     private alertCtrl: AlertController,
-    public transService: translateService
+    public transService: translateService,
+    public trans: TranslateService
   ) {
 
     this.route.queryParamMap.subscribe((params: any) => {
@@ -45,8 +47,8 @@ export class TicketDetailsPage implements OnInit {
       params.params.flag ? this.flag = params.params.flag : '';
       params.params.tid ? this.ticketId = params.params.tid : '';
       console.log(this.ticketId, this.flag)
+      this.getTicketDetails();
     });
-    this.getTicketDetails();
   }
 
   ngOnInit() {
@@ -271,7 +273,7 @@ export class TicketDetailsPage implements OnInit {
 
   async removeImage(id) {
     let alert = await this.alertCtrl.create({
-      header: this.transService.getTranslatedData('ticket-details.update.title'),
+      header: this.transService.getTranslatedData('ticket-details.remove-image'),
       buttons: [
         {
           text: this.transService.getTranslatedData('ticket-details.update.no'),
@@ -296,7 +298,7 @@ export class TicketDetailsPage implements OnInit {
 
   async removeMaterial(id) {
     let alert = await this.alertCtrl.create({
-      header: this.transService.getTranslatedData('ticket-details.update.title'),
+      header: this.transService.getTranslatedData('ticket-details.delete-material'),
       buttons: [
         {
           text: this.transService.getTranslatedData('ticket-details.update.no'),
@@ -326,13 +328,29 @@ export class TicketDetailsPage implements OnInit {
     // alert('clicked');
   }
 
+  public call(number) {
+    if (number) {
+      window.location.href = 'tel:' + number;
+    }
+    else {
+      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+        this.transService.getTranslatedData('call-alert'))
+    }
+  }
+
   formData = {};
 
-  async updatStatus(status) {
+  async updatStatus(status:string) {
+    let title: string = '';
+    console.log(status);
+    
+    this.trans.get('ticket-details.update.title', { val: status=='in-progress'?'IN PROGRESS':status.toUpperCase()}).subscribe((res: string) => {
+      title = res
+    })
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
     if (status !== this.ticketToBeUpdated.status) {
       const alert = await this.alertCtrl.create({
-        header: this.transService.getTranslatedData('ticket-details.update.title'),
+        header: title,
         buttons: [
           {
             text: this.transService.getTranslatedData('ticket-details.update.no'),

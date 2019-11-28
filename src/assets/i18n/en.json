@@ -12,7 +12,7 @@
         "home": "Home",
         "calendar": "Calendar",
         "ticket": "Tickets",
-        "discussion": "Discussion",
+        "discussion": "Notice board",
         "approval": "Apporvals",
         "contact-us": "Contact-us",
         "profile": "Profile",
@@ -60,7 +60,7 @@
         "create-notice": "Create notice",
         "user": "User",
         "tickets": "Tickets",
-        "discussion": "Discussion",
+        "discussion": "Notice board",
         "calendar": "Calendar",
         "tasks-for-today": "Tasks for today - ",
         "no-task-found": "No tasks found"
@@ -71,7 +71,7 @@
     },
     "contact-us": {
         "title": "Contact Us",
-        "note": "Send Us An Email",
+        "note": "Send us an email",
         "placeholder": "Drop yout comment here...",
         "submit-button": "Submit",
         "message": "Thanks for your request. We will get back to you at the earliest."
@@ -167,11 +167,13 @@
     "ticket-details": {
         "ticket-updated": "Ticket Updated",
         "update": {
-            "title": "Are you sure",
+            "title": "Are you sure you want to mark this ticket as {{val}}",
             "no": "No",
             "yes": "Yes",
             "status": "Status of this ticket is already"
         },
+        "remove-image":"Are you sure you want to remove this file",
+        "delete-material":"Are you sure you want to delete this material",
         "title": "Ticket",
         "edit": "EDIT",
         "summery": "SUMMARY",
@@ -240,7 +242,7 @@
         "reject-user": "User rejected successfully"
     },
     "notice-board": {
-        "title": "Notice Board",
+        "title": "Notice board",
         "empty-array": "No Notices Available!"
     },
     "notice-details": {

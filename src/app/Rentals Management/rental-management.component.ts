@@ -23,7 +23,7 @@ export class RentalsComponent {
                 url: '/tickets',
                 src: '/assets/icon/ticket-history.png'
             }, {
-                title: 'Discussion',
+                title: 'Notice board',
                 url: '/notice-board',
                 src: '/assets/icon/communications.png'
             },
