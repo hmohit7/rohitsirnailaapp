@@ -51,6 +51,7 @@ export class UnitSearchPage implements OnInit {
   }
 
   selectUnit(unit) {
+    this.selectedUnit.ticketBelongsToName=''
     if (unit.block) {
       this.selectedUnit.ticketBelongsToName = unit.block;
     }

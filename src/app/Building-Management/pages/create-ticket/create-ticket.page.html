@@ -87,7 +87,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list>
+    <ion-list *ngIf="subCategories.length>0">
       <ion-list-header class="gotham font-16 font-weight-500">
         {{transService.getTranslatedData('create-ticket.sub-category')}}</ion-list-header>
       <ion-item>

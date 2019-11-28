@@ -42,7 +42,13 @@ export class UserSearchPage implements OnInit {
   // }
 
   selectUser(user) {
-    this.selectedUser.name = user.firstName + ' ' + user.lastName;
+    this.selectedUser.name='';
+    if (user.firstName) {
+      this.selectedUser.name = user.firstName;
+    }
+    if (user.lastName) {
+      this.selectedUser.name = this.selectedUser.name + ' ' + user.lastName;
+    }
     this.selectedUser.id = user._id;
     this.closeModal(true);
   }

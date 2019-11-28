@@ -26,7 +26,7 @@ export class CreateTicketPage implements OnInit {
   public images: any[] = [];
   date;
   flag: boolean = false;
-  subCategories: any[];
+  subCategories = [];
   ticketId: string;
   flow = 'createTicket';
   title = this.transService.getTranslatedData('create-ticket.raise-ticket');

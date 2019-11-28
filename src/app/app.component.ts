@@ -134,7 +134,7 @@ export class AppComponent {
   async logOut() {
     await this.presentLoading();
     let userId;
-    await this.storageService.getDatafromIonicStorage('userId').then(val => {
+    await this.storageService.getDatafromIonicStorage('user_id').then(val => {
       userId = val;
     })
     this.storageService.getDatafromIonicStorage('appSrc').then(val => {
