@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { LoadingController, ModalController, PopoverController } from '@ionic/angular';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { ApprovalpopupComponent } from '../../modals/approvalpopup/approvalpopup.component';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { BuildingUserService } from '../../services/building-user.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class UserApprovalPage implements OnInit {
 
   constructor(
     private loadingCtrl: LoadingController,
-    private userService: UserService,
+    private userService: BuildingUserService,
     private modalController: ModalController,
     private alertService: AlertServiceService,
     private popOver: PopoverController,

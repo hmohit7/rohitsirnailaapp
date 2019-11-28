@@ -1,8 +1,8 @@
 import { AlertServiceService } from '../../../common-services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavParams } from '@ionic/angular';
-import { UserService } from '../../services/user.service';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { BuildingUserService } from '../../services/building-user.service';
 
 @Component({
   selector: 'app-user-search',
@@ -19,7 +19,7 @@ export class UserSearchPage implements OnInit {
 
   constructor(
     // private loading: LoadingController,
-    private userService: UserService,
+    private userService: BuildingUserService,
     private modalController: ModalController,
     private navParams: NavParams,
     private alertService: AlertServiceService,

@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, LoadingController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from './common-services/storage-service.service';
 import { Storage } from '@ionic/storage';
+import { RentalsUserService } from './Rentals Management/services/rentals-user.service';
+import { AlertServiceService } from './common-services/alert-service.service';
+import { BuildingUserService } from './Building-Management/services/building-user.service';
 
 @Component({
   selector: 'app-root',
@@ -72,7 +75,11 @@ export class AppComponent {
     private navCtrl: NavController,
     public translate: TranslateService,
     private storageService: StorageService,
-    private storage: Storage
+    private storage: Storage,
+    private loadingCtrl: LoadingController,
+    private rentalsUserService:RentalsUserService,
+    private alertService:AlertServiceService,
+    private buildingUserService:BuildingUserService
     // private push: Push
   ) {
     this.initializeApp();
@@ -80,12 +87,25 @@ export class AppComponent {
   ionViewDidLoad() {
     console.log("load");
   }
-  routeForword(url) {
+
+  async presentLoading() {
+    await this.loadingCtrl.create({
+      spinner: 'lines'
+    }).then(loading => {
+      loading.present();
+    });
+  }
+
+  async routeForword(url) {
+    let appSrc
+    await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
+      appSrc = val;
+    })
     this.router.navigateByUrl(`${this.appSrc}${url}`)
   }
 
   initializeApp() {
-    let isLoggedIn:string;
+    let isLoggedIn: string;
     this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       await this._initTranslate()
@@ -94,7 +114,7 @@ export class AppComponent {
       await this.storageService.getDatafromIonicStorage('isLoggedIn').then(val => {
         isLoggedIn = val;
         console.log(typeof val);
-        
+
       })
       await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
         this.appSrc = val;
@@ -103,11 +123,85 @@ export class AppComponent {
     });
   }
 
-  logout() {
-    window.localStorage.clear()
-    this.storage.clear()
-    this.router.navigateByUrl('/login')
+  // logout() {
+  //   window.localStorage.clear()
+  //   this.storage.clear()
+  //   this.router.navigateByUrl('/login')
+  // }
+
+
+
+  async logOut() {
+    await this.presentLoading();
+    let userId;
+    await this.storageService.getDatafromIonicStorage('userId').then(val => {
+      userId = val;
+    })
+    this.storageService.getDatafromIonicStorage('appSrc').then(val => {
+      if (val == 'rentals') {
+        this.rentalsUserService.getUserById(userId).subscribe(async data => {
+          if (data.businessAppDevice.pushToken) {
+            delete data.businessAppDevice
+            console.log(data);
+            this.updateUser(val, data)
+          } else {
+            await this.loadingCtrl.dismiss()
+            window.localStorage.clear();
+            await this.storageService.emptyStorage()
+            this.navCtrl.navigateRoot('/login');
+          }
+
+        })
+      } else if (val == 'building-management') {
+        this.buildingUserService.getUserById(userId).subscribe(async data => {
+          if (data.businessAppDevice.pushToken) {
+            delete data.businessAppDevice
+            console.log(data);
+            this.updateUser(val, data)
+          } else {
+            await this.loadingCtrl.dismiss()
+            window.localStorage.clear();
+            await this.storageService.emptyStorage()
+            this.navCtrl.navigateRoot('/login');
+          }
+        })
+      }
+
+    })
+    // window.localStorage.clear();
+    // await this.storage.clear()
+    // this.navCtrl.navigateRoot('/login');
   }
+
+  async updateUser(val, data) {
+    if (val == 'rentals') {
+      this.rentalsUserService.updateUser(data).subscribe(
+        async (data: any) => {
+          await this.loadingCtrl.dismiss()
+          window.localStorage.clear();
+          await this.storage.clear()
+          this.navCtrl.navigateRoot('/login');
+        }, async err => {
+          await this.loadingCtrl.dismiss()
+          this.alertService.presentAlert('', 'Error while logging out')
+        })
+    } else if (val == 'building-management') {
+      this.buildingUserService.updateUser(data).subscribe(
+        async (data: any) => {
+          await this.loadingCtrl.dismiss()
+          window.localStorage.clear();
+          await this.storage.clear()
+          this.navCtrl.navigateRoot('/login');
+        }, async err => {
+          await this.loadingCtrl.dismiss()
+          this.alertService.presentAlert('', 'Error while logging out')
+        }
+      )
+
+    }
+  }
+
+
   private _initTranslate() {
     this.translate.setDefaultLang('en');
     this.translate.use('en'); // Set your language here

@@ -1,10 +1,10 @@
-import { UserService } from './../../services/user.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
 import { Storage } from '@ionic/storage';
+import { RentalsUserService } from '../../services/rentals-user.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +17,7 @@ export class ProfilePage implements OnInit {
   public data: any = {};
   constructor(
     private router: Router,
-    private userService: UserService,
+    private userService: RentalsUserService,
     private alertService: AlertServiceService,
     private loadingCtrl: LoadingController,
     public transService: translateService,

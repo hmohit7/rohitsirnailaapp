@@ -5,10 +5,11 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx'
 import * as moment from 'moment';
-import { UserService } from '../../services/user.service';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
 import { Storage } from '@ionic/storage';
+import { BuildingUserService } from '../../services/building-user.service';
+import { Device } from '@ionic-native/device/ngx';
 
 @Component({
   selector: 'app-home',
@@ -38,11 +39,12 @@ export class HomePage implements OnInit {
     private loadingCtrl: LoadingController,
     private router: Router,
     private modalController: ModalController,
-    private userService: UserService,
+    private userService: BuildingUserService,
     private alertService: AlertServiceService,
     private push: Push,
     public transService: translateService,
-    private storage: Storage
+    private storage: Storage,
+    private device:Device
   ) {
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
@@ -129,7 +131,10 @@ export class HomePage implements OnInit {
         this.userDetails.businessAppDevice = {
           id: '',
           pushToken: this.registrationId,
-          fcmToken: true
+          fcmToken: true,
+          deviceId: this.device.uuid,
+          platform: this.device.platform ? this.device.platform.toLowerCase() : '',
+          newApp: true
         };
         console.log('After', this.userDetails);
 
