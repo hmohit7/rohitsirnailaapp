@@ -4,6 +4,7 @@ import { AlertServiceService } from 'src/app/common-services/alert-service.servi
 import { ApprovalpopupComponent } from '../../modals/approvalpopup/approvalpopup.component';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
 import { BuildingUserService } from '../../services/building-user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class UserApprovalPage implements OnInit {
     private modalController: ModalController,
     private alertService: AlertServiceService,
     private popOver: PopoverController,
-    public transService: translateService
+    public transService: translateService,
+    private router:Router
   ) {
     this.getUserApprovals();
   }
@@ -48,7 +50,12 @@ export class UserApprovalPage implements OnInit {
       },
         err => {
           this.loadingCtrl.dismiss();
-          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
+          if (err.error.message == "You don't have permission for this operation!") {
+            this.alertService.presentAlert('', "You don't have permission for this operation!")
+            this.router.navigateByUrl('building-management-home')
+          } else {
+            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
+          }
         }
       );
   }

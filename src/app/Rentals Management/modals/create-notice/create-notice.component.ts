@@ -81,8 +81,13 @@ export class CreateNoticeComponent implements OnInit {
         this.router.navigateByUrl('/rentals-notice-board');
       }, err => {
         this.loadingCtrl.dismiss();
-        this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-          err)
+        if (err.error.message == "You don't have permission for this operation!") {
+          this.alertService.presentAlert('', "You don't have permission for this operation!")
+          this.modalController.dismiss()
+        } else {
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+            err)
+        }
       });
     } else {
       this.noticeService.createNotice(this.notice)
@@ -96,8 +101,12 @@ export class CreateNoticeComponent implements OnInit {
         },
           err => {
             this.loadingCtrl.dismiss();
-            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-              err.error.error);
+            if (err.error.message == "You don't have permission for this operation!") {
+              this.alertService.presentAlert('', "You don't have permission for this operation!")
+              this.modalController.dismiss()
+            } else {
+              this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
+            }
           }
         );
     }

@@ -5,6 +5,7 @@ import { NoticeCreatePage } from '../notice-create/notice-create.page'
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notice-board',
@@ -25,7 +26,8 @@ export class NoticeBoardPage implements OnInit {
     private loading: LoadingController,
     private modalController: ModalController,
     private alertService: AlertServiceService,
-    public transService: translateService
+    public transService: translateService,
+    private router: Router
   ) {
   }
 
@@ -67,10 +69,16 @@ export class NoticeBoardPage implements OnInit {
           this.disableInfiniteScroll = true;
         }
       },
-        err => {
-          this.loading.dismiss();
-          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-            err.error.error);
+      async err => {
+        await this.loading.dismiss();
+        console.log(err);
+        
+        if (err.error == "You don't have permission for this operation!") {
+          this.alertService.presentAlert('', "You don't have permission for this operation!")
+          this.router.navigateByUrl('building-management-home')
+        } else {
+          this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
+        }
         }
       );
   }
