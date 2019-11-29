@@ -45,6 +45,7 @@ export class HomePage implements OnInit {
     private storage: Storage,
     private device: Device
   ) {
+    alert(window.location.href)
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
         
