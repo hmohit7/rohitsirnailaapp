@@ -17,7 +17,7 @@ export class MainAppSetting {
     public appFor = appFor;
     public storag = new Storage({})
     public token;
-    public platform;
+    public platform: string = '';
 
     constructor(
         private storageService: StorageService
@@ -28,8 +28,14 @@ export class MainAppSetting {
         this.storageService.getDatafromIonicStorage('user_id').then(data => {
             this.userId = data
         })
+        // this.storageService.getDatafromIonicStorage('platform').then(data => {
+        //     this.platform = data
+        // })
+    }
+
+    getPlatform(){
         this.storageService.getDatafromIonicStorage('platform').then(data => {
-            this.platform = data
+            this.token = data
         })
     }
 
@@ -46,8 +52,12 @@ export class MainAppSetting {
         this.token = token;
     }
 
-    setPlatformAfterLogin(platform) {
-        this.platform = platform
+    setPlatformAfterLogin(data: string) {
+        console.log('Step 3 -------------recieved platform data', data);
+
+
+        this.platform = data
+        console.log('Step 3 ------------- setting platform', this.platform);
     }
 
     getHttpHeadesWithToken() {
@@ -62,10 +72,19 @@ export class MainAppSetting {
 
     getApi() {
 
+        console.log("Get api service called - step pre 7-------")
+        this.storageService.getDatafromIonicStorage('platform').then(data => {
+            console.log("value recieved in step 7 from storage", data);
+            this.platform = data
+        })
+
         let API = '';
+        // console.log("pltform inapp setting " + this.platform);
+
+        console.log("platform value in step post 7", this.platform)
 
         if (this.ORG == "Both") {
-            if (this.platform === 'rm') {
+            if (window.localStorage.getItem('platform') == "rm") {
                 if (this.appFor == 'alpha') {
                     API = 'http://52.220.118.81:3020';
                 } else if (this.appFor == 'production') {

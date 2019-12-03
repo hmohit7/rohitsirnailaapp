@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { WebView } from "@ionic-native/ionic-webview/ngx"
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
 import { StorageService } from 'src/app/common-services/storage-service.service';
+import { PictureComponent } from 'src/app/common-components/picture/picture.component';
 @Component({
   selector: 'app-create-ticket',
   templateUrl: './create-ticket.page.html',
@@ -408,6 +409,15 @@ export class CreateTicketPage implements OnInit {
 
   removeImage() {
     this.images = [];
+  }
+
+  public openImage(image: string) {
+    this.modalController.create({
+      component: PictureComponent,
+      componentProps: { image: image }
+    }).then(modal => {
+      modal.present()
+    })
   }
 
 

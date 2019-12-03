@@ -7,6 +7,7 @@ import { MaterialSearchPage } from '../../pages/material-search/material-search.
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PictureComponent } from 'src/app/common-components/picture/picture.component';
 
 @Component({
   selector: 'app-ticket-details',
@@ -324,8 +325,13 @@ export class TicketDetailsPage implements OnInit {
 
   }
 
-  onClick() {
-    // alert('clicked');
+  public openImage(image: string) {
+    this.modalController.create({
+      component: PictureComponent,
+      componentProps: { image: image }
+    }).then(modal => {
+      modal.present()
+    })
   }
 
   public call(number) {
@@ -340,11 +346,11 @@ export class TicketDetailsPage implements OnInit {
 
   formData = {};
 
-  async updatStatus(status:string) {
+  async updatStatus(status: string) {
     let title: string = '';
     console.log(status);
-    
-    this.trans.get('ticket-details.update.title', { val: status=='in-progress'?'IN PROGRESS':status.toUpperCase()}).subscribe((res: string) => {
+
+    this.trans.get('ticket-details.update.title', { val: status == 'in-progress' ? 'IN PROGRESS' : status.toUpperCase() }).subscribe((res: string) => {
       title = res
     })
     this.ticketToBeUpdated = Object.assign({}, this.ticket);

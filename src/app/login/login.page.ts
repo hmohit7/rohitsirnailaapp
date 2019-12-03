@@ -187,9 +187,9 @@ export class LoginPage implements OnInit {
   async handleUser(data, type, hidethisotp?: boolean) {
     console.log(type);
 
+    await this.appSetting.setPlatformAfterLogin(JSON.stringify(type))
     window.localStorage.setItem('platform', type);
     await this.alertService.saveToLocalStorage('platform', type)
-    await this.appSetting.setPlatformAfterLogin(type)
 
     window.localStorage.setItem('types', data[type].types);
     this.alertService.saveToLocalStorage('types', data[type].types)
@@ -202,6 +202,7 @@ export class LoginPage implements OnInit {
       window.localStorage.setItem('appSrc', 'rentals');
       this.alertService.saveToLocalStorage('appSrc', 'rentals')
     }
+
     if (this.isUserAllowed(data[type].types)) {
       // if (data[type].action === 'login') {
       //   this.visibleBlock = 'passwordInput';

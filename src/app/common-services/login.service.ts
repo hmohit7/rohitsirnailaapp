@@ -50,6 +50,7 @@ export class LoginService {
   }
 
   verifyPhone(data) {
+    console.log("Step 6 --------- verify phone service called----")
     return this.http.post(`${this.appSettings.getApi()}/api/verify-phone`, data, this.appSettings.getHttpHeades());
   }
 

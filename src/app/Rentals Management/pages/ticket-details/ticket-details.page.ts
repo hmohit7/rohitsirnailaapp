@@ -7,6 +7,7 @@ import { MaterialSearchPage } from '../../pages/material-search/material-search.
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PictureComponent } from 'src/app/common-components/picture/picture.component';
 
 @Component({
   selector: 'app-ticket-details',
@@ -325,8 +326,13 @@ export class TicketDetailsPage implements OnInit {
 
   }
 
-  onClick() {
-    // alert('clicked');
+  public openImage(image: string) {
+    this.modalController.create({
+      component: PictureComponent,
+      componentProps: { image: image }
+    }).then(modal => {
+      modal.present()
+    })
   }
 
   formData = {};

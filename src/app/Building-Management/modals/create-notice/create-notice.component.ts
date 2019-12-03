@@ -98,8 +98,12 @@ export class CreateNoticeComponent implements OnInit {
         },
           err => {
             this.loadingCtrl.dismiss();
-            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-              err.error.error);
+            if (err.error.message == "You don't have permission for this operation!") {
+              this.alertService.presentAlert('', "You don't have permission for this operation!")
+              this.modalController.dismiss()
+            } else {
+              this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
+            }
           }
         );
     }

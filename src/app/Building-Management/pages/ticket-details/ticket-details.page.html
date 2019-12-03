@@ -177,13 +177,13 @@
               {{transService.getTranslatedData('ticket-details.photos')}}</p>
           </ion-col>
         </ion-row>
-        <ion-row style="flex-wrap: wrap;">
+        <ion-row style="flex-wrap: wrap;" *ngIf="ticket.files">
 
           <ion-col size="3" style="position: relative;" *ngFor="let file of ticket.files">
-            <img src="assets/icon/delete.png"
+            <!-- <img src="assets/icon/delete.png"
               style="height: 25px; width: 25px; position: absolute; right: 6px; top: 6px;"
-              (click)="removeImage(file._id)">
-            <img src="{{file.aws_url}}" class="img-responsive height-70 border-radius-10 " />
+              (click)="removeImage(file._id)"> -->
+            <img src="{{file.aws_url}}" (click)="openImage(file.aws_url)" class="img-responsive height-70 border-radius-10 " />
           </ion-col>
 
           <ion-col size="3" class="center-text" (click)="fileSourceOption()">

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx'
 import * as moment from 'moment';
@@ -43,9 +43,10 @@ export class HomePage implements OnInit {
     private push: Push,
     public transService: translateService,
     private storage: Storage,
-    private device: Device
+    private device: Device,
+    private alertCtrl:AlertController,
+    private _navCtrl:NavController
   ) {
-    alert(window.location.href)
     this.pushObject.on('registration')
       .subscribe((registration: any) => {
         
@@ -73,23 +74,34 @@ export class HomePage implements OnInit {
     this.getUserDetails();
     this.pushObject.on('notification').subscribe((notification: any) => {
       console.log(JSON.stringify(notification));
-      // // alert(JSON.stringify(notification.additionalData.id));
-      // if (notification.additionalData.type == 'discussion') {
-      //   console.log('discussion');
-      //   if (notification.additionalData.id) {
-      //     console.log('discussion with id');
-      //     this.router.navigateByUrl(`/rentals-notice-details?did=${notification.additionalData.id}`);
-      //   } else {
-      //     console.log('discussion without id');
-      //     this.router.navigateByUrl(`/rentals-notice-board`);
-      //   }
-      // } else if (notification.additionalData.type == 'ticket') {
-      //   if (notification.additionalData.id) {
-      //     this.router.navigateByUrl(`/rentals-ticket-details?ticketId=${notification.additionalData.id}`);
-      //   } else {
-      //     this.router.navigateByUrl('/trentals-ickets');
-      //   }
-      // } else if (notification.additionalData.type == 'approval') {
+      // alert(JSON.stringify(notification.additionalData.id));
+      if (notification.additionalData.type == 'discussion') {
+        this.presentAlert(`${notification.title} ${notification.message}`)
+        console.log('discussion');
+        if (notification.additionalData.id) {
+          console.log('discussion with id');
+          this._navCtrl.navigateForward(`/rentals-notice-details`, {
+            queryParams: {
+              did: notification.additionalData.id
+            }
+          });
+        } else {
+          console.log('discussion without id');
+          this._navCtrl.navigateForward(`/rentals-notice-board`);
+        }
+      } else if (notification.additionalData.type == 'ticket') {
+        this.presentAlert(notification.title)
+        if (notification.additionalData.id) {
+          this._navCtrl.navigateForward(`/rentals-ticket-details`, {
+            queryParams: {
+              ticketId: notification.additionalData.id
+            }
+          });
+        } else {
+          this._navCtrl.navigateForward('/rentals-tickets');
+        }
+      }
+      // else if (notification.additionalData.type == 'approval') {
       //   this.router.navigateByUrl(`/rentals-user-approval`);
 
       // } else if (notification.additionalData.type == 'estimate') {
@@ -108,6 +120,20 @@ export class HomePage implements OnInit {
       component: CreateNoticeComponent,
     })
     return await modal.present();
+  }
+
+  async presentAlert(header: string) {
+    await this.alertCtrl.create({
+      header: header,
+      // message: message,
+      cssClass: 'notifivation-alert',
+      buttons: [{
+        text: 'OK',
+        cssClass: 'width-100-percent alert-button-inner.sc-ion-alert-md',
+      }]
+    }).then(alert => {
+      alert.present()
+    })
   }
 
   getRoundedTime() {

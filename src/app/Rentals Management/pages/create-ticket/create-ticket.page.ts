@@ -12,6 +12,7 @@ import { AlertServiceService } from 'src/app/common-services/alert-service.servi
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { StorageService } from 'src/app/common-services/storage-service.service';
+import { PictureComponent } from 'src/app/common-components/picture/picture.component';
 
 @Component({
   selector: 'app-create-ticket',
@@ -412,5 +413,13 @@ export class CreateTicketPage implements OnInit {
     this.images = [];
   }
 
+  public openImage(image: string) {
+    this.modalController.create({
+      component: PictureComponent,
+      componentProps: { image: image }
+    }).then(modal => {
+      modal.present()
+    })
+  }
 
 }

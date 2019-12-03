@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
@@ -29,7 +26,8 @@ import { FilterPipe } from './login/countrycodemodal/Filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'ngx-avatar';
 import { Device } from '@ionic-native/device/ngx'
-import {OrderModule} from 'ngx-order-pipe'
+import { OrderModule } from 'ngx-order-pipe'
+import { PictureComponent } from './common-components/picture/picture.component';
 
 
 @NgModule({
@@ -37,9 +35,10 @@ import {OrderModule} from 'ngx-order-pipe'
     AppComponent,
     OrgModalComponent,
     CountrycodemodalComponent,
+    PictureComponent,
     FilterPipe
   ],
-  entryComponents: [OrgModalComponent, CountrycodemodalComponent],
+  entryComponents: [OrgModalComponent, CountrycodemodalComponent, PictureComponent],
   imports: [
     FormsModule,
     BrowserModule,
