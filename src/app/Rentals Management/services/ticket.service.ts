@@ -102,7 +102,7 @@ export class TicketService {
   }
 
   getTicketComments(ticketId): Observable<any> {
-    return this.http.get(`${this.appSettings.getApi()}/api/ticket/${ticketId}/comments`,
+    return this.http.get(`${this.appSettings.getApi()}/api/ticket/${ticketId}/comments?sortBy=-createdAt`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
