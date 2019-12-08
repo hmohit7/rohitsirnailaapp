@@ -5,6 +5,7 @@ import { TicketFilterPage } from '../../pages/ticket-filter/ticket-filter.page';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { TicketComponent } from '../../components/ticket/ticket.component';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tickets',
@@ -34,10 +35,19 @@ export class TicketsPage implements OnInit {
     private modalController: ModalController,
     private alertService: AlertServiceService,
     private popOverCtrl: PopoverController,
-    public transService: translateService
+    public transService: translateService,
+    private route: ActivatedRoute,
   ) {
     this.status = '';
-    this.searchTicket('');
+    // this.searchTicket('');
+    this.route.queryParams.subscribe(params => {
+      if (params && params.id) {
+        this.filterData.asset = params.id;
+        this.filterData.assetId = params.name
+      }
+        this.loading.dismiss();
+        this.searchTicket('');
+    })
   }
 
   ngOnInit() {
@@ -50,11 +60,11 @@ export class TicketsPage implements OnInit {
   }
 
   async openTicketFilterModal() {
-
+    
     const modal = await this.modalController.create({
       component: TicketFilterPage,
       componentProps: {
-        data: this.dataFromFilterPage
+        data: this.filterData
       }
     });
 

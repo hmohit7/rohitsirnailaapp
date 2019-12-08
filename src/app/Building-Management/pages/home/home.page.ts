@@ -10,6 +10,7 @@ import { translateService } from 'src/app/common-services/translate /translate-s
 import { Storage } from '@ionic/storage';
 import { BuildingUserService } from '../../services/building-user.service';
 import { Device } from '@ionic-native/device/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-home',
@@ -39,6 +40,7 @@ export class HomePage implements OnInit {
     private loadingCtrl: LoadingController,
     private router: Router,
     private modalController: ModalController,
+    private barcodeScanner: BarcodeScanner,
     private userService: BuildingUserService,
     private alertService: AlertServiceService,
     private push: Push,
@@ -218,4 +220,63 @@ export class HomePage implements OnInit {
       });
     }
   }
+
+  async openScanner() {
+    // Scann QR Code.'
+    this.barcodeScanner.scan().then(async (barcodeData) => {
+      const { text } = barcodeData;
+      if (!text) {
+        this.loadingCtrl.dismiss();
+        this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), 'Invalid barcode');
+      }
+      await this.presentLoading();
+      this.ticketService.searchAssert(text)
+        .subscribe(async (data: any) => {
+          this.loadingCtrl.dismiss();
+          await this.alertCtrl.create({
+            header: data.name,
+            message: `
+            <b>AssertId:-</b>${data.assetId}<br/>
+
+            <b>Category:-</b> ${data.category}<br/>
+            
+            <b>Location:-</b> ${data.location}<br/>
+            
+            <b>Floor:-</b> ${data.floor}<br/>
+            
+            <b>Description:-</b> ${data.description}`,
+            buttons: [
+              {
+                text: 'Scan Again',
+                role: 'cancel',
+                handler: () => {
+                  this.openScanner()
+                }
+              },
+              {
+                text: 'Confirm',
+                role: 'ok',
+                handler: () => {
+                  this.router.navigate([`${window.localStorage.getItem('appSrc')}-tickets`],{
+                    queryParams: {
+                      id: text,
+                      name: data.assetId
+                    }
+                  })
+                }
+              }]
+          }).then(alert => {
+            alert.present()
+          })
+          
+          console.log(data);
+        },
+          err => {
+            this.loadingCtrl.dismiss();
+            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
+          }
+        );
+    })
+  }
+
 }
