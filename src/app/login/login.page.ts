@@ -87,6 +87,8 @@ export class LoginPage implements OnInit {
 
     if (type === 'sendOtpInput') {
       this.loginData.action = 'resetPassword';
+    } else {
+      this.loginData.action = 'login';
     }
 
     console.log(this.visibleBlock);
@@ -561,7 +563,6 @@ export class LoginPage implements OnInit {
             //   .catch((error: any) => console.error(error));
 
             if (this.isUserAllowed(data.types)) {
-
               if (data.action == 'login') {
 
                 window.localStorage.setItem("types", data.types);

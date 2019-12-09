@@ -148,15 +148,15 @@ export class TicketFilterPage implements OnInit {
           await this.alertCtrl.create({
             header: data.name,
             message: `
-            <b>AssertId:-</b>${data.assetId}<br/>
+            <b>AssertId:-</b>${data.assetId || 'N/A'}<br/>
 
-            <b>Category:-</b> ${data.category}<br/>
+            <b>Category:-</b> ${data.category || 'N/A'}<br/>
             
-            <b>Location:-</b> ${data.location}<br/>
+            <b>Location:-</b> ${data.location || 'N/A'}<br/>
             
-            <b>Floor:-</b> ${data.floor}<br/>
+            <b>Floor:-</b> ${data.floor || 'N/A'}<br/>
             
-            <b>Description:-</b> ${data.description}`,
+            <b>Description:-</b> ${data.description || 'N/A'}`,
             buttons: [
               {
                 text: 'Scan Again',
