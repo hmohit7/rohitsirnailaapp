@@ -97,11 +97,11 @@ export class AppComponent {
   }
 
   async routeForword(url) {
-    let appSrc
     await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
-      appSrc = val;
+      this.appSrc = val;
+      console.log("-----------------", val)
+      this.router.navigateByUrl(`${this.appSrc}${url}`)
     })
-    this.router.navigateByUrl(`${this.appSrc}${url}`)
   }
 
   initializeApp() {

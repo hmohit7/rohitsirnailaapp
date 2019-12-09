@@ -48,7 +48,7 @@ export class NoticeService {
 
   getAllComments(id) {
     console.log(id);
-    return this.http.get(`${this.appSettings.getApi()}/api/discussion/${id}/comments`,
+    return this.http.get(`${this.appSettings.getApi()}/api/discussion/${id}/comments?sortBy=-createdAt`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
