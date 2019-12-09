@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { HomePage } from './home.page';
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 
 const routes: Routes = [
@@ -25,6 +26,9 @@ const routes: Routes = [
     ApplicationPageModule,
     IonicModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    BarcodeScanner
   ],
   declarations: [HomePage]
 })

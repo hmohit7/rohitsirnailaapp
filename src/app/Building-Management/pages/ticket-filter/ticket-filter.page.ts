@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import * as _ from 'lodash';
+import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { TicketService } from '../../services/ticket.service';
 
 @Component({
   selector: 'app-ticket-filter',
@@ -22,7 +25,12 @@ export class TicketFilterPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private navParams: NavParams,
-    public transService: translateService
+    public transService: translateService,
+    private alertService: AlertServiceService,
+    private barcodeScanner: BarcodeScanner,
+    private ticketService: TicketService,
+    private alertCtrl: AlertController,
+
   ) {
     if (this.navParams.get('data')) {
       this.ticketFilter = this.navParams.get('data');
@@ -126,6 +134,54 @@ export class TicketFilterPage implements OnInit {
       console.log('Dont Send data');
       await this.modalController.dismiss();
     }
+  }
+
+  async openScanner() {
+    // Scann QR Code.'
+    this.barcodeScanner.scan().then(async (barcodeData) => {
+      const { text } = barcodeData;
+      if (!text) {
+        this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), 'Invalid barcode');
+      }
+      this.ticketService.searchAssert(text)
+        .subscribe(async (data: any) => {
+          await this.alertCtrl.create({
+            header: data.name,
+            message: `
+            <b>AssertId:-</b>${data.assetId}<br/>
+
+            <b>Category:-</b> ${data.category}<br/>
+            
+            <b>Location:-</b> ${data.location}<br/>
+            
+            <b>Floor:-</b> ${data.floor}<br/>
+            
+            <b>Description:-</b> ${data.description}`,
+            buttons: [
+              {
+                text: 'Scan Again',
+                role: 'cancel',
+                handler: () => {
+                  this.openScanner()
+                }
+              },
+              {
+                text: 'Confirm',
+                role: 'ok',
+                handler: () => {
+                  this.ticketFilter.asset = data._id;
+                  this.ticketFilter.assetId = data.assetId
+                }
+              }]
+          }).then(alert => {
+            alert.present()
+          })
+        },
+          err => {
+            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
+          }
+        );
+    })
   }
 
 }

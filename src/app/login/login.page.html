@@ -94,7 +94,7 @@
           </ion-col>
         </ion-row>
         <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button class="full-button " expand="full" color="primary" (click)=login()>Login</ion-button>
+          <ion-button class="full-button " expand="full" color="primary" (click)="signIn()">Login</ion-button>
         </ion-row>
         <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
           <p (click)="setVisibleBlock('sendOtpInput')">Forgot password?</p>
@@ -161,7 +161,7 @@
           </ion-col>
         </ion-row>
         <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button class="full-button " expand="full" color="primary" (click)="login()">Confirm</ion-button>
+          <ion-button class="full-button " expand="full" color="primary" (click)="verifyOtp()">Confirm</ion-button>
         </ion-row>
         <br>
         <ion-row style="justify-content: center !important" class="width-80-percent">
@@ -259,7 +259,7 @@
           <ion-col>
             <ion-item>
               <ion-label position="stacked" class="font-20 margin-bottom-10">Enter New Password</ion-label>
-              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.password" (keyup)="validatePassword()">
+              <ion-input type="password" placeholder="" [(ngModel)]="loginData.password" (keyup)="validatePassword()">
               </ion-input>
             </ion-item>
           </ion-col>
@@ -268,7 +268,7 @@
           <ion-col>
             <ion-item>
               <ion-label position="stacked" class="font-20 margin-bottom-10">Confirm Password</ion-label>
-              <ion-input type="password" placeholder=" " [(ngModel)]="loginData.passwordCheck"
+              <ion-input type="password" placeholder="" [(ngModel)]="loginData.passwordCheck"
                 (keyup)="validatePassword()">
               </ion-input>
             </ion-item>
@@ -278,8 +278,8 @@
 
         <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p>
 
-        <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action == 'resetPassword'">
-          <ion-button class="full-button " expand="full" color="primary" (click)="login()"
+        <ion-row class="width-80-percent center-text margin-top-10" >
+          <ion-button class="full-button " expand="full" color="primary" (click)="signIn()" [hidden]="loginData.action === 'resetPassword'"
             [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
             Confirm</ion-button>
         </ion-row>
@@ -289,9 +289,9 @@
             Confirm</ion-button>
         </ion-row>
 
-        <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
+        <!-- <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
           <p (click)="setVisibleBlock('phoneInput')">Login</p>
-        </ion-row>
+        </ion-row> -->
 
       </div>
 

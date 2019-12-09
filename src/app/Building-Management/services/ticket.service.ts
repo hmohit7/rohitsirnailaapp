@@ -131,4 +131,14 @@ export class TicketService {
       });
   }
 
+  searchAssert(data): Observable<any> {
+    return this.http.get(`${this.appSettings.getApi()}/api/asset/${data}`,
+    {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      })
+    });
+  }
+  
 }

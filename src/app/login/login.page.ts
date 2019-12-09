@@ -325,10 +325,13 @@ export class LoginPage implements OnInit {
 
 
   validatePassword() {
-    if ((this.loginData.password && this.loginData.passwordCheck) && this.loginData.password === this.loginData.passwordCheck) {
-      this.passwordMismatch = true;
-    } else {
+    console.log(this.loginData)
+    if (this.loginData.password
+      && this.loginData.passwordCheck
+      && String(this.loginData.password) === String(this.loginData.passwordCheck)) {
       this.passwordMismatch = false;
+    } else {
+      this.passwordMismatch = true;
     }
   }
 
@@ -401,9 +404,9 @@ export class LoginPage implements OnInit {
   async login() {
     await this.presentLoading();
 
-    if (this.loginData.accessCode1 && this.loginData.accessCode2 && this.loginData.accessCode3 && this.loginData.accessCode4) {
-      this.loginData.accessCode = this.loginData.accessCode1 + "" + this.loginData.accessCode2 + "" + this.loginData.accessCode3 + "" + this.loginData.accessCode4
-    }
+    // if (this.loginData.accessCode1 && this.loginData.accessCode2 && this.loginData.accessCode3 && this.loginData.accessCode4) {
+    //   this.loginData.accessCode = this.loginData.accessCode1 + "" + this.loginData.accessCode2 + "" + this.loginData.accessCode3 + "" + this.loginData.accessCode4
+    // }
 
 
     this.loginService.login(this.loginData)
@@ -429,8 +432,10 @@ export class LoginPage implements OnInit {
     this.loginService.verifyOtp(this.loginData)
       .subscribe(async (data: any) => {
         await this.loading.dismiss();
+        this.showOtpCounter = false;
+        this.visibleBlock = 'passwordSetInput';
         // this.alertService.presentAlert ('Alert',"otp verifies")
-        this.presentAddUserModal();
+        // this.presentAddUserModal();
         // this.mixpanel.track('User called verify otp service', {
         //   "userdata": this.loginData,
         // });
@@ -510,6 +515,28 @@ export class LoginPage implements OnInit {
       );
   }
 
+  async signIn() {
+    await this.presentLoading();
+    this.loginService.signIn(this.loginData)
+      .subscribe(
+        async (data: any) => {
+
+          await this.loading.dismiss();
+          this.setValues(data);
+
+
+        },
+        async err => {
+          await this.loading.dismiss();
+          // this.mixpanel.track('password reset service error', {
+          //   "userdata": this.loginData,
+          //   error: err
+          // });
+          this.alertService.presentAlert("", err.error.error);
+        }
+      );
+  }
+
   // This function will user based on his phone number
 
   async verifyPhoneService(showlaoding?: boolean) {
@@ -539,14 +566,14 @@ export class LoginPage implements OnInit {
 
                 window.localStorage.setItem("types", data.types);
                 this.alertService.saveToLocalStorage("types", data.types)
-
+                this.loginData.loginType = 'login'
                 this.visibleBlock = 'passwordInput';
 
               }
               else {
                 window.localStorage.setItem("types", data.types);
                 this.alertService.saveToLocalStorage("types", data.types)
-
+                this.loginData.loginType = 'register'
                 this.visibleBlock = 'otpInput';
                 this.startTimer()
 

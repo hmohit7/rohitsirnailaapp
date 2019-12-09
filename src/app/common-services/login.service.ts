@@ -33,6 +33,10 @@ export class LoginService {
     return this.http.post(`${API}/shared-resource/webhook/support/email`, data, this.appSettings.getHttpHeades());
   }
 
+  signIn(data): Observable<any> {
+    return this.http.post(`${this.appSettings.getApi()}/api/login`, data, this.appSettings.getHttpHeades());
+  }
+
   login(data): Observable<any> {
     return this.http.post(`${this.appSettings.getApi()}/api/v2/login`, data, this.appSettings.getHttpHeades());
   }

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TicketFilterPage } from './ticket-filter.page';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    BarcodeScanner
   ],
   declarations: [TicketFilterPage]
 })
