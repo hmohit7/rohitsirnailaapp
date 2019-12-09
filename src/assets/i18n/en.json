@@ -158,6 +158,7 @@
         "poc": "POINT OF CONTACT",
         "poc-placeholder": "Click here to select poc",
         "technician": "TECHNICIAN",
+        "assets": "ASSETS",
         "technician-placeholder": "Click here to select a technician",
         "SJD": "STARTING JOB DATE",
         "date-placeholder": "DD-MMM-YYYY",
