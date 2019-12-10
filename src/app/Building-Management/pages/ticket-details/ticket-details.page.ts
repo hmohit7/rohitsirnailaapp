@@ -355,7 +355,7 @@ export class TicketDetailsPage implements OnInit {
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
     if (this.ticketToBeUpdated.status === 'open' && ticketActionStatus.includes(status)) {
       const alert = await this.alertCtrl.create({
-        header: `Please change ticket status in-progress first`,
+        header: `Please change ticket status to in-progress first`,
         buttons: [
           {
             text: 'Ok',
@@ -370,7 +370,7 @@ export class TicketDetailsPage implements OnInit {
       if (this.ticketToBeUpdated.status === 'open'
         && !this.ticketToBeUpdated.agent
         && status !== 'rejected') {
-        title = 'Technician/vendor is not tagged. Do you want still want to update ticket status'
+        title = 'Technician/vendor is not tagged to this ticket. Do you still want to update the ticket status?'
       }
       const alert = await this.alertCtrl.create({
         header: title,
