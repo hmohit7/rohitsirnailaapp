@@ -135,53 +135,53 @@ export class TicketFilterPage implements OnInit {
     }
   }
 
-  async openScanner() {
-    // Scann QR Code.'
-    this.barcodeScanner.scan().then(async (barcodeData) => {
-      const { text } = barcodeData;
-      if (!text) {
-        this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), 'Invalid barcode');
-      }
-      this.ticketService.searchAssert(text)
-        .subscribe(async (data: any) => {
-          await this.alertCtrl.create({
-            header: data.name,
-            message: `
-            <b>AssertId:-</b>${data.assetId}<br/>
+  // async openScanner() {
+  //   // Scann QR Code.'
+  //   this.barcodeScanner.scan().then(async (barcodeData) => {
+  //     const { text } = barcodeData;
+  //     if (!text) {
+  //       this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), 'Invalid barcode');
+  //     }
+  //     this.ticketService.searchAssert(text)
+  //       .subscribe(async (data: any) => {
+  //         await this.alertCtrl.create({
+  //           header: data.name,
+  //           message: `
+  //           <b>AssertId:-</b>${data.assetId || 'N/A'}<br/>
 
-            <b>Category:-</b> ${data.category}<br/>
+  //           <b>Category:-</b> ${data.category || 'N/A'}<br/>
             
-            <b>Location:-</b> ${data.location}<br/>
+  //           <b>Location:-</b> ${data.location || 'N/A'}<br/>
             
-            <b>Floor:-</b> ${data.floor}<br/>
+  //           <b>Floor:-</b> ${data.floor || 'N/A'}<br/>
             
-            <b>Description:-</b> ${data.description}`,
-            buttons: [
-              {
-                text: 'Scan Again',
-                role: 'cancel',
-                handler: () => {
-                  this.openScanner()
-                }
-              },
-              {
-                text: 'Confirm',
-                role: 'ok',
-                handler: () => {
-                  this.ticketFilter.asset = data._id;
-                  this.ticketFilter.assetId = data.assetId
-                }
-              }]
-          }).then(alert => {
-            alert.present()
-          })
+  //           <b>Description:-</b> ${data.description || 'N/A'}`,
+  //           buttons: [
+  //             {
+  //               text: 'Scan Again',
+  //               role: 'cancel',
+  //               handler: () => {
+  //                 this.openScanner()
+  //               }
+  //             },
+  //             {
+  //               text: 'Confirm',
+  //               role: 'ok',
+  //               handler: () => {
+  //                 this.ticketFilter.asset = data._id;
+  //                 this.ticketFilter.assetId = data.assetId
+  //               }
+  //             }]
+  //         }).then(alert => {
+  //           alert.present()
+  //         })
           
-        },
-          err => {
-            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
-          }
-        );
-    })
-  }
+  //       },
+  //         err => {
+  //           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
+  //         }
+  //       );
+  //   })
+  // }
   
 }

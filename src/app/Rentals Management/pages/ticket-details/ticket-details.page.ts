@@ -339,19 +339,30 @@ export class TicketDetailsPage implements OnInit {
 
   async updatStatus(status:string) {
     let title: string = '';
-    const ticketActionStatus = ['resolved', 'rejected']
+    const ticketActionStatus = ['resolved']
     this.trans.get('ticket-details.update.title', { val: status=='in-progress'?'IN PROGRESS':status.toUpperCase()}).subscribe((res: string) => {
       title = res
     })
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
     if (this.ticketToBeUpdated.status === 'open' && ticketActionStatus.includes(status)) {
-      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-      `Please change ticket status in-progress first`);
+      const alert = await this.alertCtrl.create({
+        header: `Please change ticket status to in-progress first`,
+        buttons: [
+          {
+            text: 'Ok',
+            role: 'ok',
+          }
+        ]
+      });
+
+      return alert.present();
     }
     else if (status !== this.ticketToBeUpdated.status) {
-      if (this.ticketToBeUpdated.status === 'open' && !this.ticketToBeUpdated.agent) {
-        title = 'Technician/vendor is not tagged. Do you want to update?'
-      }
+      if (this.ticketToBeUpdated.status === 'open' 
+        && !this.ticketToBeUpdated.agent
+        && status !== 'rejected') {
+          title = 'Technician/vendor is not tagged to this ticket. Do you still want to update the ticket status?'
+        }
       const alert = await this.alertCtrl.create({
         header: title,
         buttons: [
