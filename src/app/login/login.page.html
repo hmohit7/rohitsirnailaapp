@@ -259,7 +259,7 @@
           <ion-col>
             <ion-item>
               <ion-label position="stacked" class="font-20 margin-bottom-10">Enter New Password</ion-label>
-              <ion-input type="password" placeholder="" [(ngModel)]="loginData.password" (keyup)="validatePassword()">
+              <ion-input type="password" placeholder="" [(ngModel)]="loginData.password" (ngModelChange)="validatePassword()">
               </ion-input>
             </ion-item>
           </ion-col>
@@ -269,13 +269,13 @@
             <ion-item>
               <ion-label position="stacked" class="font-20 margin-bottom-10">Confirm Password</ion-label>
               <ion-input type="password" placeholder="" [(ngModel)]="loginData.passwordCheck"
-                (keyup)="validatePassword()">
+                (ngModelChange)="validatePassword()">
               </ion-input>
             </ion-item>
           </ion-col>
           <p class="font-14 txt-warm-grey margin-top-0">Password needs to be atleast 4 characters in length </p>
         </ion-row>
-
+        
         <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p>
 
         <ion-row class="width-80-percent center-text margin-top-10" >
