@@ -187,7 +187,14 @@ export class LoginPage implements OnInit {
   // Check id user is allowed to use this app
 
   async handleUser(data, type, hidethisotp?: boolean) {
+
+    console.log("--------******-----------")
+    console.log(data)
     console.log(type);
+    this.loginData.action = data[type].action;
+    this.loginData.loginType = data[type].action;
+    console.log(this.loginData)
+    console.log("--------******-----------")
 
     await this.appSetting.setPlatformAfterLogin(JSON.stringify(type))
     window.localStorage.setItem('platform', type);
@@ -209,7 +216,7 @@ export class LoginPage implements OnInit {
       // if (data[type].action === 'login') {
       //   this.visibleBlock = 'passwordInput';
       // } else {
-      if (hidethisotp == true) {
+      if (hidethisotp == true || data[type].action === 'login' ) {
 
         this.verifyPhoneService(true)
       } else {
@@ -561,6 +568,11 @@ export class LoginPage implements OnInit {
             //     this.retrieveOtp(res.Message, 'login')
             //   })
             //   .catch((error: any) => console.error(error));
+
+            console.log("-------------------------");
+            console.log(data.action);
+            console.log("-------------------------");
+
 
             if (this.isUserAllowed(data.types)) {
               if (data.action == 'login') {
