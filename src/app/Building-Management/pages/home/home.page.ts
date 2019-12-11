@@ -225,17 +225,21 @@ export class HomePage implements OnInit {
     // Scann QR Code.'
     this.barcodeScanner.scan().then(async (barcodeData) => {
       const { text } = barcodeData;
+      console.log("--------++----------")
+      console.log(text)
+      console.log("---------++---------")
+
       if (!text) {
         this.loadingCtrl.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), 'Invalid barcode');
-      }
-      await this.presentLoading();
-      this.ticketService.searchAssert(text)
-        .subscribe(async (data: any) => {
-          this.loadingCtrl.dismiss();
-          await this.alertCtrl.create({
-            header: data.name,
-            message: `
+      } else {
+        await this.presentLoading();
+        this.ticketService.searchAssert(text)
+          .subscribe(async (data: any) => {
+            this.loadingCtrl.dismiss();
+            await this.alertCtrl.create({
+              header: data.name,
+              message: `
             <b>AssertId:-</b>${data.assetId || 'N/A'}<br/>
 
             <b>Category:-</b> ${data.category || 'N/A'}<br/>
@@ -245,37 +249,38 @@ export class HomePage implements OnInit {
             <b>Floor:-</b> ${data.floor || 'N/A'}<br/>
             
             <b>Description:-</b> ${data.description || 'N/A'}`,
-            buttons: [
-              {
-                text: 'Scan Again',
-                role: 'cancel',
-                handler: () => {
-                  this.openScanner()
-                }
-              },
-              {
-                text: 'Confirm',
-                role: 'ok',
-                handler: () => {
-                  this.router.navigate([`${window.localStorage.getItem('appSrc')}-tickets`],{
-                    queryParams: {
-                      id: data._id,
-                      name: data.assetId
-                    }
-                  })
-                }
-              }]
-          }).then(alert => {
-            alert.present()
-          })
-          
-          console.log(data);
-        },
-          err => {
-            this.loadingCtrl.dismiss();
-            this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
-          }
-        );
+              buttons: [
+                {
+                  text: 'Scan Again',
+                  role: 'cancel',
+                  handler: () => {
+                    this.openScanner()
+                  }
+                },
+                {
+                  text: 'Confirm',
+                  role: 'ok',
+                  handler: () => {
+                    this.router.navigate([`${window.localStorage.getItem('appSrc')}-tickets`], {
+                      queryParams: {
+                        id: data._id,
+                        name: data.assetId
+                      }
+                    })
+                  }
+                }]
+            }).then(alert => {
+              alert.present()
+            })
+
+            console.log(data);
+          },
+            err => {
+              this.loadingCtrl.dismiss();
+              this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.message);
+            }
+          );
+      }
     })
   }
 
