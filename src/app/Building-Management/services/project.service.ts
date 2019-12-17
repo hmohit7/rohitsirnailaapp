@@ -17,7 +17,7 @@ export class ProjectService {
 
     console.log(filterData);
 
-    return this.http.get(`${this.appSettings.getApi()}/api/project?limit=10&searchText=${filterData.searchText}&skip=${filterData.skip}&status=all`,
+    return this.http.get(`${this.appSettings.getApi()}/api/project?limit=15&searchText=${filterData.searchText}&skip=${filterData.skip}&status=all`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

@@ -124,6 +124,7 @@ export class TicketDetailsPage implements OnInit {
       this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(() => {
         this.loadingCtrl.dismiss();
         console.log(this.images);
+        this.images=[]
         this.activeMaterialSection = 'description';
         this.materialData = {};
         this.getTicketDetails();

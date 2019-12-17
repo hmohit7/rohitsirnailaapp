@@ -64,7 +64,7 @@ export class TicketsPage implements OnInit {
     const modal = await this.modalController.create({
       component: TicketFilterPage,
       componentProps: {
-        data: this.filterData
+        data: this.dataFromFilterPage
       }
     });
 
@@ -194,7 +194,7 @@ export class TicketsPage implements OnInit {
       component: TicketComponent,
       event: event,
       mode: 'ios',
-      componentProps: this.filterData.status
+      // componentProps: this.filterData.status
     })
     popOver.onDidDismiss().then(status => {
       console.log('====================================');

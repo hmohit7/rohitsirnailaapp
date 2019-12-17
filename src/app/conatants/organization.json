@@ -1,7 +1,7 @@
 {
     "appName": "Business - TheHouseMonk",
-    "connectTo": "production",
-    "buildFor": "Both",
+    "connectTo": "alpha",
+    "buildFor": "BM",
     "appBundleId": "com.thehousemonk.business",
     "mixpanel-token": "1350cf4808c3adbdd9ef79625d091dc7"
 }
