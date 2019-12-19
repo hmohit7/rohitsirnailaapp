@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx'
 import { MainAppSetting } from '../conatants/MainAppSetting';
 import { Storage } from '@ionic/storage';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
 
 @Injectable({
@@ -17,7 +18,8 @@ export class AlertServiceService {
     private transfer: FileTransfer,
     private appSetting: MainAppSetting,
     private actionSheet: ActionSheetController,
-    private storage: Storage
+    private storage: Storage,
+    private filePath: FilePath
   ) { }
 
   public data: any = {};
@@ -30,6 +32,7 @@ export class AlertServiceService {
     destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
+    sourceType: this.camera.PictureSourceType.CAMERA
   }
 
 
@@ -41,43 +44,17 @@ export class AlertServiceService {
     return this.storage.get(key)
   }
 
-  async presentActionSheet() {
-    const actionsheet = await this.actionSheet.create({
-      header: 'Select Choice',
-      buttons: [
-        {
-          text: 'Camera',
-          icon: 'camera',
-          handler: async () => {
-          }
-        },
-        {
-          text: 'phone',
-          icon: 'phone-portrait',
-          handler: () => {
-          }
-        },
-        {
-          text: 'Cancel',
-          icon: 'close',
-          handler: () => {
-            console.log('cancel');
-          }
-        }
-      ]
-    })
-    return await actionsheet.present();
-  }
 
-  async capturePhoto() {
-    // await this.presentActionSheet();
-    await this.camera.getPicture(this.options).then((imageData) => {
-      console.log("image data by camera", imageData);
-      this.fileURL = this.onCaptureImage(imageData);
-    }, (error) => {
-      console.error(error);
-    });
-    return this.fileURL;
+  async capturePhoto(sourcetype) {
+    this.options.sourceType = sourcetype=='camera'?this.camera.PictureSourceType.CAMERA:sourcetype=='library'?this.camera.PictureSourceType.PHOTOLIBRARY:null
+    console.log(this.options);
+      await this.camera.getPicture(this.options).then((imageData) => {
+        console.log("image data by camera", imageData);
+        this.fileURL = this.filePath.resolveNativePath(imageData);
+      }, (error) => {
+        console.error(error);
+      });
+      return this.fileURL;
   }
 
   private onCaptureImage(fileURI) {
@@ -99,8 +76,9 @@ export class AlertServiceService {
   }
 
   public async upload(fileURI1, data, type) {
-    console.log(data);
     const fileTransfer: FileTransferObject = this.transfer.create();
+
+    console.log(fileURI1);
 
     const uploadOpts: FileUploadOptions = {
       fileKey: "Display Picture",
@@ -116,22 +94,23 @@ export class AlertServiceService {
     if (type == 'RAISETICKET') {
       this.apiUrl = `${this.appSetting.getApi()}/api/ticket`;
       uploadOpts.httpMethod = 'post';
-      console.log(this.apiUrl, uploadOpts);
     } else if (type == 'UPDATETICKET') {
       uploadOpts.httpMethod = 'put';
       this.apiUrl = `${this.appSetting.getApi()}/api/ticket/${data._id}`
-      console.log(this.apiUrl, uploadOpts);
+
     } else if (type == 'CREATENOTICE') {
       uploadOpts.httpMethod = 'post';
+      console.log(uploadOpts);
+
       this.apiUrl = `${this.appSetting.getApi()}/api/discussion`;
-      console.log(this.apiUrl, uploadOpts);
+
     } else if (type == 'ADDTOTICKETDETAIL') {
       this.apiUrl = `${this.appSetting.getApi()}/api/ticket/${data._id}`;
       uploadOpts.httpMethod = 'put';
-      console.log(this.apiUrl, uploadOpts);
+
 
     }
-    console.log(uploadOpts);
+
 
     await fileTransfer.upload(fileURI1, this.apiUrl, uploadOpts).then((data) => {
       this.respData = JSON.parse(data.response);
@@ -139,6 +118,7 @@ export class AlertServiceService {
       this.fileURL = this.respData.fileUrl;
       return data
     }, (err) => {
+      console.log("*******************Error*******************");
       console.log(err);
 
     })

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController, ModalController, AlertController } from '@ionic/angular';
+import { LoadingController, ModalController, AlertController, ActionSheetController } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { MaterialSearchPage } from '../../pages/material-search/material-search.page';
@@ -40,8 +40,12 @@ export class TicketDetailsPage implements OnInit {
     private alertService: AlertServiceService,
     private alertCtrl: AlertController,
     public transService: translateService,
-    public trans: TranslateService
+    public trans: TranslateService,
+    private actionSheet: ActionSheetController
   ) {
+
+    console.log("constructor");
+    
 
     this.route.queryParamMap.subscribe((params: any) => {
       params.params.ticketId ? this.ticketId = params.params.ticketId : '';
@@ -58,14 +62,14 @@ export class TicketDetailsPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
 
-    if (this.flag === 'true') {
-      console.log('true', this.ticketId);
-      this.flag = 'false';
-      this.ticket = [];
-      this.getTicketDetails();
-    }
+
+    // if (this.flag === 'true') {
+    //   console.log('true', this.ticketId);
+    //   this.flag = 'false';
+    //   this.ticket = [];
+    //   this.getTicketDetails();
+    // }
   }
 
   showMaterialForm() {
@@ -79,8 +83,8 @@ export class TicketDetailsPage implements OnInit {
   async getTicketDetails() {
     await this.presentLoading();
     this.ticketService.getTicketById(this.ticketId)
-      .subscribe((data: any) => {
-        this.loadingCtrl.dismiss();
+      .subscribe(async (data: any) => {
+        await this.loadingCtrl.dismiss();
         this.ticket = data;
         // console.log(this.ticket);
       },
@@ -124,7 +128,7 @@ export class TicketDetailsPage implements OnInit {
       this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(() => {
         this.loadingCtrl.dismiss();
         console.log(this.images);
-        this.images=[]
+        this.images = []
         this.activeMaterialSection = 'description';
         this.materialData = {};
         this.getTicketDetails();
@@ -255,10 +259,43 @@ export class TicketDetailsPage implements OnInit {
     this.updateTicket();
   }
 
-  async fileSourceOption() {
+
+
+  public presentActionSheet() {
+    this.actionSheet.create({
+      header: 'Select image from ',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: 'camera',
+          handler: async () => {
+            this.fileSourceOption('camera');
+          }
+        },
+        {
+          text: 'Library',
+          icon: 'images',
+          handler: () => {
+            this.fileSourceOption('library');
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('cancel');
+          }
+        }
+      ]
+    }).then(actionsheet => {
+      actionsheet.present()
+    })
+  }
+
+  async fileSourceOption(type) {
     console.log(this.images);
     // if (this.images.length < 1) {
-    let image = await this.alertService.capturePhoto();
+    let image = await this.alertService.capturePhoto(type);
     console.log("in add-visitor Page\n\n");
     console.log(image);
 

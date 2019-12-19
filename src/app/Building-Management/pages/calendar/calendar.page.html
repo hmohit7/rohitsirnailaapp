@@ -8,11 +8,11 @@
   <ion-segment scrollable mode="md" class="shadow margin-padding-zero" value="4">
     <ion-segment-button mode="md" *ngFor="let date of dateList let i= index"
       class="margin-padding-zero min-width-37 font-12" value="{{i}}" (click)="resetDate(date)">
-      <ion-label class="margin-padding-zero gotham txt-warm-grey">{{date |
+      <ion-label class="margin-padding-zero gotham calander-grey-color">{{date |
         date:'EEE'}}</ion-label>
       <span class="padding-0 margin-top-5 margin-bottom-5 gotham font-30
         black-color">{{date | date:'dd' }}</span>
-      <ion-label class="margin-padding-zero txt-warm-grey">{{date | date:'MMM'}}</ion-label>
+      <ion-label class="margin-padding-zero calander-year-color">{{date | date:'MMM'}}</ion-label>
     </ion-segment-button>
   </ion-segment>
 </ion-header>
@@ -28,8 +28,7 @@
         <p class="gotham-medium margin-bottom-8" text-wrap>
           <span class="float-left">#{{ticket.uid}} - </span>
           <span class="center-text"> {{ticket.ticketCategory}}</span>
-          <span class="float-right">{{ticket.createdAt | date:'dd MMM
-            yyyy'|agoFilter}}</span>
+          <span class="float-right">{{ticket.createdAt |agoFilter}}</span>
         </p>
         <!-- <p class="gotham font-weight-600 txt-grey">{{d.address}}</p> -->
         <p class="gotham font-weight-600 txt-grey margin-bottom-8">

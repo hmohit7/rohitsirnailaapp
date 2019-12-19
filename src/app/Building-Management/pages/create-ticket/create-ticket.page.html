@@ -192,7 +192,7 @@
     <ion-row *ngIf="images.length == 0" class="width-80-percent justify-center margin-10 margin-bottom-20">
       <ion-col class="padding-0">
         <ion-item lines="none" class="ion-item">
-          <ion-card class="full-width margin-1" (click)="fileSourceOption()">
+          <ion-card class="full-width margin-1" (click)="presentActionSheet()">
             <ion-item lines="none" class="ion-item">
               <ion-icon slot="start" class="margin-right-5 margin-left-10 icon-20 gotham" name="camera"></ion-icon>
               <ion-label>{{transService.getTranslatedData('create-ticket.add-picture')}}</ion-label>

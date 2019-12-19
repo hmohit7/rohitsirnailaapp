@@ -22,9 +22,8 @@ export class HomePage implements OnInit {
   userDetails: any;
   ticketStats: any;
 
-  loading: any = this.loadingCtrl.create({
-  });
 
+  public loading: boolean = true;
   options: PushOptions = {
     android: {},
     ios: {
@@ -62,15 +61,21 @@ export class HomePage implements OnInit {
 
 
   async presentLoading() {
-    this.loading = await this.loadingCtrl.create({
+    await this.loadingCtrl.create({
       spinner: 'lines'
+    }).then(loading => {
+
+      loading.present();
     });
-    return await this.loading.present();
+  }
+  ionViewDidEnter(){
+   
+    this.getTicketStats();
   }
 
   async ngOnInit() {
+    this.presentLoading();
     this.getUserDetails();
-    this.getTicketStats();
     this.pushObject.on('notification').subscribe((notification: any) => {
       console.log(JSON.stringify(notification));
       // alert(JSON.stringify(notification.additionalData.id));
@@ -195,15 +200,15 @@ export class HomePage implements OnInit {
   }
 
   async getTicketStats() {
-    await this.presentLoading();
     this.ticketService.getTicketStats()
-      .subscribe((data: any) => {
-        this.loading.dismiss();
+      .subscribe(async(data: any) => {
+        this.loading == true ? await this.loadingCtrl.dismiss() : '';
+        this.loading = false
         this.ticketStats = data;
         console.log(this.ticketStats);
       },
         err => {
-          this.loading.dismiss();
+          this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
         }
       );

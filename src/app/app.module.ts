@@ -28,7 +28,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { Device } from '@ionic-native/device/ngx'
 import { OrderModule } from 'ngx-order-pipe'
 import { PictureComponent } from './common-components/picture/picture.component';
-
+import { FilePath } from '@ionic-native/file-path/ngx';
 
 @NgModule({
   declarations: [
@@ -74,6 +74,7 @@ import { PictureComponent } from './common-components/picture/picture.component'
     Push,
     Device,
     WebView,
+    FilePath,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

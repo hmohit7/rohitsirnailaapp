@@ -1,7 +1,7 @@
 import { AlertServiceService } from '../../../common-services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, ActionSheetController } from '@ionic/angular';
 import { UnitSearchPage } from '../../pages/unit-search/unit-search.page';
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
@@ -44,7 +44,8 @@ export class CreateTicketPage implements OnInit {
     private alertService: AlertServiceService,
     public webview: WebView,
     public transService: translateService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private actionSheet: ActionSheetController
   ) {
     this.date = new Date();
     this.route.queryParamMap.subscribe((params: any) => {
@@ -59,9 +60,11 @@ export class CreateTicketPage implements OnInit {
     });
     return await this.loading.present();
   }
+  
   ionViewDidEnter() {
     this.flag = false;
   }
+
   ngOnInit() {
     if (this.ticketId) {
       this.flow = 'editTicket';
@@ -94,6 +97,8 @@ export class CreateTicketPage implements OnInit {
         this.loadingCtrl.dismiss();
 
         this.ticketData = data;
+        console.log(data);
+        
 
         if (data.ticketCategory) {
           this.ticketData.ticketCategoryName = data.ticketCategory;
@@ -110,6 +115,9 @@ export class CreateTicketPage implements OnInit {
           if (data.contactPoint.lastName) {
             this.ticketData.contactPointName = this.ticketData.contactPointName + ' ' + data.contactPoint.lastName;
           }
+        }
+        if(data.files.lenght>0){
+          this.images=data.files
         }
 
         if (data.agent) {
@@ -318,6 +326,8 @@ export class CreateTicketPage implements OnInit {
       this.ticketData.raisedBy = val;
       this.ticketData.createdBy = val;
     })
+    console.log("TicketData");
+    
     console.log(this.ticketData);
 
     if (this.images.length > 0) {
@@ -325,7 +335,7 @@ export class CreateTicketPage implements OnInit {
         await this.loading.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
           this.transService.getTranslatedData('create-ticket.ticket-create-success'));
-        this.router.navigateByUrl(`/building-management-tickets?ticketId=${this.ticketData._id}`, { replaceUrl: true });
+        this.router.navigateByUrl(`/building-management-tickets`, { replaceUrl: true });
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
@@ -339,7 +349,7 @@ export class CreateTicketPage implements OnInit {
           this.loading.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('create-ticket.ticket-create-success'));
-          this.router.navigateByUrl(`/building-management-tickets?ticketId=${this.ticketData._id}`, { replaceUrl: true });
+          this.router.navigateByUrl(`/building-management-tickets`, { replaceUrl: true });
         },
           err => {
             this.loading.dismiss();
@@ -361,12 +371,12 @@ export class CreateTicketPage implements OnInit {
     }
     await this.presentLoading();
     if (this.images.length > 0) {
-      this.alertService.upload(this.images[0], this.ticketData, 'UPDATETICKET').then(() => {
-        this.loadingCtrl.dismiss();
+      this.alertService.upload(this.images[0], this.ticketData, 'UPDATETICKET').then(async () => {
+        await this.loadingCtrl.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
           this.transService.getTranslatedData('create-ticket.ticket-update-success'));
         this.flag = true;
-        this.router.navigateByUrl(`/rentals-ticket-details?flag=${this.flag}`);
+        this.router.navigateByUrl(`/building-management-ticket-details?flag=${this.flag}&ticketId=${this.ticketData._id}`);
       }, error => {
         this.loading.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
@@ -374,12 +384,12 @@ export class CreateTicketPage implements OnInit {
       });
     } else {
       this.ticketService.updateTicket(this.ticketData)
-        .subscribe((data: any) => {
-          this.loadingCtrl.dismiss();
+        .subscribe(async (data: any) => {
+          await this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('create-ticket.ticket-update-success'));
           this.flag = true;
-          this.router.navigateByUrl(`/rentals-ticket-details?flag=${this.flag}`);
+          this.router.navigateByUrl(`/building-management-ticket-details?flag=${this.flag}&ticketId=${this.ticketData._id}`);
           // this.router.navigateByUrl('/rentals-ticket-details');
         },
           err => {
@@ -391,10 +401,41 @@ export class CreateTicketPage implements OnInit {
     }
   }
 
+  public presentActionSheet() {
+    this.actionSheet.create({
+      header: 'Select image from ',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: 'camera',
+          handler: async () => {
+            this.fileSourceOption('camera');
+          }
+        },
+        {
+          text: 'Library',
+          icon: 'images',
+          handler: () => {
+            this.fileSourceOption('library');
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('cancel');
+          }
+        }
+      ]
+    }).then(actionsheet => {
+      actionsheet.present()
+    })
+  }
 
-  async fileSourceOption() {
+
+  async fileSourceOption(type) {
     if (this.images.length < 1) {
-      const caller = await this.alertService.capturePhoto();
+      const caller = await this.alertService.capturePhoto(type);
       console.log('in add-visitor Page\n\n ', caller);
       if (caller !== undefined) {
         console.log(caller);

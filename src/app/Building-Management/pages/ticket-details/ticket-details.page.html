@@ -186,7 +186,7 @@
             <img src="{{file.aws_url}}" (click)="openImage(file.aws_url)" class="img-responsive height-70 border-radius-10 " />
           </ion-col>
 
-          <ion-col size="3" class="center-text" (click)="fileSourceOption()">
+          <ion-col size="3" class="center-text" (click)="presentActionSheet()">
             <img src="assets/icon/add-green.png" class="height-30 width-30 border-radius-10 " />
             <p class="txt-slate-grey gotham-medium margin-top-10 font-weight-500 font-14">
               {{transService.getTranslatedData('ticket-details.add-photo')}}</p>

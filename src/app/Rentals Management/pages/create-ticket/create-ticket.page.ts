@@ -394,9 +394,9 @@ export class CreateTicketPage implements OnInit {
   }
 
 
-  async fileSourceOption() {
+  async fileSourceOption(type) {
     if (this.images.length < 1) {
-      const caller = await this.alertService.capturePhoto();
+      const caller = await this.alertService.capturePhoto(type);
       console.log('in add-visitor Page\n\n ', caller);
       if (caller !== undefined) {
         console.log(caller);

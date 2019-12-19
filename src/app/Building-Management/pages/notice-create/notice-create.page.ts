@@ -1,6 +1,6 @@
 import { AlertServiceService } from '../../../common-services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, ActionSheetController } from '@ionic/angular';
 import { ProjectSearchPage } from '../project-search/project-search.page';
 import { NoticeService } from '../../services/notice.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -35,7 +35,8 @@ export class NoticeCreatePage implements OnInit {
     private alertService: AlertServiceService,
     private route: ActivatedRoute,
     public transService: translateService,
-    public webView: WebView
+    public webView: WebView,
+    private actionSheet:ActionSheetController
   ) { }
 
   ngOnInit() {
@@ -97,11 +98,42 @@ export class NoticeCreatePage implements OnInit {
 
   }
 
-  async fileSourceOption() {
+  public presentActionSheet() {
+    this.actionSheet.create({
+      header: 'Select image from ',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: 'camera',
+          handler: async () => {
+            this.fileSourceOption('camera');
+          }
+        },
+        {
+          text: 'Library',
+          icon: 'images',
+          handler: () => {
+            this.fileSourceOption('library');
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('cancel');
+          }
+        }
+      ]
+    }).then(actionsheet => {
+      actionsheet.present()
+    })
+  }
+
+  async fileSourceOption(type) {
 
     if (this.images.length < 1) {
       let image_url;
-      let caller = await this.alertService.capturePhoto();
+      let caller = await this.alertService.capturePhoto(type);
       image_url = caller;
       console.log("in add-visitor Page\n\n");
       if (image_url != undefined) {

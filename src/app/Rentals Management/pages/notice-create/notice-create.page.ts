@@ -100,11 +100,11 @@ export class NoticeCreatePage implements OnInit {
 
   }
 
-  async fileSourceOption() {
+  async fileSourceOption(type) {
 
     if (this.images.length < 1) {
       let image_url;
-      let caller = await this.alertService.capturePhoto();
+      let caller = await this.alertService.capturePhoto(type);
       image_url = caller;
       console.log("in add-visitor Page\n\n");
       if (image_url != undefined) {

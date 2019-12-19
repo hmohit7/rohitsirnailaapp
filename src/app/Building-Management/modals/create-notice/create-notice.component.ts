@@ -1,7 +1,7 @@
 import { AlertServiceService } from '../../../common-services/alert-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NoticeService } from './../../services/notice.service';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, ActionSheetController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -30,7 +30,8 @@ export class CreateNoticeComponent implements OnInit {
     private alertService: AlertServiceService,
     private route: ActivatedRoute,
     public webView: WebView,
-    public transService: translateService
+    public transService: translateService,
+    private actionSheet: ActionSheetController
   ) { }
 
   ngOnInit() { }
@@ -70,6 +71,10 @@ export class CreateNoticeComponent implements OnInit {
     this.presentLoading();
     if (this.images.length > 0) {
       this.alertService.upload(this.images[0], this.notice, 'CREATENOTICE').then(() => {
+        console.log(this.images);
+        console.log("upload image");
+
+
         this.loadingCtrl.dismiss();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
           this.transService.getTranslatedData('create-notice-modal.notice-created'));
@@ -110,10 +115,44 @@ export class CreateNoticeComponent implements OnInit {
 
   }
 
-  async fileSourceOption() {
+  public presentActionSheet() {
+    this.actionSheet.create({
+      header: 'Select image from ',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: 'camera',
+          handler: async () => {
+            this.fileSourceOption('camera');
+          }
+        },
+        {
+          text: 'Library',
+          icon: 'images',
+          handler: () => {
+            this.fileSourceOption('library');
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('cancel');
+          }
+        }
+      ]
+    }).then(actionsheet => {
+      actionsheet.present()
+    })
+  }
+
+
+  async fileSourceOption(type) {
     if (this.images.length < 1) {
-      const caller = await this.alertService.capturePhoto();
+      const caller = await this.alertService.capturePhoto(type);
       console.log("in add-visitor Page\n\n");
+      console.log(caller);
+
       if (caller != undefined) {
         console.log(caller);
         this.images.push(caller);

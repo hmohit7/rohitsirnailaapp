@@ -255,10 +255,10 @@ export class TicketDetailsPage implements OnInit {
     this.updateTicket();
   }
 
-  async fileSourceOption() {
+  async fileSourceOption(type) {
     console.log(this.images);
     // if (this.images.length < 1) {
-    let image = await this.alertService.capturePhoto();
+    let image = await this.alertService.capturePhoto(type);
     console.log("in add-visitor Page\n\n");
     console.log(image);
 
