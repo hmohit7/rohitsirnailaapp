@@ -2,11 +2,11 @@ import { AlertServiceService } from '../../../common-services/alert-service.serv
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { LoadingController, ModalController, ActionSheetController } from '@ionic/angular';
-import { UnitSearchPage } from '../../pages/unit-search/unit-search.page';
-import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
-import { UserSearchPage } from '../../pages/user-search/user-search.page';
-import { TicketCategorySearchPage } from '../../pages/ticket-category-search/ticket-category-search.page';
-import { TicketSubCategorySearchPage } from '../../pages/ticket-sub-category-search/ticket-sub-category-search.page';
+import { UnitSearchPage } from '../unit-search/unit-search.page';
+import { ProjectSearchPage } from '../project-search/project-search.page';
+import { UserSearchPage } from '../user-search/user-search.page';
+import { TicketCategorySearchPage } from '../ticket-category-search/ticket-category-search.page';
+import { TicketSubCategorySearchPage } from '../ticket-sub-category-search/ticket-sub-category-search.page';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { WebView } from "@ionic-native/ionic-webview/ngx"
@@ -60,7 +60,7 @@ export class CreateTicketPage implements OnInit {
     });
     return await this.loading.present();
   }
-  
+
   ionViewDidEnter() {
     this.flag = false;
   }
@@ -98,7 +98,7 @@ export class CreateTicketPage implements OnInit {
 
         this.ticketData = data;
         console.log(data);
-        
+
 
         if (data.ticketCategory) {
           this.ticketData.ticketCategoryName = data.ticketCategory;
@@ -116,8 +116,8 @@ export class CreateTicketPage implements OnInit {
             this.ticketData.contactPointName = this.ticketData.contactPointName + ' ' + data.contactPoint.lastName;
           }
         }
-        if(data.files.lenght>0){
-          this.images=data.files
+        if (data.files.lenght > 0) {
+          this.images = data.files
         }
 
         if (data.agent) {
@@ -143,6 +143,9 @@ export class CreateTicketPage implements OnInit {
     this.ticketData.ticketBelongsTo = value;
     delete this.ticketData.ticketBelongsToName;
     delete this.ticketData.ticketBelongsToRefId;
+    delete this.ticketData.ticketCategoryName
+    delete this.ticketData.ticketCategory
+    delete this.ticketData.ticketCategoryId
   }
 
   selectPriority(value) {
@@ -163,6 +166,9 @@ export class CreateTicketPage implements OnInit {
       if (unit !== null && unit.data) {
 
         console.log(unit);
+        delete this.ticketData.ticketCategoryName
+        delete this.ticketData.ticketCategory
+        delete this.ticketData.ticketCategoryId
         this.ticketData.ticketBelongsToName = unit.data.ticketBelongsToName;
         this.ticketData.ticketBelongsToRefId = unit.data.ticketBelongsToRefId;
         console.log(this.ticketData);
@@ -185,6 +191,9 @@ export class CreateTicketPage implements OnInit {
 
     modal.onDidDismiss().then((project: any) => {
       if (project !== null && project.data) {
+        delete this.ticketData.ticketCategoryName
+        delete this.ticketData.ticketCategory
+        delete this.ticketData.ticketCategoryId
         this.ticketData.ticketBelongsToName = project.data.ticketBelongsToName;
         this.ticketData.ticketBelongsToRefId = project.data.ticketBelongsToRefId;
         console.log(this.ticketData);
@@ -327,7 +336,7 @@ export class CreateTicketPage implements OnInit {
       this.ticketData.createdBy = val;
     })
     console.log("TicketData");
-    
+
     console.log(this.ticketData);
 
     if (this.images.length > 0) {

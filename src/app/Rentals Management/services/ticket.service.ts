@@ -49,20 +49,7 @@ export class TicketService {
   }
 
   getTicketCategories(filterData): Observable<any> {
-
-    let url: any;;
-
-    if (window.localStorage.getItem('platform')) {
-      if (window.localStorage.getItem('platform') === 'bm') {
-        url = `/api/category?belongsTo=${filterData.ticketBelongsTo}&${filterData.ticketBelongsTo.toLowerCase()}=${filterData.ticketBelongsToRefId}&status=active&status=inactive`;
-      } else {
-        url = `/api/category?home=${filterData.ticketBelongsToRefId}&status=active`;
-      };
-    } else {
-      url = `/api/category?belongsTo=${filterData.ticketBelongsTo}&${filterData.ticketBelongsTo.toLowerCase()}=${filterData.ticketBelongsToRefId}&status=active&status=inactive`;
-    }
-
-    return this.http.get(`${this.appSettings.getApi()}${url}`,
+    return this.http.get(`${this.appSettings.getApi()}/api/category?belongsTo=${filterData.ticketBelongsTo}&${filterData.ticketBelongsTo.toLowerCase()}=${filterData.ticketBelongsToRefId}&status=active&status=inactive`,
       {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

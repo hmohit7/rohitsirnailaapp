@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
 
   userDetails: any;
   ticketStats: any;
-
+  public loading: boolean = true;
 
 
   options: PushOptions = {
@@ -195,15 +195,16 @@ export class HomePage implements OnInit {
   }
 
   async getTicketStats() {
-    await this.presentLoading();
+    this.loading==true?await this.presentLoading():'';
     this.ticketService.getTicketStats()
       .subscribe((data: any) => {
-        this.loadingCtrl.dismiss();
+        this.loading==true?this.loadingCtrl.dismiss():'';
+        this.loading=false
         this.ticketStats = data;
         console.log(this.ticketStats);
       },
         err => {
-          this.loadingCtrl.dismiss();
+          this.loading==true?this.loadingCtrl.dismiss():'';
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
         }
       );
@@ -257,7 +258,7 @@ export class HomePage implements OnInit {
                 text: 'Confirm',
                 role: 'ok',
                 handler: () => {
-                  this.router.navigate([`${window.localStorage.getItem('appSrc')}-tickets`],{
+                  this.router.navigate([`${window.localStorage.getItem('appSrc')}-tickets`], {
                     queryParams: {
                       id: text,
                       name: data.assetId
@@ -268,7 +269,7 @@ export class HomePage implements OnInit {
           }).then(alert => {
             alert.present()
           })
-          
+
         },
           err => {
             this.loadingCtrl.dismiss();
