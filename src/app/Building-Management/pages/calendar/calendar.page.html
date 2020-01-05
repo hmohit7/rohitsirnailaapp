@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{transService.getTranslatedData('calendar.title')}}</ion-title>
+    <ion-title class="padding-0" >{{transService.getTranslatedData('calendar.title')}}</ion-title>
   </ion-toolbar>
   <ion-segment scrollable mode="md" class="shadow margin-padding-zero" value="4">
     <ion-segment-button mode="md" *ngFor="let date of dateList let i= index"

@@ -27,9 +27,10 @@ export class TicketDetailsPage implements OnInit {
   flag = 'false';
 
   async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-    });
-    await loading.present();
+    await this.loadingCtrl.create({
+    }).then(loading => {
+      loading.present();
+    })
   }
 
   constructor(
@@ -45,7 +46,7 @@ export class TicketDetailsPage implements OnInit {
   ) {
 
     console.log("constructor");
-    
+
 
     this.route.queryParamMap.subscribe((params: any) => {
       params.params.ticketId ? this.ticketId = params.params.ticketId : '';
@@ -84,14 +85,14 @@ export class TicketDetailsPage implements OnInit {
     await this.presentLoading();
     this.ticketService.getTicketById(this.ticketId)
       .subscribe(async (data: any) => {
-        await this.loadingCtrl.dismiss();
         this.ticket = data;
+        await this.loadingCtrl.dismiss();
         // console.log(this.ticket);
       },
         async err => {
-          await this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-            this.transService.getTranslatedData('error-alert'))
+          this.transService.getTranslatedData('error-alert'))
+          await this.loadingCtrl.dismiss();
         }
       );
   }
@@ -114,6 +115,7 @@ export class TicketDetailsPage implements OnInit {
 
   async updateTicket() {
 
+    await this.presentLoading();
     if (this.ticketToBeUpdated.ticketCategory) {
       this.ticketToBeUpdated.ticketCategory = this.ticketToBeUpdated.ticketCategoryId;
     }
@@ -121,12 +123,11 @@ export class TicketDetailsPage implements OnInit {
     if (this.ticketToBeUpdated.ticketSubCategory) {
       this.ticketToBeUpdated.ticketSubCategory = this.ticketToBeUpdated.ticketSubCategoryId;
     }
-    this.presentLoading();
     if (this.images.length > 0) {
       console.log("With Image");
       console.log(this.ticketToBeUpdated);
-      this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(() => {
-        this.loadingCtrl.dismiss();
+      this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(async () => {
+        await this.loadingCtrl.dismiss();
         console.log(this.images);
         this.images = []
         this.activeMaterialSection = 'description';
@@ -134,22 +135,23 @@ export class TicketDetailsPage implements OnInit {
         this.getTicketDetails();
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
           this.transService.getTranslatedData('ticket-details.ticket-updated'));
-      }, error => {
+      }, async error => {
+        await this.loadingCtrl.dismiss()
         console.log(error);
       });
     } else {
       console.log("Without Image");
       this.ticketService.updateTicket(this.ticketToBeUpdated)
-        .subscribe(() => {
-          this.loadingCtrl.dismiss();
+        .subscribe(async () => {
           this.activeMaterialSection = 'description';
           this.materialData = {};
+          await this.loadingCtrl.dismiss();
           this.getTicketDetails();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('ticket-details.ticket-updated'));
         },
-          err => {
-            this.loadingCtrl.dismiss();
+          async err => {
+            await this.loadingCtrl.dismiss();
             this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
               this.transService.getTranslatedData('error-alert'))
           }
@@ -220,17 +222,16 @@ export class TicketDetailsPage implements OnInit {
       );
   }
 
-  updateCheckList(status, index) {
+  async updateCheckList(status, index) {
 
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
 
     this.ticketToBeUpdated.checklist[index].completed = status;
 
     this.updateTicket();
-    this.loadingCtrl.dismiss();
     this.activeMaterialSection = 'description';
     this.materialData = {};
-    this.getTicketDetails();
+    // this.getTicketDetails();
 
   }
 

@@ -209,6 +209,19 @@
   font-weight: bold !important;
 }
 
+
+.ion-item {
+  --inner-padding-bottom: 0px !important;
+  --inner-padding-end: 0px !important;
+  --inner-padding-start: 0px !important;
+  --inner-padding-top: 0px !important;
+  --padding-bottom: 0px !important;
+  --padding-end: 0px !important;
+  --padding-start: 0px !important;
+  --padding-top: 0px !important;
+}
+
+
 .discussion-comment {
   background: #fafafa;
 }

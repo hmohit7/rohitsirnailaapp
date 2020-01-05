@@ -81,15 +81,15 @@ export class TicketDetailsPage implements OnInit {
   async getTicketDetails() {
     await this.presentLoading();
     this.ticketService.getTicketById(this.ticketId)
-      .subscribe((data: any) => {
-        this.loadingCtrl.dismiss();
+      .subscribe(async (data: any) => {
         this.ticket = data;
+        await this.loadingCtrl.dismiss();
         // console.log(this.ticket);
       },
         async err => {
-        await this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-            this.transService.getTranslatedData('error-alert'))
+          this.transService.getTranslatedData('error-alert'))
+          await this.loadingCtrl.dismiss();
         }
       );
   }
@@ -97,13 +97,13 @@ export class TicketDetailsPage implements OnInit {
   async getTicketComments() {
     await this.presentLoading();
     this.ticketService.getTicketComments(this.ticketId)
-      .subscribe((data: any) => {
-        this.loadingCtrl.dismiss();
+      .subscribe(async (data: any) => {
+        await this.loadingCtrl.dismiss();
         this.comments = data.data;
         // console.log(this.comments);
       },
-        err => {
-          this.loadingCtrl.dismiss();
+        async err => {
+          await this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('error-alert'))
         }
@@ -111,7 +111,8 @@ export class TicketDetailsPage implements OnInit {
   }
 
   async updateTicket() {
-
+    
+    this.presentLoading();
     if (this.ticketToBeUpdated.ticketCategory) {
       this.ticketToBeUpdated.ticketCategory = this.ticketToBeUpdated.ticketCategoryId;
     }
@@ -119,12 +120,11 @@ export class TicketDetailsPage implements OnInit {
     if (this.ticketToBeUpdated.ticketSubCategory) {
       this.ticketToBeUpdated.ticketSubCategory = this.ticketToBeUpdated.ticketSubCategoryId;
     }
-    this.presentLoading();
     if (this.images.length > 0) {
       console.log("With Image");
       console.log(this.ticketToBeUpdated);
-      this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(() => {
-        this.loadingCtrl.dismiss();
+      this.alertService.upload(this.images[0], this.ticketToBeUpdated, 'ADDTOTICKETDETAIL').then(async () => {
+        await this.loadingCtrl.dismiss();
         console.log(this.images);
         this.activeMaterialSection = 'description';
         this.materialData = {};
@@ -137,16 +137,16 @@ export class TicketDetailsPage implements OnInit {
     } else {
       console.log("Without Image");
       this.ticketService.updateTicket(this.ticketToBeUpdated)
-        .subscribe(() => {
-          this.loadingCtrl.dismiss();
+        .subscribe(async () => {
+          await this.loadingCtrl.dismiss();
           this.activeMaterialSection = 'description';
           this.materialData = {};
           this.getTicketDetails();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('ticket-details.ticket-updated'));
         },
-          err => {
-            this.loadingCtrl.dismiss();
+          async err => {
+            await this.loadingCtrl.dismiss();
             this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
               this.transService.getTranslatedData('error-alert'))
           }
@@ -203,14 +203,14 @@ export class TicketDetailsPage implements OnInit {
 
     await this.presentLoading();
     this.ticketService.createComment(data)
-      .subscribe((data: any) => {
-        this.loadingCtrl.dismiss();
+      .subscribe(async (data: any) => {
+        await this.loadingCtrl.dismiss();
         this.getTicketComments();
         this.ticket.commentText = '';
         // this.router.navigateByUrl('/tickets');
       },
-        err => {
-          this.loadingCtrl.dismiss();
+        async err => {
+          await this.loadingCtrl.dismiss();
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
             this.transService.getTranslatedData('error-alert'))
         }
@@ -224,10 +224,8 @@ export class TicketDetailsPage implements OnInit {
     this.ticketToBeUpdated.checklist[index].completed = status;
 
     this.updateTicket();
-    this.loadingCtrl.dismiss();
     this.activeMaterialSection = 'description';
     this.materialData = {};
-    this.getTicketDetails();
 
   }
 

@@ -43,7 +43,6 @@ export class TicketsPage implements OnInit {
         this.filterData.asset = params.id;
         this.filterData.assetId = params.name
       }
-        this.loading.dismiss();
         this.searchTicket('');
     }) 
   }
