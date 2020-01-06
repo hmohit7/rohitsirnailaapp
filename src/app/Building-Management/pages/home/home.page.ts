@@ -68,8 +68,8 @@ export class HomePage implements OnInit {
       loading.present();
     });
   }
-  ionViewDidEnter(){
-   
+  ionViewDidEnter() {
+
     this.getTicketStats();
   }
 
@@ -201,7 +201,7 @@ export class HomePage implements OnInit {
 
   async getTicketStats() {
     this.ticketService.getTicketStats()
-      .subscribe(async(data: any) => {
+      .subscribe(async (data: any) => {
         this.loading == true ? await this.loadingCtrl.dismiss() : '';
         this.loading = false
         this.ticketStats = data;
@@ -217,6 +217,9 @@ export class HomePage implements OnInit {
   pushNotifications() {
     if (this.registrationId) {
       this.userService.updateUser(this.userDetails).subscribe((data) => {
+        console.log("********** User Updated **********");
+        console.log("********** User Updated **********");
+
         // console.log(data);
         // alert('success');
       }, err => {

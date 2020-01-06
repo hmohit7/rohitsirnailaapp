@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, ActionSheetController } from '@ionic/angular';
 import { UnitSearchPage } from '../unit-search/unit-search.page';
 import { ProjectSearchPage } from '../project-search/project-search.page';
 import { UserSearchPage } from '../user-search/user-search.page';
@@ -42,7 +42,8 @@ export class CreateTicketPage implements OnInit {
     private alertService: AlertServiceService,
     public transService: translateService,
     public webview: WebView,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private actionSheet: ActionSheetController
   ) {
     this.date = new Date();
     this.route.queryParamMap.subscribe((params: any) => {
@@ -430,5 +431,37 @@ export class CreateTicketPage implements OnInit {
       modal.present()
     })
   }
+
+  public presentActionSheet() {
+    this.actionSheet.create({
+      header: 'Select image from ',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: 'camera',
+          handler: async () => {
+            this.fileSourceOption('camera');
+          }
+        },
+        {
+          text: 'Library',
+          icon: 'images',
+          handler: () => {
+            this.fileSourceOption('library');
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('cancel');
+          }
+        }
+      ]
+    }).then(actionsheet => {
+      actionsheet.present()
+    })
+  }
+  
 
 }

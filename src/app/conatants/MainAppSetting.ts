@@ -35,7 +35,7 @@ export class MainAppSetting {
 
     getPlatform(){
         this.storageService.getDatafromIonicStorage('platform').then(data => {
-            this.token = data
+            this.platform = data
         })
     }
 

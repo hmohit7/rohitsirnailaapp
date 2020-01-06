@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController, ModalController, AlertController } from '@ionic/angular';
+import { LoadingController, ModalController, AlertController, ActionSheetController } from '@ionic/angular';
 import { TicketService } from '../../services/ticket.service';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import { MaterialSearchPage } from '../../pages/material-search/material-search.page';
@@ -42,7 +42,8 @@ export class TicketDetailsPage implements OnInit {
     private alertService: AlertServiceService,
     private alertCtrl: AlertController,
     public transService: translateService,
-    public trans: TranslateService
+    public trans: TranslateService,
+    private actionSheet: ActionSheetController
   ) {
 
     this.route.queryParamMap.subscribe((params: any) => {
@@ -88,7 +89,7 @@ export class TicketDetailsPage implements OnInit {
       },
         async err => {
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-          this.transService.getTranslatedData('error-alert'))
+            this.transService.getTranslatedData('error-alert'))
           await this.loadingCtrl.dismiss();
         }
       );
@@ -111,7 +112,7 @@ export class TicketDetailsPage implements OnInit {
   }
 
   async updateTicket() {
-    
+
     this.presentLoading();
     if (this.ticketToBeUpdated.ticketCategory) {
       this.ticketToBeUpdated.ticketCategory = this.ticketToBeUpdated.ticketCategoryId;
@@ -324,6 +325,38 @@ export class TicketDetailsPage implements OnInit {
 
   }
 
+  public presentActionSheet() {
+    this.actionSheet.create({
+      header: 'Select image from ',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: 'camera',
+          handler: async () => {
+            this.fileSourceOption('camera');
+          }
+        },
+        {
+          text: 'Library',
+          icon: 'images',
+          handler: () => {
+            this.fileSourceOption('library');
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('cancel');
+          }
+        }
+      ]
+    }).then(actionsheet => {
+      actionsheet.present()
+    })
+  }
+
+
   public openImage(image: string) {
     this.modalController.create({
       component: PictureComponent,
@@ -335,10 +368,10 @@ export class TicketDetailsPage implements OnInit {
 
   formData = {};
 
-  async updatStatus(status:string) {
+  async updatStatus(status: string) {
     let title: string = '';
     const ticketActionStatus = ['resolved']
-    this.trans.get('ticket-details.update.title', { val: status=='in-progress'?'IN PROGRESS':status.toUpperCase()}).subscribe((res: string) => {
+    this.trans.get('ticket-details.update.title', { val: status == 'in-progress' ? 'IN PROGRESS' : status.toUpperCase() }).subscribe((res: string) => {
       title = res
     })
     this.ticketToBeUpdated = Object.assign({}, this.ticket);
@@ -356,11 +389,11 @@ export class TicketDetailsPage implements OnInit {
       return alert.present();
     }
     else if (status !== this.ticketToBeUpdated.status) {
-      if (this.ticketToBeUpdated.status === 'open' 
+      if (this.ticketToBeUpdated.status === 'open'
         && !this.ticketToBeUpdated.agent
         && status !== 'rejected') {
-          title = 'Technician/vendor is not tagged to this ticket. Do you still want to update the ticket status?'
-        }
+        title = 'Technician/vendor is not tagged to this ticket. Do you still want to update the ticket status?'
+      }
       const alert = await this.alertCtrl.create({
         header: title,
         buttons: [

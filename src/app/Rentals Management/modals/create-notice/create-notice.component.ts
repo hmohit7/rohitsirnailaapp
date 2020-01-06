@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { NoticeService } from './../../services/notice.service';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, ActionSheetController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { ProjectSearchPage } from '../../pages/project-search/project-search.page';
@@ -30,7 +30,8 @@ export class CreateNoticeComponent implements OnInit {
     private alertService: AlertServiceService,
     private route: ActivatedRoute,
     public webView: WebView,
-    public transService: translateService
+    public transService: translateService,
+    private actionSheet: ActionSheetController
   ) { }
 
   ngOnInit() { }
@@ -132,6 +133,37 @@ export class CreateNoticeComponent implements OnInit {
   }
   dismiss() {
     this.modalController.dismiss(this.flag);
+  }
+
+  public presentActionSheet() {
+    this.actionSheet.create({
+      header: 'Select image from ',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: 'camera',
+          handler: async () => {
+            this.fileSourceOption('camera');
+          }
+        },
+        {
+          text: 'Library',
+          icon: 'images',
+          handler: () => {
+            this.fileSourceOption('library');
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('cancel');
+          }
+        }
+      ]
+    }).then(actionsheet => {
+      actionsheet.present()
+    })
   }
 
 }
