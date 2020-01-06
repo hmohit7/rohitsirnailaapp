@@ -3,6 +3,7 @@ import { ModalController, LoadingController } from '@ionic/angular';
 import { LoginService } from 'src/app/common-services/login.service';
 import { CountrycodemodalComponent } from 'src/app/login/countrycodemodal/countrycodemodal.component';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
+import * as jsonFile from '../../conatants/organization.json'
 // import { AlertserviceService } from 'src/app/common-services/alertservice.service';
 
 @Component({
@@ -13,7 +14,9 @@ import { AlertServiceService } from 'src/app/common-services/alert-service.servi
 export class NeedHelpComponent implements OnInit {
 
   public requestData: any = {
-    countryCode: '+91'
+    countryCode: '+91',
+    orgName:jsonFile.orgName,
+    appName:jsonFile.appName
   }
 
   // phoneNumber: 8528041001,
