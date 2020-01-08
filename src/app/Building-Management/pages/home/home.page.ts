@@ -57,26 +57,9 @@ export class HomePage implements OnInit {
         err => {
           // this.alertService.presentAlert('Error from push', err);
         });
-  }
 
-
-  async presentLoading() {
-    await this.loadingCtrl.create({
-      spinner: 'lines'
-    }).then(loading => {
-
-      loading.present();
-    });
-  }
-  ionViewDidEnter() {
-
-    this.getTicketStats();
-  }
-
-  async ngOnInit() {
-    this.presentLoading();
-    this.getUserDetails();
     this.pushObject.on('notification').subscribe((notification: any) => {
+      this.loading = false;
       console.log(JSON.stringify(notification));
       // alert(JSON.stringify(notification.additionalData.id));
       if (notification.additionalData.type == 'discussion') {
@@ -84,25 +67,25 @@ export class HomePage implements OnInit {
         console.log('discussion');
         if (notification.additionalData.id) {
           console.log('discussion with id');
-          // this._navCtrl.navigateForward(`/building-management-notice-details`, {
-          //   queryParams: {
-          //     did: notification.additionalData.id
-          //   }
-          // });
+          this._navCtrl.navigateForward(`/building-management-notice-details`, {
+            queryParams: {
+              did: notification.additionalData.id
+            }
+          });
         } else {
           console.log('discussion without id');
-          // this._navCtrl.navigateForward(`/building-management-notice-board`);
+          this._navCtrl.navigateForward(`/building-management-notice-board`);
         }
       } else if (notification.additionalData.type == 'ticket') {
         this.presentAlert(notification.title)
         if (notification.additionalData.id) {
-          // this._navCtrl.navigateForward(`/building-management-ticket-details`, {
-          //   queryParams: {
-          //     ticketId: notification.additionalData.id
-          //   }
-          // });
+          this._navCtrl.navigateForward(`/building-management-ticket-details`, {
+            queryParams: {
+              ticketId: notification.additionalData.id
+            }
+          });
         } else {
-          // this._navCtrl.navigateForward('/building-management-tickets');
+          this._navCtrl.navigateForward('/building-management-tickets');
         }
       }
       // else if (notification.additionalData.type == 'approval') {
@@ -117,6 +100,25 @@ export class HomePage implements OnInit {
       err => {
         // alert(JSON.stringify(err))
       });
+  }
+
+
+  async presentLoading() {
+    await this.loadingCtrl.create({
+      spinner: 'lines'
+    }).then(loading => {
+
+      loading.present();
+    });
+  }
+  ionViewDidEnter() {
+      this.loading == true ? this.presentLoading() : '';
+      this.getTicketStats();
+  }
+
+  async ngOnInit() {
+    this.getUserDetails();
+
   }
 
   async openCreateNoticeModal() {
@@ -208,7 +210,7 @@ export class HomePage implements OnInit {
         console.log(this.ticketStats);
       },
         err => {
-          this.loadingCtrl.dismiss();
+          this.loading == true ? this.loadingCtrl.dismiss() : '';
           this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
         }
       );
@@ -238,13 +240,13 @@ export class HomePage implements OnInit {
       console.log("---------++---------")
 
       if (!text) {
-        this.loadingCtrl.dismiss();
+        this.loading == true ? this.loadingCtrl.dismiss() : '';
         this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), 'Invalid barcode');
       } else {
-        await this.presentLoading();
+        this.loading == true ? await this.presentLoading() : '';
         this.ticketService.searchAssert(text)
           .subscribe(async (data: any) => {
-            this.loadingCtrl.dismiss();
+            this.loading == true ? this.loadingCtrl.dismiss() : '';
             await this.alertCtrl.create({
               header: data.name,
               message: `
@@ -284,7 +286,7 @@ export class HomePage implements OnInit {
             console.log(data);
           },
             err => {
-              this.loadingCtrl.dismiss();
+              this.loading == true ? this.loadingCtrl.dismiss() : '';
               this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.message);
             }
           );
