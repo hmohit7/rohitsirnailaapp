@@ -25,7 +25,7 @@
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/device": "^5.17.1",
     "@ionic-native/file": "^5.8.0",
-    "@ionic-native/file-path": "^5.18.0",
+    "@ionic-native/file-path": "^5.19.1",
     "@ionic-native/file-transfer": "^5.8.0",
     "@ionic-native/http": "^5.17.1",
     "@ionic-native/ionic-webview": "^5.13.0",
@@ -37,7 +37,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "cordova-android": "^8.1.0",
-    "cordova-ios": "^5.1.0",
+    "cordova-ios": "^5.1.1",
     "cordova-plugin-advanced-http": "^2.2.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "^2.0.2",
@@ -118,7 +118,8 @@
       "cordova-plugin-filepath": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
