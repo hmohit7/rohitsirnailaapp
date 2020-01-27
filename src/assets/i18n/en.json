@@ -13,7 +13,7 @@
         "calendar": "Calendar",
         "ticket": "Tickets",
         "discussion": "Notice board",
-        "approval": "Apporvals",
+        "approval": "Approvals",
         "contact-us": "Contact us",
         "profile": "Profile",
         "logout": "Logout"
@@ -52,7 +52,7 @@
     },
     "home": {
         "string1": "Hi",
-        "string2": "Ticket stats",
+        "string2": "Ticket status",
         "open": "Open",
         "in-progress": "In Progress",
         "resolved": "Resolved",
@@ -72,7 +72,7 @@
     "contact-us": {
         "title": "Contact Us",
         "note": "Send us an email",
-        "placeholder": "Drop yout comment here...",
+        "placeholder": "Drop your comment here...",
         "submit-button": "Submit",
         "message": "Thanks for your request. We will get back to you at the earliest."
     },
@@ -85,7 +85,7 @@
         "add-picture": "Click here to add picture",
         "submit": "Submit",
         "notice-created": "Notice Created",
-        "picture-limit": "Only one pitcure is allowed!!"
+        "picture-limit": "Only one picture is allowed!!"
     },
     "estimate": {
         "title": "Estimate",
@@ -105,7 +105,7 @@
         "ticket-update-success": "Ticket Updated",
         "select-unit-project-alert": "Select a unit/project",
         "select-cat-alert": "Select a category first",
-        "picture-limit": "Only one pitcure is allowed!!",
+        "picture-limit": "Only one picture is allowed!!",
         "raise-ticket-for": "Raise Ticket For ",
         "click-here-to": "Click here to select ",
         "unit": "Unit",
@@ -119,9 +119,9 @@
         "a-unit": "an unit",
         "select-unit": "Click here to select an unit",
         "category": "Category",
-        "select-category": "Click here to select an category",
+        "select-category": "Click here to select a category",
         "sub-category": "Sub Category",
-        "select-sub-category": "Click here to select an sub category",
+        "select-sub-category": "Click here to select a sub category",
         "ticket-description": "Ticket Description",
         "description-placeholder": "Drop your notes here",
         "poc": "Point of contact",
@@ -134,7 +134,7 @@
         "time-placeholder": "hh:mm",
         "end-date": "Job end date",
         "end-time": "Job end time",
-        "add-picture": "Click here to take a pitcure",
+        "add-picture": "Click here to take a picture",
         "submit-button": "Submit"
     },
     "ticket-filter": {
@@ -213,7 +213,7 @@
         "comment-placeholder": "Type your comment here",
         "comment": "Comment",
         "no-comment": "No comments found",
-        "no-checklist": "No checklist found found",
+        "no-checklist": "No checklist found",
         "quotation": "Quotation",
         "no-estimate": "No estimate found",
         "born-by-customer": "Borne by customer",
@@ -239,7 +239,7 @@
         "title": "User Approval",
         "empty-array": "No Approval found!",
         "req-by": "Requested By :- ",
-        "approval-success": "User approval successfull",
+        "approval-success": "User approval successful",
         "reject-user": "User rejected successfully"
     },
     "notice-board": {
@@ -275,7 +275,7 @@
         "add-picture": "Click here to add picture",
         "submit": "Submit",
         "notice-created": "Notice Created",
-        "picture-limit": "Only one pitcure is allowed!!"
+        "picture-limit": "Only one picture is allowed!!"
     },
     "approval-popup-modal": {
         "title": "Are you sure you want to {{val}} this user's approval request?",

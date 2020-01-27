@@ -28,7 +28,7 @@ export class RentalsComponent {
                 src: '/assets/icon/communications.png'
             },
             {
-                title: 'Apporvals',
+                title: 'Approvals',
                 url: '/user-approval',
                 src: '/assets/icon/approval.png'
             },

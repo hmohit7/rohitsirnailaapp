@@ -53,7 +53,7 @@ export class MainAppSetting {
     }
 
     setPlatformAfterLogin(data: string) {
-        console.log('Step 3 -------------recieved platform data', data);
+        console.log('Step 3 -------------received platform data', data);
 
 
         this.platform = data

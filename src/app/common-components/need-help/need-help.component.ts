@@ -50,7 +50,7 @@ export class NeedHelpComponent implements OnInit {
       this.alertService.presentAlert("","Thank you for your response, we will get back to you at the earliest")
     }, async err => {
       await this.loadingCtrl.dismiss()
-      this.alertService.presentAlert("","Sometng went wrong")
+      this.alertService.presentAlert("","Something went wrong")
 
     })
     console.log(this.requestData);

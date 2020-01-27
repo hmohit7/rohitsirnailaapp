@@ -157,7 +157,7 @@ export class AddUserComponent implements OnInit {
     this.userApprovalService.createUserApproval(this.adduser).subscribe(
       async (data) => {
         // await this.loadingCtrl.dismiss();
-        this.alertService.presentAlert('', 'User approval request recieved')
+        this.alertService.presentAlert('', 'User approval request received')
         this.modalCtrl.dismiss()
         // this.navController.navigateRoot('/login');
       }, async err => {

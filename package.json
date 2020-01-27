@@ -103,8 +103,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-file-transfer": {},
       "phonegap-plugin-push": {
-        "ANDROID_SUPPORT_V13_VERSION": "27.+",
-        "FCM_VERSION": "11.6.2"
+        "FCM_VERSION": "15.0.0",
+        "ANDROID_SUPPORT_V13_VERSION": "27.+"
       },
       "cordova-plugin-advanced-http": {
         "OKHTTP_VERSION": "3.10.0"
@@ -115,7 +115,15 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-filepath": {}
+      "cordova-plugin-filepath": {},
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-nativegeocoder": {
+        "LOCATION_WHEN_IN_USE_DESCRIPTION": "Use geocoder service"
+      },
+      "cordova-plugin-googlemaps": {
+        "PLAY_SERVICES_VERSION": "15.0.1",
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      }
     },
     "platforms": [
       "android",

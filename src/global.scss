@@ -260,6 +260,10 @@
   padding-left: 10px !important;
 }
 
+.padding-left-15 {
+  padding-left: 15px !important;
+}
+
 .height-40 {
   height: 40px !important;
 }
@@ -720,12 +724,25 @@
 .border-grey-1 {
   border: 1px solid gray !important;
 }
+
+.border-top-1-light-grey {
+  border-top: 1px solid lightgray !important;
+}
+
 .border-bottom-grey-1 {
   border-bottom: 1px solid lightgray !important;
 }
 
+.border-right-1-light-grey {
+  border-right: 1px solid lightgray !important;
+}
+
 .margin-top-minus-10 {
   margin-top: -10px !important;
+}
+
+.margin-top-minus-6 {
+  margin-top: -6px !important;
 }
 
 .margin-top-0 {
@@ -783,14 +800,21 @@ ion-chip {
 .super-script {
   color: red;
 }
+
 .justify-center {
   justify-content: center !important;
 }
+
 .display-flex {
   display: flex !important;
 }
+
 .display-block {
   display: block !important;
+}
+
+.display-grid {
+  display: grid !important;
 }
 
 .width-100-percent {
@@ -828,6 +852,14 @@ ion-chip {
 
 .line-height-22 {
   line-height: 22px !important;
+}
+
+.align-self-baseline {
+  align-self: baseline !important;
+}
+
+.align-self-center {
+  align-self: center !important;
 }
 
 // .alert-button {

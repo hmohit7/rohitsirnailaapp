@@ -116,7 +116,7 @@ export class CreateTicketPage implements OnInit {
             this.ticketData.contactPointName = this.ticketData.contactPointName + ' ' + data.contactPoint.lastName;
           }
         }
-        if (data.files.lenght > 0) {
+        if (data.files.length > 0) {
           this.images = data.files
         }
 

@@ -307,7 +307,7 @@ export class TicketDetailsPage implements OnInit {
       this.updateTicket();
     }
     // } else {
-    // this.alertService.presentAlert("Alert", "Only one pitcure is allowed!!")
+    // this.alertService.presentAlert("Alert", "Only one picture is allowed!!")
     // }
   }
 

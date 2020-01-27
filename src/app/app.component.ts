@@ -47,6 +47,16 @@ export class AppComponent {
         url: `-contact-us`,
         src: '/assets/icon/phone.png'
       },
+      // {
+      //   title: 'Project ',
+      //   url: `-my-data-project`,
+      //   src: '/assets/icon/phone.png'
+      // },
+      // {
+      //   title: 'Unit',
+      //   url: `-my-data-unit-search`,
+      //   src: '/assets/icon/phone.png'
+      // },
       {
         title: 'app-component.profile',
         url: `-profile`,
@@ -77,9 +87,9 @@ export class AppComponent {
     private storageService: StorageService,
     private storage: Storage,
     private loadingCtrl: LoadingController,
-    private rentalsUserService:RentalsUserService,
-    private alertService:AlertServiceService,
-    private buildingUserService:BuildingUserService
+    private rentalsUserService: RentalsUserService,
+    private alertService: AlertServiceService,
+    private buildingUserService: BuildingUserService
     // private push: Push
   ) {
     this.initializeApp();

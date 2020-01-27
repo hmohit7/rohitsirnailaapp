@@ -123,6 +123,33 @@
   --ion-color-base: #1bb293 !important;
   --ion-color-contrast: #ffffff !important;
 }
+
+.ion-color-occupied_by_tenant {
+  --ion-color-base: #69f0ae !important;
+}
+
+.ion-color-under_notice {
+  --ion-color-base: #FFAEAD !important;
+}
+
+.ion-color-not_ready {
+  --ion-color-base: #ACC0ff !important;
+}
+
+.ion-color-vacant {
+  --ion-color-base: #FFEBB3 !important;
+}
+
+.ion-color-white {
+  --ion-color-contrast: #ffffff !important;
+}
+
+.ion-color-black {
+  --ion-color-base: #000000 !important;
+  --ion-color-contrast: #ECECEC !important;
+}
+
+
 .alert-button-inner.sc-ion-alert-md {
   justify-content: center !important;
 }

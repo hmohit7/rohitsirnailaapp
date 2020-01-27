@@ -25,6 +25,11 @@ const routes: Routes = [
     { path: 'rentals-user-approval', loadChildren: '../Rentals Management/pages/user-approval/user-approval.module#UserApprovalPageModule' },
     { path: 'rentals-contact-us', loadChildren: '../Rentals Management/pages/contact-us/contact-us.module#ContactUsPageModule' },
     { path: 'rentals-estimate', loadChildren: '../Rentals Management/pages/estimate/estimate.module#EstimatePageModule' },
+    { path: 'rentals-my-data-project', loadChildren: '../Rentals Management/mydata/project/project-search/my-data-project.module#MyDataProjectPageModule' },
+    { path: 'rentals-my-data-project-details', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },
+    { path: 'rentals-my-data-project-details/:id', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },
+    { path: 'rentals-my-data-unit-search', loadChildren: '../Rentals Management/mydata/Unit/my-data-unit-search/my-data-unit-search.module#MyDataUnitSearchPageModule' },
+    { path: 'rentals-my-data-unit-details/:id', loadChildren: './mydata/Unit/unit-details/unit-details.module#UnitDetailsPageModule' },
 ];
 
 @NgModule({
