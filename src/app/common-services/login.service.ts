@@ -28,7 +28,7 @@ export class LoginService {
     if (this.appFor == 'alpha') {
       API = 'https://alpha.thehousemonk.com';
     } else if (this.appFor == 'production') {
-      API = 'https://thehousemonk.com';
+      API = 'https://admin.grexter.in';
     }
     return this.http.post(`${API}/shared-resource/webhook/support/email`, data, this.appSettings.getHttpHeades());
   }
@@ -58,4 +58,41 @@ export class LoginService {
     return this.http.post(`${this.appSettings.getApi()}/api/verify-phone`, data, this.appSettings.getHttpHeades());
   }
 
+  userSignup(data: any): Observable<any> {
+    return this.http.post(
+      `${this.appSettings.getApi()}/api/v1/user/send_otp`,data,this.appSettings.getHttpHeades()
+    );
+
+
+
+    
+  }
+      confirmOtp(data:any): Observable<any> {
+        return this.http.post(
+          `${this.appSettings.getApi()}/api/v1/user/verify_otp`,data,this.appSettings.getHttpHeades()
+        );
+      }
+
+
+      registerUser(data:any): Observable<any> {
+        return this.http.post(
+          `${this.appSettings.getApi()}/api/v1/auth/`,data,this.appSettings.getHttpHeades()
+        );
+      }
+
+      registeredUser(data:any): Observable<any> {
+        return this.http.post(
+          `${this.appSettings.getApi()}/api/v1/auth/sign_in`,data,this.appSettings.getHttpHeades()
+        );
+      }
+
+
+      resendOtp(data:any): Observable<any> {
+        return this.http.post(
+          `${this.appSettings.getApi()}/api/v1/user/resend_otp`,data,this.appSettings.getHttpHeades()
+        );
+      }
+
+
+      
 }

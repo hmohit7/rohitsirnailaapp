@@ -7,9 +7,9 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  { path: 'building-management', loadChildren: '../app/Building-Management/building-management.module#BuildingManagementModule' },
-  { path: 'rentals', loadChildren: '../app/Rentals Management/rental-management.module#RentalsManagementModule' },
+  // { path: 'building-management', loadChildren: '../app/Building-Management/building-management.module#BuildingManagementModule' },
   { path: 'login', loadChildren: '../app/login/login.module#LoginPageModule' },
+  { path: 'rentals', loadChildren: '../app/Rentals Management/rental-management.module#RentalsManagementModule' },
 ];
 
 @NgModule({

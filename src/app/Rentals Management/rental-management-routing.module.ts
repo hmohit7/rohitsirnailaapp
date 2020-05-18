@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'rentals-home',
+        redirectTo: 'rentals-naila-search-page',
         pathMatch: 'full'
     },
     { path: 'rentals-home', loadChildren: '../Rentals Management/pages/home/home.module#HomePageModule' },
@@ -25,7 +25,27 @@ const routes: Routes = [
     { path: 'rentals-user-approval', loadChildren: '../Rentals Management/pages/user-approval/user-approval.module#UserApprovalPageModule' },
     { path: 'rentals-contact-us', loadChildren: '../Rentals Management/pages/contact-us/contact-us.module#ContactUsPageModule' },
     { path: 'rentals-estimate', loadChildren: '../Rentals Management/pages/estimate/estimate.module#EstimatePageModule' },
-    // { path: 'rentals-my-data-project', loadChildren: '../Rentals Management/mydata/project/project-search/my-data-project.module#MyDataProjectPageModule' },
+    { path: 'rentals-naila-search-page', loadChildren: '../Rentals Management/pages/nailasearchpage/nailasearchpage.module#NailasearchPageModule' },
+    { path: 'rentals-naila-service-page', loadChildren: '../Rentals Management/pages/nailaservicepage/nailaservicepage.module#NailaservicePageModule' },
+
+
+
+    { path: 'rentals-naila-offers-page', loadChildren: '../Rentals Management/pages/nailaofferspage/nailaofferspage.module#NailaOffersPageModule' },
+
+    { path: 'rentals-naila-offers-listing-page', loadChildren: '../Rentals Management/pages/nailaofferslisting/nailaofferslisting.module#NailaoffersListingPageModule' },
+
+    
+    
+    { path: 'rentals-naila-account-page', loadChildren: '../Rentals Management/pages/nailaaccountpage/nailaaccountpage.module#NailaAccountPageModule' },
+
+
+    { path: 'rentals-naila-booking-page', loadChildren: '../Rentals Management/pages/nailabooking/nailabooking.module#NailabookingPageModule' },
+
+    { path: 'rentals-naila-cart-page', loadChildren: '../Rentals Management/pages/nailacart/nailacart.module#NailaCartPageModule' },
+
+
+    
+    
     // { path: 'rentals-my-data-project-details', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },
     // { path: 'rentals-my-data-project-details/:id', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },
     // { path: 'rentals-my-data-unit-search', loadChildren: '../Rentals Management/mydata/Unit/my-data-unit-search/my-data-unit-search.module#MyDataUnitSearchPageModule' },

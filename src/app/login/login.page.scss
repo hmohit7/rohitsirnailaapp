@@ -11,7 +11,13 @@ ion-item {
   --padding-start: 0px;
   --padding-top: 0px;
 }
-
+ion-modal {
+  position: absolute;
+  top: 80%;
+  width: 80% !important;
+  display: block;
+  height: 80% !important;
+}
 .grandient-background {
   background: rgba(226, 226, 226, 1);
   background: -moz-linear-gradient(
@@ -64,4 +70,14 @@ ion-item {
     rgba(254, 254, 254, 1) 100%
   );
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=1 );
+}
+.image-align{
+  align-self: center;
+}
+.row-height{
+  height: 200px;
+}
+
+.login-page-padding{
+  margin-top: 10vh;
 }

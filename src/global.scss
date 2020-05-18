@@ -78,10 +78,6 @@
   margin-bottom: 20px !important;
 }
 
-.no-ripple {
-  --ripple-color: transparent;
-}
-
 .ticket-details-list {
   // margin-top: 6px !important;
   background-color: white !important;
@@ -135,12 +131,15 @@
   font-size: small !important;
 }
 
-.font-10 {
-  font-size: 10px !important;
+.font-8 {
+  font-size: 8px !important;
 }
 
-.font-11 {
-  font-size: 11px !important;
+.font-9 {
+  font-size: 9px !important;
+}
+.font-10 {
+  font-size: 10px !important;
 }
 
 .font-12 {
@@ -209,19 +208,6 @@
   font-weight: bold !important;
 }
 
-
-.ion-item {
-  --inner-padding-bottom: 0px !important;
-  --inner-padding-end: 0px !important;
-  --inner-padding-start: 0px !important;
-  --inner-padding-top: 0px !important;
-  --padding-bottom: 0px !important;
-  --padding-end: 0px !important;
-  --padding-start: 0px !important;
-  --padding-top: 0px !important;
-}
-
-
 .discussion-comment {
   background: #fafafa;
 }
@@ -258,10 +244,6 @@
 
 .padding-left-10 {
   padding-left: 10px !important;
-}
-
-.padding-left-15 {
-  padding-left: 15px !important;
 }
 
 .height-40 {
@@ -321,16 +303,8 @@
   padding-left: 0px !important;
 }
 
-.padding-left-5 {
-  padding-left: 5px !important;
-}
-
 .padding-right-0 {
   margin-right: 0px !important;
-}
-
-.padding-right-5 {
-  padding-right: 5px !important;
 }
 
 .margin-5 {
@@ -356,6 +330,9 @@
   margin-right: 10px !important;
 }
 
+.margin-right-1 {
+  margin-right: 2vw !important;
+}
 .margin-left-30 {
   margin-left: 30px !important;
 }
@@ -377,16 +354,16 @@
   margin-top: 3px !important;
 }
 
-.margin-top-30 {
-  margin-top: 30px !important;
-}
-
 .margin-top-7 {
   margin-top: 7px !important;
 }
 
 .margin-left-10 {
   margin-left: 10px !important;
+}
+
+.margin-left-1 {
+  margin-left: 3vw !important;
 }
 
 .margin-left-15 {
@@ -403,10 +380,6 @@
 
 .margin-bottom-0 {
   margin-bottom: 0px !important;
-}
-
-.margin-bottom-minus-10 {
-  margin-bottom: -10px !important;
 }
 
 .margin-bottom-5 {
@@ -484,6 +457,10 @@
 
 .padding-top-10 {
   padding-top: 10px !important;
+}
+
+.padding-top-12{
+  padding-top: 12px !important;
 }
 
 .padding-top-30 {
@@ -620,6 +597,9 @@
 .icon-25 {
   height: 25px !important;
   width: 25px !important;
+  // background: white;
+  // border-radius: 25px;
+  // border: 1px solid white;
 }
 
 .icon-40 {
@@ -724,25 +704,12 @@
 .border-grey-1 {
   border: 1px solid gray !important;
 }
-
-.border-top-1-light-grey {
-  border-top: 1px solid lightgray !important;
-}
-
 .border-bottom-grey-1 {
   border-bottom: 1px solid lightgray !important;
 }
 
-.border-right-1-light-grey {
-  border-right: 1px solid lightgray !important;
-}
-
 .margin-top-minus-10 {
   margin-top: -10px !important;
-}
-
-.margin-top-minus-6 {
-  margin-top: -6px !important;
 }
 
 .margin-top-0 {
@@ -796,29 +763,21 @@ ion-chip {
 .margin-top-5 {
   margin-top: 5px !important;
 }
+.margin-top-25 {
+  margin-top: 25px !important;
+}
 
 .super-script {
   color: red;
 }
-
 .justify-center {
   justify-content: center !important;
 }
-
 .display-flex {
   display: flex !important;
 }
-
 .display-block {
   display: block !important;
-}
-
-.display-grid {
-  display: grid !important;
-}
-
-.width-100-percent {
-  width: 100% !important;
 }
 
 .platform-button {
@@ -826,11 +785,6 @@ ion-chip {
   margin-right: 0px !important;
   margin-bottom: 5px !important;
   text-align: center !important;
-}
-
-.thm-logo {
-  height: 40px !important;
-  width: 135px !important;
 }
 
 .alert-button-inner {
@@ -847,19 +801,7 @@ ion-chip {
 }
 
 .btn-color {
-  color: #f04141 !important;
-}
-
-.line-height-22 {
-  line-height: 22px !important;
-}
-
-.align-self-baseline {
-  align-self: baseline !important;
-}
-
-.align-self-center {
-  align-self: center !important;
+  color: #1a3868 !important;
 }
 
 // .alert-button {
@@ -882,3 +824,46 @@ ion-chip {
 //     padding: 0px !important;
 //   }
 // }
+
+
+.alertOTPcss{
+  .alert-title {
+  font-size: 17px !important; 
+  color: #1a3868;
+  }
+  .alert-message{
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+
+.text-black{
+  color: black !important;
+}
+
+
+.text-ncolor{
+  color: #EAC51D !important;
+}
+.text-nunderline{
+  text-decoration: underline !important;
+  
+}
+
+ion-button{
+  --background: #EAC51D !important;
+}
+
+ion-item{
+  --detail-icon-color: #EAC51D !important;;
+  --detail-icon-opacity:1;
+}
+
+.cart-number{
+  font-size: 7px;
+  color: red;
+  position: absolute;
+  left: 7px;
+  top: -8px;
+}

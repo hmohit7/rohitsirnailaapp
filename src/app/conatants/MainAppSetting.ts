@@ -43,7 +43,9 @@ export class MainAppSetting {
         const httpHeades = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
+               
             })
+           
         };
         return httpHeades;
     }
@@ -64,7 +66,10 @@ export class MainAppSetting {
         const httpHeadesWithToken = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                'authorization': /**window.localStorage.getItem('token')*/ this.token
+                'authorization': /**window.localStorage.getItem('token')*/ this.token,
+                
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': 'true'
             })
         };
         return httpHeadesWithToken;
@@ -86,7 +91,7 @@ export class MainAppSetting {
         if (this.ORG == "Both") {
             if (window.localStorage.getItem('platform') == "rm") {
                 if (this.appFor == 'alpha') {
-                    API = 'http://52.220.118.81:3020';
+                    API = 'https://admin.grexter.in';
                 } else if (this.appFor == 'production') {
                     API = 'https://rentals.thehousemonk.com'
                 }
@@ -102,9 +107,9 @@ export class MainAppSetting {
             this.storageService.storeDataToIonicStorage('appSrc', 'rentals');
 
             if (this.appFor == 'alpha') {
-                API = 'http://52.220.118.81:3020';
+                API = 'http://naila.herokuapp.com';
             } else if (this.appFor == 'production') {
-                API = 'https://rentals.thehousemonk.com'
+                API = 'http://naila.herokuapp.com'
             }
         } else if (this.ORG == "BM") {
             window.localStorage.setItem('appSrc', 'building-management');

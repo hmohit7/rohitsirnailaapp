@@ -1,38 +1,58 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
-import { translateService } from 'src/app/common-services/translate /translate-service.service';
-import { TranslateService } from '@ngx-translate/core';
+import { Component } from '@angular/core';
+
+declare var RazorpayCheckout: any;
 
 @Component({
-  selector: 'app-approvalpopup',
-  templateUrl: './approvalpopup.component.html',
-  styleUrls: ['./approvalpopup.component.scss'],
+  selector: 'app-razor',
+  templateUrl: 'approvalpopup.component.html',
+  styleUrls: ['approvalpopup.component.scss'],
 })
-export class ApprovalpopupComponent implements OnInit {
+export class ApprovalpopupComponent {
+  paymentAmount: number = 333;
+  currency: string = 'INR';
+  currencyIcon: string = '₹';
+  razor_key = 'rzp_test_W6w8NUHKBgXqpL';
+  cardDetails: any = {};
 
-  constructor(
-    private popoverCtrl: PopoverController,
-    public transService: translateService,
-    public trans: TranslateService
-  ) { }
-  @Input() val;
-  public notes;
-  public flag;
-  public title
-  ngOnInit() {
-    this.trans.get('approval-popup-modal.title', { val: this.val }).subscribe((res: string) => {
-      this.title = res
-    })
+
+  constructor() {
   }
-  cancel() {
-    this.popoverCtrl.dismiss()
-  }
-  dismiss() {
-    let data = {
-      val: this.val,
-      notes: this.notes || {}
-    }
-    this.popoverCtrl.dismiss(data)
+
+
+
+  payWithRazor() {
+
+    var options = {
+      description: 'Credits towards consultation',
+      image: 'https://i.imgur.com/3g7nmJC.png',
+      currency: this.currency,
+      key: this.razor_key,
+      amount: this.paymentAmount,
+      name: 'Naila',
+      prefill: {
+        email: 'hmohit7@gmail.com',
+        contact: '9880013407',
+        name: 'Naila'
+      },
+      theme: {
+        color: '#F37254'
+      },
+      modal: {
+        ondismiss: function () {
+          alert('dismissed')
+        }
+      }
+    };
+
+    var successCallback = function (payment_id) {
+      alert('payment_id: ' + payment_id);
+    };
+
+    var cancelCallback = function (error) {
+      alert(error.description + ' (Error ' + error.code + ')');
+    };
+
+    RazorpayCheckout.open(options, successCallback, cancelCallback);
   }
 
 }

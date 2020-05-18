@@ -25,6 +25,11 @@ import { HTTP } from '@ionic-native/http/ngx'
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  sendotpinput;
+  registereduser;
+  enterpassword;
+  enterotp;
+  newpassword;
 
   // To store the form data
   loginData: any = {
@@ -61,9 +66,16 @@ export class LoginPage implements OnInit {
     // private smsRetriever: SmsRetriever,
     private MenuController: MenuController,
     private popover: PopoverController,
-    private storageService: StorageService
+    private storageService: StorageService,
+
   ) {
     MenuController.enable(false)
+    this.sendotpinput=true;
+    this.registereduser=false;
+    this.enterpassword=true;
+    this.enterotp=true;
+    this.newpassword=true;
+
 
     // this.mixpanel.init('1350cf4808c3adbdd9ef79625d091dc7').then(success => {
     // }).catch(err => {
@@ -404,7 +416,9 @@ export class LoginPage implements OnInit {
     // this.storageService.storeDataToIonicStorage('optedForDiscussion', data.ids[0].config.optedForDiscussion);
 
 
-    this.navCtrl.navigateRoot(`/${this.appSrc}-home`);
+    // this.navCtrl.navigateRoot(`/${this.appSrc}-home`);
+        this.navCtrl.navigateRoot(`/rentals-naila-search-page`);
+
     // this.router.navigateByUrl(`/${window.localStorage.getItem('appSrc')}-home`);
 
 
@@ -711,4 +725,119 @@ export class LoginPage implements OnInit {
     })
   }
 
+// coded by harsh
+  sendOtpInput
+  userSignup() {
+    this.sendOtpInput = false;
+    this.enterotp = true;
+    const data = {
+      mobile: "+91" + this.loginData.phoneNumber
+    }
+    this.loginService.userSignup(data).subscribe(data => {
+      if (data) {
+        this.enterotp = false;
+        this.sendotpinput = true;
+
+
+      }
+    })
+  }
+
+  toggleSignup() {
+    this.sendotpinput = false;
+    this.registereduser = true;
+    this.enterotp = true;
+    this.newpassword=true;
+  }
+
+
+  confirmOtp(){
+    const data={
+      mobile: "+91" + this.loginData.phoneNumber,
+      otp: 
+    this.loginData.accessCode1 +
+    this.loginData.accessCode2 +
+    this.loginData.accessCode3 +
+    this.loginData.accessCode4 
+    }
+    this.loginService.confirmOtp(data).subscribe(data => {
+      if (data) {
+        this.enterotp = true;
+        this.sendotpinput = true;
+        this.newpassword=false;
+
+
+
+      }
+    })
+  }
+  registerUser(){
+
+const data={
+  
+    "name": this.loginData.name,
+    "contact": "+91" + this.loginData.phoneNumber,
+    "password": this.loginData.password,
+    "password_confirmation": this.loginData.passwordCheck  
+  
+}
+
+
+    this.loginService.registerUser(data).subscribe(data => {
+      if (data) {
+        this.enterotp = true;
+        this.sendotpinput = true;
+        this.newpassword=true;
+        this.registereduser = false;
+      }
+    })
+  }
+
+  registeredUser(){
+
+   const data={
+    "contact": "+91" + this.loginData.phoneNumber,
+      "password": this.loginData.password
+    }
+    this.loginService.registeredUser(data).subscribe(data => {
+      if (data) {
+
+        window.localStorage.setItem('uid', data.uid);
+        window.localStorage.setItem('registereduser', 'true');
+        window.localStorage.setItem('user_id', data.id);
+
+        this.enterotp = true;
+        this.sendotpinput = true;
+        this.newpassword=true;
+        this.registereduser = true;
+        this.enterpassword=true;
+        this.router.navigateByUrl('/rentals-naila-search-page')
+
+      }
+    })
+  
+  }
+  togglesubmitpassword(){
+    this.enterotp = true;
+    this.sendotpinput = true;
+    this.newpassword=true;
+    this.registereduser = true;
+    this.enterpassword=false;
+  }
+
+  toggelLoginClicked(){
+    this.enterotp = true;
+    this.sendotpinput = true;
+    this.newpassword=true;
+    this.registereduser = false;
+    this.enterpassword=true;
+  }
+  resendOtp(){
+    const data = {
+      mobile: "+91" + this.loginData.phoneNumber
+    }
+    this.loginService.resendOtp(data).subscribe(data=>{
+
+    })
+  }
 }

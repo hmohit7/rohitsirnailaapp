@@ -8,7 +8,7 @@ import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
 })
 export class TicketService {
 
-  apiUrl = 'https://alpha.thehousemonk.com';
+  apiUrl = 'https://admin.grexter.in';
 
   constructor(
     private http: HttpClient,

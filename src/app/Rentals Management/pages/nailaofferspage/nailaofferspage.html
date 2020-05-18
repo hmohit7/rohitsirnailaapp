@@ -1,0 +1,53 @@
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
+      <ion-button style="color: black">
+          <img src="../../../../assets/icons.png" width="30px" height="30px"/>
+      </ion-button>
+    </ion-buttons> -->
+
+    <ion-title>Offers</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-searchbar placeholder="Browse offers" mode="ios"
+    [(ngModel)]="searchTerm"
+  ></ion-searchbar>
+  <ion-row class="center-text">
+    <ion-col *ngFor="let item of listbanner" size="6">
+
+      <ion-card class="myCard">
+        <img 
+          src={{item.image.url}} />
+        <div class="myOverlay">
+          <div class="card-title">{{item.name}}</div>
+        </div>
+      </ion-card>
+
+    </ion-col>
+    <!-- <ion-col>
+
+      <ion-card class="myCard">
+        <img style="    height: 155px;"
+          src="assets/imgs/dryer.jpg" />
+        <div class="myOverlay">
+          <div class="card-title">Styling</div>
+        </div>
+      </ion-card>
+    </ion-col> -->
+
+
+  
+
+  </ion-row>
+
+
+
+</ion-content>

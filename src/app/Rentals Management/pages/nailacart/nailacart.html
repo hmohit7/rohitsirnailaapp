@@ -1,0 +1,225 @@
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
+      <ion-button style="color: black">
+          <img src="../../../../assets/icons.png" width="30px" height="30px"/>
+      </ion-button>
+    </ion-buttons> -->
+
+    <ion-title>Cart</ion-title>
+  </ion-toolbar>
+
+  <!-- <ion-segment value="all">
+    <ion-segment-button value="all">
+      <ion-label>Upcoming</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="favorites">
+      <ion-label>Past</ion-label>
+    </ion-segment-button>
+  </ion-segment> -->
+</ion-header>
+
+<ion-content padding>
+  <ion-row *ngFor="let item of temp">
+    <div style="    width: 100% !important;
+    display: flex !important;" *ngIf="item.servicecount">
+    <ion-col size="3">
+      <img class="float-left" style="width: 100px;
+          height: 45px;
+          margin-top: 5px;
+          position: absolute;
+          border-radius: 5px;" src={{item.service.image.url}} alt="">
+    </ion-col>
+    <ion-col size="9">
+
+
+      <ion-list class="padding-bottom-0">
+        <ion-item  lines="none">
+          <ion-label style="text-align: start;" class="margin-0">
+            <p class="gotham-medium" text-wrap>
+              <small class="float-left font-weight-600 text-black">{{item.service.name}}</small>
+              <!-- <span class="center-text"> hello</span>-->
+            </p>
+            <small class="font-10  txt-grey">
+              {{item.service.no_of_minuties}} min
+            </small>
+          </ion-label>
+          <!-- <small class="float-right gotham">Rs.900</small>  -->
+          <!-- <ion-label style="text-align: end;     padding-right: 10px;" class="margin-0 "> -->
+            <!-- <p class="gotham-medium" text-wrap>
+              <small class="font-10">15|02|2020</small>
+            <span class="center-text"> hello</span>-->
+            <!-- </p>
+            <small class="font-10 txt-grey">
+              Rs. 900
+            </small> --> 
+
+            <ion-item class="center-text" lines="none">
+              <ion-icon (click)="itemCounter('plus',item)" name="add-circle" style="zoom: 1.1; color: black;"></ion-icon>
+                <p  class="add-sub">{{item.servicecount}}</p>                   
+                <ion-icon (click)="itemCounter('minus',item)" name="remove-circle" style="zoom: 1.1;color: black;"></ion-icon>
+                <!-- <button ion-button (click)="addCart()">Add to cart</button> -->
+             </ion-item>
+          <!-- </ion-label> -->
+          <!-- <small class="float-right gotham">Details</small>  -->
+
+        </ion-item>
+      </ion-list>
+
+    </ion-col>
+</div>
+  </ion-row>
+
+  <!-- <hr> -->
+
+  <ion-row class="margin-top-25">
+    <ion-col size="6">
+      <ion-input [(ngModel)]="coupon" style="border-radius: 6px;
+      background: #F0F0F0;"></ion-input>
+    </ion-col>
+
+    <ion-col size="6">
+      <ion-button *ngIf="!discount" (click)="applyCoupon(coupon)" class="float-right font-10 margin-top-0">Apply Coupon</ion-button>
+      <ion-button *ngIf="discount" (click)="removeCoupon()" class="float-right font-10 margin-top-0">Remove Coupon</ion-button>
+
+    </ion-col>
+
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+
+
+      <ion-list style="margin-left: -15px;">
+        <ion-item style="height: 44px;" lines="none">
+          <ion-label class="cart-details">Total Price</ion-label>
+        </ion-item>
+        <ion-item style="height: 44px;" lines="none">
+          <ion-label class="cart-details">Total Time</ion-label>
+        </ion-item>
+        <ion-item style="height: 44px;" lines="none">
+          <ion-label class="cart-details">Payment Method</ion-label>
+        </ion-item>
+        <ion-item style="height: 44px;" lines="none">
+          <ion-label class="cart-details">Selected Apartment</ion-label>
+        </ion-item>
+
+        <ion-item style="height: 44px;" lines="none">
+          <ion-label class="cart-details">Address</ion-label>
+        </ion-item>
+        <ion-item style="height: 44px;" lines="none">
+          <ion-label class="cart-details">Flat No</ion-label>
+        </ion-item>
+        <ion-item style="height: 44px;" lines="none">
+          <ion-label class="cart-details">Date</ion-label>
+        </ion-item>
+        <ion-item style="height: 44px;" lines="none">
+          <ion-label class="cart-details">Time</ion-label>
+        </ion-item>
+        <!-- <ion-item style="height: 44px;" lines="none">
+                    <ion-label class="cart-details">Super Mario World</ion-label>
+                  </ion-item> -->
+      </ion-list>
+
+    </ion-col>
+
+    <ion-col size="6">
+
+
+      <ion-list>
+        <ion-item style="height: 44px; float:right" lines="none">
+          <ion-label class="cart-details">Rs.{{totalprice}}</ion-label>
+        </ion-item>
+        <ion-item style="height: 44px; float:right" lines="none">
+          <ion-label class="cart-details">15-25 min</ion-label>
+        </ion-item>
+        <ion-item style="height: 44px; float:right" lines="none">
+          <ion-select [(ngModel)]="selectedmodeofpayment" style="    border-radius: 6px;
+    background: #F0F0F0;
+        height: 33px;
+    float: right;
+    width: 123px;
+    font-size: 9px;" placeholder="Select One">
+            <ion-select-option value="online">Online</ion-select-option>
+            <ion-select-option value="offline">Offline</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item style="height: 44px; float:right" lines="none">
+          <ion-select (ionChange)="selectedApartment($event)" [(ngModel)]="selectedapartment" style="border-radius: 6px;
+    background: #F0F0F0;
+        height: 33px;
+    float: right;
+    width: 123px;
+    font-size: 9px;" placeholder="Location">
+            <ion-select-option (ionSelect)="selectedApartment(item)" *ngFor="let item of apartmentList" [value]="item">{{item.name}}</ion-select-option>
+            <!-- <ion-select-option value="m">Male</ion-select-option> -->
+          </ion-select>
+        </ion-item>
+
+        <ion-item style="height: 44px; float:right" lines="none">
+
+
+          <ion-input [(ngModel)]="selectedaddress" style="border-radius: 6px;
+          background: #F0F0F0;
+          height: 33px;
+          float: right;"></ion-input>
+        </ion-item>
+
+        <ion-item style="height: 44px; float:right" lines="none">
+
+
+          <ion-input [(ngModel)]="selectedflat"  style="border-radius: 6px;
+          background: #F0F0F0;
+          height: 33px;
+          float: right;"></ion-input>
+        </ion-item>
+        <ion-item  [(ngModel)]="selecteddate"style="height: 44px; float:right" lines="none">
+          <ion-select *ngIf="beauticiandata" style="    border-radius: 6px;
+          background: #F0F0F0;
+              height: 33px;
+          float: right;
+          width: 123px;
+          font-size: 9px;" placeholder="Location">
+                  <ion-select-option *ngFor="let date of beauticiandata">{{date.start_datetime|date :  "dd.MMM.y"}}</ion-select-option>
+
+                  </ion-select>
+                 
+        </ion-item>
+        <ion-item style="height: 44px; float:right" lines="none">
+          <ion-select (ionChange)="selectedbeautician($event)"  [(ngModel)]="date" *ngIf="beauticiandata" style="border-radius: 6px;
+          background: #F0F0F0;
+              height: 33px;
+          float: right;
+          width: 123px;
+          font-size: 9px;" placeholder="Location">
+                  <ion-select-option (ionSelect)="selectedbeautician(date)" *ngFor="let date of beauticiandata" [value]="date">{{date.start_datetime| date :  "HH:mm"}}-{{date.end_datetime| date : "HH:mm"}}</ion-select-option>
+                  </ion-select>
+        </ion-item>
+
+        
+        <!-- <ion-datetime [(ngModel)]="startTime" display-format="HH:mm" min="10:00" max="21:00"> -->
+
+        <!-- <ion-item style="height: 44px;" lines="none">
+                    <ion-label class="cart-details">Super Mario World</ion-label>
+                  </ion-item> -->
+      </ion-list>
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row>
+    <ion-col style="max-width: 100%;
+    text-align: center;" size="12 ">
+      <ion-button (click)="presentPopover()" style="width: 50%;" class="font-10 ">Book</ion-button>
+    </ion-col>
+
+  </ion-row>
+  <!-- 
+  <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="searchTicket($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>

@@ -1,32 +1,37 @@
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+  
+    <ion-title>
+      RazorPay
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
 <ion-content>
-  <br>
-  <p class="font-14 gotham margin-5  margin-bottom-10 line-height-22">{{title}}
-  </p>
-
-  <ion-item *ngIf="val=='reject'" lines='full'>
-    <ion-label>{{transService.getTranslatedData('approval-popup-modal.reason')}}</ion-label>
-    <ion-toggle [(ngModel)]="flag" mode="ios"></ion-toggle>
-  </ion-item>
-  <br>
-  <ion-textarea class='padding-5' [(ngModel)]="notes" *ngIf="flag" rows='4' maxlength='130'
-    placeholder="{{transService.getTranslatedData('approval-popup-modal.reject-reason')}}">
-  </ion-textarea>
-</ion-content>
-
-<ion-footer>
-  <ion-label>
+  <ion-grid text-center>
     <ion-row>
-      <ion-col size="6" class="padding-0">
-        <ion-button (click)="cancel()" style=" margin-top: 0px; margin-right: 1px; margin-left: 0px;margin-bottom: 0px;"
-          expand="full">{{transService.getTranslatedData('approval-popup-modal.cancel')}}</ion-button>
+      <ion-col>
+        Use this Pay button with the attached logic in your app's payment page.
       </ion-col>
-      <ion-col size="6" class="padding-0">
-        <ion-button (click)="dismiss()"
-          style=" margin-top: 0px; margin-left: 1px; margin-right: 0px;margin-bottom: 0px;" expand="full"
-          color="danger">{{transService.getTranslatedData('approval-popup-modal.ok')}}</ion-button>
-      </ion-col>
-
     </ion-row>
-  </ion-label>
+  </ion-grid>
+  <ion-card class="welcome-card">
+    <ion-img src="/assets/razorpay.jpeg"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>Get Started</ion-card-subtitle>
+      <ion-card-title>Razorpay Sample</ion-card-title>
+      <ion-row>
+        <ion-col>
+          Total Payment
+        </ion-col>
+        <ion-col>
+          {{currencyIcon}}{{paymentAmount/100}}
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="full" color="success" (click)="payWithRazor()">Pay with RazorPay</ion-button>
+    </ion-card-content>
+  </ion-card>
 
-</ion-footer>
+</ion-content>

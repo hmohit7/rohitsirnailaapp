@@ -1,0 +1,135 @@
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
+      <ion-button style="color: black">
+          <img src="../../../../assets/icons.png" width="30px" height="30px"/>
+      </ion-button>
+    </ion-buttons> -->
+
+    <ion-title style="display:inline-table">Salon at Home</ion-title>
+
+    <ion-buttons routerLink="/rentals-naila-cart-page" style="float:right;
+    zoom: 2;" end>
+      <ion-icon ios="ios-cart" md="md-cart"></ion-icon>
+      <p class="cart-number">{{this.utils.cartdata}}</p>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content (click)="onOuterClick($event)" class="ioncontent" padding>
+
+
+  <ion-searchbar class="ionsearch" mode="ios" [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()">
+
+  </ion-searchbar>
+  <ion-row class="font-12">
+
+
+
+    <ion-icon class="margin-left-1 margin-right-1 text-black" name="locate"></ion-icon>Use your current location
+    <!-- <ion-icon class="margin-left-1 margin-right-1" name="compass"></ion-icon> -->
+
+
+
+  </ion-row>
+
+  <ion-list class="list" *ngIf="a">
+    <ion-item (click)="selectedApartment(item)" lines="none" *ngFor="let item of items">
+      {{ item.name }}
+    </ion-item>
+  </ion-list>
+
+
+
+
+
+
+
+
+
+
+  <ion-list class="padding-top-12">
+    <label class="font-12 font-weight-500">Offers</label>
+
+    <ion-slides [options]="sliderConfig">
+      <ion-slide *ngFor="let item of listofBanner">
+        <ion-card class="myCard">
+          <img style="height: 31vw;
+              width: 100%;" src={{item.image.url}} />
+          <div class="myOverlay">
+            <div class="card-title">{{item.title}}</div>
+          </div>
+        </ion-card>
+      </ion-slide>
+
+
+
+
+    </ion-slides>
+  </ion-list>
+  <ion-list>
+    <label class="font-12 font-weight-500" for="">
+      Browse by service
+    </label>
+    <ion-slides class="service" [options]="sliderConfig2">
+      <ion-slide (click)="this.selectedCategory(slide); " *ngFor="let slide of categories" class="center-text">
+        <ion-row>
+          <ion-card [style.background-color]="slide.name == cardName ? 'black' : 'white'" style="height: 65px;
+        background: black;
+        width: 75px;" class="margin-bottom-0" size="12">
+            <img style="    position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 25px;
+          height: 25px;
+          
+          margin-top: -11px;
+          margin-left: -13px;" src={{slide.image.url}} />
+
+
+          </ion-card>
+          <ion-col class="padding-top-0" size="12">
+
+            <label class="font-9 padding-left-0" for="">{{slide.name}}</label>
+          </ion-col>
+        </ion-row>
+      </ion-slide>
+    </ion-slides>
+  </ion-list>
+
+  <ion-list lines="none">
+    <ion-item style="border-bottom:none;" lines="none">
+
+      <h6 *ngIf="showSubheading">{{serviceList[0].sub_category.name}}:</h6>
+    </ion-item>
+  </ion-list>
+  <ion-list (click)="setDetailsofservice(item)" *ngFor="let item of serviceList" class=" padding-bottom-0">
+    <ion-item detail-icon-color="red" detail="true" lines="none">
+      <ion-label class="margin-0">
+        <p class="margin-bottom-0" text-wrap>
+          <small class="float-left text-black font-12 font-weight-500 margin-bottom-0">{{item.name}}</small>
+          <!-- <span class="center-text"> hello</span>-->
+        </p>
+        <small class="font-9 txt-grey margin-top-0">
+          {{item.no_of_minuties}} min
+        </small>
+      </ion-label>
+      <small class="float-right">Rs.{{item.price}}</small>
+
+    </ion-item>
+  </ion-list>
+
+
+
+  <!-- 
+  <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="searchTicket($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+
+</ion-content>

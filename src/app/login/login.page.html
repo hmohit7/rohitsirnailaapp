@@ -1,12 +1,12 @@
 <ion-content>
   <div class="max-available-height full-width grandient-background- no-scroll">
 
-    <div class="webkit-center">
+    <div class="webkit-center login-page-padding">
 
       <div>
         <ion-row class="width-80-percent margin-top-30 margin-bottom-20">
-          <ion-col>
-            <img src="assets/login-pic.png" />
+          <ion-col class="image-align">
+            <img style="width: 50%;" src="assets/imgs/nailalogo.png" />
           </ion-col>
         </ion-row>
       </div>
@@ -17,8 +17,9 @@
         </div>
       </ion-row> -->
 
+
       <!-- Phone number input -->
-      <div [hidden]=" visibleBlock !== 'phoneInput' ">
+      <div [hidden]="registereduser">
         <ion-row class="width-80-percent">
           <div class="text-left">
             <p class="font-20 margin-bottom-10">Welcome,</p>
@@ -38,24 +39,24 @@
           </ion-col>
           <ion-col size="9">
             <ion-item>
-              <ion-input inputmode="tel" placeholder=" " (keyup.enter)="checkPlatform()"
+              <ion-input inputmode="tel" placeholder=" "
                 [(ngModel)]="loginData.phoneNumber"> </ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button (click)="checkPlatform()" class="full-button" expand="full" color="primary">Submit
+          <ion-button (click)="togglesubmitpassword()" class="full-button" expand="full" color="primary">Submit
           </ion-button>
         </ion-row>
         <br>
         <ion-row style="justify-content: center !important" class="width-80-percent">
-          <a class="font-16" (click)="needHelp()">Need help?</a>
+          <a class="font-16" (click)="toggleSignup()">Sign up</a>
         </ion-row>
 
       </div>
 
       <!-- Phone number input -->
-      <div [hidden]=" visibleBlock !== 'sendOtpInput' ">
+      <div [hidden]="sendotpinput">
         <ion-row class="width-80-percent">
           <div class="text-left">
             <p class="font-14">Enter your registered phone number</p>
@@ -75,15 +76,15 @@
           </ion-col>
         </ion-row>
         <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button (click)="sendOtp()" class="full-button" expand="full" color="primary">Send OTP</ion-button>
+          <ion-button (click)="userSignup()" class="full-button" expand="full" color="primary">Send OTP</ion-button>
         </ion-row>
         <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="setVisibleBlock('phoneInput')">Login</p>
+          <p (click)="toggelLoginClicked()">Login</p>
         </ion-row>
       </div>
 
       <!-- Password input -->
-      <div [hidden]=" visibleBlock !== 'passwordInput' ">
+      <div [hidden]="enterpassword">
         <ion-row class="width-80-percent text-left">
           <ion-col>
             <ion-item>
@@ -94,14 +95,15 @@
           </ion-col>
         </ion-row>
         <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button class="full-button " expand="full" color="primary" (click)="signIn()">Login</ion-button>
+          <ion-button class="full-button " expand="full" color="primary" (click)="registeredUser()">Login</ion-button>
         </ion-row>
         <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
           <p (click)="setVisibleBlock('sendOtpInput')">Forgot password?</p>
         </ion-row>
       </div>
 
-      <div [hidden]=" visibleBlock !== 'otpInput' ">
+
+      <div [hidden]="enterotp">
         <ion-row class="width-80-percent text-left">
           <ion-col>
             <!-- <ion-item>
@@ -157,16 +159,16 @@
         </ion-row>
         <ion-row *ngIf="!showOtpCounter" color="primary">
           <ion-col class="center-text">
-            <a (click)="checkPlatform()">Resend OTP </a>
+            <a (click)="resendOtp()">Resend OTP </a>
           </ion-col>
         </ion-row>
-        <ion-row class="width-80-percent center-text margin-top-10">
-          <ion-button class="full-button " expand="full" color="primary" (click)="verifyOtp()">Confirm</ion-button>
+        <ion-row [hidden]="enterotp" class="width-80-percent center-text margin-top-10">
+          <ion-button class="full-button " expand="full" color="primary" (click)="confirmOtp()">Confirm</ion-button>
         </ion-row>
-        <br>
+        <!-- <br>
         <ion-row style="justify-content: center !important" class="width-80-percent">
           <a class="font-16" (click)="needHelp()">Need help?</a>
-        </ion-row>
+        </ion-row> -->
         <!-- <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
           <p (click)="setVisibleBlock('phoneInput')">Login</p>
         </ion-row> -->
@@ -253,13 +255,25 @@
         </ion-row> -->
       </div>
 
-      <div [hidden]=" visibleBlock !== 'passwordSetInput' ">
+      <div [hidden]="newpassword">
+
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter Your Name</ion-label>
+              <ion-input type="text" placeholder="" [(ngModel)]="loginData.name">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
 
         <ion-row class="width-80-percent text-left">
           <ion-col>
             <ion-item>
               <ion-label position="stacked" class="font-20 margin-bottom-10">Enter New Password</ion-label>
-              <ion-input type="password" placeholder="" [(ngModel)]="loginData.password" (ngModelChange)="validatePassword()">
+              <ion-input type="password" placeholder="" [(ngModel)]="loginData.password"
+                (ngModelChange)="validatePassword()">
               </ion-input>
             </ion-item>
           </ion-col>
@@ -275,24 +289,23 @@
           </ion-col>
           <p class="font-14 txt-warm-grey margin-top-0">Password needs to be at least 4 characters in length </p>
         </ion-row>
-        
+
         <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p>
 
-        <ion-row class="width-80-percent center-text margin-top-10" >
-          <ion-button class="full-button " expand="full" color="primary" (click)="signIn()" [hidden]="loginData.action === 'resetPassword'"
-            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
-            Confirm</ion-button>
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button class="full-button " expand="full" color="primary" [hidden]="loginData.action === 'resetPassword'"
+            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch"
+            (click)="registerUser()">Register</ion-button>
         </ion-row>
         <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action !== 'resetPassword'">
           <ion-button class="full-button " expand="full" color="primary" (click)="resetPassword()"
-            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch">
-            Confirm</ion-button>
+            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch"
+            (click)="registerUser()">Register</ion-button>
         </ion-row>
-
-        <!-- <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="setVisibleBlock('phoneInput')">Login</p>
+        <!-- 
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button class="full-button " expand="full" color="primary" (click)="registerUser()">Register</ion-button>
         </ion-row> -->
-
       </div>
 
     </div>
@@ -306,8 +319,3 @@
   </div>
 
 </ion-content>
-
-<ion-footer class="center-text" no-border>
-  <p class="margin-top-0 margin-bottom-minus-10 font-12">Powered by</p>
-  <img class="thm-logo" src="assets/thm-branding.png" />
-</ion-footer>

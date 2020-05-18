@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'building-management-home',
-        pathMatch: 'full'
-    },
+    // {
+    //     path: '',
+    //     redirectTo: 'building-management-home',
+    //     pathMatch: 'full'
+    // },
     { path: 'building-management-home', loadChildren: '../Building-Management/pages/home/home.module#HomePageModule' },
     { path: 'building-management-profile', loadChildren: '../Building-Management/pages/profile/profile.module#ProfilePageModule' },
     { path: 'building-management-tickets', loadChildren: '../Building-Management/pages/tickets/tickets.module#TicketsPageModule' },

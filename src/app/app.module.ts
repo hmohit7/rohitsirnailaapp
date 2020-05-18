@@ -29,6 +29,8 @@ import { Device } from '@ionic-native/device/ngx'
 import { OrderModule } from 'ngx-order-pipe'
 import { PictureComponent } from './common-components/picture/picture.component';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { ApprovalpopupComponent } from './Rentals Management/modals/approvalpopup/approvalpopup.component';
+// import { ApprovalpopupComponent } from '../../modals/approvalpopup/approvalpopup.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +38,10 @@ import { FilePath } from '@ionic-native/file-path/ngx';
     OrgModalComponent,
     CountrycodemodalComponent,
     PictureComponent,
-    FilterPipe
+    FilterPipe,
+    ApprovalpopupComponent
   ],
-  entryComponents: [OrgModalComponent, CountrycodemodalComponent, PictureComponent],
+  entryComponents: [OrgModalComponent, CountrycodemodalComponent, PictureComponent,ApprovalpopupComponent],
   imports: [
     FormsModule,
     BrowserModule,

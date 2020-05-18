@@ -1,0 +1,115 @@
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
+      <ion-button style="color: black">
+          <img src="../../../../assets/icons.png" width="30px" height="30px"/>
+      </ion-button>
+    </ion-buttons> -->
+    
+    <ion-title>Bookings</ion-title>
+  </ion-toolbar>
+ 
+  <ion-segment value="all">
+    <ion-segment-button value="all">
+      <ion-label>Upcoming</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="favorites">
+      <ion-label>Past</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding>
+
+
+
+
+<ion-row *ngFor="let item of bookingList.booking_services">
+    <ion-col size="3">
+      <img class="float-left" style="width: 70px;
+      height: 43px;
+      margin-top: 5px;
+      position: absolute;
+      border-radius: 5px;" src={{item.image.url}} alt="">
+    </ion-col>
+    <ion-col size="9">
+      
+      
+        <ion-list class="padding-bottom-0">
+          <ion-item   detail="true" lines="none">
+            <ion-label style="text-align: start;" class="margin-0">
+              <p class="" text-wrap>
+                <small class="float-left font-weight-600 text-black">{{item.name}}</small>
+                <!-- <span class="center-text"> hello</span>-->
+              </p>
+              <small class="font-10  txt-grey">
+               {{item.no_of_minuties}} min
+              </small>
+            </ion-label>
+            <!-- <small class="float-right ">Rs.900</small>  -->
+            <ion-label style="text-align: end;     padding-right: 10px;" class="margin-0 ">
+                <p class="" text-wrap>
+                  <small class="font-10" >{{item.schedule_on | date :  "dd|MM|yyyy"}}</small>
+                  <!-- <span class="center-text"> hello</span>-->
+                </p>
+                <small class="font-10 txt-grey">
+                 Rs. {{item.offer_price}}
+                </small>
+              </ion-label>
+              <!-- <small class="float-right ">Details</small>  -->
+
+          </ion-item>
+        </ion-list>
+      
+    </ion-col>
+
+    <ion-col size="3"></ion-col>
+
+    <ion-col size="9">
+      
+      
+        <ion-list class="padding-bottom-0">
+          <ion-item  style="    --min-height: 10px;" lines="none">
+            <ion-label style="text-align: start;" class="margin-0">
+              <p class="" text-wrap>
+                <small class="float-left text-nunderline font-10 text-ncolor">View Invoice</small>
+                <!-- <span class="center-text"> hello</span>-->
+              </p>
+             
+            </ion-label>
+            <!-- <small class="float-right ">Rs.900</small>  -->
+            <ion-label style="text-align: end;     padding-right: 10px;" class="margin-0 ">
+                <p class="" text-wrap>
+                  <small class="font-10 text-ncolor text-nunderline" >Raise Ticket</small>
+                  <!-- <span class="center-text"> hello</span>-->
+                </p>
+                
+              </ion-label>
+              <!-- <small class="float-right ">Details</small>  -->
+
+          </ion-item>
+        </ion-list>
+      
+    </ion-col>
+
+  </ion-row>
+<hr>
+
+
+
+
+
+
+  <!-- 
+  <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="searchTicket($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>
+
+
+

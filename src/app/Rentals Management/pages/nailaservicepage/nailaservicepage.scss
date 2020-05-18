@@ -1,0 +1,163 @@
+// ion-navbar{
+//   border-bottom-right-radius: 15px;
+//   border-bottom-left-radius: 15px;
+//   background-color: black;
+// }
+
+
+
+
+
+      ion-card {
+        position: relative;
+        text-align: center;
+        border-radius: 20px !important;
+      }
+
+      hr{    
+        border: 0.5px solid #F0F0F0	;
+        height: 0px;
+      }
+//       .card-title {
+//           position: absolute;
+//           top: 20vh;
+//           background-color: yellow;
+//           font-size: 2.0em;
+//           height: 15vh;
+//           width: 100%;
+//           font-weight: bold;
+//           color: #fff;
+//       }
+
+     
+//       // ion-slide{
+//       //     width: 245px !important;
+//       // }
+
+//   ion-card-content{
+//       text-align: left;
+//               background: red;
+//       line-height: 1.5;
+//       width: 100%;
+//       padding-top: 7px;
+//       padding-bottom: 7px;
+//   }
+
+//   label{
+//       padding-left: 3vw;
+//   }
+//   .service{
+//       ion-card-content{
+//           text-align: center;
+//           line-height: 1.5;
+//           width: 100%;
+//           font-size: 6px;
+//           background: transparent;
+//           padding: 5px 1px 3px;
+//       }
+//       ion-card{
+//           position: relative;
+//           text-align: center;
+//           border-radius: 10px !important;  
+          
+//       }
+//   }
+
+//   // .border-top {
+//   //   border-top: 1px solid lightgray;
+//   // }
+  
+//   ion-item {
+//     // border-top: 1px solid lightgray;
+//     border-bottom: 1px solid lightgray;
+//   }
+  
+//   ion-label {
+//     padding-top: 10px !important;
+//     padding-bottom: 10px !important;
+//   }
+  
+//   ion-list {
+//     padding-top: 0px !important;
+//   }
+  
+
+//   ion-toolbar{
+//     border-bottom-left-radius: 25px;
+//     border-bottom-right-radius: 25px;
+//   }
+
+ion-card{
+  background: white;
+  position: absolute;
+  left: 50%;
+  bottom: -13vh;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  width: 300px;
+}
+
+
+ion-card-title{
+  padding-bottom: 5px;
+    font-size: 12px;
+}
+
+.my-nav {
+  list-style-type: disc;
+  text-align: start;
+  padding-left: 15px;
+  font-size: 13px;
+}
+ion-item{
+  display: inline-table;
+}
+
+ion-content{
+  --background: url('/assets/imgs/serviceimage.png');
+  background-repeat: no-repeat;
+     background-size: cover;
+}
+
+.background-image{
+ 
+}
+.add-sub{
+  margin-left: 1vh;
+  margin-right: 1vh;
+}
+.btn{
+  width: 60%;
+  margin-top: 5px;
+  font-size: 10px;
+  height: 25px;
+
+}
+// ion-button{
+//   --background: goldenrod;
+// }
+
+
+
+// second page
+img{
+  width:100%;
+  height:100%;
+}
+
+.myCard{
+  position:relative;
+
+}
+
+.myOverlay{
+  width: 100%;
+  height: 22px;
+  position: absolute;
+  z-index: 99;
+  bottom: 0px;
+  opacity: 0.5;
+  background: #000;
+  color: #fff;
+
+}

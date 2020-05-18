@@ -1,21 +1,45 @@
-<ion-app>
+<ion-app color="primary">
   <ion-split-pane>
-    <ion-menu side="start">
+    <ion-menu style="--width: 220px;" side="start">
       <ion-header>
         <ion-toolbar color="primary">
           <ion-menu-toggle>
-            <ion-title class="center-text">
-              {{translate.instant('app-component.title')}}
+            <ion-title style="margin-bottom: 50px;" class="">
+
+              <ion-col size="4">
+
+                <img style="    width: 50px;
+              height: 50px;
+              margin-top: 20px;
+              border-radius: 50px;" src="assets/imgs/nailalogo.png" alt="assets/imgs/taps.png">
+              </ion-col>
+              <ion-col style="vertical-align: super;" size="8">
+
+                <ion-label>Naila</ion-label>
+              </ion-col>
+
               <!-- <p class="font-14 margin-bottom-3 font-weight-600">{{appPages.name}}</p>
               <p class="margin-top-0 font-14 font-weight-600">{{appPages.phoneNumber}}</p> -->
             </ion-title>
           </ion-menu-toggle>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
-        <ion-list>
+      <ion-content style="--background: black;
+      --color: white;
+      --border-width: 0 0 0px 0;">
+      <ion-list style="background:black;" >
+        <ion-item style="    --background: black;
+        color: white;">
+          <ion-label>
+            Welcome Harsh!
+          </ion-label>
+        </ion-item>
+      </ion-list>
+        <ion-list class="padding-bottom-0 padding-top-0 ">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages.pages">
-            <ion-item lines="full" (click)="routeForword(p.url)">
+            <ion-item style="    --background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="routeForword(p.url)">
               <img class="icon-25 margin-bottom-10" *ngIf="p.src" [src]="p.src">
               <ion-label [ngClass]="{marginTop5: p.src?true:false}">
                 {{translate.instant(p.title)}}
@@ -23,7 +47,9 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>
-            <ion-item lines="full" (click)="logOut()">
+            <ion-item style="    --background: black;
+            --color: white;
+            --border-width: 0 0 0px 0;" lines="full" (click)="logOut()">
               <img class="icon-25 margin-bottom-10" [src]="appPages.logout.src">
               <ion-label class="marginTop5">
                 {{translate.instant(appPages.logout.title)}}

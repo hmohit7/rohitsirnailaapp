@@ -4,12 +4,12 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #7e1946;
-  --ion-color-primary-rgb: 126,25,70;
+  --ion-color-primary:  black;
+  --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255,255,255;
-  --ion-color-primary-shade: #6f163e;
-  --ion-color-primary-tint: #8b3059;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #881643;
+  --ion-color-primary-tint: #9d4065;
 
   /** secondary **/
   --ion-color-secondary: #0cd1e8;
@@ -99,81 +99,9 @@
 .ion-color-rejected-active-status {
   --ion-color-base: #c4153b !important;
 }
-.ion-color-employee {
-  --ion-color-base: #3880ff !important; //main color
-  --ion-color-contrast: #ffffff !important;
-}
-
-.ion-color-delivery {
-  --ion-color-base: #7044ff !important;
-  --ion-color-contrast: #ffffff !important;
-}
-
-.ion-color-vendor {
-  --ion-color-base: #f04141 !important;
-  --ion-color-contrast: #ffffff !important;
-}
-
-.ion-color-guest {
-  --ion-color-base: #ffce00 !important;
-  --ion-color-contrast: #ffffff !important;
-}
-
-.ion-color-domestic-help {
-  --ion-color-base: #1bb293 !important;
-  --ion-color-contrast: #ffffff !important;
-}
-
-.ion-color-occupied_by_tenant {
-  --ion-color-base: #69f0ae !important;
-}
-
-.ion-color-under_notice {
-  --ion-color-base: #FFAEAD !important;
-}
-
-.ion-color-not_ready {
-  --ion-color-base: #ACC0ff !important;
-}
-
-.ion-color-vacant {
-  --ion-color-base: #FFEBB3 !important;
-}
-
-.ion-color-white {
-  --ion-color-contrast: #ffffff !important;
-}
-
-.ion-color-black {
-  --ion-color-base: #000000 !important;
-  --ion-color-contrast: #ECECEC !important;
-}
 
 
-.alert-button-inner.sc-ion-alert-md {
-  justify-content: center !important;
-}
-// .ion-color-active-status {
-//   color: #1bb293 !important;
+// .alertOTPcss{
+//   --font-size: 12px !important;
 // }
-
-.custom-raise-ticket-modal-css .modal-wrapper {
-  height: 240px !important;
-  width: 60% !important;
-  position: absolute !important;
-  display: block !important;
-}
-.join-modal .popup {
-  width: 80%;
-  padding: 10px;
-}
-
-.select-org-popover{
-  --width:unset!important;
-div{
-  .popover-content .sc-ion-popover-md{
-    width: 18em !important;
-  }
-}
-}
 

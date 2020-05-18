@@ -55,7 +55,7 @@ export class UserApprovalPage implements OnInit {
           this.loadingCtrl.dismiss();
           if (err.error.message == "You don't have permission for this operation!") {
             this.alertService.presentAlert('', "You don't have permission for this operation!")
-            this.router.navigateByUrl('rentals-home')
+            this.router.navigateByUrl('rentals-naila-search-page')
           } else {
             this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'), err.error.error);
           }
