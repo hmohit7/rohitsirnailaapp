@@ -18,10 +18,10 @@
 <ion-content padding>
 
     <ion-searchbar placeholder="Browse offers" mode="ios"
-    [(ngModel)]="searchTerm"
+    [(ngModel)]="searchTerm" (ionChange)="setFilteredItems()"
   ></ion-searchbar>
   <ion-row class="center-text">
-    <ion-col *ngFor="let item of listbanner" size="6">
+    <ion-col *ngFor="let item of items" size="6">
 
       <ion-card class="myCard">
         <img 
@@ -42,9 +42,6 @@
         </div>
       </ion-card>
     </ion-col> -->
-
-
-  
 
   </ion-row>
 

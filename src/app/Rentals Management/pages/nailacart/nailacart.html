@@ -9,69 +9,71 @@
       </ion-button>
     </ion-buttons> -->
 
-    <ion-title>Cart</ion-title>
-  </ion-toolbar>
+    <ion-title style="display: inline-flex;
+    vertical-align: -webkit-baseline-middle;">Salon at Home</ion-title>
 
-  <!-- <ion-segment value="all">
-    <ion-segment-button value="all">
-      <ion-label>Upcoming</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="favorites">
-      <ion-label>Past</ion-label>
-    </ion-segment-button>
-  </ion-segment> -->
+    <ion-buttons  routerLink="/rentals-naila-search-page" style="float:right;outline: none;
+    zoom:2;" end>
+      <ion-icon style="margin-right: 3vw;" ios="ios-home" md="md-home"></ion-icon>
+      <!-- <p *ngIf="this.utils.cartdata.length" class="cart-number">{{this.utils.cartdata}}</p> -->
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
-
-<ion-content padding>
+<!-- {{temp.length}} -->
+<ion-content *ngIf="this.utils.cartitem" padding>
   <ion-row *ngFor="let item of temp">
-    <div style="    width: 100% !important;
-    display: flex !important;" *ngIf="item.servicecount">
-    <ion-col size="3">
-      <img class="float-left" style="width: 100px;
+    <div style="
+    width: 100% !important;
+    display: flex !important;"
+    *ngIf="item.servicecount">
+      <ion-col size="3">
+        <img class="float-left" style="width: 100px;
           height: 45px;
           margin-top: 5px;
           position: absolute;
           border-radius: 5px;" src={{item.service.image.url}} alt="">
-    </ion-col>
-    <ion-col size="9">
+      </ion-col>
+      <ion-col size="9">
 
 
-      <ion-list class="padding-bottom-0">
-        <ion-item  lines="none">
-          <ion-label style="text-align: start;" class="margin-0">
-            <p class="gotham-medium" text-wrap>
-              <small class="float-left font-weight-600 text-black">{{item.service.name}}</small>
-              <!-- <span class="center-text"> hello</span>-->
-            </p>
-            <small class="font-10  txt-grey">
-              {{item.service.no_of_minuties}} min
-            </small>
-          </ion-label>
-          <!-- <small class="float-right gotham">Rs.900</small>  -->
-          <!-- <ion-label style="text-align: end;     padding-right: 10px;" class="margin-0 "> -->
+        <ion-list class="padding-bottom-0">
+          <ion-item lines="none">
+            <ion-label style="text-align: start;" class="margin-0">
+              <p class="gotham-medium" text-wrap>
+                <small class="float-left font-weight-600 text-black">{{item.service.name}}</small>
+                <!-- <span class="center-text"> hello</span>-->
+              </p>
+              <small class="font-10  txt-grey">
+                {{item.service.no_of_minuties}} min
+              </small>
+            </ion-label>
+            <!-- <small class="float-right gotham">Rs.900</small>  -->
+            <!-- <ion-label style="text-align: end;     padding-right: 10px;" class="margin-0 "> -->
             <!-- <p class="gotham-medium" text-wrap>
               <small class="font-10">15|02|2020</small>
             <span class="center-text"> hello</span>-->
             <!-- </p>
             <small class="font-10 txt-grey">
               Rs. 900
-            </small> --> 
+            </small> -->
 
             <ion-item class="center-text" lines="none">
-              <ion-icon (click)="itemCounter('plus',item)" name="add-circle" style="zoom: 1.1; color: black;"></ion-icon>
-                <p  class="add-sub">{{item.servicecount}}</p>                   
-                <ion-icon (click)="itemCounter('minus',item)" name="remove-circle" style="zoom: 1.1;color: black;"></ion-icon>
-                <!-- <button ion-button (click)="addCart()">Add to cart</button> -->
-             </ion-item>
-          <!-- </ion-label> -->
-          <!-- <small class="float-right gotham">Details</small>  -->
+              <ion-icon (click)="itemCounter('minus',item)" name="remove-circle" style="zoom: 1.1;color: black;">
+                </ion-icon>
+              <p class="add-sub">{{item.servicecount}}</p>
+                <ion-icon (click)="itemCounter('plus',item)" name="add-circle" style="zoom: 1.1; color: black;">
+                </ion-icon>
+              <!-- <button ion-button (click)="addCart()">Add to cart</button> -->
+            </ion-item>
+            <!-- </ion-label> -->
+            <!-- <small class="float-right gotham">Details</small>  -->
 
-        </ion-item>
-      </ion-list>
+          </ion-item>
+        </ion-list>
 
-    </ion-col>
-</div>
+      </ion-col>
+    </div>
   </ion-row>
 
   <!-- <hr> -->
@@ -83,8 +85,10 @@
     </ion-col>
 
     <ion-col size="6">
-      <ion-button *ngIf="!discount" (click)="applyCoupon(coupon)" class="float-right font-10 margin-top-0">Apply Coupon</ion-button>
-      <ion-button *ngIf="discount" (click)="removeCoupon()" class="float-right font-10 margin-top-0">Remove Coupon</ion-button>
+      <ion-button *ngIf="!discount" (click)="applyCoupon(coupon)" class="float-right font-10 margin-top-0">Apply Coupon
+      </ion-button>
+      <ion-button *ngIf="discount" (click)="removeCoupon()" class="float-right font-10 margin-top-0 danger-button">
+        Remove Coupon</ion-button>
 
     </ion-col>
 
@@ -94,8 +98,11 @@
 
 
       <ion-list style="margin-left: -15px;">
-        <ion-item style="height: 44px;" lines="none">
+        <ion-item style="height: 50px;
+       
+        width: 100%;" lines="none">
           <ion-label class="cart-details">Total Price</ion-label>
+          <!-- <small>(included of 9% cgst and sgst)</small> -->
         </ion-item>
         <ion-item style="height: 44px;" lines="none">
           <ion-label class="cart-details">Total Time</ion-label>
@@ -104,7 +111,7 @@
           <ion-label class="cart-details">Payment Method</ion-label>
         </ion-item>
         <ion-item style="height: 44px;" lines="none">
-          <ion-label class="cart-details">Selected Apartment</ion-label>
+          <ion-label class="cart-details">Select Apartment</ion-label>
         </ion-item>
 
         <ion-item style="height: 44px;" lines="none">
@@ -114,10 +121,10 @@
           <ion-label class="cart-details">Flat No</ion-label>
         </ion-item>
         <ion-item style="height: 44px;" lines="none">
-          <ion-label class="cart-details">Date</ion-label>
+          <ion-label class="cart-details">Select Date</ion-label>
         </ion-item>
         <ion-item style="height: 44px;" lines="none">
-          <ion-label class="cart-details">Time</ion-label>
+          <ion-label class="cart-details">Select Time slot</ion-label>
         </ion-item>
         <!-- <ion-item style="height: 44px;" lines="none">
                     <ion-label class="cart-details">Super Mario World</ion-label>
@@ -127,82 +134,127 @@
     </ion-col>
 
     <ion-col size="6">
-
-
       <ion-list>
-        <ion-item style="height: 44px; float:right" lines="none">
-          <ion-label class="cart-details">Rs.{{totalprice}}</ion-label>
+        <ion-item style="height: 44px;
+       height: 50px;
+    float: right;
+    text-align: end;
+    width: 100%;" lines="none">
+          <ion-label class="cart-details">Rs.{{totalprice| number}}</ion-label>
         </ion-item>
+        <br>
+        <small style="    float: right;
+        text-align: end;
+        width: 100%;
+        font-size: 8px;
+        position: absolute;
+        top: 10vw;">(*GST included 18%.)</small>
+        <br>
         <ion-item style="height: 44px; float:right" lines="none">
-          <ion-label class="cart-details">15-25 min</ion-label>
+          <ion-label class="cart-details">{{totalNumberofMinutes}} min</ion-label>
         </ion-item>
+
         <ion-item style="height: 44px; float:right" lines="none">
-          <ion-select [(ngModel)]="selectedmodeofpayment" style="    border-radius: 6px;
+          <ion-select [(ngModel)]="selectedmodeofpayment" style="border-radius: 6px;
     background: #F0F0F0;
         height: 33px;
     float: right;
+    min-width: 123px;
     width: 123px;
     font-size: 9px;" placeholder="Select One">
             <ion-select-option value="online">Online</ion-select-option>
-            <ion-select-option value="offline">Offline</ion-select-option>
+            <ion-select-option value="by_cash">Cash</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item style="height: 44px; float:right" lines="none">
-          <ion-select (ionChange)="selectedApartment($event)" [(ngModel)]="selectedapartment" style="border-radius: 6px;
-    background: #F0F0F0;
-        height: 33px;
-    float: right;
-    width: 123px;
-    font-size: 9px;" placeholder="Location">
-            <ion-select-option (ionSelect)="selectedApartment(item)" *ngFor="let item of apartmentList" [value]="item">{{item.name}}</ion-select-option>
-            <!-- <ion-select-option value="m">Male</ion-select-option> -->
+          <ion-select  (ionChange)="selectedApartment($event)" [(ngModel)]="flat"  style="border-radius: 6px;
+          background: #F0F0F0;
+          height: 33px;
+          float: right;
+          min-width: 123px;
+          width: 123px;
+          font-size: 9px;" placeholder={{flat}}>
+            <ion-select-option (ionSelect)="selectedApartment(flat)" *ngFor="let flat of apartmentList" [value]="flat">
+              {{flat.name}}</ion-select-option>
           </ion-select>
         </ion-item>
 
+
         <ion-item style="height: 44px; float:right" lines="none">
 
 
-          <ion-input [(ngModel)]="selectedaddress" style="border-radius: 6px;
+          <ion-input placeholder="Enter Address" [(ngModel)]="selectedaddress" style="border-radius: 6px;
           background: #F0F0F0;
           height: 33px;
-          float: right;"></ion-input>
+          min-width: 123px;
+          width: 123px;
+          font-size: 9px;
+          padding-left: 17px !important;
+          float: right;">
+          </ion-input>
         </ion-item>
 
         <ion-item style="height: 44px; float:right" lines="none">
 
 
-          <ion-input [(ngModel)]="selectedflat"  style="border-radius: 6px;
+          <ion-input placeholder="Enter Flat" [(ngModel)]="selectedflat" style="border-radius: 6px;
           background: #F0F0F0;
           height: 33px;
-          float: right;"></ion-input>
+          font-size: 9px;
+          min-width: 123px;
+          width: 123px;
+          padding-left: 17px !important;
+          float: right;">
+          </ion-input>
         </ion-item>
-        <ion-item  [(ngModel)]="selecteddate"style="height: 44px; float:right" lines="none">
-          <ion-select *ngIf="beauticiandata" style="border-radius: 6px;
+        <ion-item  style="height: 44px; float:right" lines="none">
+          <!-- {{currentmindate}} -->
+          <ion-datetime   (ngModelChange)="getAvailabaleSlot($event,false)" [(ngModel)]="selecteddate"  style="border-radius: 6px;
           background: #F0F0F0;
               height: 33px;
           float: right;
           width: 123px;
-          font-size: 9px;" placeholder="Location">
-                  <ion-select-option *ngFor="let date of beauticiandata">{{date.start_datetime|date :  "dd.MMM.y"}}</ion-select-option>
+          font-size: 9px;" placeholder="Select Date" min={{currentmindate}} max={{currentplusthreedays}}  >
+                        <!-- <ion-input-option  boolean="true"
+                        disabled=true  *ngIf="!beauticiandata"
+                      >
+                    No slots available
+                    
+                    </ion-input-option>
 
-                  </ion-select>
-                 
+            <ion-input-option *ngFor="let date of beauticiandata">{{date.start_datetime|date :  "dd.MMM.y"}}
+            </ion-input-option> -->
+
+          </ion-datetime>
+
         </ion-item>
         <ion-item style="height: 44px; float:right" lines="none">
-          <ion-select (ionChange)="selectedbeautician($event)"  [(ngModel)]="date" *ngIf="beauticiandata" style="border-radius: 6px;
+          <ion-select interface="action-sheet" (ionChange)="selectedbeautician($event)" [(ngModel)]="date"  style="border-radius: 6px;
           background: #F0F0F0;
               height: 33px;
           float: right;
+          min-width: 123px;
           width: 123px;
-          font-size: 9px;" placeholder="Location">
-                  <ion-select-option (ionSelect)="selectedbeautician(date)" *ngFor="let date of beauticiandata" [value]="date">{{date.start_datetime| date :  "HH:mm"}}-{{date.end_datetime| date : "HH:mm"}}</ion-select-option>
-                  </ion-select>
+          font-size: 9px;" placeholder="Select Slot">
+               <ion-select-option disabled=true *ngIf="!beauticiandata"
+               >
+             No slots available
+             
+             </ion-select-option>
+            <ion-select-option  (ionSelect)="selectedbeautician(date)" *ngFor="let date of beauticiandata"
+              [value]="date"> Slots: {{date.start_datetime| date :  "HH:mm"}}-{{date.end_datetime| date : "HH:mm"}}
+              <!-- <ng-container>
+                Date:{{date.start_datetime|date :  "dd-MMM-yyy"}}
+              </ng-container> -->
+              
+            </ion-select-option>
+          </ion-select>
         </ion-item>
 
-        
-        <!-- <ion-datetime [(ngModel)]="startTime" display-format="HH:mm" min="10:00" max="21:00"> -->
 
-        <!-- <ion-item style="height: 44px;" lines="none">
+        <!-- <ion-datetime [(ngModel)]="startTime" display-format="HH:mm" min="10:00" max="21:00">
+
+        <ion-item style="height: 44px;" lines="none">
                     <ion-label class="cart-details">Super Mario World</ion-label>
                   </ion-item> -->
       </ion-list>
@@ -211,9 +263,14 @@
   </ion-row>
 
   <ion-row>
-    <ion-col style="max-width: 100%;
+    <ion-col *ngIf="selectedmodeofpayment=='online'" style="max-width: 100%;
     text-align: center;" size="12 ">
-      <ion-button (click)="presentPopover()" style="width: 50%;" class="font-10 ">Book</ion-button>
+      <ion-button [disabled]="!(selectedmodeofpayment && flat && selectedaddress && date )" (click)="payWithRazor()" style="width: 50%;" class="font-10 ">Book</ion-button>
+    </ion-col>
+
+        <ion-col *ngIf="selectedmodeofpayment=='by_cash'" style="max-width: 100%;
+    text-align: center;" size="12 ">
+      <ion-button [disabled]="!(selectedmodeofpayment && flat && selectedaddress && date )" (click)="createBooking('No payment id','Not paid','by_cash')" style="width: 50%;" class="font-10 ">Book</ion-button>
     </ion-col>
 
   </ion-row>
@@ -223,4 +280,26 @@
       loadingText="{{transService.getTranslatedData('infinite-scroll')}}">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll> -->
+</ion-content>
+
+<ion-content *ngIf="!this.utils.cartitem">
+  <ion-item size="12" lines="none">
+    <p style="text-align: center;
+    display: inline-flex;
+    width: 100%;
+    margin-top: 80%;
+    justify-content: center;">Your shopping cart is empty.</p>
+
+</ion-item>
+<ion-item size="12" lines="none">
+  <ion-button style="    display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  margin-left: 20vw;
+  margin-right: 20vw;" size="12" routerLink="/rentals-naila-search-page" class="btn">Continue shopping</ion-button>
+
+  </ion-item>
+
+
+ 
 </ion-content>

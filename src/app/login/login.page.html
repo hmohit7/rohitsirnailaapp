@@ -31,13 +31,13 @@
           </div>
         </ion-row>
         <ion-row class="width-80-percent text-left">
-          <ion-col size="3">
-            <ion-item (click)="showCountryCodeModal()">
-              <ion-input inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
-              <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon>
+          <ion-col size="2">
+            <ion-item>
+              <ion-input disabled="true" inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
+              <!-- <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon> -->
             </ion-item>
           </ion-col>
-          <ion-col size="9">
+          <ion-col size="10">
             <ion-item>
               <ion-input inputmode="tel" placeholder=" "
                 [(ngModel)]="loginData.phoneNumber"> </ion-input>
@@ -49,9 +49,11 @@
           </ion-button>
         </ion-row>
         <br>
-        <ion-row style="justify-content: center !important" class="width-80-percent">
-          <a class="font-16" (click)="toggleSignup()">Sign up</a>
+        <ion-row style="display: inline-table;"  size="12" class="width-80-percent">
+          <a style="float:left; text-decoration: underline;" size="6"  class="font-16" (click)="toggleSignup()">Sign up</a>
+          <a style="float:right; text-decoration: underline;"  size="6" class="font-16" (click)="togglereset()">Reset password</a>
         </ion-row>
+     
 
       </div>
 
@@ -79,7 +81,7 @@
           <ion-button (click)="userSignup()" class="full-button" expand="full" color="primary">Send OTP</ion-button>
         </ion-row>
         <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="toggelLoginClicked()">Login</p>
+          <p style="text-decoration: underline;" (click)="toggelLoginClicked()">Login</p>
         </ion-row>
       </div>
 
@@ -98,7 +100,8 @@
           <ion-button class="full-button " expand="full" color="primary" (click)="registeredUser()">Login</ion-button>
         </ion-row>
         <ion-row style="justify-content: center !important" class="width-80-percent margin-top-10">
-          <p (click)="setVisibleBlock('sendOtpInput')">Forgot password?</p>
+          <p (click)="editNumber()">
+              <ion-icon style="vertical-align:bottom;" name="arrow-round-back"></ion-icon> Edit mobile number</p>
         </ion-row>
       </div>
 
@@ -158,9 +161,13 @@
           </ion-col>
         </ion-row>
         <ion-row *ngIf="!showOtpCounter" color="primary">
-          <ion-col class="center-text">
+          <ion-col size="12" class="center-text">
             <a (click)="resendOtp()">Resend OTP </a>
           </ion-col>
+          <ion-col class="center-text">
+              <p (click)="editresendNumber()">
+                  <ion-icon style="vertical-align: bottom;" name="arrow-round-back"></ion-icon> Edit mobile number</p>
+            </ion-col>
         </ion-row>
         <ion-row [hidden]="enterotp" class="width-80-percent center-text margin-top-10">
           <ion-button class="full-button " expand="full" color="primary" (click)="confirmOtp()">Confirm</ion-button>
@@ -302,12 +309,109 @@
             [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch"
             (click)="registerUser()">Register</ion-button>
         </ion-row>
+
+
         <!-- 
         <ion-row class="width-80-percent center-text margin-top-10">
           <ion-button class="full-button " expand="full" color="primary" (click)="registerUser()">Register</ion-button>
         </ion-row> -->
       </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div [hidden]="forgetpassword">
+
+        <!-- <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter Your Name</ion-label>
+              <ion-input type="text" placeholder="" [(ngModel)]="loginData.name">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row> -->
+        <ion-row class="width-80-percent">
+          <div class="text-left">
+            <p class="font-20 margin-bottom-10">Welcome,</p>
+          </div>
+        </ion-row>
+        <ion-row class="width-80-percent">
+          <div class="text-left">
+            <p class="font-14 margin-top-0">Enter your phone number to reset password.</p>
+          </div>
+        </ion-row>
+        <ion-row class="width-80-percent text-left">
+          <ion-col size="2">
+            <ion-item>
+              <ion-input disabled="true" inputmode="text" [(ngModel)]="loginData.countryCode"> </ion-input>
+              <!-- <ion-icon mode="md" class="txt-warm-grey" name="arrow-dropdown"></ion-icon> -->
+            </ion-item>
+          </ion-col>
+          <ion-col size="10">
+            <ion-item>
+              <ion-input inputmode="tel" placeholder=" "
+                [(ngModel)]="loginData.phoneNumber"> </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class="font-20 margin-bottom-10">Enter New Password</ion-label>
+              <ion-input type="password" placeholder="" [(ngModel)]="loginData.password"
+                (ngModelChange)="validatePassword()">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="width-80-percent text-left">
+          <ion-col>
+            <ion-item>
+              <ion-label position="stacked" class="font-20 margin-bottom-10">Confirm Password</ion-label>
+              <ion-input type="password" placeholder="" [(ngModel)]="loginData.passwordCheck"
+                (ngModelChange)="validatePassword()">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+          <p class="font-14 txt-warm-grey margin-top-0">Password needs to be at least 4 characters in length </p>
+        </ion-row>
+
+        <p [hidden]="!passwordMismatch" class="text-denger">Password mismatch</p>
+
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button class="full-button " expand="full" color="primary" [hidden]="loginData.action === 'resetPassword'"
+            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch"
+            (click)="forgotPassword()">Reset password</ion-button>
+        </ion-row>
+        <ion-row class="width-80-percent center-text margin-top-10" [hidden]="loginData.action !== 'resetPassword'">
+          <ion-button class="full-button " expand="full" color="primary" (click)="resetPassword()"
+            [disabled]="!loginData.password || !loginData.passwordCheck || loginData.password.length < 4 || loginData.passwordCheck.length < 4 || passwordMismatch"
+            (click)="forgotPassword()">Reset password</ion-button>
+        </ion-row>
+
+        
+        <!-- 
+        <ion-row class="width-80-percent center-text margin-top-10">
+          <ion-button class="full-button " expand="full" color="primary" (click)="registerUser()">Register</ion-button>
+        </ion-row> -->
+      </div>
     </div>
 
     <!-- <ion-row>

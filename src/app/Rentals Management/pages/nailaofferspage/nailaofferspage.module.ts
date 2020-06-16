@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 // import { NailasearchPage } from './nailasearchpage';
 import { NailaOffersPage } from './nailaofferspage';
 
@@ -29,7 +29,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [
-    BarcodeScanner
+    // BarcodeScanner
   ],
   declarations: [NailaOffersPage]
 })

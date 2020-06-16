@@ -68,7 +68,7 @@ export class NoticeCreatePage implements OnInit {
 
     return await modal.present();
   }
-
+ 
   async createNotice() {
     await this.presentLoading();
     if (this.images.length > 0) {
@@ -98,54 +98,54 @@ export class NoticeCreatePage implements OnInit {
 
   }
 
-  public presentActionSheet() {
-    this.actionSheet.create({
-      header: 'Select image from ',
-      buttons: [
-        {
-          text: 'Camera',
-          icon: 'camera',
-          handler: async () => {
-            this.fileSourceOption('camera');
-          }
-        },
-        {
-          text: 'Library',
-          icon: 'images',
-          handler: () => {
-            this.fileSourceOption('library');
-          }
-        },
-        {
-          text: 'Cancel',
-          icon: 'close',
-          handler: () => {
-            console.log('cancel');
-          }
-        }
-      ]
-    }).then(actionsheet => {
-      actionsheet.present()
-    })
-  }
+  // public presentActionSheet() {
+  //   this.actionSheet.create({
+  //     header: 'Select image from ',
+  //     buttons: [
+  //       {
+  //         text: 'Camera',
+  //         icon: 'camera',
+  //         handler: async () => {
+  //           this.fileSourceOption('camera');
+  //         }
+  //       },
+  //       {
+  //         text: 'Library',
+  //         icon: 'images',
+  //         handler: () => {
+  //           this.fileSourceOption('library');
+  //         }
+  //       },
+  //       {
+  //         text: 'Cancel',
+  //         icon: 'close',
+  //         handler: () => {
+  //           console.log('cancel');
+  //         }
+  //       }
+  //     ]
+  //   }).then(actionsheet => {
+  //     actionsheet.present()
+  //   })
+  // }
 
-  async fileSourceOption(type) {
+  // async fileSourceOption(type) {
 
-    if (this.images.length < 1) {
-      let image_url;
-      let caller = await this.alertService.capturePhoto(type);
-      image_url = caller;
-      console.log("in add-visitor Page\n\n");
-      if (image_url != undefined) {
-        console.log(image_url);
-        this.images.push(image_url);
-        console.log(this.images);
-      }
-    } else {
-      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-        this.transService.getTranslatedData('create-notice.picture-limit'))
-    }
-  }
+  //   if (this.images.length < 1) {
+  //     let image_url;
+  //     let caller = await this.alertService.capturePhoto(type);
+  //     image_url = caller;
+  //     console.log("in add-visitor Page\n\n");
+  //     if (image_url != undefined) {
+  //       console.log(image_url);
+  //       this.images.push(image_url);
+  //       console.log(this.images);
+  //     }
+  //   } else {
+  //     this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+  //       this.transService.getTranslatedData('create-notice.picture-limit'))
+  //   }
+  // }
 
   removeImage() {
     this.images = [];

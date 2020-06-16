@@ -13,7 +13,7 @@ import { MaterialSearchPageModule } from './pages/material-search/material-searc
 import { NoticeCreatePageModule } from './pages/notice-create/notice-create.module';
 import { ApplicationPageModule } from './ApplicationPageModule';
 import { UserSearchPipe } from './pipes/user-search-pipe';
-import { Camera } from '@ionic-native/camera/ngx';
+// import { Camera } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Push } from '@ionic-native/push/ngx';
 import { ProfilePage } from './pages/profile/profile.page';
@@ -37,7 +37,7 @@ import { ProfilePage } from './pages/profile/profile.page';
         ApplicationPageModule
     ],
     providers: [
-        Camera,
+        // Camera,
         FileTransfer,
         Push,
         FileTransferObject,

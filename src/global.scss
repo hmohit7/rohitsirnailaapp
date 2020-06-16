@@ -861,9 +861,47 @@ ion-item{
 }
 
 .cart-number{
-  font-size: 7px;
-  color: red;
+  font-size: 6px;
+  color: black;
   position: absolute;
-  left: 7px;
-  top: -8px;
+  display: inline-flex;
+  margin-left: 5px;
+  top: -11px;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 41px;
+  height: 9px;
+  outline: none;
+  width: 9px;
+  justify-content: center;
 }
+
+.danger-button{
+  --background: red !important;
+}
+
+.custom-refund-alert{
+  --max-width: 100% !important;
+  --min-height: 100% !important;
+  --min-width: 100% !important;
+}
+
+.native-input[disabled].sc-ion-input-md {
+  opacity: unset !important;
+}
+
+.my-custom-invoice-class{
+  --color: black !important;
+  .alert-title.sc-ion-alert-md {
+    font-size: 16px;
+    font-weight: 500;
+  
+}
+.alert-message.sc-ion-alert-md {
+  max-height: 240px;
+  font-size: 16px;
+  color: black !important;
+  text-transform: capitalize !important;
+}
+}
+

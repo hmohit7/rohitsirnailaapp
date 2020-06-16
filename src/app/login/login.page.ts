@@ -19,6 +19,7 @@ import { SelectOrganizationComponent } from '../common-components/select-organiz
 import { AddUserComponent } from '../common-components/add-user/add-user.component';
 import { NeedHelpComponent } from '../common-components/need-help/need-help.component';
 import { HTTP } from '@ionic-native/http/ngx'
+import { Utils } from '../Rentals Management/services/utils.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -59,6 +60,7 @@ export class LoginPage implements OnInit {
     private alertService: AlertServiceService,
     private modalCtrl: ModalController,
     private http: HTTP,
+    public utils:Utils,
     private appSetting: MainAppSetting,
     public alertController: AlertController,
     private navCtrl: NavController,
@@ -469,7 +471,7 @@ export class LoginPage implements OnInit {
           //   "userdata": this.loginData,
           //   "error": err
           // });
-          this.alertService.presentAlert("", err.error.error);
+          this.alertService.presentAlert("", err.error.errors[0]);
         }
       );
   }
@@ -725,6 +727,10 @@ export class LoginPage implements OnInit {
     })
   }
 
+
+
+
+
 // coded by harsh
   sendOtpInput
   userSignup() {
@@ -740,6 +746,9 @@ export class LoginPage implements OnInit {
 
 
       }
+    },err=>{
+                this.alertService.presentAlert("", err.error.errors[0]);
+
     })
   }
 
@@ -790,9 +799,13 @@ const data={
         this.newpassword=true;
         this.registereduser = false;
       }
+    },err=>{
+                this.alertService.presentAlert("", err.error.errors[0]);
+
     })
   }
-
+  firstname
+  userrole
   registeredUser(){
 
    const data={
@@ -800,22 +813,59 @@ const data={
       "password": this.loginData.password
     }
     this.loginService.registeredUser(data).subscribe(data => {
-      if (data) {
+      debugger
+      if (data.role.name=='Customer') {
 
         window.localStorage.setItem('uid', data.uid);
         window.localStorage.setItem('registereduser', 'true');
         window.localStorage.setItem('user_id', data.id);
+        window.localStorage.setItem('user_type', data.role.name);
+        window.localStorage.setItem('firstName', data.name);
+
+        this.firstname=window.localStorage.getItem('firstName')
+        this.firstname=this.firstname.split(" ")[0];
+        this.userrole = window.localStorage.getItem('user_type')
+        this.utils.userrole=this.userrole
 
         this.enterotp = true;
         this.sendotpinput = true;
         this.newpassword=true;
-        this.registereduser = true;
+        this.registereduser = false;
         this.enterpassword=true;
         this.router.navigateByUrl('/rentals-naila-search-page')
 
+      }else{
+        window.localStorage.setItem('role_id', data.role_id);
+        window.localStorage.setItem('registereduser', 'true');
+        window.localStorage.setItem('beautician_id', data.id);
+        window.localStorage.setItem('user_type', data.role.name);
+        window.localStorage.setItem('firstName', data.name);
+        this.firstname=window.localStorage.getItem('firstName')
+        this.firstname=this.firstname.split(" ")[0];
+        this.userrole = window.localStorage.getItem('user_type')
+        this.utils.userrole=this.userrole
+        this.enterotp = true;
+        this.sendotpinput = true;
+        this.newpassword=true;
+        this.registereduser = false;
+        this.enterpassword=true;
+        this.router.navigateByUrl('/rentals-naila-beaut-booking-page')
       }
+    },err=>{
+      debugger
+                this.alertService.presentAlert("", err.error.errors[0]);
+
     })
   
+  }
+  editNumber(){
+    this.enterotp = true;
+    this.sendotpinput = true;
+    this.newpassword=true;
+    this.registereduser = false;
+    this.enterpassword=true;
+    this.forgetpassword=true;
+
   }
   togglesubmitpassword(){
     this.enterotp = true;
@@ -823,6 +873,8 @@ const data={
     this.newpassword=true;
     this.registereduser = true;
     this.enterpassword=false;
+    this.forgetpassword=true;
+
   }
 
   toggelLoginClicked(){
@@ -831,13 +883,64 @@ const data={
     this.newpassword=true;
     this.registereduser = false;
     this.enterpassword=true;
+    this.forgetpassword=true;
+
   }
+
+  togglereset(){
+    this.enterotp = true;
+    this.sendotpinput = true;
+    this.newpassword=true;
+    this.registereduser = true;
+    this.enterpassword=true;
+    this.forgetpassword=false;
+  }
+
+
+  editresendNumber(){
+    this.sendotpinput = false;
+    this.registereduser = true;
+    this.enterotp = true;
+    this.newpassword=true;
+    this.forgetpassword=true;
+
+  }
+
+
+
+
   resendOtp(){
     const data = {
       mobile: "+91" + this.loginData.phoneNumber
     }
     this.loginService.resendOtp(data).subscribe(data=>{
 
+    },err=>{
+    this.alertService.presentAlert("", err.error.errors[0]);
+
     })
   }
+  forgetpassword=true;
+forgotPassword(){
+  const data={
+    "contact": "+91" + this.loginData.phoneNumber,
+      "password": this.loginData.password
+    }
+    this.loginService.forgotPassword(data).subscribe(data => {
+      debugger
+      this.enterotp = true;
+      this.sendotpinput = true;
+      this.newpassword=true;
+      this.registereduser = false;
+      this.enterpassword=true;
+      this.forgetpassword=true;
+
+ 
+    },err=>{
+      debugger
+                this.alertService.presentAlert("", err.error.errors[0]);
+
+    })
+}
+
 }

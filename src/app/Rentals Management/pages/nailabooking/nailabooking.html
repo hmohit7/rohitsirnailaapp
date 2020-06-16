@@ -8,15 +8,15 @@
           <img src="../../../../assets/icons.png" width="30px" height="30px"/>
       </ion-button>
     </ion-buttons> -->
-    
+
     <ion-title>Bookings</ion-title>
   </ion-toolbar>
- 
+
   <ion-segment value="all">
-    <ion-segment-button value="all">
+    <ion-segment-button (click)="filterpastandupcomingBooking('upcoming')">
       <ion-label>Upcoming</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="favorites">
+    <ion-segment-button (click)="filterpastandupcomingBooking('past')">
       <ion-label>Past</ion-label>
     </ion-segment-button>
   </ion-segment>
@@ -25,82 +25,102 @@
 <ion-content padding>
 
 
+<ng-container *ngIf="listbooking.length">
+  <ng-container style="    border-bottom: 1px solid black;
+  " *ngFor="let data of listbooking; let i= index">
+    <label style="text-decoration: underline;
+    margin-left: -2vw;">
+      Booking Id: #{{data.unique_id.substr(data.unique_id.length - 4)}}
+    </label>
 
-
-<ion-row *ngFor="let item of bookingList.booking_services">
-    <ion-col size="3">
-      <img class="float-left" style="width: 70px;
+    <ion-row style="    margin-top: 5vw;" *ngFor="let item of data.booking_services_details">
+      <ion-col size="3">
+        <img class="float-left" style="width: 70px;
       height: 43px;
       margin-top: 5px;
       position: absolute;
-      border-radius: 5px;" src={{item.image.url}} alt="">
-    </ion-col>
-    <ion-col size="9">
-      
-      
+      border-radius: 5px;" src={{item.service.image.url}} alt="">
+      </ion-col>
+      <ion-col size="9">
+
+
+
+
         <ion-list class="padding-bottom-0">
-          <ion-item   detail="true" lines="none">
+          <ion-item lines="none">
             <ion-label style="text-align: start;" class="margin-0">
               <p class="" text-wrap>
-                <small class="float-left font-weight-600 text-black">{{item.name}}</small>
+                <small class="float-left font-weight-600 text-black">{{item.service.name}}</small>
                 <!-- <span class="center-text"> hello</span>-->
               </p>
               <small class="font-10  txt-grey">
-               {{item.no_of_minuties}} min
+                {{item.service.no_of_minuties}} min
               </small>
             </ion-label>
             <!-- <small class="float-right ">Rs.900</small>  -->
             <ion-label style="text-align: end;     padding-right: 10px;" class="margin-0 ">
-                <p class="" text-wrap>
-                  <small class="font-10" >{{item.schedule_on | date :  "dd|MM|yyyy"}}</small>
-                  <!-- <span class="center-text"> hello</span>-->
-                </p>
-                <small class="font-10 txt-grey">
-                 Rs. {{item.offer_price}}
-                </small>
-              </ion-label>
-              <!-- <small class="float-right ">Details</small>  -->
+              <p class="" text-wrap>
+                <small class="font-10">{{data.schedule_on | date :  "dd|MM|yyyy"}}</small>
+                <!-- <span class="center-text"> hello</span>-->
+              </p>
+              <small class="font-10 txt-grey">
+                Rs. {{item.service.offer_price}}
+              </small>
+            </ion-label>
+            <!-- <small class="float-right ">Details</small>  -->
 
           </ion-item>
         </ion-list>
-      
-    </ion-col>
 
+      </ion-col>
+
+
+
+    </ion-row>
+    <ion-row>
     <ion-col size="3"></ion-col>
 
     <ion-col size="9">
-      
-      
-        <ion-list class="padding-bottom-0">
-          <ion-item  style="    --min-height: 10px;" lines="none">
-            <ion-label style="text-align: start;" class="margin-0">
-              <p class="" text-wrap>
-                <small class="float-left text-nunderline font-10 text-ncolor">View Invoice</small>
-                <!-- <span class="center-text"> hello</span>-->
-              </p>
-             
-            </ion-label>
-            <!-- <small class="float-right ">Rs.900</small>  -->
-            <ion-label style="text-align: end;     padding-right: 10px;" class="margin-0 ">
-                <p class="" text-wrap>
-                  <small class="font-10 text-ncolor text-nunderline" >Raise Ticket</small>
-                  <!-- <span class="center-text"> hello</span>-->
-                </p>
-                
-              </ion-label>
-              <!-- <small class="float-right ">Details</small>  -->
 
-          </ion-item>
-        </ion-list>
-      
+
+      <ion-list class="padding-bottom-0">
+        <ion-item style="--min-height: 10px;" lines="none">
+          <ion-label (click)="presentInvoiceAlert(data)" style="text-align: start;" class="margin-0">
+            <p class="" text-wrap>
+              <small class="float-left text-nunderline font-10 text-ncolor">View Invoice</small>
+              <!-- <span class="center-text"> hello</span>-->
+            </p>
+
+          </ion-label>
+          <!-- <small class="float-right ">Rs.900</small>  -->
+          <ion-label style="text-align: end; padding-right: 10px;" class="margin-0 ">
+            <p class="" text-wrap>
+              <small (click)="presentAlert(item)" class="font-10 text-ncolor text-nunderline">Raise Ticket</small>
+              <!-- <span class="center-text"> hello</span>-->
+            </p>
+
+          </ion-label>
+          <!-- <small class="float-right ">Details</small>  -->
+
+        </ion-item>
+      </ion-list>
+
     </ion-col>
+    </ion-row>
+    <!-- <hr> -->
+  </ng-container>
+</ng-container>
 
-  </ion-row>
-<hr>
 
-
-
-
+<ng-container *ngIf="!listbooking.length">
+    <ion-row>
+        <p style="display: inline-flex;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        margin-top: 25vh;">No {{bookingname}} bookings!</p>
+      </ion-row>
+</ng-container>
 
 
   <!-- 
@@ -110,6 +130,3 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll> -->
 </ion-content>
-
-
-

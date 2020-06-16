@@ -123,3 +123,9 @@ ion-navbar{
   margin-right: 2px;
   margin-left: 2px;
 }
+
+.sc-ion-alert-md-h {
+  --min-width: 100% !important; 
+  --max-width: 100% !important;
+  font-size: 12px;
+}

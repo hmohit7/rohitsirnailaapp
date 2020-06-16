@@ -10,7 +10,7 @@ import { translateService } from 'src/app/common-services/translate /translate-s
 import { Storage } from '@ionic/storage';
 import { RentalsUserService } from '../../services/rentals-user.service';
 import { Device } from '@ionic-native/device/ngx';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
 import { NailaService } from '../../services/naila.service';
@@ -32,31 +32,50 @@ export class NailasearchPage {
 
   sliderConfig2 = {
     slidesPerView: 3.2,
-    spaceBetween: 5,
+    spaceBetween: -50,
     // centeredSlides: true
   };
   public searchTerm: string = "";
   public items: any;
 
-  constructor(private nailaService: NailaService,public utils: Utils,private router:Router) {
+  constructor(private nailaService: NailaService, public utils: Utils, private router: Router) {
+
 
   }
   listofBanner;
   apartmentList: any;
   ngOnInit() {
+
+
     this.nailaService.apartmentList().subscribe(data => {
       this.apartmentList = data
       this.items = data
       // console.log(this.apartmentList)
     })
     this.browseBycategory()
-    this.nailaService.listBanners().subscribe(data=>{
-      this.listofBanner=data
+    this.nailaService.listBanners().subscribe(data => {
+      this.listofBanner = data
     })
+
   }
 
+  ionViewWillEnter() {
+    debugger
+    if (window.localStorage.getItem('cartitemcount')) {
 
+      this.utils.cartdata = window.localStorage.getItem('cartitemcount')
+    } else {
+      this.utils.cartdata = [];
+    }
+
+    if (this.utils.bookingdata) {
+      alert(this.utils.bookingdata)
+      this.nailaService.createBooking(this.utils.bookingdata).subscribe(data => {
+      })
+    }
+  }
   browseBycategory() {
+    debugger
     this.nailaService.browseBycategory().subscribe(data => {
       console.log(data)
       this.categories = data;
@@ -65,45 +84,81 @@ export class NailasearchPage {
   }
 
   cardName
-  categoryList:any;
+  categoryList: any;
   selectedCategory(data) {
     this.cardName = data.name
-    const list=[]
+    const list = []
     this.nailaService.selectedCategory(data.id).subscribe(data => {
       console.log("selected", data);
-      this.categoryList=data
+      this.categoryList = data
       this.filterserviceData(data)
-      
+
     })
   }
 
-serviceList=[];
-showSubheading=false;
-filterserviceData(data){
-  this.serviceList=[];
+  serviceList = [];
+  showSubheading = false;
+  filterserviceData(data) {
+    this.characters = [];
+    this.serviceList = [];
+    this.showSubheading = false;
+    if (data.length && data[0].sub_category_id && data[0].sub_category) {
 
-if(data[0].sub_category){
+      data.forEach(element => {
+        if (element.sub_category && element.category_id == element.sub_category.category_id) {
 
-  data.forEach(element => {
-  if(element.sub_category && element.category_id==element.sub_category.category_id){
+          this.serviceList.push({
+            data: element,
+            name: element.sub_category.name
+          })
 
-  this.serviceList.push(element)
 
-  console.log(element);
-  this.showSubheading=true
-  
+
+          this.showSubheading = true
+
+        }
+      });
+
+
+      const result = this.serviceList.reduce((h, { data, name }) => {
+        return Object.assign(h, { [name]: (h[name] || []).concat({ data, name }) })
+      }, {})
+
+      const results = Object.keys(result);
+
+      // var characters = [ ];
+
+      for (var prop in result) {
+        if (result.hasOwnProperty(prop)) {
+          this.characters.push({
+            name: prop,
+            data: result[prop]
+          });
+        }
+      }
+
+
+      this.serviceList = [];
+      this.serviceList.push(this.characters);
+    }
+    else {
+      this.characters = [];
+      data.forEach(element => {
+        this.characters.push({
+          name: '',
+          data: [element]
+        })
+      });
+
+
+      // this.characters=data
+      // console.log("elseeeeeepart",this.serviceList)
+      console.log("=========================change", this.characters, "================================");
+      this.showSubheading = false
+
+    }
+
   }
-});
-}
-  else{
-    
-    this.serviceList=data
-    console.log("elseeeeeepart",this.serviceList)
-    this.showSubheading=false
-
-  }
-
-}
 
 
 
@@ -123,7 +178,8 @@ if(data[0].sub_category){
 
   selectedApartment(item) {
     this.searchTerm = item.name
-    window.localStorage.setItem('apartment_id',item.id)
+    window.localStorage.setItem('apartment_name', item.name)
+    window.localStorage.setItem('apartment_id', item.id)
   }
 
 
@@ -145,12 +201,28 @@ if(data[0].sub_category){
     }
   }
   // listofservices
-  setDetailsofservice(data){
-   
-    this.utils.storage=data
+  setDetailsofservice(data) {
+
+    debugger
+    if (data.data) {
+
+      this.utils.storage = data.data
+    } else {
+      this.utils.storage = data
+
+    }
 
     this.router.navigateByUrl('/rentals-naila-service-page')
-    
-  }
 
+  }
+  characters = [];
+
+  // ionViewWillUnload(){
+  //   if (window.localStorage.getItem('cartitemcount')) {
+
+  //     this.utils.cartdata = window.localStorage.getItem('cartitemcount')
+  //   } else {
+  //     this.utils.cartdata = [];
+  //   }
+  // }
 }

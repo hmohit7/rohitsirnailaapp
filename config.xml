@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.grexterBusiness.coliving" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.nailabeauties.redifined" version="0.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Naila</name>
-    <description>An awesome Ionic/Cordova app.</description>
+    <description>Naila Beauty Redifined</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -29,7 +29,6 @@
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />
         </edit-config>
-        <resource-file src="google-services.json" target="google-services.json" />
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -114,4 +113,9 @@
     <allow-navigation href="http://localhost:3020" sessionid="54de23f4" />
     <allow-navigation href="http://localhost:3021" sessionid="0199eecb" />
     <allow-navigation href="http://localhost:3022" sessionid="f5ee772f" />
+    <allow-navigation href="http://localhost:3023" sessionid="77efcb7c" />
+    <allow-navigation href="http://localhost:3024" sessionid="c4b83130" />
+    <allow-navigation href="http://localhost:3025" sessionid="28396b8f" />
+    <allow-navigation href="http://localhost:3026" sessionid="8a351ec0" />
+    <allow-navigation href="http://localhost:8101" sessionid="29796033" />
 </widget>

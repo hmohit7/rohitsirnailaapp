@@ -93,6 +93,13 @@ export class LoginService {
         );
       }
 
+      // forgotPassword(data)
 
+
+      forgotPassword(data:any): Observable<any> {
+        return this.http.post(
+          `${this.appSettings.getApi()}/api/v1/user/reset_password`,data,this.appSettings.getHttpHeades()
+        );
+      }
       
 }

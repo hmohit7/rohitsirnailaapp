@@ -7,8 +7,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CreateNoticeComponent } from '../../modals/create-notice/create-notice.component';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { NailaAccountPage } from './nailaaccountpage';
+import { RefundModalComponent } from '../../modals/refundmodal/refundmodal.component';
+import { PrivacyPolicyModalComponent } from '../../modals/privacypolicy/privacypolicy.component';
+import { TermsModalComponent } from '../../modals/termsandcondition/termsandcondition.component';
 
 
 const routes: Routes = [
@@ -19,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  entryComponents: [CreateNoticeComponent],
+  entryComponents: [CreateNoticeComponent,RefundModalComponent,PrivacyPolicyModalComponent,TermsModalComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -28,9 +31,12 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [
-    BarcodeScanner
+    // BarcodeScanner,
+    RefundModalComponent,
+    PrivacyPolicyModalComponent,
+    TermsModalComponent
   ],
-  declarations: [NailaAccountPage]
+  declarations: [NailaAccountPage,RefundModalComponent,PrivacyPolicyModalComponent,TermsModalComponent]
 })
 export class NailaAccountPageModule { }
 

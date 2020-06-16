@@ -1,0 +1,205 @@
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
+      <ion-button style="color: black">
+          <img src="../../../../assets/icons.png" width="30px" height="30px"/>
+      </ion-button>
+    </ion-buttons> -->
+
+    <ion-title>Bookings</ion-title>
+  </ion-toolbar>
+
+  <ion-segment value="all">
+    <ion-segment-button (click)="listAllBookings('past')">
+      <ion-label style="text-decoration: unset">Todays booking</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (click)="listAllBookings('upcoming')">
+      <ion-label style="text-decoration: unset">Tomorrow booking</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card>
+    <ng-container *ngIf="listbooking.length">
+      <ng-container *ngFor="let bookingdata of listbooking">
+        <ion-item lines="none">
+          <ion-label class="font-15" style="float:left">
+            Booking Info:
+          </ion-label>
+        </ion-item>
+        <!-- <ion-col size="3">
+        <img class="float-left" style="width: 70px;
+      height: 43px;
+      margin-top: 5px;
+      position: absolute;
+      border-radius: 5px;" src={{item.service.image.url}} alt="">
+      </ion-col> -->
+        <ion-item *ngFor="let item of bookingdata.booking_services_details; let i=index" lines="none" size="12">
+
+
+
+
+
+          <ol start={{i+1}}>
+            <li class="font-12">{{item.service.name}}-Rs. {{item.service.offer_price}} X Quantity {{item.quantity}}</li>
+          </ol>
+
+
+        </ion-item>
+
+
+        <!-- <ion-col size="3"></ion-col>
+
+      <ion-col size="9">
+
+
+        <ion-list class="padding-bottom-0">
+          <ion-item style="--min-height: 10px;" lines="none">
+            <ion-label style="text-align: start;" class="margin-0">
+              <p class="" text-wrap>
+                <small class="float-left text-nunderline font-12 text-ncolor">View Invoice</small>
+                <span class="center-text"> hello</span>
+              </p>
+
+            </ion-label>
+            <small class="float-right ">Rs.900</small> 
+            <ion-label style="text-align: end; padding-right: 10px;" class="margin-0 ">
+              <p class="" text-wrap>
+                <small (click)="presentAlert(item)" class="font-12 text-ncolor text-nunderline">Raise Ticket</small>
+                <span class="center-text"> hello</span>
+              </p>
+
+            </ion-label>
+            <small class="float-right ">Details</small> 
+
+          </ion-item>
+        </ion-list>
+
+      </ion-col> -->
+
+
+        <!-- <hr> -->
+
+
+
+        <ion-item lines="none">
+          <small class="float-left font-12 text-black">Payment mode</small>-
+          <small *ngIf="bookingdata.payment_mode=='by_cash'" class=" float-right font-12 txt-black">
+            Cash
+          </small>
+          <small *ngIf="bookingdata.payment_mode=='online'" class=" float-right font-12 txt-black">
+            Online
+          </small>
+        </ion-item>
+        <ion-item lines="none">
+          <small class="float-left text-black">Total amount</small>-
+          <small class=" float-right font-12 txt-black">
+            Rs. {{bookingdata.total_amount}}
+          </small>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="font-15" style="float:left">
+            User Info:
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <small class="float-left font-12 text-black">Customer Name</small>-
+          <small class=" float-right font-12 txt-black">
+            {{bookingdata.user.name}}
+          </small>
+        </ion-item>
+        <ion-item lines="none">
+          <small class="float-left font-12 text-black">Contact Number</small>-
+          <small class=" float-right font-12 txt-black">
+            {{bookingdata.user.contact}}
+          </small>
+        </ion-item>
+        <ion-item *ngIf="bookingdata.flat_no && bookingdata.address" lines="none">
+          <small class="float-left font-12 text-black">Address-</small><br>
+          <small class=" float-right font-12 txt-black">
+
+            {{bookingdata.flat_no}}, {{bookingdata.address}}
+          </small>
+        </ion-item>
+        <br>
+        <ion-item lines="none">
+          <label (click)="bookingdata.payment_status='collected_cash';collectedCash(bookingdata)" style="width: 100%;
+        display: inline-flex;
+        /* height: 35px; */
+        justify-content: center;
+        border: 1px solid red;
+        padding: 10px;
+        margin-top: 5px;
+        color: white;
+        background: red;"
+            *ngIf="bookingdata.payment_mode=='by_cash' && bookingdata.payment_status !='collected_cash' && bookingdata.payment_status !='online_paid' && !bookingdata.service_status ">Collect
+            Cash</label>
+
+          <label
+            *ngIf="( bookingdata.payment_status =='collected_cash') && bookingdata.service_status!='Service Done' "
+            (click)="bookingdata.service_status='Service Done';collectedCash(bookingdata)" style="width: 100%;
+        display: inline-flex;
+        /* height: 35px; */
+        justify-content: center;
+        border: 1px solid yellow;
+        padding: 10px;
+        margin-top: 5px;
+        color: black;
+        background: yellow;">Update Service</label>
+
+          <label (click)="collectedCash(bookingdata)" style="width: 100%;
+        display: inline-flex;
+        /* height: 35px; */
+        justify-content: center;
+        border: 1px solid green;
+        padding: 10px;
+        margin-top: 5px;
+        color: white;
+        background: green;" *ngIf="bookingdata.service_status=='Service Done'">Service Done</label>
+          <label style="width: 100%;
+        display: inline-flex;
+        /* height: 35px; */
+        margin-top: 5px;
+        justify-content: center;
+        border: 1px solid yellow;
+        padding: 10px;
+        color: black;
+        background: yellow;"
+            *ngIf="bookingdata.payment_mode=='online' && bookingdata.payment_status =='online_paid' && !bookingdata.service_status "
+            (click)="bookingdata.service_status='Service Done';collectedCash(bookingdata)">Paid</label>
+        </ion-item>
+        <br>
+        <br>
+      </ng-container>
+    </ng-container>
+  </ion-card>
+
+
+  <ng-container *ngIf="!listbooking.length">
+    <ion-row>
+      <p style="display: inline-flex;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        margin-top: 25vh;">No {{bookingname}} Bookings!</p>
+    </ion-row>
+  </ng-container>
+
+  <br>
+  <!-- 
+  <ion-infinite-scroll [hidden]="disableInfiniteScroll" threshold="5px" (ionInfinite)="searchTicket($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="{{transService.getTranslatedbookingdata('infinite-scroll')}}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+  <!-- <ion-button>Collect cash</ion-button> -->
+
+
+
+
+</ion-content>

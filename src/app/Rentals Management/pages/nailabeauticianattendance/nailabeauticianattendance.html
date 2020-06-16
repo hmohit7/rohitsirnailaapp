@@ -1,0 +1,32 @@
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end" expand="full" class="ion-button" (click)="openScanner()">
+      <ion-button style="color: black">
+          <img style="width: 15px;
+            height: 15px;" src="../../../../assets/icons.png" width="30px" height="30px"/>
+      </ion-button>
+    </ion-buttons> -->
+
+    <ion-title>Attendance</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="ion-text-center" fullscreen>
+  <ion-list>
+<ion-item lines="none" >
+  <ion-button (click)="markAttendance()" style="min-width: 120px;
+  margin-bottom: 15vw;
+  margin-top: 50vw;">Punch in</ion-button>
+
+</ion-item>
+<br>
+<ion-item lines="none">
+  <ion-button (click)="updateAttendance()" style="min-width: 120px;">Punch out</ion-button>
+</ion-item>
+  </ion-list>
+</ion-content>

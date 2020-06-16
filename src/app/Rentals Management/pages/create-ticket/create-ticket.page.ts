@@ -404,20 +404,20 @@ export class CreateTicketPage implements OnInit {
   }
 
 
-  async fileSourceOption(type) {
-    if (this.images.length < 1) {
-      const caller = await this.alertService.capturePhoto(type);
-      console.log('in add-visitor Page\n\n ', caller);
-      if (caller !== undefined) {
-        console.log(caller);
-        this.images.push(caller);
-        console.log(this.images);
-      }
-    } else {
-      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-        this.transService.getTranslatedData('create-ticket.picture-limit'));
-    }
-  }
+  // async fileSourceOption(type) {
+  //   if (this.images.length < 1) {
+  //     const caller = await this.alertService.capturePhoto(type);
+  //     console.log('in add-visitor Page\n\n ', caller);
+  //     if (caller !== undefined) {
+  //       console.log(caller);
+  //       this.images.push(caller);
+  //       console.log(this.images);
+  //     }
+  //   } else {
+  //     this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+  //       this.transService.getTranslatedData('create-ticket.picture-limit'));
+  //   }
+  // }
 
   removeImage() {
     this.images = [];
@@ -432,36 +432,36 @@ export class CreateTicketPage implements OnInit {
     })
   }
 
-  public presentActionSheet() {
-    this.actionSheet.create({
-      header: 'Select image from ',
-      buttons: [
-        {
-          text: 'Camera',
-          icon: 'camera',
-          handler: async () => {
-            this.fileSourceOption('camera');
-          }
-        },
-        {
-          text: 'Library',
-          icon: 'images',
-          handler: () => {
-            this.fileSourceOption('library');
-          }
-        },
-        {
-          text: 'Cancel',
-          icon: 'close',
-          handler: () => {
-            console.log('cancel');
-          }
-        }
-      ]
-    }).then(actionsheet => {
-      actionsheet.present()
-    })
-  }
+  // public presentActionSheet() {
+  //   this.actionSheet.create({
+  //     header: 'Select image from ',
+  //     buttons: [
+  //       {
+  //         text: 'Camera',
+  //         icon: 'camera',
+  //         handler: async () => {
+  //           this.fileSourceOption('camera');
+  //         }
+  //       },
+  //       {
+  //         text: 'Library',
+  //         icon: 'images',
+  //         handler: () => {
+  //           this.fileSourceOption('library');
+  //         }
+  //       },
+  //       {
+  //         text: 'Cancel',
+  //         icon: 'close',
+  //         handler: () => {
+  //           console.log('cancel');
+  //         }
+  //       }
+  //     ]
+  //   }).then(actionsheet => {
+  //     actionsheet.present()
+  //   })
+  // }
   
 
 }

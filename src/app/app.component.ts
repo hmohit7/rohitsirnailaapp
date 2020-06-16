@@ -16,7 +16,7 @@ import { Utils } from './Rentals Management/services/utils.service';
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   public appPages = {
     name: '',
     phoneNumber: localStorage.getItem('phoneNumber'),
@@ -24,25 +24,40 @@ export class AppComponent implements OnInit{
       {
         title: 'Home',
         url: `rentals-naila-search-page`,
-        src: '/assets/imgs/home.svg'
+        src: '/assets/imgs/home.svg',
+        userrole:'Customer'
+
       }, {
         title: 'Account',
         url: `rentals-naila-account-page`,
-        src: 'assets/imgs/profile1.svg'
+        src: 'assets/imgs/profile1.svg',
+        userrole:'Customer'
+
       }, {
         title: 'Bookings',
         url: `rentals-naila-booking-page`,
-        src: '/assets/imgs/bookings.svg'
+        src: '/assets/imgs/bookings.svg',
+        userrole:'Customer'
+
       }, {
         title: 'Offers',
         url: `rentals-naila-offers-page`,
-        src: '/assets/imgs/discount.svg'
+        src: '/assets/imgs/discount.svg',
+        userrole:'Customer'
+
       },
       {
         title: 'My Cart',
         url: `rentals-naila-cart-page`,
-        src: '/assets/imgs/cart.svg'
+        src: '/assets/imgs/cart.svg',
+        userrole:'Customer'
+
       },
+      // {
+      //   title: 'Tickets',
+      //   url: `rentals-naila-ticket-page`,
+      //   src: '/assets/imgs/business.svg'
+      // },
       // {
       //   title: 'app-component.contact-us',
       //   url: `-contact-us`,
@@ -53,29 +68,42 @@ export class AppComponent implements OnInit{
       //   url: `-my-data-project`,
       //   src: '/assets/icon/phone.png'
       // },
-      // {
-      //   title: 'Unit',
-      //   url: `-my-data-unit-search`,
-      //   src: '/assets/icon/phone.png'
-      // },
-      // {
-      //   title: 'app-component.profile',
-      //   url: `-profile`,
-      //   src: '/assets/icon/profile.png'
-      // }
-    
-    ],
-    logout: {
-      title: 'app-component.logout',
-      src: '/assets/imgs/logout.svg',
+      {
+        title: 'Bookings',
+        url: `rentals-naila-beaut-booking-page`,
+        src: '/assets/imgs/bookings.svg',
+        userrole:'Beautician'
+      },
+      {
+        title: 'Attendance',
+        url: `rentals-naila-beaut-attendance-page`,
+        src: '/assets/imgs/business.svg',
+        userrole:'Beautician'
 
-    }
+      },
+      {
+        title: 'Log Out',
+        url: `rentals-naila-cart-page`,
+        src: '/assets/imgs/logoutsearch.svg'
+      }
+
+    ]
 
   }
+  userrole
+  ngOnInit() {
 
-ngOnInit(){
-  this.initializeApp();
-}
+
+
+    this.firstname = window.localStorage.getItem('firstName')
+    if(window.localStorage.getItem('firstName')){
+
+      this.firstname = this.firstname.split(" ")[0]
+    }
+
+    this.userrole = window.localStorage.getItem('user_type')
+    this.initializeApp();
+  }
 
 
   public appSrc
@@ -99,13 +127,15 @@ ngOnInit(){
     private rentalsUserService: RentalsUserService,
     private alertService: AlertServiceService,
     private buildingUserService: BuildingUserService,
-    private utils:Utils
+    private utils: Utils
     // private push: Push
   ) {
-    
+
   }
+  firstname
   ionViewDidLoad() {
     console.log("load");
+
   }
 
   async presentLoading() {
@@ -117,7 +147,7 @@ ngOnInit(){
   }
 
   async routeForword(url) {
-    
+
     await this.storageService.getDatafromIonicStorage('appSrc').then(val => {
       this.appSrc = val;
       console.log("-----------------", val)
@@ -152,21 +182,27 @@ ngOnInit(){
       // }
     });
   }
-  redirectToHomeOrLogin(isLoggedIn){
+  redirectToHomeOrLogin(isLoggedIn) {
     window.localStorage.getItem('uid')
     const registereduser = window.localStorage.getItem('registereduser')
-    registereduser == 'true' ? this.navCtrl.navigateRoot('/rentals-naila-search-page') : this.navCtrl.navigateRoot('/login');
+    if (window.localStorage.getItem('user_type') == 'Beautician') {
 
+      registereduser == 'true' ? this.navCtrl.navigateRoot('/rentals-naila-beaut-booking-page') : this.navCtrl.navigateRoot('/login');
+    } else if (window.localStorage.getItem('user_type') == 'Customer') {
+      registereduser == 'true' ? this.navCtrl.navigateRoot('/rentals-naila-search-page') : this.navCtrl.navigateRoot('/login');
 
-
-
-
-    if(window.localStorage.getItem('cartitem') && window.localStorage.getItem('cartitemcount')){
-
-      this.utils.cartitem=JSON.parse( window.localStorage.getItem('cartitem'));     
-      this.utils.cartdata=window.localStorage.getItem('cartitemcount')
-   }
     }
+
+
+
+
+
+    if (window.localStorage.getItem('cartitem') && window.localStorage.getItem('cartitemcount')) {
+
+      this.utils.cartitem = JSON.parse(window.localStorage.getItem('cartitem'));
+      this.utils.cartdata = window.localStorage.getItem('cartitemcount')
+    }
+  }
   // logout() {
   //   window.localStorage.clear()
   //   this.storage.clear()
@@ -177,41 +213,51 @@ ngOnInit(){
 
   async logOut() {
     await this.presentLoading();
-    let userId;
-    await this.storageService.getDatafromIonicStorage('user_id').then(val => {
-      userId = val;
-    })
-    this.storageService.getDatafromIonicStorage('appSrc').then(val => {
-      if (val == 'rentals') {
-        this.rentalsUserService.getUserById(userId).subscribe(async data => {
-          if (data.businessAppDevice.pushToken) {
-            delete data.businessAppDevice
-            console.log(data);
-            this.updateUser(val, data)
-          } else {
-            await this.loadingCtrl.dismiss()
-            window.localStorage.clear();
-            await this.storageService.emptyStorage()
-            this.navCtrl.navigateRoot('/login');
-          }
 
-        })
-      } else if (val == 'building-management') {
-        this.buildingUserService.getUserById(userId).subscribe(async data => {
-          if (data.businessAppDevice.pushToken) {
-            delete data.businessAppDevice
-            console.log(data);
-            this.updateUser(val, data)
-          } else {
-            await this.loadingCtrl.dismiss()
-            window.localStorage.clear();
-            await this.storageService.emptyStorage()
-            this.navCtrl.navigateRoot('/login');
-          }
-        })
-      }
 
-    })
+
+    window.localStorage.clear()
+    this.router.navigateByUrl('/login')
+    await this.loadingCtrl.dismiss()
+
+
+    //   this.storage.clear()
+    //   this.router.navigateByUrl('/login')
+    // let userId;
+    // await this.storageService.getDatafromIonicStorage('user_id').then(val => {
+    //   userId = val;
+    // })
+    // this.storageService.getDatafromIonicStorage('appSrc').then(val => {
+    //   if (val == 'rentals') {
+    //     this.rentalsUserService.getUserById(userId).subscribe(async data => {
+    //       if (data.businessAppDevice.pushToken) {
+    //         delete data.businessAppDevice
+    //         console.log(data);
+    //         this.updateUser(val, data)
+    //       } else {
+    //         await this.loadingCtrl.dismiss()
+    //         window.localStorage.clear();
+    //         await this.storageService.emptyStorage()
+    //         this.navCtrl.navigateRoot('/login');
+    //       }
+
+    //     })
+    //   } else if (val == 'building-management') {
+    //     this.buildingUserService.getUserById(userId).subscribe(async data => {
+    //       if (data.businessAppDevice.pushToken) {
+    //         delete data.businessAppDevice
+    //         console.log(data);
+    //         this.updateUser(val, data)
+    //       } else {
+    //         await this.loadingCtrl.dismiss()
+    //         window.localStorage.clear();
+    //         await this.storageService.emptyStorage()
+    //         this.navCtrl.navigateRoot('/login');
+    //       }
+    //     })
+    //   }
+
+    // })
     // window.localStorage.clear();
     // await this.storage.clear()
     // this.navCtrl.navigateRoot('/login');

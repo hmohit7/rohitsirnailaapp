@@ -86,6 +86,20 @@ listAllBookings(data){
 }
 
 
+
+listAllTickets(data){
+  return this.http.get(`${this.appSettings.getApi()}/api/v1/tickets/${data}`,{
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    //   Authorization: localStorage.getItem('token')
+    })
+  })
+}
+
+
+
+
+
 listserviceByid(id){
   return this.http.get(`${this.appSettings.getApi()}/api/v1/services/${id}`,{
     headers: new HttpHeaders({
@@ -114,6 +128,62 @@ getAvailbleSlots(data){
 
 createBooking(data){
   return this.http.post(`${this.appSettings.getApi()}/api/v1/bookings`, data,
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Authorization: localStorage.getItem('token')
+    })
+  });
+}
+
+
+
+createTicket(data){
+  return this.http.post(`${this.appSettings.getApi()}/api/v1/tickets`, data,
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Authorization: localStorage.getItem('token')
+    })
+  });
+}
+
+
+markAttendance(data){
+  return this.http.post(`${this.appSettings.getApi()}/api/v1/attendances/punch_in`, data,
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Authorization: localStorage.getItem('token')
+    })
+  });
+}
+
+
+updateAttendance(data,punchin_id){
+  return this.http.put(`${this.appSettings.getApi()}/api/v1/attendances/ ${punchin_id}/punch_out`, data,
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Authorization: localStorage.getItem('token')
+    })
+  });
+}
+
+
+
+getBookingForBeautician(data){
+  return this.http.get(`${this.appSettings.getApi()}/api/v1/bookings/beauticians/${data}`,{
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    // Authorization: localStorage.getItem('token')
+    })
+  })
+}
+
+
+updatepaymentStatus(paymentdata,data){
+  return this.http.put(`${this.appSettings.getApi()}/api/v1/bookings/${data.id}`, paymentdata,
   {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

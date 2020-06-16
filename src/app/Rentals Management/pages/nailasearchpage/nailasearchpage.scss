@@ -62,7 +62,7 @@ ion-navbar{
   
   ion-item {
     // border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+    // border-bottom: 1px solid lightgray;
     --detail-icon-color: goldenrod;
     --detail-icon-opacity:1;
   }
@@ -110,3 +110,9 @@ ion-navbar{
   img{
     transform: unset !important;
   }
+
+
+  h6{
+    font-size: 14px;
+  }
+

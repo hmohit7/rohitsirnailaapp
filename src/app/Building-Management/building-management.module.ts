@@ -15,7 +15,7 @@ import { ApplicationPageModule } from './ApplicationPageModule';
 import { ProfilePage } from './pages/profile/profile.page';
 import { FileTransferObject, FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Push } from '@ionic-native/push/ngx';
-import { Camera } from '@ionic-native/camera/ngx';
+// import { Camera } from '@ionic-native/camera/ngx';
 import { UserSearchPipe } from './pipes/user-search-pipe';
 
 @NgModule({
@@ -38,7 +38,6 @@ import { UserSearchPipe } from './pipes/user-search-pipe';
         ApplicationPageModule,
     ],
     providers: [
-        Camera,
         FileTransfer,
         Push,
         FileTransferObject,

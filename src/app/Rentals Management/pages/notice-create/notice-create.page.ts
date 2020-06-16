@@ -100,23 +100,23 @@ export class NoticeCreatePage implements OnInit {
 
   }
 
-  async fileSourceOption(type) {
+  // async fileSourceOption(type) {
 
-    if (this.images.length < 1) {
-      let image_url;
-      let caller = await this.alertService.capturePhoto(type);
-      image_url = caller;
-      console.log("in add-visitor Page\n\n");
-      if (image_url != undefined) {
-        console.log(image_url);
-        this.images.push(image_url);
-        console.log(this.images);
-      }
-    } else {
-      this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
-        this.transService.getTranslatedData('create-notice.picture-limit'))
-    }
-  }
+  //   if (this.images.length < 1) {
+  //     let image_url;
+  //     let caller = await this.alertService.capturePhoto(type);
+  //     image_url = caller;
+  //     console.log("in add-visitor Page\n\n");
+  //     if (image_url != undefined) {
+  //       console.log(image_url);
+  //       this.images.push(image_url);
+  //       console.log(this.images);
+  //     }
+  //   } else {
+  //     this.alertService.presentAlert(this.transService.getTranslatedData('alert-title'),
+  //       this.transService.getTranslatedData('create-notice.picture-limit'))
+  //   }
+  // }
 
   removeImage() {
     this.images = [];

@@ -8,88 +8,93 @@
           <img src="../../../../assets/icons.png" width="30px" height="30px"/>
       </ion-button>
     </ion-buttons> -->
-    
+
     <ion-title style="display: inline-table;" class="">Service</ion-title>
-   
-    <ion-buttons style="float: right;
+
+    <ion-buttons routerLink="/rentals-naila-cart-page" style="float: right;outline: none;
     zoom: 2;" end>
-        <ion-icon ios="ios-cart" md="md-cart"></ion-icon>
-        <p class="cart-number">{{this.utils.cartdata}}</p>
+      <ion-icon ios="ios-cart" md="md-cart"></ion-icon>
+      <p *ngIf="this.utils.cartdata.length" class="cart-number">{{this.utils.cartdata}}</p>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
-    <ion-card>
-        <ion-card-header >
-          <ion-card-title style="display: inline-flex;
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="display: inline-flex;
           align-items: center;
           width: 100%;
           justify-content: center;
           font-size: 20px;
           
-          " class="text-black font-weight-500" >
-            
-            <!-- Hair color <ion-icon style="vertical-align: middle;" name="compass"></ion-icon> 20% -->
-          
-          
-            <small class="text-black">{{this.utils.storage.name}}
-            </small>
-             
-            <img style="height:20px;width:20px;margin-top: 2px;" src="assets/imgs/blackdiscount.svg" alt=""> 
-            
-  
-             <small class="text-black font-weight-500">{{100-percentagediscount}}% </small>
-          
-          </ion-card-title>
+          " class="text-black font-weight-500">
+
+        <!-- Hair color <ion-icon style="vertical-align: middle;" name="compass"></ion-icon> 20% -->
 
 
+        <small class="text-black">{{this.utils.storage.name}}
+        </small>
+
+        <img style="height: 15px;
+        width: 15px;
+        margin-top: 1px;
+        margin-left: 5px;
+        margin-right: 5px;" src="assets/imgs/discount2.svg" alt="">
 
 
-          <ion-card-subtitle  style="display: inline-flex;
+        <small class="text-black font-weight-500">{{100-percentagediscount}} </small>
+
+      </ion-card-title>
+
+      <ion-card-subtitle style="display: inline-flex;
           align-items: center;
           width: 100%;
           justify-content: center;
           font-size: 15px;
           
           " class="text-black ">
-           <small class="text-black margin-right-10">Price <span class="font-weight-600 " style="text-decoration: line-through;
+        <small class="text-black margin-right-10">Price <span class="font-weight-600 " style="text-decoration: line-through;
             text-decoration-color: goldenrod; "> Rs.{{this.utils.storage.price}}</span> </small>
-           <small class=" margin-right-10 font-weight-600 center-text text-black">Rs.{{this.utils.storage.offer_price}}</small>
+        <small
+          class=" margin-right-10 font-weight-600 center-text text-black">Rs.{{this.utils.storage.offer_price}}</small>
 
-           <small class=" margin-right-10 text-black">Duration <span class="font-weight-600">{{this.utils.storage.no_of_minuties}} min</span> </small>
-           <!-- <small class="float-right gotham">20%</small>  -->
+        <small class=" margin-right-10 text-black">Duration <span
+            class="font-weight-600">{{this.utils.storage.no_of_minuties}} min</span> </small>
+        <!-- <small class="float-right gotham">20%</small>  -->
 
-          </ion-card-subtitle>
-          <hr>
+      </ion-card-subtitle>
+      <hr>
 
-<!-- 
+      <!-- 
             <p class="gotham-medium" text-wrap>
                 <span class="float-left">Blow Dry</span>
                 <span class="center-text"> hello</span>
               </p> -->
-             
-                  <!-- <ul class="my-nav text-black">
+
+      <!-- <ul class="my-nav text-black">
                     <li>Loreal color</li>
                     <li>Include streaks</li>
                     <li>14 shades to choose from</li>
                     <li>List item for sold folder drama</li>
                   </ul> -->
 
-<p class="ion-text-justify">{{this.utils.storage.description}}</p>
-                <!-- <ion-item class="center-text" lines="none">
+      <p class="ion-text-justify">{{this.utils.storage.description}}</p>
+      <!-- <ion-item class="center-text" lines="none">
                   <ion-icon (click)="itemCounter('plus')" name="add-circle" style="zoom: 1.1; color: black;"></ion-icon>
                     <p class="add-sub">{{itemcounter}}</p>                   
                     <ion-icon (click)="itemCounter('minus')" name="remove-circle" style="zoom: 1.1;color: black;"></ion-icon>
                  </ion-item>
                  <br> -->
-                 <!-- <ion-button [disabled]="disablebutton" (click)="disabledButton()" class="btn">Add to cart</ion-button> -->
-                 <!-- <ion-button routerLink="/rentals-naila-search-page" class="btn">Continue shopping</ion-button> -->
-                 <ion-button [disabled]="disablebutton" routerLink="/rentals-naila-search-page" (click)="addTocart(this.utils.storage)" class="btn">Add to cart</ion-button>
-
-          </ion-card-header>
-        <!-- <ion-card-content>
+      <!-- <ion-button [disabled]="disablebutton" (click)="disabledButton()" class="btn">Add to cart</ion-button> -->
+      <ion-button  *ngIf="!disablebutton" size="12" [disabled]="disablebutton" routerLink="/rentals-naila-search-page"
+      (click)="addTocart(this.utils.storage)" class="btn">Add to cart</ion-button>
+      <ion-button size="12" routerLink="/rentals-naila-search-page" class="btn">Continue shopping</ion-button>
+        <ion-button *ngIf="disablebutton"  size="12" size="12"  routerLink="/rentals-naila-cart-page"
+         class="btn">Go to cart</ion-button>
+    </ion-card-header>
+    <!-- <ion-card-content>
             <ion-item no-lines>
                 <button ion-button (click)="minus()">-</button>
                 <p>{{number}}</p>                   
@@ -97,13 +102,5 @@
                 <button ion-button (click)="addCart()">Add to cart</button>
              </ion-item>
         </ion-card-content> -->
-      </ion-card>
-
-
-
-
-    
+  </ion-card>
 </ion-content>
-
-
-

@@ -27,3 +27,8 @@ ion-item{
   --border-width: 0px 0px 0.1px 0px !important;
   --border-color: #F0F0F0 !important;
 }
+
+ion-toolbar{
+  border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}

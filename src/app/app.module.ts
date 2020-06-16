@@ -7,11 +7,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Camera } from '@ionic-native/camera/ngx';
+// import { Camera } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Push } from '@ionic-native/push/ngx';
 import { MainAppSetting } from './conatants/MainAppSetting';
-import { BuildingManagementModule } from './Building-Management/building-management.module';
+// import { BuildingManagementModule } from './Building-Management/building-management.module';
 import { RentalsManagementModule } from './Rentals Management/rental-management.module';
 import { UserSearchPipe } from './Rentals Management/pipes/user-search-pipe';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -54,7 +54,7 @@ import { ApprovalpopupComponent } from './Rentals Management/modals/approvalpopu
     }),
     OrderModule,
     AppRoutingModule,
-    BuildingManagementModule,
+    // BuildingManagementModule,
     RentalsManagementModule,
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
@@ -69,7 +69,6 @@ import { ApprovalpopupComponent } from './Rentals Management/modals/approvalpopu
     StatusBar,
     SplashScreen,
     MainAppSetting,
-    Camera,
     FileTransfer,
     FileTransferObject,
     HTTP,

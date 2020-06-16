@@ -43,7 +43,12 @@ const routes: Routes = [
 
     { path: 'rentals-naila-cart-page', loadChildren: '../Rentals Management/pages/nailacart/nailacart.module#NailaCartPageModule' },
 
+    { path: 'rentals-naila-ticket-page', loadChildren: '../Rentals Management/pages/nailaticket/nailaticket.module#NailaticketPageModule' },
 
+    { path: 'rentals-naila-beaut-booking-page', loadChildren: '../Rentals Management/pages/beauticianbooking/beauticianbooking.module#NailaBeauticianBookingPageModule' },
+    
+    { path: 'rentals-naila-beaut-attendance-page', loadChildren: '../Rentals Management/pages/nailabeauticianattendance/nailabeauticianattendance.module#NailabeauticianAttendanceModule' },
+    
     
     
     // { path: 'rentals-my-data-project-details', loadChildren: '../Rentals Management/mydata/project/project-details/project-details.module#ProjectDetailsPageModule' },

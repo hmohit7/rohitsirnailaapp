@@ -107,9 +107,9 @@ export class MainAppSetting {
             this.storageService.storeDataToIonicStorage('appSrc', 'rentals');
 
             if (this.appFor == 'alpha') {
-                API = 'http://naila.herokuapp.com';
+                API = 'https://admin.nailabeauties.com';
             } else if (this.appFor == 'production') {
-                API = 'http://naila.herokuapp.com'
+                API = 'https://admin.nailabeauties.com'
             }
         } else if (this.ORG == "BM") {
             window.localStorage.setItem('appSrc', 'building-management');

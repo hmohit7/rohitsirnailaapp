@@ -5,7 +5,7 @@ import { UserSearchPage } from '../../pages/user-search/user-search.page';
 import * as _ from 'lodash';
 import { AlertServiceService } from 'src/app/common-services/alert-service.service';
 import { translateService } from 'src/app/common-services/translate /translate-service.service';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { TicketService } from '../../services/ticket.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class TicketFilterPage implements OnInit {
     private navParams: NavParams,
     public transService: translateService,
     private alertService: AlertServiceService,
-    private barcodeScanner: BarcodeScanner,
+    // private barcodeScanner: BarcodeScanner,
     private ticketService: TicketService,
     private alertCtrl: AlertController,
   ) {

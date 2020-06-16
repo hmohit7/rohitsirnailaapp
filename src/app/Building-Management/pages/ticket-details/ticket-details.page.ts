@@ -262,54 +262,54 @@ export class TicketDetailsPage implements OnInit {
 
 
 
-  public presentActionSheet() {
-    this.actionSheet.create({
-      header: 'Select image from ',
-      buttons: [
-        {
-          text: 'Camera',
-          icon: 'camera',
-          handler: async () => {
-            this.fileSourceOption('camera');
-          }
-        },
-        {
-          text: 'Library',
-          icon: 'images',
-          handler: () => {
-            this.fileSourceOption('library');
-          }
-        },
-        {
-          text: 'Cancel',
-          icon: 'close',
-          handler: () => {
-            console.log('cancel');
-          }
-        }
-      ]
-    }).then(actionsheet => {
-      actionsheet.present()
-    })
-  }
+  // public presentActionSheet() {
+  //   this.actionSheet.create({
+  //     header: 'Select image from ',
+  //     buttons: [
+  //       {
+  //         text: 'Camera',
+  //         icon: 'camera',
+  //         handler: async () => {
+  //           this.fileSourceOption('camera');
+  //         }
+  //       },
+  //       {
+  //         text: 'Library',
+  //         icon: 'images',
+  //         handler: () => {
+  //           this.fileSourceOption('library');
+  //         }
+  //       },
+  //       {
+  //         text: 'Cancel',
+  //         icon: 'close',
+  //         handler: () => {
+  //           console.log('cancel');
+  //         }
+  //       }
+  //     ]
+  //   }).then(actionsheet => {
+  //     actionsheet.present()
+  //   })
+  // }
 
-  async fileSourceOption(type) {
-    console.log(this.images);
-    // if (this.images.length < 1) {
-    let image = await this.alertService.capturePhoto(type);
-    console.log("in add-visitor Page\n\n");
-    console.log(image);
+  // async fileSourceOption(type) {
+  //   console.log(this.images);
+  //   // if (this.images.length < 1) {
+  //   let image = await this.alertService.capturePhoto(type);
+  //   console.log("in add-visitor Page\n\n");
+  //   console.log(image);
 
-    if (image !== undefined) {
-      this.images.push(image);
-      this.images
-      this.ticketToBeUpdated = Object.assign({}, this.ticket);
-      this.updateTicket();
-    }
-    // } else {
-    // this.alertService.presentAlert("Alert", "Only one picture is allowed!!")
-    // }
-  }
+  //   if (image !== undefined) {
+  //     this.images.push(image);
+  //     this.images
+  //     this.ticketToBeUpdated = Object.assign({}, this.ticket);
+  //     this.updateTicket();
+  //   }
+  //   // } else {
+  //   // this.alertService.presentAlert("Alert", "Only one picture is allowed!!")
+  //   // }
+  // }
 
   async removeImage(id) {
     let alert = await this.alertCtrl.create({

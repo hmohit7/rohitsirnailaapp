@@ -1,6 +1,6 @@
 import { AlertController, ActionSheetController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+// import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx'
 import { MainAppSetting } from '../conatants/MainAppSetting';
 import { Storage } from '@ionic/storage';
@@ -14,7 +14,7 @@ export class AlertServiceService {
 
   constructor(
     private alrtCtrl: AlertController,
-    private camera: Camera,
+    // private camera: Camera,
     private transfer: FileTransfer,
     private appSetting: MainAppSetting,
     private actionSheet: ActionSheetController,
@@ -27,13 +27,13 @@ export class AlertServiceService {
   public fileURL: any;
   public apiUrl: any;
 
-  private options: CameraOptions = {
-    quality: 15,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE,
-    sourceType: this.camera.PictureSourceType.CAMERA
-  }
+  // private options: CameraOptions = {
+  //   quality: 15,
+  //   destinationType: this.camera.DestinationType.FILE_URI,
+  //   encodingType: this.camera.EncodingType.JPEG,
+  //   mediaType: this.camera.MediaType.PICTURE,
+  //   sourceType: this.camera.PictureSourceType.CAMERA
+  // }
 
 
   saveToLocalStorage(key, value) {
@@ -45,17 +45,17 @@ export class AlertServiceService {
   }
 
 
-  async capturePhoto(sourcetype) {
-    this.options.sourceType = sourcetype=='camera'?this.camera.PictureSourceType.CAMERA:sourcetype=='library'?this.camera.PictureSourceType.PHOTOLIBRARY:null
-    console.log(this.options);
-      await this.camera.getPicture(this.options).then((imageData) => {
-        console.log("image data by camera", imageData);
-        this.fileURL = this.filePath.resolveNativePath(imageData);
-      }, (error) => {
-        console.error(error);
-      });
-      return this.fileURL;
-  }
+  // async capturePhoto(sourcetype) {
+  //   this.options.sourceType = sourcetype=='camera'?this.camera.PictureSourceType.CAMERA:sourcetype=='library'?this.camera.PictureSourceType.PHOTOLIBRARY:null
+  //   console.log(this.options);
+  //     await this.camera.getPicture(this.options).then((imageData) => {
+  //       console.log("image data by camera", imageData);
+  //       this.fileURL = this.filePath.resolveNativePath(imageData);
+  //     }, (error) => {
+  //       console.error(error);
+  //     });
+  //     return this.fileURL;
+  // }
 
   private onCaptureImage(fileURI) {
     console.log("from on capture image", fileURI);

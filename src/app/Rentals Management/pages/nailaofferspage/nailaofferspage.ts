@@ -10,7 +10,7 @@ import { translateService } from 'src/app/common-services/translate /translate-s
 import { Storage } from '@ionic/storage';
 import { RentalsUserService } from '../../services/rentals-user.service';
 import { Device } from '@ionic-native/device/ngx';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ViewChild } from '@angular/core';
 import { NailaService } from '../../services/naila.service';
 // import { Slides } from 'ionic-angular';
@@ -30,20 +30,31 @@ export class NailaOffersPage {
 
   }
   searchTerm
-
   listbanner:any;
+
+
   ngOnInit() {
     this.nailaservice.listBanners().subscribe(data => {
     this.listbanner=data;
+    this.items=data
       this.listbanner.forEach(element => {
-        element.name= element.title.split('on')[1]
+        element.name= element.title
       });
-
-
-
-    console.log(this.listbanner)
+    console.log(this.listbanner);
     })
+
+
+
+  }
+  items
+  setFilteredItems() {
+    this.items = this.listbanner;
+    this.items = this.filterItems(this.searchTerm);
   }
 
-
+  filterItems(searchTerm) {
+    return this.items.filter(item => {
+      return item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+  }
 }

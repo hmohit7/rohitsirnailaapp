@@ -1,0 +1,107 @@
+ion-navbar{
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background-color: black;
+}
+
+
+
+
+
+      ion-card {
+        position: relative;
+        text-align: center;
+        border-radius: 20px !important;
+      }
+
+      .card-title {
+          position: absolute;
+          top: 20vh;
+          background-color: yellow;
+          font-size: 2.0em;
+          height: 15vh;
+          width: 100%;
+          font-weight: bold;
+          color: #fff;
+      }
+
+     
+      // ion-slide{
+      //     width: 245px !important;
+      // }
+
+  ion-card-content{
+      text-align: left;
+              background: red;
+      line-height: 1.5;
+      width: 100%;
+      padding-top: 7px;
+      padding-bottom: 7px;
+  }
+
+  label{
+      padding-left: 3vw;
+  }
+  .service{
+      ion-card-content{
+          text-align: center;
+          line-height: 1.5;
+          width: 100%;
+          font-size: 6px;
+          background: transparent;
+          padding: 5px 1px 3px;
+      }
+      ion-card{
+          position: relative;
+          text-align: center;
+          border-radius: 10px !important;  
+          
+      }
+  }
+
+  // .border-top {
+  //   border-top: 1px solid lightgray;
+  // }
+  
+  ion-item {
+    // border-top: 1px solid lightgray;
+    // border-bottom: 1px solid lightgray;
+  }
+  
+  // ion-label {
+  //   padding-top: 10px !important;
+  //   padding-bottom: 10px !important;
+  // }
+  
+  ion-list {
+    padding-top: 0px !important;
+  }
+  
+
+  ion-toolbar{
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+
+  .list-offers{
+    margin-right: 5px;
+  }
+
+  h6{
+    padding-left: 4vw;
+    font-weight: 500;
+    }
+
+ hr{
+   border-width: 0.2px !important;
+   height: 0px !important;
+ }
+
+ ion-item {
+  // border-top: 1px solid lightgray;
+  --detail-icon-color: goldenrod;
+  --detail-icon-opacity:1;
+  // --border-width: 0px 0px 0.1px 0px !important;
+  // --border-color: #F0F0F0 !important;
+}
+

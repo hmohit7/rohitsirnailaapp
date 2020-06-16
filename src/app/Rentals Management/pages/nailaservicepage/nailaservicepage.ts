@@ -10,7 +10,7 @@ import { translateService } from 'src/app/common-services/translate /translate-s
 import { Storage } from '@ionic/storage';
 import { RentalsUserService } from '../../services/rentals-user.service';
 import { Device } from '@ionic-native/device/ngx';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ViewChild } from '@angular/core';
 import { Utils } from '../../services/utils.service';
 // import { Slides } from 'ionic-angular';
@@ -38,7 +38,7 @@ restrictproductadd
   // public searchTerm: string = "";
   // public items: any;
 
-  constructor(public utils:Utils,public router:Router) {
+  constructor(public utils:Utils,public router:Router,private alertController:AlertController) {
     // this.items = [
     //   { title: "one" },
     //   { title: "two" },
@@ -53,14 +53,28 @@ restrictproductadd
   }
   percentagediscount:any;
   ngOnInit() {
+ 
+
+
+    if(window.localStorage.getItem('cartitem')){
+
+      this.utils.cartdata=window.localStorage.getItem('cartitemcount')
+      this.utils.cartitem=JSON.parse( window.localStorage.getItem('cartitem'));
+    }else{
+      this.utils.cartitem=[];
+      this.utils.cartdata=[]
+    }
+
+
     // this.setFilteredItems();
     console.log(this.utils.storage)
     // this.addTocart(this.utils.storage)
     if(window.localStorage.getItem('cartitem')){
       this.restrictproductadd = JSON.parse( window.localStorage.getItem('cartitem'))
       this.restrictproductadd.forEach(element => {
-        if(this.utils.storage.name===element.service.name){
+        if(this.utils.storage.name===element.service.name && element.servicecount>0){
           this.disablebutton=true;
+          this.disabledButton()
           // this.router.navigateByUrl('/rentals-naila-search-page')
           // alert("Product already added")
         }
@@ -97,26 +111,10 @@ if(plusminus=="plus" && this.itemcounter >= 0){
 }
 disablebutton=false;
 addTocart(data){
-
-  
-
-   
-  
-
-  
   this.utils.cartitem.push({
     'service':data,
     'servicecount': 1
   })
-// alert('')
-  // console.log(this.utils.cartitem);
-  // this.utils.cartdata=0
-  // this.utils.cartitem.forEach(element => {
-
-    
-    // });
-
-    
     
 this.utils.cartdata=this.utils.cartitem.length
 window.localStorage.setItem('cartitem',JSON.stringify(this.utils.cartitem))
@@ -129,8 +127,68 @@ window.localStorage.setItem('cartitemcount',JSON.stringify(this.utils.cartitem.l
 }
 
 
-disabledButton(){
-            alert("Product already added")
+// disabledButton(){
+//     alert("Product already added.If you want to increase the quantity please go to cart.")
+
+// }
+
+
+
+
+async disabledButton() {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    message: 'Product already added.If you want to increase the quantity please go to cart.',
+    buttons: [
+      {
+        text: 'Continue Shopping',
+        // role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          // console.log('Confirm Cancel: blah');
+          this.router.navigateByUrl('/rentals-naila-search-page')
+        }
+      }, {
+        text: 'Go to Cart',
+        handler: () => {
+          this.router.navigateByUrl('/rentals-naila-cart-page')
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+cartitemcounter;
+
+locatemp
+ionViewWillLeave() {
+  window.localStorage.removeItem('coupon_id');
+  this.cartitemcounter = 0
+  this.utils.cartitem = JSON.parse(window.localStorage.getItem('cartitem'));
+  this.locatemp = this.utils.cartitem
+  if (!this.utils.cartitem) {
+    this.utils.cartitem = []
+  }
+
+
+  var filtercartitem = this.utils.cartitem.filter(element => {
+
+    return (element.servicecount > 0)
+  });
+  if (filtercartitem.length) {
+
+    filtercartitem.forEach(element => {
+      this.cartitemcounter = element.servicecount + this.cartitemcounter
+    });
+    window.localStorage.setItem('cartitem', JSON.stringify(filtercartitem))
+    window.localStorage.setItem('cartitemcount', this.cartitemcounter);
+  }
+
+
+
+
 
 }
 

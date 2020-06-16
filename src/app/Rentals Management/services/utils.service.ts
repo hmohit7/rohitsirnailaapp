@@ -9,7 +9,9 @@ import { MainAppSetting } from 'src/app/conatants/MainAppSetting';
 export class Utils {
     storage:any;
     cartdata:any
+    bookingdata:any;
     cartitem:any;
+    userrole:any;
     LoadPage:EventEmitter<boolean> = new EventEmitter();
 
   constructor(
