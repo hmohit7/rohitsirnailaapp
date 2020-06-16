@@ -503,6 +503,7 @@ export class NailaCartPage {
     }
 
     // this.payWithRazor()
+    
 
   }
 
